@@ -1,0 +1,14 @@
+{
+  flake.modules.homeManager.rumdl = {
+    config,
+    pkgs,
+    ...
+  }: let
+    tomlFormat = pkgs.formats.toml {};
+  in {
+    # Generate rumdl settings.
+    xdg.configFile."rumdl/rumdl.toml".source = tomlFormat.generate "rumdl-config.toml" {
+      global.cache_dir = "${config.xdg.cacheHome}/rumdl";
+    };
+  };
+}

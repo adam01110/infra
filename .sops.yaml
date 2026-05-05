@@ -1,0 +1,20 @@
+keys:
+  - &users "":
+      - &adam0 3666B440B0E872931B8E78596CFFE3FBA5DD84B9
+  - &hosts "":
+      # keep-sorted start
+      - &desktop age1drzqscusazfcunmt4xkayc3340fpna2yl3eg5007euej05mu7fkswz4tqt
+      - &laptop age1k25zg5u386wqlxf73gyr5f9d7c0q2hawyqrpdd22j94xt0y78s0sgjayuv
+      - &vm age18xgnqqn70msl9wzqpnlwjpupwtkzzyxq65tvpsr7zzpkq7av6fjs2hz79d
+      # keep-sorted end
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - pgp:
+          - *adam0
+        age:
+          # keep-sorted start
+          - *desktop
+          - *laptop
+          - *vm
+          # keep-sorted end
