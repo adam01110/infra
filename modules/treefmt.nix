@@ -49,6 +49,7 @@
           # keep-sorted start
           ".direnv/*"
           ".sops.yaml"
+          "flake.nix"
           "secrets/secrets.yaml"
           # keep-sorted end
         ];
