@@ -5,7 +5,7 @@
     # keep-sorted end
     ...
   }: let
-    gitfetch = pkgs.gitfetch;
+    inherit (pkgs) gitfetch;
   in {
     home.packages = [gitfetch];
     programs.fish.shellAbbrs.gf = "gitfetch";

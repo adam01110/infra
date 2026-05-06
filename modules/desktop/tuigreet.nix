@@ -9,12 +9,6 @@
   };
 
   # keep-sorted start block=yes newline_separated=yes
-  flake.overlays.tuigreet = final: _prev: let
-    inherit (final.stdenv.hostPlatform) system;
-  in {
-    tuigreet = inputs.tuigreet.packages.${system}.tuigreet;
-  };
-
   flake.modules.nixos.tuigreet = {
     # keep-sorted start
     config,
@@ -47,24 +41,11 @@
       in
         tomlFormat.generate "tuigreet-config.toml" {
           # keep-sorted start block=yes newline_separated=yes
-          session = {
-            command = "${uwsm} start -eD Hyprland -- ${hyprland}";
-            sessions_dirs = [];
-            xsessions_dirs = [];
-          };
-
           display = {
             show_time = true;
             greeting = "authentication required.";
             time_format = "%Y-%m-%d %H:%M:%S";
           };
-
-          remember = {
-            username = true;
-            default_user = username;
-          };
-
-          secret.mode = "characters";
 
           layout = {
             # keep-sorted start
@@ -78,6 +59,19 @@
             use_setsid = false;
             shutdown = "systemctl poweroff";
             reboot = "systemctl reboot";
+          };
+
+          remember = {
+            username = true;
+            default_user = username;
+          };
+
+          secret.mode = "characters";
+
+          session = {
+            command = "${uwsm} start -eD Hyprland -- ${hyprland}";
+            sessions_dirs = [];
+            xsessions_dirs = [];
           };
 
           theme = {
@@ -108,6 +102,13 @@
 
     nixpkgs.overlays = [self.overlays.tuigreet];
     # keep-sorted end
+  };
+
+  flake.overlays.tuigreet = final: _prev: let
+    inherit (final.stdenv.hostPlatform) system;
+
+  in {
+    inherit (inputs.tuigreet.packages.${system}) tuigreet;
   };
   # keep-sorted end
 }

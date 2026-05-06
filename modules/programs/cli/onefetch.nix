@@ -5,7 +5,7 @@
     # keep-sorted end
     ...
   }: let
-    onefetch = pkgs.onefetch;
+    inherit (pkgs) onefetch;
   in {
     home.packages = [onefetch];
     programs.fish.shellAbbrs.of = "onefetch";

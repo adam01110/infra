@@ -1,8 +1,8 @@
 {
   flake.modules.homeManager.bat = {
     # keep-sorted start
-    lib,
     config,
+    lib,
     pkgs,
     # keep-sorted end
     ...

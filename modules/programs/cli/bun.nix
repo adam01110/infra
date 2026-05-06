@@ -1,8 +1,8 @@
 {
   flake.modules.homeManager.bun = {
     # keep-sorted start
-    lib,
     config,
+    lib,
     # keep-sorted end
     ...
   }: let
