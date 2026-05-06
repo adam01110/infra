@@ -1,6 +1,15 @@
 {
-  flake.modules.homeManager.bat = {pkgs, ...}: {
-    # Enable bat with manuals.
+  flake.modules.homeManager.bat = {
+    # keep-sorted start
+    lib,
+    config,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (lib) getExe;
+    bat = getExe config.programs.bat.package;
+  in {
     programs.bat = {
       enable = true;
 
@@ -11,5 +20,9 @@
         file = "Just.sublime-syntax";
       };
     };
+
+    home.shellAliases.cat = bat;
+
+    # TODO: Fish init batman export.
   };
 }

@@ -57,16 +57,16 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 (moved to modules/programs/cli)
 
-- [x] bat.nix
+- [ ] bat.nix (todo, fish shell pager export)
 - [x] bonsai.nix
 - [x] cpond.nix
 - [x] direnv.nix
 - [x] eza.nix
 - [x] fd.nix
 - [x] gh.nix
-- [ ] npm.nix (look at what to set in config)
+- [x] npm.nix
 - [x] nys.nix
-- [ ] other.nix
+- [x] other.nix
 - [x] pipes.nix
 - [x] rumdl.nix
 - [x] systeroid.nix
@@ -76,7 +76,8 @@ Checklist of repository files grouped by path for the dendritic migration.
 ### New files
 
 - [x] ripgrep.nix
-- [ ] bun.nix (look at what to set in config)
+- [x] bun.nix
+- [x] speedtest.nix
 
 ## modules/home/cli/fastfetch/
 
@@ -109,13 +110,13 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## modules/home/cli/ripgrep-all/
 
-- [ ] adapters.nix
-- [ ] default.nix
+- [x] adapters.nix
+- [x] default.nix
 
 ## modules/home/cli/ripgrep-all/adapters/
 
-- [ ] gron.nix
-- [ ] other.nix
+- [x] gron.nix
+- [x] other.nix
 
 ## modules/home/cli/starship/
 
@@ -262,7 +263,7 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## modules/home/services/
 
-- [ ] flatpak.nix
+- [x] flatpak.nix
 
 ## modules/home/tui/
 

@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  self,
+  ...
+}: {
   flake-file.inputs.tuigreet = {
     url = "github:notashelf/tuigreet";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +34,7 @@
     inherit (vars) username;
     tomlFormat = pkgs.formats.toml {};
   in {
-    imports = [inputs.self.modules.generic.vars];
+    imports = [self.modules.generic.vars];
 
     # keep-sorted start block=yes newline_separated=yes
     environment = {
@@ -102,7 +106,7 @@
       settings.default_session.command = getExe pkgs.tuigreet;
     };
 
-    nixpkgs.overlays = [inputs.self.overlays.tuigreet];
+    nixpkgs.overlays = [self.overlays.tuigreet];
     # keep-sorted end
   };
   # keep-sorted end

@@ -1,7 +1,11 @@
-{inputs, ...}: let
+{
+  inputs,
+  self,
+  ...
+}: let
   sopsConfig = {
     # Keep the shared secret inventory in the repository copy.
-    defaultSopsFile = "${inputs.self}/secrets/secrets.yaml";
+    defaultSopsFile = "${self}/secrets/secrets.yaml";
     defaultSopsFormat = "yaml";
 
     validateSopsFiles = false;

@@ -1,5 +1,5 @@
-{inputs, ...}: let
-  vars = import "${inputs.self}/vars.nix";
+{self, ...}: let
+  vars = import "${self}/vars.nix";
 in {
   flake.vars = vars;
 
