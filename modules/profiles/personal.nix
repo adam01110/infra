@@ -1,12 +1,11 @@
 {self, ...}: {
   flake.modules.nixos.personal = {
     imports = with self.modules.nixos; [
-      # Import user vars.
-      self.modules.generic.vars
-
       # Profile common.
       # keep-sorted start
+      locale
       slim
+      timezone
       tweaks
       # keep-sorted end
     ];
@@ -15,9 +14,6 @@
   };
 
   flake.modules.homeManager.personal = {
-    imports = [
-      # Import user vars.
-      self.modules.generic.vars
-    ];
+    imports = [];
   };
 }

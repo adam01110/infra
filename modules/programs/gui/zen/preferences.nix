@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.zen = {
     # keep-sorted start
     config,
@@ -19,6 +19,8 @@
       ;
     inherit (vars) countryCode;
   in {
+    imports = [self.modules.generic.vars];
+
     options.zen-browser = {
       # keep-sorted start block=yes newline_separated=yes
       commit-space = mkOption {

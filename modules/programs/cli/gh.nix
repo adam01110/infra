@@ -1,7 +1,9 @@
-{
+{self, ...}: {
   flake.modules.homeManager.gh = {vars, ...}: let
     inherit (vars) gitUsername;
   in {
+    imports = [self.modules.generic.vars];
+
     programs.gh = {
       enable = true;
 

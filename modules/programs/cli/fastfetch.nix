@@ -13,7 +13,7 @@
     # Escape code for fastfetch color formatting.
     esc = fromJSON "\"\\u001b\"";
   in {
-    nixpkgs.overlays = [self.overlays.os-age];
+    nixpkgs.overlays = [self.overlays.pkgs];
 
     programs.fastfetch = {
       enable = true;

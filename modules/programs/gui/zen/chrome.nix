@@ -1,16 +1,16 @@
 {
   flake.modules.homeManager.zen = {
     # keep-sorted start
-    flakeLib,
     inputs,
+    lib,
     osConfig,
     pkgs,
     # keep-sorted end
     ...
   }: let
     inherit (builtins) readFile;
-    inherit (pkgs.lib) mkAfter;
-    inherit (flakeLib) stylixPalette;
+    inherit (lib) mkAfter;
+    inherit (lib.self) stylixPalette;
 
     inherit (pkgs.stdenv.hostPlatform) system;
 

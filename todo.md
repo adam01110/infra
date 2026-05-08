@@ -37,13 +37,15 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## libs/
 
-- [ ] attr-paths.nix
-- [ ] default.nix
-- [ ] env.nix
-- [ ] files.nix
-- [ ] mime.nix
-- [ ] starship.nix
-- [ ] stylix.nix
+(moved to lib/)
+
+- [-] attr-paths.nix
+- [x] default.nix
+- [x] env.nix
+- [x] files.nix
+- [x] mime.nix
+- [x] starship.nix
+- [x] stylix.nix
 
 ## modules/home/
 
@@ -218,10 +220,10 @@ Checklist of repository files grouped by path for the dendritic migration.
 - [ ] onlyoffice.nix
 - [ ] other.nix
 - [ ] prism.nix
-- [ ] sober.nix
-- [ ] spotify.nix
-- [ ] zaread.nix
-- [ ] zathura.nix
+- [x] sober.nix
+- [x] spotify.nix
+- [x] zaread.nix
+- [x] zathura.nix
 
 ## modules/home/gui/discord/
 
@@ -267,6 +269,8 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## modules/home/tui/
 
+(moved to modules/programs/tui)
+
 - [ ] atuin.nix
 - [ ] bluetui.nix
 - [ ] btop.nix
@@ -278,7 +282,7 @@ Checklist of repository files grouped by path for the dendritic migration.
 - [ ] other.nix
 - [ ] oxicord.nix
 - [ ] spotify-player.nix
-- [ ] wiremix.nix
+- [ ] wiremix.nix (need to import terminal-exec before finished)
 
 ## modules/home/tui/neovim/
 
@@ -422,7 +426,7 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 - [ ] default.nix
 - [ ] disk.nix
-- [ ] locale.nix
+- [x] locale.nix (moved to modules/profiles/locale.nix)
 - [ ] nix.nix
 - [x] slim.nix (moved to modules/profiles/slim.nix)
 - [x] sops.nix (moved to modules/nix/sops.nix)
@@ -452,10 +456,10 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 (moved to modules/programs/gui)
 
-- [ ] lsfg.nix
-- [ ] other.nix
+- [x] lsfg.nix
+- [x] other.nix (split into services/printing.nix and gui/seahorse.nix)
 - [x] steam.nix
-- [ ] virt-manager.nix
+- [x] virt-manager.nix
 
 ## modules/system/services/
 
@@ -463,23 +467,23 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 - [x] ananicy.nix
 - [x] avahi.nix
-- [ ] bluetooth.nix
-- [ ] geoclue.nix
+- [x] bluetooth.nix
+- [x] geoclue.nix
 - [x] gnome-keyring.nix
 - [x] gvfs.nix
-- [ ] locate.nix
-- [ ] logind.nix
-- [ ] network.nix
-- [ ] other.nix
-- [ ] pipewire.nix
-- [ ] podman.nix
-- [ ] printing.nix
-- [ ] scx.nix
-- [ ] ssh.nix
-- [ ] timesyncd.nix
+- [x] locate.nix
+- [x] logind.nix (moved to modules/profiles/common/lidswitch.nix)
+- [x] network.nix (split wifi up into sepperate wifi module)
+- [x] other.nix (split up into multiple files)
+- [x] pipewire.nix
+- [x] podman.nix
+- [x] printing.nix
+- [x] scx.nix
+- [-] ssh.nix
+- [x] timesyncd.nix
 - [ ] timezone.nix
-- [ ] tlp.nix
-- [ ] zram.nix
+- [x] tlp.nix
+- [x] zram.nix
 
 ## overlays/
 
@@ -490,7 +494,7 @@ Checklist of repository files grouped by path for the dendritic migration.
 - [ ] hyprland-plugins.nix
 - [ ] pkgs.nix
 - [ ] superhtml.nix
-- [ ] zaread.nix
+- [-] zaread.nix
 
 ## pkgs/
 
@@ -498,7 +502,7 @@ Checklist of repository files grouped by path for the dendritic migration.
 - [ ] lutris.nix
 - [ ] nocheatsheet-nvim.nix
 - [ ] telescope-all-recent-nvim.nix
-- [ ] zaread.nix
+- [x] zaread.nix
 
 ## pkgs/scripts/
 
@@ -508,9 +512,11 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## pkgs/scripts/ripgrep-all-adapters/
 
-- [ ] djvutorga-adapter.nix
-- [ ] pptx2md-adapter.nix
+(moved to modules/pkgs/ripgrep-all-adapters)
+
+- [x] djvutorga-adapter.nix
+- [x] pptx2md-adapter.nix
 
 ## secrets/
 
-- [ ] secrets.yaml
+- [x] secrets.yaml

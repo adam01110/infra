@@ -106,7 +106,6 @@
 
   flake.overlays.tuigreet = final: _prev: let
     inherit (final.stdenv.hostPlatform) system;
-
   in {
     inherit (inputs.tuigreet.packages.${system}) tuigreet;
   };
