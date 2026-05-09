@@ -2,9 +2,13 @@
   flake.modules.homeManager.ghostty = {
     config,
     lib,
+    pkgs,
     ...
   }: let
     inherit (lib) getExe;
+    cursorShader = pkgs.nur.repos.adam0.ghosttyCursorShaders.cursor-tail.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [./patches/cursor-tail-local-settings.patch];
+    });
   in {
     # keep-sorted start block=yes newline_separated=yes
     programs.ghostty = {
@@ -26,7 +30,7 @@
     };
 
     # Put the shader file into the ghostty config dir.
-    xdg.configFile."ghostty/cursor.glsl".source = ./cursor.glsl;
+    xdg.configFile."ghostty/cursor.glsl".source = "${cursorShader}/cursor_tail.glsl";
     # keep-sorted end
   };
 }

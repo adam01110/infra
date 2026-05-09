@@ -338,11 +338,11 @@
       },
       "locked": {
         "dir": "packages/nix",
-        "lastModified": 1778348033,
-        "narHash": "sha256-TxCHaR1RFQ3de2E5RqeyqAWd4GmpQQpeeS4Xa4Ur3L4=",
+        "lastModified": 1778350203,
+        "narHash": "sha256-WxvERW1lbN2hnb/EuM4aoGh0fJUUiTYT/j8WbFPNa5w=",
         "owner": "SteamClientHomebrew",
         "repo": "Millennium",
-        "rev": "5df61f9d58e6944f5dfe73f0f8e25e654b5de261",
+        "rev": "fa9d1ac5bd11fb22f5a5f696f15eff82a08049ee",
         "type": "github"
       },
       "original": {
@@ -582,15 +582,38 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1778124196,
-        "narHash": "sha256-Z5mLDoR8p0d7psIY4LnyaHHRykXngMcWXTZ9JWvtvPc=",
-        "rev": "68a8af93ff4297686cb68880845e61e5e2e41d92",
+        "lastModified": 1778274207,
+        "narHash": "sha256-lMg7Dj7kyGN5cj9RGag5Is100HnQPKM9zEsuAOL2TLA=",
+        "rev": "b3da656039dc7a6240f27b2ef8cc6a3ef3bccae7",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre993588.68a8af93ff42/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre994919.b3da656039dc/nixexprs.tar.xz"
       },
       "original": {
         "type": "tarball",
         "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
+      }
+    },
+    "nur": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778362002,
+        "narHash": "sha256-X0nD1mJ23HKKCkvJ6DRGYIh7IqmwxOIj+Z/6XWQb5gM=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "b4040f8b7b12b8f9c58abbb5c0aafc9cee9f6cf7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
       }
     },
     "nvf": {
@@ -650,6 +673,7 @@
         "nix-index-database": "nix-index-database",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_3",
+        "nur": "nur",
         "nvf": "nvf",
         "sops-nix": "sops-nix",
         "treefmt-nix": "treefmt-nix",
@@ -782,11 +806,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778343639,
-        "narHash": "sha256-HHRwiRJlbVLkj5lu/0m1+bczp8Oe0BsC87lpdDnbJOw=",
+        "lastModified": 1778364338,
+        "narHash": "sha256-M5pNb49KwPNuUy19ZRDNaN4q83i0vn0m+cZpScDASYs=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "e6bdec08f8b1836c9f241c08ae3f03bbec34dbf0",
+        "rev": "786e44a74fbec15ea1fb72b949548812391be8c4",
         "type": "github"
       },
       "original": {

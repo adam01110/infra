@@ -243,10 +243,10 @@ x [ ] wallpaper.nix
 
 ## modules/home/gui/ghostty/
 
-- [ ] cursor.glsl
-- [ ] default.nix
-- [ ] keybinds.nix
-- [ ] settings.nix
+- [-] cursor.glsl (now a patch file with packages for the shaders in nur)
+- [x] default.nix
+- [x] keybinds.nix
+- [x] settings.nix
 
 ## modules/home/gui/zen/
 

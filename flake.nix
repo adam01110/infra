@@ -32,6 +32,13 @@
       };
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     nvf = {
       url = "github:adam01110/nvf?ref=personal";
       inputs = {
