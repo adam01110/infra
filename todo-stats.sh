@@ -5,8 +5,8 @@ set -eu
 todo_file=${1:-todo.md}
 
 if [ ! -f "$todo_file" ]; then
-	printf 'todo file not found: %s\n' "$todo_file" >&2
-	exit 1
+  printf 'todo file not found: %s\n' "$todo_file" >&2
+  exit 1
 fi
 
 awk '

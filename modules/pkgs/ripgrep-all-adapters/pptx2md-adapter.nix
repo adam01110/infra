@@ -1,8 +1,18 @@
 {
-  perSystem = {pkgs, ...}: {
-    packages.pptx2md-adapter = pkgs.writeShellApplication {
+  perSystem = {pkgs, ...}: let
+    inherit (builtins) attrValues;
+    inherit (pkgs) writeShellApplication;
+  in {
+    packages.pptx2md-adapter = writeShellApplication {
       name = "pptx2md.sh";
-      runtimeInputs = [pkgs.coreutils];
+      runtimeInputs = attrValues {
+        inherit
+          (pkgs)
+          # keep-sorted start
+          coreutils
+          # keep-sorted end
+          ;
+      };
       text = ''
         set -o errtrace -o errexit -o nounset -o pipefail
         [[ "''${TRACE:-0}" == "1" ]] && set -o xtrace

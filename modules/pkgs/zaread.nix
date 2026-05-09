@@ -1,23 +1,24 @@
-let
-  zaread = {
+{
+  perSystem = {
     # keep-sorted start
-    bashNonInteractive,
-    calibre,
-    fetchFromGitHub,
     lib,
-    libreoffice,
-    makeWrapper,
-    md2pdf,
-    stdenv,
-    typst,
-    zathura,
+    pkgs,
     # keep-sorted end
-    libreofficeSupport ? true,
-    markdownSupport ? true,
-    mobiSupport ? false,
-    typstSupport ? true,
-  }:
-    stdenv.mkDerivation {
+    ...
+  }: let
+    inherit (builtins) attrValues;
+    inherit (lib) makeBinPath;
+    inherit
+      (pkgs)
+      # keep-sorted start
+      bashNonInteractive
+      fetchFromGitHub
+      makeWrapper
+      stdenv
+      # keep-sorted end
+      ;
+  in {
+    packages.zaread = stdenv.mkDerivation {
       pname = "zaread";
       version = "0-unstable-2025-11-11";
 
@@ -28,13 +29,17 @@ let
         hash = "sha256-4tqi9tvFqB5MZIEluqVmmMWH+hN1c2Jy10C1/iGI6e4=";
       };
 
-      pathAdd = lib.makeBinPath (
-        [zathura]
-        ++ lib.optionals libreofficeSupport [libreoffice]
-        ++ lib.optionals markdownSupport [md2pdf]
-        ++ lib.optionals mobiSupport [calibre]
-        ++ lib.optionals typstSupport [typst]
-      );
+      pathAdd = makeBinPath (attrValues {
+        inherit
+          (pkgs)
+          # keep-sorted start
+          libreoffice
+          md2pdf
+          typst
+          zathura
+          # keep-sorted end
+          ;
+      });
 
       nativeBuildInputs = [makeWrapper];
       buildInputs = [bashNonInteractive];
@@ -49,16 +54,13 @@ let
         wrapProgram $out/bin/zaread --prefix PATH : $pathAdd
       '';
 
-      meta = {
+      meta = with lib; {
         description = "lightweight document reader";
         homepage = "https://github.com/paoloap/zaread";
-        license = lib.licenses.gpl3Only;
-        platforms = lib.platforms.unix;
+        license = licenses.gpl3Only;
+        platforms = platforms.unix;
         mainProgram = "zaread";
       };
     };
-in {
-  perSystem = {pkgs, ...}: {
-    packages.zaread = pkgs.callPackage zaread {};
   };
 }

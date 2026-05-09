@@ -1,8 +1,9 @@
-let
-  inherit (builtins) attrValues;
-in {
-  perSystem = {pkgs, ...}: {
-    packages.djvutorga-adapter = pkgs.writeShellApplication {
+{
+  perSystem = {pkgs, ...}: let
+    inherit (builtins) attrValues;
+    inherit (pkgs) writeShellApplication;
+  in {
+    packages.djvutorga-adapter = writeShellApplication {
       name = "djvutorga";
       runtimeInputs = attrValues {
         inherit

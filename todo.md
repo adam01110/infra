@@ -1,7 +1,5 @@
 # Repo Migration Todo
 
-Checklist of repository files grouped by path for the dendritic migration.
-
 ## Root
 
 - [x] .envrc
@@ -27,9 +25,9 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## flake/
 
-- [ ] devshell.nix
+- [x] devshell.nix
 - [ ] nixos.nix
-- [ ] treefmt.nix
+- [x] treefmt.nix
 
 ## keys/users/
 
@@ -216,12 +214,12 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## modules/home/gui/
 
-- [ ] lutris.nix
-- [ ] onlyoffice.nix
-- [ ] other.nix
-- [ ] prism.nix
+- [x] lutris.nix
+- [x] onlyoffice.nix
+- [x] other.nix (split into multiple files and modules for each application, and removed helium)
+- [x] prism.nix
 - [x] sober.nix
-- [x] spotify.nix
+- [ ] spotify.nix (first need to figure out stylix)
 - [x] zaread.nix
 - [x] zathura.nix
 
@@ -286,46 +284,46 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## modules/home/tui/neovim/
 
-- [ ] default.nix
-- [ ] keymap.nix
-- [ ] settings.nix
-- [ ] ui.nix
+- [x] default.nix
+- [x] keymap.nix
+- [x] settings.nix
+- [x] ui.nix
 
 ## modules/home/tui/neovim/components/
 
-- [ ] autocomplete.nix
-- [ ] biscuits.nix
-- [ ] breadcrumbs.nix
-- [ ] bufferline.nix
-- [ ] cheatsheet.nix
-- [ ] dashboard.nix
-- [ ] dim.nix
-- [ ] git.nix
-- [ ] hardtime.nix
-- [ ] highlight.nix
-- [ ] indent.nix
-- [ ] notify.nix
-- [ ] presence.nix
-- [ ] profiler.nix
-- [ ] scroll.nix
-- [ ] scrollbar.nix
-- [ ] session.nix
-- [ ] statusline.nix
-- [ ] telescope.nix
-- [ ] yazi.nix
+- [x] autocomplete.nix
+- [x] biscuits.nix
+- [x] breadcrumbs.nix
+- [x] bufferline.nix
+- [x] cheatsheet.nix
+- [x] dashboard.nix
+- [x] dim.nix
+- [x] git.nix
+- [x] hardtime.nix
+- [x] highlight.nix
+- [x] indent.nix
+- [x] notify.nix
+- [x] presence.nix
+- [x] profiler.nix
+- [x] scroll.nix
+- [x] scrollbar.nix
+- [x] session.nix
+- [x] statusline.nix
+- [x] telescope.nix
+- [x] yazi.nix
 
 ## modules/home/tui/neovim/languages/
 
-- [ ] css.nix
-- [ ] default.nix
-- [ ] lua.nix
-- [ ] markdown.nix
-- [ ] nix.nix
-- [ ] other.nix
-- [ ] python.nix
-- [ ] rust.nix
-- [ ] toml.nix
-- [ ] typescript.nix
+- [x] css.nix
+- [x] default.nix
+- [x] lua.nix
+- [x] markdown.nix
+- [x] nix.nix
+- [x] other.nix
+- [x] python.nix
+- [x] rust.nix
+- [x] toml.nix
+- [x] typescript.nix
 
 ## modules/home/tui/opencode/
 
@@ -377,32 +375,32 @@ Checklist of repository files grouped by path for the dendritic migration.
 
 ## modules/home/tui/yazi/
 
-- [ ] default.nix
-- [ ] init.lua
-- [ ] keymap.nix
-- [ ] plugins.nix
-- [ ] settings.nix
-- [ ] theme.nix
+- [x] default.nix
+- [x] init.lua
+- [x] keymap.nix
+- [x] plugins.nix
+- [x] settings.nix
+- [x] theme.nix
 
 ## modules/home/tui/yazi/plugins/
 
-- [ ] faster-piper.nix
-- [ ] mediainfo.nix
-- [ ] mount.nix
-- [ ] preview-cbz.nix
-- [ ] preview-epub.nix
-- [ ] preview-git.nix
-- [ ] recycle-bin.nix
-- [ ] relative-motions.nix
-- [ ] restore.nix
-- [ ] smart-enter.nix
-- [ ] smart-paste.nix
-- [ ] spot-audio.nix
-- [ ] spot-cbz.nix
-- [ ] spot-image.nix
-- [ ] spot-video.nix
-- [ ] tv.nix
-- [ ] ucp.nix
+- [x] faster-piper.nix
+- [x] mediainfo.nix
+- [x] mount.nix
+- [x] preview-cbz.nix
+- [x] preview-epub.nix
+- [x] preview-git.nix
+- [x] recycle-bin.nix
+- [x] relative-motions.nix
+- [x] restore.nix
+- [x] smart-enter.nix
+- [x] smart-paste.nix
+- [x] spot-audio.nix
+- [x] spot-cbz.nix
+- [x] spot-image.nix
+- [x] spot-video.nix
+- [x] tv.nix
+- [x] ucp.nix
 
 ## modules/hosts/desktop/
 
@@ -499,7 +497,7 @@ Checklist of repository files grouped by path for the dendritic migration.
 ## pkgs/
 
 - [ ] default.nix
-- [ ] lutris.nix
+- [x] lutris.nix
 - [ ] nocheatsheet-nvim.nix
 - [ ] telescope-all-recent-nvim.nix
 - [x] zaread.nix
@@ -507,7 +505,7 @@ Checklist of repository files grouped by path for the dendritic migration.
 ## pkgs/scripts/
 
 - [ ] performant-mode.nix
-- [ ] systemd-status-preview.nix
+- [x] systemd-status-preview.nix
 - [ ] text-preview.nix
 
 ## pkgs/scripts/ripgrep-all-adapters/

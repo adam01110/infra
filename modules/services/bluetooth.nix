@@ -1,13 +1,21 @@
-{
+{lib, ...}: let
+  inherit (lib) mkEnableOption;
+in {
   flake.modules.nixos.bluetooth = {
-    hardware.bluetooth = {
-      enable = true;
+    options.capabilities.bluetooth = mkEnableOption "bluetooth support";
 
-      # Enable experimental features needed by some devices.
-      settings.General.Experimental = true;
+    config = {
+      capabilities.bluetooth = true;
 
-      # Disable bluetooth power-on at boot to save battery.
-      powerOnBoot = false;
+      hardware.bluetooth = {
+        enable = true;
+
+        # Enable experimental features needed by some devices.
+        settings.General.Experimental = true;
+
+        # Disable bluetooth power-on at boot to save battery.
+        powerOnBoot = false;
+      };
     };
   };
 }
