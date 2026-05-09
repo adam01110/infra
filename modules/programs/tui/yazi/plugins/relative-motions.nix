@@ -61,9 +61,9 @@
         # keep-sorted end
       ];
 
-      plugins.relative-motions = pkgs.yaziPlugins.relative-motions;
-
       pluginSetupOpts.relative-motions.show_numbers = "relative";
+
+      plugins.relative-motions = pkgs.yaziPlugins.relative-motions;
       # keep-sorted end
     };
   };

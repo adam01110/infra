@@ -31,7 +31,7 @@
 
 ## keys/users/
 
-- [x] adam0.asc (moved to keys/)
+- [x] adam0.asc
 
 ## libs/
 
@@ -120,15 +120,15 @@
 
 ## modules/home/cli/starship/
 
-- [ ] build.nix
-- [ ] container.nix
-- [ ] default.nix
-- [ ] disabled.nix
-- [ ] format.nix
-- [ ] general.nix
-- [ ] git.nix
-- [ ] languages.nix
-- [ ] runtimes.nix
+- [x] build.nix
+- [x] container.nix
+- [x] default.nix
+- [x] disabled.nix
+- [x] format.nix
+- [x] general.nix
+- [x] git.nix
+- [x] languages.nix
+- [x] runtimes.nix
 
 ## modules/home/desktop/
 
@@ -168,7 +168,7 @@
 - [ ] sessionmenu.nix
 - [ ] systemmonitor.nix
 - [ ] ui.nix
-- [ ] wallpaper.nix
+x [ ] wallpaper.nix
 
 ## modules/home/desktop/noctalia/patches/
 
@@ -194,23 +194,23 @@
 
 ## modules/home/desktop/xdg/
 
-- [ ] applications.nix
-- [ ] autostart.nix
-- [ ] cleanup.nix
-- [ ] default.nix
-- [ ] portal.nix
-- [ ] terminal.nix
+- [x] applications.nix
+- [x] autostart.nix (moved into the specific application modules)
+- [x] cleanup.nix
+- [x] default.nix (split into multiple files)
+- [x] portal.nix
+- [x] terminal.nix
 
 ## modules/home/desktop/xdg/applications/
 
-- [ ] audio.nix
-- [ ] code.nix
-- [ ] document-viewers.nix
-- [ ] files.nix
-- [ ] image-editors.nix
-- [ ] image-viewers.nix
-- [ ] protocols.nix
-- [ ] video.nix
+- [x] audio.nix
+- [x] code.nix
+- [x] document-viewers.nix
+- [x] files.nix
+- [x] image-editors.nix
+- [x] image-viewers.nix
+- [x] protocols.nix
+- [x] video.nix
 
 ## modules/home/gui/
 
@@ -225,21 +225,21 @@
 
 ## modules/home/gui/discord/
 
-- [ ] default.nix
+- [x] default.nix
 
 ## modules/home/gui/discord/plugins/
 
-- [ ] communication.nix
-- [ ] core.nix
-- [ ] integrations.nix
-- [ ] interface.nix
-- [ ] media.nix
-- [ ] social.nix
+- [x] communication.nix
+- [x] core.nix
+- [x] integrations.nix
+- [x] interface.nix
+- [x] media.nix
+- [x] social.nix
 
 ## modules/home/gui/discord/themes/
 
-- [ ] snippets.css
-- [ ] system24.css
+- [x] snippets.css
+- [x] system24.css
 
 ## modules/home/gui/ghostty/
 
@@ -280,7 +280,7 @@
 - [ ] other.nix
 - [ ] oxicord.nix
 - [ ] spotify-player.nix
-- [ ] wiremix.nix (need to import terminal-exec before finished)
+- [x] wiremix.nix
 
 ## modules/home/tui/neovim/
 
@@ -327,34 +327,34 @@
 
 ## modules/home/tui/opencode/
 
-- [ ] default.nix
-- [ ] env.nix
-- [ ] formatter.nix
-- [ ] instructions.md
-- [ ] lsp.nix
-- [ ] mcp-wrappers.nix
-- [ ] plugins.nix
-- [ ] settings.nix
+- [x] default.nix
+- [x] env.nix
+- [x] formatter.nix
+- [x] instructions.md
+- [x] lsp.nix
+- [x] mcp-wrappers.nix
+- [x] plugins.nix
+- [x] settings.nix
 
 ## modules/home/tui/opencode/skills/
 
-- [ ] create-readme.md
-- [ ] default.nix
-- [ ] find-skills.md
-- [ ] nvf-config.md
-- [ ] uncodixfy.md
+- [x] create-readme.md
+- [x] default.nix
+- [x] find-skills.md
+- [x] nvf-config.md
+- [x] uncodixfy.md
 
 ## modules/home/tui/opencode/skills/lazy-mcp/
 
-- [ ] context7.md
-- [ ] github.md
-- [ ] grep-app.md
+- [x] context7.md
+- [x] github.md
+- [x] grep-app.md
 
 ## modules/home/tui/opencode/skills/nix/
 
-- [ ] debug.md
-- [ ] index.md
-- [ ] search.md
+- [x] debug.md
+- [x] index.md
+- [x] search.md
 
 ## modules/home/tui/television/
 
@@ -448,7 +448,7 @@
 - [ ] stylix.nix
 - [ ] tablet.nix
 - [x] tuigreet.nix
-- [ ] xdg-portal.nix
+- [x] xdg-portal.nix
 
 ## modules/system/gui/
 
@@ -479,27 +479,27 @@
 - [x] scx.nix
 - [-] ssh.nix
 - [x] timesyncd.nix
-- [ ] timezone.nix
+- [x] timezone.nix (moved to modules/profiles/common/timezone.nix)
 - [x] tlp.nix
 - [x] zram.nix
 
 ## overlays/
 
-- [ ] _inputs.nix
-- [ ] default.nix
-- [ ] envfs.nix
-- [ ] external-pkgs.nix
+- [x] _inputs.nix
+- [-] default.nix
+- [x] envfs.nix (moved into the envfs module)
+- [x] external-pkgs.nix
 - [ ] hyprland-plugins.nix
-- [ ] pkgs.nix
+- [-] pkgs.nix
 - [ ] superhtml.nix
 - [-] zaread.nix
 
 ## pkgs/
 
-- [ ] default.nix
+- [x] default.nix
 - [x] lutris.nix
-- [ ] nocheatsheet-nvim.nix
-- [ ] telescope-all-recent-nvim.nix
+- [x] nocheatsheet-nvim.nix
+- [x] telescope-all-recent-nvim.nix
 - [x] zaread.nix
 
 ## pkgs/scripts/

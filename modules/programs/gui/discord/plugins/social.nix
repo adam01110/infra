@@ -1,0 +1,61 @@
+{
+  flake.modules.homeManager.discord = _: {
+    programs.nixcord.config.plugins = {
+      # keep-sorted start block=yes newline_separated=yes
+      MutualGroupDMs.enable = true;
+
+      ReviewDB = {
+        enable = true;
+        hideBlockedUsers = false;
+      };
+
+      betterBlockedUsers.enable = true;
+
+      betterInvites.enable = true;
+
+      forceOwnerCrown.enable = true;
+
+      friendsSince.enable = true;
+
+      friendshipRanks.enable = true;
+
+      implicitRelationships.enable = true;
+
+      inviteDefaults.enable = true;
+
+      memberCount.enable = true;
+
+      moreUserTags.enable = true;
+
+      newGuildSettings = {
+        enable = true;
+        messages = 1;
+      };
+
+      pauseInvitesForever.enable = true;
+
+      relationshipNotifier.enable = true;
+
+      serverInfo.enable = true;
+
+      showConnections = {
+        enable = true;
+        iconSpacing = 0;
+      };
+
+      showHiddenChannels.enable = true;
+
+      showTimeoutDuration.enable = true;
+
+      songSpotlight.enable = true;
+
+      sortFriends = {
+        enable = true;
+        showDates = true;
+      };
+
+      whoReacted.enable = true;
+      # keep-sorted end
+    };
+  };
+}

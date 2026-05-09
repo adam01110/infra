@@ -1,0 +1,231 @@
+/**
+ * @name system24
+ * @description a tui-style discord theme.
+ * @author refact0r
+ * @version 2.0.0
+ * @invite nz87hXyvcy
+ * @website https://github.com/refact0r/system24
+ * @source https://github.com/refact0r/system24/blob/master/theme/system24.theme.css
+ * @authorId 508863359777505290
+ * @authorLink https://www.refact0r.dev
+ */
+
+/* Import theme modules */
+@import url("https://refact0r.github.io/system24/build/system24.css");
+
+body {
+  /* Font, change to '' for default discord font */
+  --font: "__monospaceFont__"; /* Change to "" for default discord font */
+  --code-font: "__monospaceFont__"; /* Change to "" for default discord font */
+  font-weight: 300; /* Text font weight. 300 is light, 400 is normal. DOES NOT AFFECT BOLD TEXT */
+  letter-spacing: -0.05ch; /* Decreases letter spacing for better readability. recommended on monospace fonts.*/
+
+  /* Sizes */
+  --gap: 8px; /* Spacing between panels */
+  --divider-thickness: 4px; /* Thickness of unread messages divider and highlighted message borders */
+  --border-thickness: 1px; /* Thickness of borders around main panels. DOES NOT AFFECT OTHER BORDERS */
+  --border-hover-transition: none; /* Transition for borders when hovered */
+
+  /* Animation/transition options */
+  --animations: off; /* Off: disable animations/transitions, on: enable animations/transitions */
+  --list-item-transition: none; /* Transition for list items */
+  --dms-icon-svg-transition: none; /* Transition for the dms icon */
+
+  /* Top bar options */
+  --top-bar-height: var(
+    --gap
+  ); /* Height of the top bar (discord default is 36px, old discord style is 24px, var(--gap) recommended if button position is set to titlebar) */
+  --top-bar-button-position: titlebar; /* Off: default position, hide: hide buttons completely, serverlist: move inbox button to server list, titlebar: move inbox button to channel titlebar (will hide title) */
+  --top-bar-title-position: off; /* Off: default centered position, hide: hide title completely, left: left align title (like old discord) */
+  --subtle-top-bar-title: off; /* Off: default, on: hide the icon and use subtle text color (like old discord) */
+
+  /* Window controls */
+  --custom-window-controls: off; /* Off: default window controls, on: custom window controls */
+  --window-control-size: 14px; /* Size of custom window controls */
+
+  /* Dms button options */
+  --custom-dms-icon: off; /* Off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
+  --dms-icon-svg-url: url(""); /* Icon svg url. MUST BE A SVG. */
+  --dms-icon-svg-size: 90%; /* Size of the svg (css mask-size property) */
+  --dms-icon-color-before: var(--icon-subtle); /* Normal icon color */
+  --dms-icon-color-after: var(--white); /* Icon color when button is hovered/selected */
+  --custom-dms-background: off; /* Off to disable, image to use a background image (must set url variable below), color to use a custom color/gradient */
+  --dms-background-image-url: url(""); /* Url of the background image */
+  --dms-background-image-size: cover; /* Size of the background image (css background-size property) */
+  --dms-background-color: linear-gradient(
+    70deg,
+    var(--blue-2),
+    var(--purple-2),
+    var(--red-2)
+  ); /* Fixed color/gradient (css background property) */
+
+  /* Background image options */
+  --background-image: off; /* Off: no background image, on: enable background image (must set url variable below) */
+  --background-image-url: url(""); /* Url of the background image */
+
+  /* Transparency/blur options */
+  /* NOTE: TO USE TRANSPARENCY/BLUR, YOU MUST HAVE TRANSPARENT BG COLORS. FOR EXAMPLE: --bg-4: hsla(220, 15%, 10%, 0.7); */
+  --transparency-tweaks: on; /* Off: no changes, on: remove some elements for better transparency */
+  --remove-bg-layer: off; /* Off: no changes, on: remove the base --bg-3 layer for use with window transparency (WILL OVERRIDE BACKGROUND IMAGE) */
+  --panel-blur: on; /* Off: no changes, on: blur the background of panels */
+  --blur-amount: 8px; /* Amount of blur */
+  --bg-floating: var(
+    --bg-3
+  ); /* Set this to a more opaque color if floating panels look too transparent. only applies if panel blur is on  */
+
+  /* Other options */
+  --small-user-panel: off; /* Off: default user panel, on: smaller user panel like in old discord */
+
+  /* Unrounding options */
+  --unrounding: on; /* Off: default, on: remove rounded corners from panels */
+
+  /* Styling options */
+  --custom-spotify-bar: on; /* Off: default, on: custom text-like spotify progress bar */
+  --ascii-titles: on; /* Off: default, on: use ascii font for titles at the start of a channel */
+  --ascii-loader: system24; /* Off: default, system24: use system24 ascii loader, cats: use cats loader */
+
+  /* Panel labels */
+  --panel-labels: on; /* Off: default, on: add labels to panels */
+  --label-color: var(--text-muted); /* Color of labels */
+  --label-font-weight: 500; /* Font weight of labels */
+}
+
+/* Color options */
+:root {
+  --base00: __base00__;
+  --base01: __base01__;
+  --base02: __base02__;
+  --base03: __base03__;
+  --base04: __base04__;
+  --base05: __base05__;
+  --base06: __base06__;
+  --base07: __base07__;
+  --base08: __base08__;
+  --base09: __base09__;
+  --base0A: __base0A__;
+  --base0B: __base0B__;
+  --base0C: __base0C__;
+  --base0D: __base0D__;
+  --base0E: __base0E__;
+  --base0F: __base0F__;
+
+  --colors: on; /* Off: discord default colors, on: midnight custom colors */
+
+  /* Text colors */
+  --text-0: var(--bg-4); /* Text on colored elements */
+  --text-1: var(--base06); /* Other normally white text */
+  --text-2: var(--base05); /* Headings and important text */
+  --text-3: var(--base04); /* Normal text */
+  --text-4: var(--base03); /* Icon buttons and channels */
+  --text-5: color-mix(
+    in oklab,
+    var(--base03) 65%,
+    var(--base01)
+  ); /* Muted channels/chats and timestamps */
+
+  /* Background and dark colors */
+  --bg-1: color-mix(in oklab, var(--base02) 70%, var(--base01)); /* Dark buttons when clicked */
+  --bg-2: var(--base01); /* Dark buttons */
+  --bg-3: color-mix(in oklab, var(--base00) 78%, var(--base01)); /* Spacing, secondary elements */
+  --bg-4: color-mix(in srgb, var(--base00) 92%, transparent); /* Main background color */
+  --hover: color-mix(
+    in srgb,
+    var(--base05) 10%,
+    transparent
+  ); /* Channels and buttons when hovered */
+  --active: color-mix(
+    in srgb,
+    var(--base05) 18%,
+    transparent
+  ); /* Channels and buttons when clicked or selected */
+  --active-2: color-mix(
+    in srgb,
+    var(--base05) 28%,
+    transparent
+  ); /* Extra state for transparent buttons */
+  --message-hover: color-mix(in srgb, var(--base05) 6%, transparent); /* Messages when hovered */
+
+  /* Accent colors */
+  --accent-1: var(--base0B); /* Links and other accent text */
+  --accent-2: var(--base0D); /* Small accent elements */
+  --accent-3: var(--base0B); /* Accent buttons */
+  --accent-4: color-mix(
+    in oklab,
+    var(--base0B) 78%,
+    var(--base00)
+  ); /* Accent buttons when hovered */
+  --accent-5: color-mix(
+    in oklab,
+    var(--base0B) 60%,
+    var(--base00)
+  ); /* Accent buttons when clicked */
+  --accent-new: var(--base08); /* Stuff that's normally red like mute/deafen buttons */
+  --mention: linear-gradient(
+    to right,
+    color-mix(in hsl, var(--accent-2), transparent 90%) 40%,
+    transparent
+  ); /* Background of messages that mention you */
+  --mention-hover: linear-gradient(
+    to right,
+    color-mix(in hsl, var(--accent-2), transparent 95%) 40%,
+    transparent
+  ); /* Background of messages that mention you when hovered */
+  --reply: linear-gradient(
+    to right,
+    color-mix(in hsl, var(--text-3), transparent 90%) 40%,
+    transparent
+  ); /* Background of messages that reply to you */
+  --reply-hover: linear-gradient(
+    to right,
+    color-mix(in hsl, var(--text-3), transparent 95%) 40%,
+    transparent
+  ); /* Background of messages that reply to you when hovered */
+
+  /* Status indicator colors */
+  --online: var(--base0B); /* Change to #40a258 for default */
+  --dnd: var(--base08); /* Change to #d83a41 for default */
+  --idle: var(--base0A); /* Change to #cc954c for default */
+  --streaming: var(--base0E); /* Change to ##9147ff for default */
+  --offline: var(--text-4); /* Change to #82838b for default offline color */
+
+  /* Border colors */
+  --border-light: var(--hover); /* General light border color */
+  --border: var(--active); /* General normal border color */
+  --border-hover: var(--accent-2); /* Border color of panels when hovered */
+  --button-border: color-mix(
+    in srgb,
+    var(--text-1) 10%,
+    transparent
+  ); /* Neutral border color of buttons */
+
+  /* Base colors */
+  --red-1: color-mix(in oklab, var(--base08) 82%, var(--base06));
+  --red-2: var(--base08);
+  --red-3: color-mix(in oklab, var(--base08) 78%, var(--base00));
+  --red-4: color-mix(in oklab, var(--base08) 62%, var(--base00));
+  --red-5: color-mix(in oklab, var(--base08) 46%, var(--base00));
+
+  --green-1: color-mix(in oklab, var(--base0B) 82%, var(--base06));
+  --green-2: color-mix(in oklab, var(--base0B) 92%, var(--base06));
+  --green-3: var(--base0B);
+  --green-4: color-mix(in oklab, var(--base0B) 78%, var(--base00));
+  --green-5: color-mix(in oklab, var(--base0B) 60%, var(--base00));
+
+  --blue-1: color-mix(in oklab, var(--base0D) 82%, var(--base06));
+  --blue-2: color-mix(in oklab, var(--base0C) 88%, var(--base06));
+  --blue-3: color-mix(in oklab, var(--base0D) 88%, var(--base00));
+  --blue-4: color-mix(in oklab, var(--base0D) 70%, var(--base00));
+  --blue-5: color-mix(in oklab, var(--base0D) 54%, var(--base00));
+
+  --yellow-1: color-mix(in oklab, var(--base0A) 86%, var(--base06));
+  --yellow-2: color-mix(in oklab, var(--base0A) 94%, var(--base06));
+  --yellow-3: var(--base0A);
+  --yellow-4: color-mix(in oklab, var(--base0A) 76%, var(--base00));
+  --yellow-5: color-mix(in oklab, var(--base0A) 58%, var(--base00));
+
+  --purple-1: color-mix(in oklab, var(--base0E) 84%, var(--base06));
+  --purple-2: var(--base0E);
+  --purple-3: color-mix(in oklab, var(--base0E) 82%, var(--base00));
+  --purple-4: color-mix(in oklab, var(--base0E) 64%, var(--base00));
+  --purple-5: color-mix(in oklab, var(--base0E) 48%, var(--base00));
+}

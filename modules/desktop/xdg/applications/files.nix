@@ -1,0 +1,10 @@
+{
+  flake.modules.homeManager.xdgApplications = _: {
+    xdg.mimeApps.defaultApplications = {
+      # keep-sorted start
+      "application/x-modrinth-modpack+zip" = "org.prismlauncher.PrismLauncher.desktop";
+      "inode/directory" = "yazi.desktop";
+      # keep-sorted end
+    };
+  };
+}

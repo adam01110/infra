@@ -1,5 +1,18 @@
 {
+  inputs,
+  self,
+  ...
+}: {
+  flake-file.inputs.millennium = {
+    url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  flake.overlays.millennium = inputs.millennium.overlays.default;
+
   flake.modules.nixos.steam = {pkgs, ...}: {
+    nixpkgs.overlays = [self.overlays.millennium];
+
     programs.steam = {
       enable = true;
 

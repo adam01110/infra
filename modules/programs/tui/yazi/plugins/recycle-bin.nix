@@ -11,9 +11,9 @@
         }
       ];
 
-      plugins.recycle-bin = pkgs.yaziPlugins.recycle-bin;
-
       pluginSetupOpts.recycle-bin = {};
+
+      plugins.recycle-bin = pkgs.yaziPlugins.recycle-bin;
       # keep-sorted end
     };
   };
