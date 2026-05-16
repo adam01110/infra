@@ -1,9 +1,9 @@
-{
+{self, ...}: {
   flake.modules.homeManager.zen = {
     # keep-sorted start
+    config,
     inputs,
     lib,
-    osConfig,
     pkgs,
     # keep-sorted end
     ...
@@ -15,8 +15,10 @@
     inherit (pkgs.stdenv.hostPlatform) system;
 
     # Convert the stylix base16 scheme into a format accepted by nix-userstyles.
-    palette = stylixPalette osConfig;
+    palette = stylixPalette config;
   in {
+    imports = [self.modules.homeManager.stylixPersonal];
+
     # Remove rounded corners in zen browser interface.
     programs.zen-browser.profiles.default = {
       userChrome = ''

@@ -1,15 +1,17 @@
-{
+{self, ...}: {
   flake.modules.homeManager.discord = {
     # keep-sorted start
-    equibopStylix,
+    config,
     lib,
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkEnableOption;
+    inherit (lib) fromHexString mkEnableOption;
   in
     # Interface and layout related plugins.
     {
+      imports = [self.modules.homeManager.stylixPersonal];
+
       # User option to toggle camera features in plugins.
       options.programs.nixcord.equibop.camera.enable = mkEnableOption "Enable camera functionality for Equibop plugins.";
 
@@ -115,10 +117,10 @@
           questButtonUnclaimed = "none";
           # keep-sorted end
           # keep-sorted start
-          restyleQuestsClaimed = equibopStylix.questify.claimed;
-          restyleQuestsExpired = equibopStylix.questify.expired;
-          restyleQuestsIgnored = equibopStylix.questify.ignored;
-          restyleQuestsUnclaimed = equibopStylix.questify.unclaimed;
+          restyleQuestsClaimed = fromHexString config.lib.stylix.colors.base0E;
+          restyleQuestsExpired = fromHexString config.lib.stylix.colors.base00;
+          restyleQuestsIgnored = fromHexString config.lib.stylix.colors.base08;
+          restyleQuestsUnclaimed = fromHexString config.lib.stylix.colors.base0D;
           # keep-sorted end
         };
 

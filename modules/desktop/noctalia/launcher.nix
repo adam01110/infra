@@ -1,0 +1,40 @@
+{self, ...}: {
+  flake.modules.homeManager.noctalia = {
+    # keep-sorted start
+    config,
+    lib,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (lib) getExe;
+  in {
+    imports = [
+      # keep-sorted start
+      self.modules.homeManager.uwsm
+      self.modules.homeManager.xdgTerminal
+      # keep-sorted end
+    ];
+
+    programs.noctalia-shell = {
+      # keep-sorted start block=yes newline_separated=yes
+      # Keep launcher runtime tools in the wrapped shell package path.
+      packageOverrides.extraPackages = [pkgs.wtype];
+
+      settings.appLauncher = {
+        # keep-sorted start
+        autoPasteClipboard = true;
+        density = "comfortable";
+        enableClipboardHistory = true;
+        enableSettingsSearch = false;
+        overviewLayer = true;
+        position = "center";
+        showIconBackground = true;
+        terminalCommand = getExe config.xdg.terminal-exec.package;
+        useApp2Unit = true;
+        # keep-sorted end
+      };
+      # keep-sorted end
+    };
+  };
+}

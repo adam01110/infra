@@ -1,7 +1,8 @@
 {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
+      plugins.restore = pkgs.yaziPlugins.restore;
+
       # Bind restore actions.
       keymap.mgr.prepend_keymap = [
         {
@@ -10,9 +11,6 @@
           desc = "Restore last deleted files/folders";
         }
       ];
-
-      plugins.restore = pkgs.yaziPlugins.restore;
-      # keep-sorted end
     };
   };
 }

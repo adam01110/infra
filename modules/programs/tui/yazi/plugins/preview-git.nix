@@ -1,7 +1,8 @@
-{
+{self, ...}: {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
+    imports = [self.modules.homeManager.nur];
+
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
       plugins.preview-git = pkgs.nur.repos.adam0.yaziPlugins.preview-git;
 
       # Previewers that render content for preview-git.
@@ -11,7 +12,6 @@
           run = "preview-git";
         }
       ];
-      # keep-sorted end
     };
   };
 }

@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.beeper = {
     # keep-sorted start
     lib,
@@ -43,6 +43,8 @@
       ];
     };
   in {
+    imports = [self.modules.homeManager.nur];
+
     home.packages = [pkg];
 
     xdg.autostart = {

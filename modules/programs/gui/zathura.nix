@@ -1,5 +1,9 @@
-{
-  flake.modules.homeManager.zathura = _: {
+{self, ...}: {
+  flake.modules.homeManager.zathura = {config, ...}: let
+    sansSerifFont = config.stylix.fonts.sansSerif.name;
+  in {
+    imports = [self.modules.homeManager.stylixPersonal];
+
     programs.zathura = {
       enable = true;
 
@@ -11,6 +15,9 @@
         # keep-sorted end
 
         # keep-sorted start block=yes newline_separated=yes
+        # Keep zathura fonts consistent.
+        font = sansSerifFont;
+
         # Use the system clipboard for text selection.
         selection-clipboard = "clipboard";
 

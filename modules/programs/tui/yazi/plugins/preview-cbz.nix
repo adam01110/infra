@@ -1,7 +1,8 @@
-{
+{self, ...}: {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
+    imports = [self.modules.homeManager.nur];
+
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
       plugins.preview-cbz = pkgs.nur.repos.adam0.yaziPlugins.preview-cbz;
 
       settings.plugin = {
@@ -23,7 +24,6 @@
         ];
         # keep-sorted end
       };
-      # keep-sorted end
     };
   };
 }

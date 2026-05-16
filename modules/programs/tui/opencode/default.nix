@@ -23,8 +23,8 @@
     inherit
       (pkgs)
       # keep-sorted start
-      symlinkJoin
       makeWrapper
+      symlinkJoin
       # keep-sorted end
       ;
 
@@ -43,9 +43,17 @@
       env
     );
   in {
-    imports = [self.modules.homeManager.xdgTerminal];
+    imports = [
+      # keep-sorted start
+      self.modules.homeManager.nur
+      self.modules.homeManager.shellAbbreviations
+      self.modules.homeManager.xdgTerminal
+      # keep-sorted end
+    ];
 
     # keep-sorted start block=yes newline_separated=yes
+    home.shellAbbreviations.oc = "opencode";
+
     programs.opencode = {
       enable = true;
 

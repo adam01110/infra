@@ -28,7 +28,12 @@
     inherit (vars) username;
     tomlFormat = pkgs.formats.toml {};
   in {
-    imports = [self.modules.generic.vars];
+    imports = [
+      # keep-sorted start
+      self.modules.generic.vars
+      self.modules.nixos.uwsm
+      # keep-sorted end
+    ];
 
     # keep-sorted start block=yes newline_separated=yes
     environment = {

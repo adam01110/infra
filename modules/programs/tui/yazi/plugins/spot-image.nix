@@ -1,7 +1,8 @@
-{
+{self, ...}: {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
+    imports = [self.modules.homeManager.nur];
+
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
       plugins.spot-image = pkgs.nur.repos.adam0.yaziPlugins.spot-image;
 
       # Spotters that render content for spot-image.
@@ -11,7 +12,6 @@
           run = "spot-image";
         }
       ];
-      # keep-sorted end
     };
   };
 }

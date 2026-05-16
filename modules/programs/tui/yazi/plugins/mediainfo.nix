@@ -1,7 +1,6 @@
 {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
       plugins.mediainfo = pkgs.yaziPlugins.mediainfo;
 
       # Use mediainfo for media and related mime types.
@@ -50,7 +49,6 @@
         ];
         # keep-sorted end
       };
-      # keep-sorted end
     };
   };
 }

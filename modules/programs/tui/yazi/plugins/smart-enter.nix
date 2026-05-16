@@ -1,7 +1,8 @@
 {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
+      plugins.smart-enter = pkgs.yaziPlugins.smart-enter;
+
       # Use smart-enter bindings in manager mode.
       keymap.mgr.prepend_keymap = [
         # keep-sorted start block=yes newline_separated=yes
@@ -30,9 +31,6 @@
         }
         # keep-sorted end
       ];
-
-      plugins.smart-enter = pkgs.yaziPlugins.smart-enter;
-      # keep-sorted end
     };
   };
 }

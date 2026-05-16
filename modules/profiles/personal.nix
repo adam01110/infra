@@ -1,10 +1,13 @@
 {self, ...}: {
   flake.modules.nixos.personal = {
     imports = with self.modules.nixos; [
+      capabilities
+
       # Profile common.
       # keep-sorted start
       locale
       slim
+      stylixPersonal
       timezone
       tweaks
       # keep-sorted end
@@ -14,6 +17,11 @@
   };
 
   flake.modules.homeManager.personal = {
-    imports = [];
+    imports = with self.modules.homeManager; [
+      # Profile common.
+      # keep-sorted start
+      gtk
+      # keep-sorted end
+    ];
   };
 }

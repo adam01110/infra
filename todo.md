@@ -4,9 +4,9 @@
 
 - [x] .envrc
 - [x] .gitignore
-- [ ] .luarc.json
+- [-] .luarc.json
 - [x] .sops.yaml
-- [ ] AGENTS.md
+- [x] AGENTS.md
 - [x] LICENSE
 - [ ] README.md
 - [-] THIRD_PARTY_NOTICES.md
@@ -40,7 +40,7 @@
 - [-] attr-paths.nix
 - [x] default.nix
 - [x] env.nix
-- [x] files.nix
+- [-] files.nix
 - [x] mime.nix
 - [x] starship.nix
 - [x] stylix.nix
@@ -48,7 +48,7 @@
 ## modules/home/
 
 - [ ] git.nix
-- [ ] gpg.nix
+- [x] gpg.nix
 - [ ] home.nix
 - [x] sops.nix (moved to modules/nix/sops.nix)
 - [ ] ssh.nix
@@ -57,11 +57,11 @@
 
 (moved to modules/programs/cli)
 
-- [ ] bat.nix (todo, fish shell pager export)
+- [x] bat.nix
 - [x] bonsai.nix
 - [x] cpond.nix
 - [x] direnv.nix
-- [x] eza.nix
+- [x] eza.nix (moved to eza/default.nix)
 - [x] fd.nix
 - [x] gh.nix
 - [x] npm.nix
@@ -69,7 +69,7 @@
 - [x] other.nix
 - [x] pipes.nix
 - [x] rumdl.nix
-- [x] systeroid.nix
+- [-] systeroid.nix
 - [x] tlrc.nix
 - [x] zoxide.nix
 
@@ -78,6 +78,13 @@
 - [x] ripgrep.nix
 - [x] bun.nix
 - [x] speedtest.nix
+- [x] eza/theme.nix
+- [x] eh.nix
+- [x] gitfetch.nix
+- [x] nix-index.nix
+- [x] onefetch.nix
+- [x] ouch.nix
+- [x] sshfs.nix
 
 ## modules/home/cli/fastfetch/
 
@@ -88,25 +95,29 @@
 
 ## modules/home/cli/fish/
 
-- [ ] abbreviations.nix
-- [ ] aliases.nix
-- [ ] default.nix
-- [ ] plugins.nix
+(moved to modules/programs/cli/fish)
+
+- [-] abbreviations.nix
+- [x] aliases.nix
+- [x] default.nix (removed fzfish)
+- [x] plugins.nix (removed fzfish)
 
 ## modules/home/cli/fish/functions/
 
-- [ ] fish_greeting.nix
+(moved to modules/programs/cli/fish)
+
+- [x] fish_greeting.nix
 
 ## modules/home/cli/fish/functions/archive/
 
-- [ ] 7z.nix
-- [ ] rar.nix
-- [ ] tar.nix
-- [ ] un7z.nix
-- [ ] unrar.nix
-- [ ] untar.nix
-- [ ] unzip.nix
-- [ ] zip.nix
+- [-] 7z.nix
+- [-] rar.nix
+- [-] tar.nix
+- [-] un7z.nix
+- [-] unrar.nix
+- [-] untar.nix
+- [-] unzip.nix
+- [-] zip.nix
 
 ## modules/home/cli/ripgrep-all/
 
@@ -132,65 +143,74 @@
 
 ## modules/home/desktop/
 
-- [ ] default.nix
-- [ ] mangohud.nix
-- [ ] overzicht.nix
+- [x] default.nix (moved into cliphist module)
+- [x] mangohud.nix
+- [x] overzicht.nix
+
+### New files
+
+- [x] cliphist.nix
+- [x] uwsm.nix
 
 ## modules/home/desktop/hyprland/
 
 - [ ] appearance.nix
-- [ ] default.nix
+- [x] default.nix
 - [ ] general.nix
 - [ ] gestures.nix
 - [ ] keybinds.nix
-- [ ] monitors.nix
-- [ ] plugins.nix
-- [ ] rules.nix
+- [-] monitors.nix
+- [x] plugins.nix
+- [x] rules.nix
 
 ## modules/home/desktop/noctalia/
 
-- [ ] audio.nix
-- [ ] bar.nix
-- [ ] brightness.nix
-- [ ] calendar.nix
-- [ ] controlcenter.nix
-- [ ] default.nix
-- [ ] delobotomize.nix
-- [ ] dock.nix
-- [ ] general.nix
-- [ ] hooks.nix
-- [ ] idle.nix
-- [ ] launcher.nix
-- [ ] location.nix
-- [ ] network.nix
-- [ ] notifications.nix
-- [ ] plugins.nix
-- [ ] sessionmenu.nix
-- [ ] systemmonitor.nix
-- [ ] ui.nix
-x [ ] wallpaper.nix
+- [x] audio.nix
+- [x] bar.nix
+- [x] brightness.nix
+- [x] calendar.nix
+- [x] controlcenter.nix
+- [x] default.nix
+- [x] delobotomize.nix
+- [x] dock.nix
+- [x] general.nix
+- [x] hooks.nix
+- [x] idle.nix
+- [x] launcher.nix
+- [x] location.nix
+- [x] network.nix
+- [x] notifications.nix
+- [x] plugins.nix
+- [x] sessionmenu.nix
+- [x] systemmonitor.nix
+- [x] ui.nix
+- [x] wallpaper.nix
+
+### New files
+
+- [x] theme.nix
 
 ## modules/home/desktop/noctalia/patches/
 
-- [ ] noctalia-launcher-ipc.patch
-- [ ] noctalia-location-override.patch
-- [ ] noctalia-settings-fallback.patch
+- [x] noctalia-launcher-ipc.patch
+- [x] noctalia-location-override.patch
+- [x] noctalia-settings-fallback.patch
 
 ## modules/home/desktop/stylix/
 
-- [ ] default.nix
+- [x] default.nix
 - [ ] delta.nix
-- [ ] disabled.nix
-- [ ] discord.nix
-- [ ] eza.nix
-- [ ] gtk.nix
+- [x] disabled.nix
+- [x] discord.nix
+- [x] eza.nix
+- [x] gtk.nix
 - [ ] hyprcursor.nix
 - [ ] noctalia.nix
-- [ ] opencode.nix
-- [ ] other.nix
-- [ ] overzicht.nix
-- [ ] spotify.nix
-- [ ] television.nix
+- [x] opencode.nix
+- [x] other.nix
+- [x] overzicht.nix
+- [x] spotify.nix
+- [x] television.nix
 
 ## modules/home/desktop/xdg/
 
@@ -200,6 +220,11 @@ x [ ] wallpaper.nix
 - [x] default.nix (split into multiple files)
 - [x] portal.nix
 - [x] terminal.nix
+
+### New files
+
+- [x] dirs.nix
+- [x] polkit.nix
 
 ## modules/home/desktop/xdg/applications/
 
@@ -216,16 +241,36 @@ x [ ] wallpaper.nix
 
 - [x] lutris.nix
 - [x] onlyoffice.nix
-- [x] other.nix (split into multiple files and modules for each application, and removed helium)
+- [x] other.nix (split into multiple files and modules for each application, and removed helium, obsidian, krita)
 - [x] prism.nix
 - [x] sober.nix
-- [ ] spotify.nix (first need to figure out stylix)
+- [x] spotify.nix
 - [x] zaread.nix
 - [x] zathura.nix
+
+### New files
+
+- [x] aseprite.nix
+- [x] beeper.nix
+- [x] bitwarden.nix
+- [x] bleachbit.nix
+- [x] crosspipe.nix
+- [x] decibels.nix
+- [x] flatseal.nix
+- [x] gimp.nix
+- [x] heroic.nix
+- [x] loupe.nix
+- [x] mcpelauncher.nix
+- [x] proton.nix
+- [x] showtime.nix
+- [x] upscayl.nix
+- [x] warehouse.nix
 
 ## modules/home/gui/discord/
 
 - [x] default.nix
+- [x] autostart.nix
+- [x] settings.nix
 
 ## modules/home/gui/discord/plugins/
 
@@ -241,12 +286,20 @@ x [ ] wallpaper.nix
 - [x] snippets.css
 - [x] system24.css
 
+### New files
+
+- [x] default.nix
+
 ## modules/home/gui/ghostty/
 
-- [-] cursor.glsl (now a patch file with packages for the shaders in nur)
+- [-] cursor.glsl
 - [x] default.nix
 - [x] keybinds.nix
 - [x] settings.nix
+
+### patches/
+
+- [x] cursor-tail-local-settings.patch
 
 ## modules/home/gui/zen/
 
@@ -269,17 +322,17 @@ x [ ] wallpaper.nix
 
 (moved to modules/programs/tui)
 
-- [ ] atuin.nix
-- [ ] bluetui.nix
-- [ ] btop.nix
-- [ ] cava.nix
-- [ ] fzf.nix
-- [ ] impala.nix
-- [ ] kmon.nix
-- [ ] nvtop.nix
-- [ ] other.nix
-- [ ] oxicord.nix
-- [ ] spotify-player.nix
+- [x] atuin.nix
+- [x] bluetui.nix
+- [x] btop.nix
+- [x] cava.nix
+- [x] fzf.nix
+- [x] impala.nix
+- [-] kmon.nix
+- [x] nvtop.nix
+- [x] other.nix (renamed to opencubicplayer.nix)
+- [-] oxicord.nix
+- [-] spotify-player.nix
 - [x] wiremix.nix
 
 ## modules/home/tui/neovim/
@@ -325,6 +378,10 @@ x [ ] wallpaper.nix
 - [x] toml.nix
 - [x] typescript.nix
 
+### New files
+
+- [x] docker.nix
+
 ## modules/home/tui/opencode/
 
 - [x] default.nix
@@ -335,6 +392,10 @@ x [ ] wallpaper.nix
 - [x] mcp-wrappers.nix
 - [x] plugins.nix
 - [x] settings.nix
+
+### New files
+
+- [x] theme.nix
 
 ## modules/home/tui/opencode/skills/
 
@@ -358,20 +419,24 @@ x [ ] wallpaper.nix
 
 ## modules/home/tui/television/
 
-- [ ] channels.nix
-- [ ] default.nix
-- [ ] nix-search.nix
-- [ ] settings.nix
+- [x] channels.nix
+- [x] default.nix
+- [x] nix-search.nix
+- [x] settings.nix
+
+### New files
+
+- [x] theme.nix
 
 ## modules/home/tui/television/channels/
 
-- [ ] channels.nix
-- [ ] files.nix
-- [ ] man.nix
-- [ ] text.nix
-- [ ] tldr.nix
-- [ ] trash.nix
-- [ ] zoxide.nix
+- [x] channels.nix
+- [x] files.nix
+- [x] man.nix
+- [x] text.nix
+- [x] tldr.nix
+- [x] trash.nix
+- [x] zoxide.nix
 
 ## modules/home/tui/yazi/
 
@@ -444,8 +509,8 @@ x [ ] wallpaper.nix
 
 (moved to modules/desktop)
 
-- [ ] hyprland.nix
-- [ ] stylix.nix
+- [x] hyprland.nix (merged into hyprland/default.nix)
+- [x] stylix.nix
 - [ ] tablet.nix
 - [x] tuigreet.nix
 - [x] xdg-portal.nix
@@ -458,6 +523,10 @@ x [ ] wallpaper.nix
 - [x] other.nix (split into services/printing.nix and gui/seahorse.nix)
 - [x] steam.nix
 - [x] virt-manager.nix
+
+### New files
+
+- [x] seahorse.nix
 
 ## modules/system/services/
 
@@ -483,6 +552,16 @@ x [ ] wallpaper.nix
 - [x] tlp.nix
 - [x] zram.nix
 
+### New files
+
+- [x] bpftune.nix
+- [x] evolution-data-server.nix
+- [x] libinput.nix
+- [x] power-profiles-daemon.nix
+- [x] udisks2.nix
+- [x] upower.nix
+- [x] wifi.nix
+
 ## overlays/
 
 - [x] _inputs.nix
@@ -491,7 +570,7 @@ x [ ] wallpaper.nix
 - [x] external-pkgs.nix
 - [ ] hyprland-plugins.nix
 - [-] pkgs.nix
-- [ ] superhtml.nix
+- [-] superhtml.nix
 - [-] zaread.nix
 
 ## pkgs/
@@ -504,9 +583,9 @@ x [ ] wallpaper.nix
 
 ## pkgs/scripts/
 
-- [ ] performant-mode.nix
+- [x] performant-mode.nix
 - [x] systemd-status-preview.nix
-- [ ] text-preview.nix
+- [x] text-preview.nix
 
 ## pkgs/scripts/ripgrep-all-adapters/
 
@@ -514,6 +593,34 @@ x [ ] wallpaper.nix
 
 - [x] djvutorga-adapter.nix
 - [x] pptx2md-adapter.nix
+
+## modules/
+
+- [x] capabilities.nix
+- [x] shell-abbreviations.nix
+
+## modules/nix/
+
+- [x] dendritic.nix
+- [x] determinate.nix
+- [x] home-manager.nix
+- [x] lib.nix
+- [x] nur.nix
+- [x] vars.nix
+
+## modules/profiles/
+
+- [x] personal.nix
+
+## modules/pkgs/
+
+- [x] os-age.nix
+
+### preview/
+
+- [x] man.nix
+- [x] systemd-status.nix (moved from pkgs/scripts/systemd-status-preview.nix)
+- [x] text.nix (moved from pkgs/scripts/text-preview.nix)
 
 ## secrets/
 

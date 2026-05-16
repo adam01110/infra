@@ -1,11 +1,13 @@
-{
+{self, ...}: {
   flake.modules.homeManager.discord = {
     # keep-sorted start
-    equibopStylix,
+    config,
     vars,
     # keep-sorted end
     ...
   }: {
+    imports = [self.modules.homeManager.stylixPersonal];
+
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
       ClearURLs.enable = true;
@@ -63,7 +65,7 @@
 
       messageFetchTimer = {
         enable = true;
-        iconColor = equibopStylix.messageFetchTimerIcon;
+        iconColor = config.lib.stylix.colors.base0B;
       };
 
       messageLatency = {

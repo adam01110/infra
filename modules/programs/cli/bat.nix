@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.bat = {
     # keep-sorted start
     config,
@@ -10,6 +10,13 @@
     inherit (lib) getExe;
     bat = getExe config.programs.bat.package;
   in {
+    imports = [
+      # keep-sorted start
+      self.modules.homeManager.fish
+      self.modules.homeManager.nur
+      # keep-sorted end
+    ];
+
     programs.bat = {
       enable = true;
 
@@ -23,6 +30,11 @@
 
     home.shellAliases.cat = bat;
 
-    # TODO: Fish init batman export.
+    programs.fish.interactiveShellInitSnippets = [
+      # Reuse bat's pager environment inside fish sessions.
+      ''
+        batman --export-env | source
+      ''
+    ];
   };
 }

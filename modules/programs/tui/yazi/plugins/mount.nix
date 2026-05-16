@@ -1,7 +1,8 @@
 {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
+      plugins.mount = pkgs.yaziPlugins.mount;
+
       # Bind the mount manager in manager mode.
       keymap.mgr.prepend_keymap = [
         {
@@ -10,9 +11,6 @@
           desc = "Manage mount, unmount, and eject actions";
         }
       ];
-
-      plugins.mount = pkgs.yaziPlugins.mount;
-      # keep-sorted end
     };
   };
 }

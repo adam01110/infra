@@ -1,8 +1,6 @@
-{lib, ...}: let
-  inherit (lib) mkEnableOption;
-in {
+{self, ...}: {
   flake.modules.nixos.bluetooth = {
-    options.capabilities.bluetooth = mkEnableOption "bluetooth support";
+    imports = [self.modules.nixos.capabilities];
 
     config = {
       capabilities.bluetooth = true;

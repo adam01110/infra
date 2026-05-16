@@ -1,8 +1,8 @@
-{
+{self, ...}: {
   flake.modules.homeManager.neovim = {
     # keep-sorted start
+    config,
     lib,
-    osConfig,
     pkgs,
     # keep-sorted end
     ...
@@ -11,8 +11,10 @@
     inherit (lib) getExe;
     inherit (lib.generators) mkLuaInline;
 
-    colors = osConfig.lib.stylix.colors.withHashtag;
+    colors = config.lib.stylix.colors.withHashtag;
   in {
+    imports = [self.modules.homeManager.stylixBase];
+
     # keep-sorted start block=yes newline_separated=yes
     # Capture dashboard metrics once so the footer can read cached values.
     nvf.luaConfigPreSnippets = [

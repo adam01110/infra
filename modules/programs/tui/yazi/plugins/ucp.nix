@@ -1,7 +1,10 @@
-{
+{self, ...}: {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
+    imports = [self.modules.homeManager.nur];
+
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
+      plugins.ucp = pkgs.nur.repos.adam0.yaziPlugins.ucp;
+
       # Add ucp clipboard bindings with notifications.
       keymap.mgr.prepend_keymap = [
         # keep-sorted start block=yes newline_separated=yes
@@ -30,9 +33,6 @@
         }
         # keep-sorted end
       ];
-
-      plugins.ucp = pkgs.nur.repos.adam0.yaziPlugins.ucp;
-      # keep-sorted end
     };
   };
 }

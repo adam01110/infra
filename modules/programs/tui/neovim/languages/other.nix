@@ -4,6 +4,7 @@
       # keep-sorted start
       bash.enable = true;
       csharp.enable = true;
+      fish.enable = true;
       html.enable = true;
       java.enable = true;
       json.enable = true;

@@ -1,4 +1,9 @@
-{
+{inputs, ...}: {
+  flake-file.inputs.ghostty-cursor-shaders = {
+    url = "github:sahaj-b/ghostty-cursor-shaders";
+    flake = false;
+  };
+
   flake.modules.homeManager.ghostty = {
     config,
     lib,
@@ -6,16 +11,19 @@
     ...
   }: let
     inherit (lib) getExe;
-    cursorShader = pkgs.nur.repos.adam0.ghosttyCursorShaders.cursor-tail.overrideAttrs (old: {
-      patches = (old.patches or []) ++ [./patches/cursor-tail-local-settings.patch];
-    });
+
+    cursorShaders = pkgs.applyPatches {
+      name = "ghostty-cursor-shaders-patched";
+      src = inputs.ghostty-cursor-shaders;
+      patches = [./patches/cursor-tail-local-settings.patch];
+    };
   in {
     # keep-sorted start block=yes newline_separated=yes
     programs.ghostty = {
       enable = true;
 
-      # Add the cursor shader to to ghostty config.
-      settings.custom-shader = "${config.xdg.configHome}/ghostty/cursor.glsl";
+      # Add the cursor shader to ghostty config.
+      settings.custom-shader = "${cursorShaders}/cursor_tail.glsl";
     };
 
     # Start Ghostty with a systemd service.
@@ -29,8 +37,6 @@
       Install.WantedBy = ["graphical-session.target"];
     };
 
-    # Put the shader file into the ghostty config dir.
-    xdg.configFile."ghostty/cursor.glsl".source = "${cursorShader}/cursor_tail.glsl";
     # keep-sorted end
   };
 }

@@ -1,7 +1,10 @@
-{
+{self, ...}: {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
+    imports = [self.modules.homeManager.nur];
+
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
+      plugins.tv = pkgs.nur.repos.adam0.yaziPlugins.tv;
+
       # Replace Yazi's builtin jump pickers with television.
       keymap.mgr.prepend_keymap = [
         # keep-sorted start block=yes newline_separated=yes
@@ -18,9 +21,6 @@
         }
         # keep-sorted end
       ];
-
-      plugins.tv = pkgs.nur.repos.adam0.yaziPlugins.tv;
-      # keep-sorted end
     };
   };
 }

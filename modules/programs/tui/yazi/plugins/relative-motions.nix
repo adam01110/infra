@@ -1,7 +1,12 @@
 {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
+      plugins.relative-motions = {
+        package = pkgs.yaziPlugins.relative-motions;
+        setup = true;
+        settings.show_numbers = "relative";
+      };
+
       # Bind number keys to relative-motions steps.
       keymap.mgr.prepend_keymap = [
         # keep-sorted start block=yes numeric=yes newline_separated=yes
@@ -60,11 +65,6 @@
         }
         # keep-sorted end
       ];
-
-      pluginSetupOpts.relative-motions.show_numbers = "relative";
-
-      plugins.relative-motions = pkgs.yaziPlugins.relative-motions;
-      # keep-sorted end
     };
   };
 }

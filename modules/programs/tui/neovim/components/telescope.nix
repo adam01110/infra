@@ -1,13 +1,15 @@
-{
+{self, ...}: {
   flake.modules.homeManager.neovim = {
     # keep-sorted start
-    osConfig,
+    config,
     pkgs,
     # keep-sorted end
     ...
   }: let
-    colors = osConfig.lib.stylix.colors.withHashtag;
+    colors = config.lib.stylix.colors.withHashtag;
   in {
+    imports = [self.modules.homeManager.stylixBase];
+
     nvf.luaConfigPreSnippets = [
       # Install Telescope as the global vim.ui.select provider after UI startup.
       ''

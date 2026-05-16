@@ -1,19 +1,17 @@
 diff --git a/cursor_tail.glsl b/cursor_tail.glsl
-index 5a648cc..6a5379d 100644
+index 5a648cc..53a7a58 100644
 --- a/cursor_tail.glsl
 +++ b/cursor_tail.glsl
-@@ -4,10 +4,10 @@ vec3 sRGBToLinear(vec3 c) {
- }
+@@ -5,9 +5,9 @@ vec3 sRGBToLinear(vec3 c) {
  
  // --- CONFIGURATION ---
--vec4 TRAIL_COLOR = vec4(sRGBToLinear(iCurrentCursorColor.rgb), iCurrentCursorColor.a); // for custom color: vec4(0.2, 0.6, 1.0, 0.5); (wrap in sRGBToLinear for correct brightness)
+ vec4 TRAIL_COLOR = vec4(sRGBToLinear(iCurrentCursorColor.rgb), iCurrentCursorColor.a); // for custom color: vec4(0.2, 0.6, 1.0, 0.5); (wrap in sRGBToLinear for correct brightness)
 -const float DURATION = 0.09; // in seconds
 -const float MAX_TRAIL_LENGTH = 0.2;
 -const float THRESHOLD_MIN_DISTANCE = 1.5; // min distance to show trail (units of cursor width)
-+vec4 TRAIL_COLOR = iCurrentCursorColor; // for custom color: vec4(0.2, 0.6, 1.0, 0.5); (wrap in sRGBToLinear for correct brightness)
 +const float DURATION = 0.2; // in seconds
 +const float MAX_TRAIL_LENGTH = 0.5;
-+const float THRESHOLD_MIN_DISTANCE = 0.0; // min distance to show trail (units of cursor width)
++const float THRESHOLD_MIN_DISTANCE = 0.2; // min distance to show trail (units of cursor width)
  const float BLUR = 2.0; // blur size in pixels (for antialiasing)
  
  // --- CONSTANTS for easing functions ---

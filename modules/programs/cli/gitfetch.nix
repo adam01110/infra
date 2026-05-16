@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.gitfetch = {
     # keep-sorted start
     pkgs,
@@ -7,7 +7,9 @@
   }: let
     inherit (pkgs) gitfetch;
   in {
+    imports = [self.modules.homeManager.shellAbbreviations];
+
     home.packages = [gitfetch];
-    programs.fish.shellAbbrs.gf = "gitfetch";
+    home.shellAbbreviations.gf = "gitfetch";
   };
 }

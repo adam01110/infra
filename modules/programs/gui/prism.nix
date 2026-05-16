@@ -1,10 +1,10 @@
-{
+{self, ...}: {
   flake.modules.homeManager.prism = {
     # keep-sorted start
     config,
     lib,
-    osConfig,
     pkgs,
+    vars,
     # keep-sorted end
     ...
   }: let
@@ -16,10 +16,19 @@
       removeSuffix
       # keep-sorted end
       ;
+    inherit (vars) defaultLocale;
 
     # Reuse the XDG downloads path for launcher-managed downloads.
     downloadsDir = config.xdg.userDirs.download;
+    monospaceFont = config.stylix.fonts.monospace.name;
   in {
+    imports = [
+      # keep-sorted start
+      self.modules.generic.vars
+      self.modules.homeManager.stylixPersonal
+      # keep-sorted end
+    ];
+
     programs.prismlauncher = {
       enable = true;
 
@@ -46,10 +55,9 @@
       };
 
       settings = {
-        # Derive identity and language from host-level configuration.
+        # Derive language from shared regional defaults.
         # keep-sorted start
-        Language = removeSuffix ".UTF-8" osConfig.i18n.defaultLocale;
-        LastHostname = osConfig.networking.hostName;
+        Language = removeSuffix ".UTF-8" defaultLocale;
         UseSystemLocale = true;
         # keep-sorted end
 
@@ -70,6 +78,7 @@
         ConsoleFontSize = 11;
         ConsoleMaxLines = 100000;
         ConsoleOverflowStop = true;
+        Consolefont = monospaceFont;
         # keep-sorted end
 
         # Keep console hidden during normal launches and failures.

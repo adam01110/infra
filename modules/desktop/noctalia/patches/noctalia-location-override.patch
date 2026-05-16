@@ -1,0 +1,66 @@
+diff --git a/Commons/Settings.qml b/Commons/Settings.qml
+--- a/Commons/Settings.qml
++++ b/Commons/Settings.qml
+@@ -32,9 +32,12 @@
+   readonly property string cacheDir: ensureTrailingSlash(Quickshell.env("NOCTALIA_CACHE_DIR") || (Quickshell.env("XDG_CACHE_HOME") || Quickshell.env("HOME") + "/.cache") + "/" + shellName + "/")
+ 
+   readonly property string settingsFile: Quickshell.env("NOCTALIA_SETTINGS_FILE") || (configDir + "settings.json")
++  readonly property string envLocation: (Quickshell.env("NOCTALIA_LOCATION") || "").trim()
++  readonly property string envLocationFile: Quickshell.env("NOCTALIA_LOCATION_FILE") || ""
+   readonly property string defaultAvatar: Quickshell.env("HOME") + "/.face"
+   readonly property string defaultVideosDirectory: Quickshell.env("HOME") + "/Videos"
+   readonly property string defaultWallpapersDirectory: Quickshell.env("HOME") + "/Pictures/Wallpapers"
++  property string fileLocationOverride: ""
+ 
+   signal settingsLoaded
+   signal settingsSaved
+@@ -92,6 +95,18 @@
+     settingsFileView.adapter = adapter;
+   }
+ 
++  function applyLocationOverride() {
++    const locationOverride = (fileLocationOverride || envLocation).trim();
++
++    if (locationOverride === "") {
++      return;
++    }
++
++    if (adapter.location.name !== locationOverride) {
++      adapter.location.name = locationOverride;
++    }
++  }
++
+   // Don't write settings to disk immediately
+   // This avoid excessive IO when a variable changes rapidly (ex: sliders)
+   Timer {
+@@ -135,6 +150,8 @@
+         // Finally, update our local settings version
+         adapter.settingsVersion = settingsVersion;
+ 
++        applyLocationOverride();
++
+         // Emit the signal
+         root.isLoaded = true;
+         root.settingsLoaded();
+@@ -172,6 +189,21 @@
+     onFileChanged: scheduleExternalReload()
+   }
+ 
++  FileView {
++    id: locationOverrideFileView
++    path: envLocationFile !== "" ? envLocationFile : undefined
++    printErrors: false
++    watchChanges: true
++    onLoaded: {
++      root.fileLocationOverride = text().trim();
++      root.applyLocationOverride();
++    }
++    onLoadFailed: {
++      root.fileLocationOverride = "";
++      root.applyLocationOverride();
++    }
++  }
++
+   // FileView to load default settings for comparison
+   FileView {
+     id: defaultSettingsFileView

@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  self,
+  ...
+}: {
   flake-file.inputs = {
     nvf = {
       url = "github:adam01110/nvf?ref=personal";
@@ -25,7 +29,10 @@
 
     cfg = config.nvf;
   in {
-    imports = [inputs.nvf.homeManagerModules.default];
+    imports = [
+      inputs.nvf.homeManagerModules.default
+      self.modules.homeManager.stylixBase
+    ];
 
     options.nvf = {
       # keep-sorted start block=yes newline_separated=yes
@@ -68,6 +75,8 @@
         VISUAL = editor;
         # keep-sorted end
       };
+
+      stylix.targets.nvf.transparentBackground = true;
     };
   };
 }

@@ -65,3 +65,11 @@ TODO tool for that interaction.
 
 If a required tool is unavailable, use shell helpers such as `nix run nixpkgs#<package>` or
 `comma <command>` to access the missing command.
+
+### Prefer shell for file and git operations
+
+- Use bash for simple filesystem operations such as renaming, moving, copying,
+  creating, or deleting files and directories.
+- Use git commands through bash for repository workflows such as porting changes
+  to forks, cherry-picking, applying patches, merging, rebasing, and inspecting
+  branches, remotes, history, or diffs.

@@ -1,8 +1,6 @@
-{lib, ...}: let
-  inherit (lib) mkEnableOption;
-in {
+{self, ...}: {
   flake.modules.nixos.wifi = {
-    options.capabilities.wifi = mkEnableOption "wifi support";
+    imports = [self.modules.nixos.capabilities];
 
     config = {
       capabilities.wifi = true;

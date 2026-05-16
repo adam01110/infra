@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.onefetch = {
     # keep-sorted start
     pkgs,
@@ -7,7 +7,9 @@
   }: let
     inherit (pkgs) onefetch;
   in {
+    imports = [self.modules.homeManager.shellAbbreviations];
+
     home.packages = [onefetch];
-    programs.fish.shellAbbrs.of = "onefetch";
+    home.shellAbbreviations.of = "onefetch";
   };
 }

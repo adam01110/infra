@@ -5,10 +5,7 @@
 }: {
   flake-file.inputs.nixcord = {
     url = "github:kaylorben/nixcord";
-    inputs = {
-      flake-parts.follows = "flake-parts";
-      nixpkgs.follows = "nixpkgs";
-    };
+    inputs.flake-parts.follows = "flake-parts";
   };
 
   flake.modules.homeManager.discord = {config, ...}: {

@@ -5,14 +5,27 @@
 
   inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    eh = {
+      url = "github:NotAShelf/eh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+    ghostty-cursor-shaders = {
+      url = "github:sahaj-b/ghostty-cursor-shaders";
+      flake = false;
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.1";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins?ref=v0.55.0";
+      inputs.hyprland.follows = "hyprland";
     };
     import-tree.url = "github:vic/import-tree";
     millennium = {
@@ -26,12 +39,28 @@
     };
     nixcord = {
       url = "github:kaylorben/nixcord";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+    nixhypr = {
+      url = "github:karol-broda/nixhypr";
       inputs = {
-        flake-parts.follows = "flake-parts";
+        hyprland.follows = "hyprland";
         nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
       };
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.7";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        noctalia-qs.follows = "noctalia-qs";
+      };
+    };
+    noctalia-qs = {
+      url = "github:noctalia-dev/noctalia-qs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur = {
       url = "github:nix-community/NUR";
       inputs = {
@@ -46,9 +75,30 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    overzicht = {
+      url = "github:adam01110/overzicht";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        nur.follows = "nur";
+      };
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";

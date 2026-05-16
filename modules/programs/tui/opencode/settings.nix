@@ -32,12 +32,7 @@
         # keep-sorted end
       };
 
-      tui = {
-        # keep-sorted start
-        diff_style = "stacked";
-        scroll_acceleration.enabled = true;
-        # keep-sorted end
-      };
+      tui.scroll_acceleration.enabled = true;
     };
   };
 }

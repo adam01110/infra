@@ -13,6 +13,8 @@
     # Escape code for fastfetch color formatting.
     esc = fromJSON "\"\\u001b\"";
   in {
+    imports = [self.modules.homeManager.shellAbbreviations];
+
     nixpkgs.overlays = [self.overlays.pkgs];
 
     programs.fastfetch = {
@@ -197,6 +199,6 @@
       };
     };
 
-    programs.fish.shellAbbrs.ff = "fastfetch";
+    home.shellAbbreviations.ff = "fastfetch";
   };
 }

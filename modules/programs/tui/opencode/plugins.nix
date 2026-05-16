@@ -1,6 +1,9 @@
-{
+{self, ...}: {
   flake.modules.homeManager.opencode = {pkgs, ...}: {
-    imports = [pkgs.nur.repos.adam0.hmModules.opencode-plugins];
+    imports = [
+      pkgs.nur.repos.adam0.hmModules.opencode-plugins
+      self.modules.homeManager.nur
+    ];
 
     programs.opencode.plugins = {
       # keep-sorted start

@@ -54,7 +54,7 @@
   mixChannel = alpha: bg: fg: div (bg * (100 - alpha) + fg * alpha) 100;
 in {
   # Select the base0* palette used by nix-userstyles and similar consumers.
-  stylixPalette = osConfig: filterAttrs (name: _: hasPrefix "base0" name) osConfig.lib.stylix.colors;
+  stylixPalette = config: filterAttrs (name: _: hasPrefix "base0" name) config.lib.stylix.colors;
 
   # Blend a hex foreground color toward a hex background color.
   blendHex = alpha: bg: fg: let

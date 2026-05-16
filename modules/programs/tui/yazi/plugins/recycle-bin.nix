@@ -1,7 +1,11 @@
 {
   flake.modules.homeManager.yazi = {pkgs, ...}: {
     programs.yazi = {
-      # keep-sorted start block=yes newline_separated=yes
+      plugins.recycle-bin = {
+        package = pkgs.yaziPlugins.recycle-bin;
+        setup = true;
+      };
+
       # Bind key to open the recycle-bin plugin menu.
       keymap.mgr.prepend_keymap = [
         {
@@ -10,11 +14,6 @@
           desc = "Open Recycle Bin menu";
         }
       ];
-
-      pluginSetupOpts.recycle-bin = {};
-
-      plugins.recycle-bin = pkgs.yaziPlugins.recycle-bin;
-      # keep-sorted end
     };
   };
 }

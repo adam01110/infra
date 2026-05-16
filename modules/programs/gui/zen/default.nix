@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  self,
+  ...
+}: {
   flake-file.inputs = {
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake?ref=beta";
@@ -14,8 +18,11 @@
   flake.modules.homeManager.zen = {
     imports = [
       inputs.zen-browser.homeModules.beta
+      self.modules.homeManager.stylixBase
     ];
 
     programs.zen-browser.enable = true;
+
+    stylix.targets.zen-browser.profileNames = ["default"];
   };
 }

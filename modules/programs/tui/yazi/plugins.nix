@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.yazi = {
     # keep-sorted start
     config,
@@ -7,16 +7,11 @@
     # keep-sorted end
     ...
   }: let
-    inherit
-      (builtins)
-      # keep-sorted start
-      attrValues
-      listToAttrs
-      # keep-sorted end
-      ;
-    inherit (pkgs.lib.attrsets) nameValuePair;
+    inherit (builtins) attrValues;
     inherit (pkgs.lib.generators) mkLuaInline;
   in {
+    imports = [self.modules.homeManager.nur];
+
     programs.yazi = {
       package = pkgs.yazi.override {
         optionalDeps =
@@ -93,35 +88,26 @@
         # Pull packaged tools from the system config when home-manager does not own them.
         ++ [osConfig.services.udisks2.package];
 
-      plugins = let
-        mkPlugin = source: name: nameValuePair name source.${name};
+      # Keep plugins without dedicated modules together here.
+      plugins = {
+        full-border = {
+          package = pkgs.yaziPlugins.full-border;
+          setup = true;
+          settings.type = mkLuaInline "ui.Border.PLAIN";
+        };
 
-        # Keep plugins without dedicated modules together here.
-        # Plugins from nixpkgs.
-        nixpkgsPlugins = [
-          # keep-sorted start
-          "full-border"
-          "git"
-          "starship"
-          # keep-sorted end
-        ];
+        git = pkgs.yaziPlugins.git;
 
-        # Plugins from adam0's nur.
-        adam0Plugins = ["spot"];
-      in
-        listToAttrs (
-          (map (mkPlugin pkgs.yaziPlugins) nixpkgsPlugins)
-          ++ (map (mkPlugin pkgs.nur.repos.adam0.yaziPlugins) adam0Plugins)
-        );
+        spot = {
+          package = pkgs.nur.repos.adam0.yaziPlugins.spot;
+          setup = true;
+          settings.metadata_section.relative_time = false;
+        };
 
-      pluginSetupOpts = {
-        # keep-sorted start newline_separated=yes
-        full-border.type = mkLuaInline "ui.Border.PLAIN";
-
-        spot.metadata_section.relative_time = false;
-
-        starship = {};
-        # keep-sorted end
+        starship = {
+          package = pkgs.yaziPlugins.starship;
+          setup = true;
+        };
       };
     };
   };
