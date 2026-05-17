@@ -41,6 +41,7 @@
   in {
     imports = [
       inputs.nvf.homeManagerModules.default
+      self.modules.homeManager.git
       self.modules.homeManager.stylixBase
     ];
 

@@ -4,6 +4,7 @@
       settings = {
         # Window decoration options including blur and shadow.
         decoration = {
+          border_part_of_window = false;
           rounding = 0;
 
           # keep-sorted start

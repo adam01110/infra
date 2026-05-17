@@ -80,9 +80,11 @@
       # Renderer tweaks.
       render = {
         # keep-sorted start
-        ctm_animation = 0;
-        direct_scanout = 0;
+        new_render_scheduling = true;
+        use_shader_blur_blend = true;
         # keep-sorted end
+
+        ctm_animation = 0;
       };
 
       # Keep xwayland windows scaled correctly.

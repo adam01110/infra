@@ -2,7 +2,12 @@
   flake.modules.homeManager.gh = {vars, ...}: let
     inherit (vars) gitUsername;
   in {
-    imports = [self.modules.generic.vars];
+    imports = [
+      # keep-sorted start
+      self.modules.generic.vars
+      self.modules.homeManager.git
+      # keep-sorted end
+    ];
 
     programs.gh = {
       enable = true;

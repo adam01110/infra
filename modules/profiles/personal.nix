@@ -22,6 +22,9 @@
     imports = with self.modules.homeManager; [
       # Profile common.
       # keep-sorted start
+      env
+      face
+      git
       gtk
       # keep-sorted end
     ];

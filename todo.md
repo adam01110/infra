@@ -47,11 +47,11 @@
 
 ## modules/home/
 
-- [ ] git.nix
+- [x] git.nix
 - [x] gpg.nix
-- [ ] home.nix
+- [x] home.nix
 - [x] sops.nix (moved to modules/nix/sops.nix)
-- [ ] ssh.nix
+- [x] ssh.nix
 
 ## modules/home/cli/
 

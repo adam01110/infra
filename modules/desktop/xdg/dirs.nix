@@ -1,5 +1,7 @@
 {
   flake.modules.homeManager.xdgDirs = _: {
+    home.preferXdgDirectories = true;
+
     xdg.userDirs = {
       enable = true;
 

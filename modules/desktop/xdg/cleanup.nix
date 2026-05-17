@@ -5,6 +5,7 @@
     inherit
       (config.xdg)
       # keep-sorted start
+      cacheHome
       configHome
       dataHome
       stateHome
@@ -29,11 +30,13 @@
       # Rust toolchains.
       # keep-sorted start
       CARGO_HOME = "${dataHome}/cargo";
+      RUFF_CACHE_DIR = "${cacheHome}/ruff";
       RUSTUP_HOME = "${dataHome}/rustup";
       # keep-sorted end
 
       # Javascript toolchains.
       # keep-sorted start
+      BIOME_CONFIG_PATH = "${configHome}/biome/biome.json";
       BUN_INSTALL = "${dataHome}/bun";
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
       # keep-sorted end
