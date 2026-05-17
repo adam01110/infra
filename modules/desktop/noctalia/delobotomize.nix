@@ -10,7 +10,6 @@
     inherit
       (lib)
       # keep-sorted start
-      mkAfter
       mkForce
       mkOption
       optionals
@@ -31,13 +30,6 @@
     options = {
       programs.noctalia-shell = {
         # keep-sorted start block=yes newline_separated=yes
-        # Keep app2unit available for launcher systemd integration.
-        app2unit.package = mkOption {
-          type = types.package;
-          default = pkgs.app2unit;
-          description = "The app2unit package to use when appLauncher. useApp2Unit is enabled.";
-        };
-
         # Keep a base package and overrides for local patches.
         packageOverrides = mkOption {
           type = types.submodule {
@@ -97,15 +89,6 @@
               # keep-sorted end
             ];
         }));
-
-        # Keep app2unit in the shell wrapper path when the launcher expects it.
-        packageOverrides.extraPackages = mkAfter (let
-          # keep-sorted start
-          app2UnitPackage = config.programs.noctalia-shell.app2unit.package;
-          useApp2Unit = config.programs.noctalia-shell.settings.appLauncher.useApp2Unit or false;
-          # keep-sorted end
-        in
-          optionals useApp2Unit [app2UnitPackage]);
         # keep-sorted end
       };
 

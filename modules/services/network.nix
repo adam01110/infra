@@ -2,10 +2,12 @@
   flake.modules.nixos.network = {
     # keep-sorted start
     config,
+    lib,
     vars,
     # keep-sorted end
     ...
   }: let
+    inherit (lib) concatStringsSep;
     inherit (vars) username;
   in {
     imports = [
@@ -32,9 +34,16 @@
         mode = "0440";
         group = "systemd-resolve";
 
-        content = ''
+        content = let
+          secret = config.sops.placeholder;
+        in ''
           [Resolve]
-          DNS=${config.sops.placeholder."dns/${hostname}/dns_1"} ${config.sops.placeholder."dns/${hostname}/dns_2"} ${config.sops.placeholder."dns/${hostname}/dns_3"} ${config.sops.placeholder."dns/${hostname}/dns_4"}
+          DNS=${concatStringsSep " " [
+            secret."dns/${hostname}/dns_1"
+            secret."dns/${hostname}/dns_2"
+            secret."dns/${hostname}/dns_3"
+            secret."dns/${hostname}/dns_4"
+          ]}
         '';
       };
     };

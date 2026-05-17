@@ -11,7 +11,6 @@
   in {
     imports = [
       # keep-sorted start
-      self.modules.homeManager.uwsm
       self.modules.homeManager.xdgTerminal
       # keep-sorted end
     ];
@@ -24,6 +23,8 @@
       settings.appLauncher = {
         # keep-sorted start
         autoPasteClipboard = true;
+        customLaunchPrefix = getExe pkgs.runapp;
+        customLaunchPrefixEnabled = true;
         density = "comfortable";
         enableClipboardHistory = true;
         enableSettingsSearch = false;
@@ -31,7 +32,6 @@
         position = "center";
         showIconBackground = true;
         terminalCommand = getExe config.xdg.terminal-exec.package;
-        useApp2Unit = true;
         # keep-sorted end
       };
       # keep-sorted end

@@ -1,6 +1,6 @@
 {self, ...}: {
   flake-file.inputs = {
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.1";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.2";
 
     nixhypr = {
       url = "github:karol-broda/nixhypr";
@@ -16,10 +16,10 @@
 
   flake.modules.nixos.hyprland = {
     # keep-sorted start
+    
     inputs,
-    pkgs,
+    pkgs, ...
     # keep-sorted end
-    ...
   }: let
     inherit (pkgs.stdenv.hostPlatform) system;
 
@@ -45,10 +45,10 @@
 
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
-    
+    ...,
     config,
     inputs,
-    lib, ...
+    lib
     # keep-sorted end
   }: let
     inherit

@@ -154,10 +154,10 @@
 
 ## modules/home/desktop/hyprland/
 
-- [ ] appearance.nix
+- [x] appearance.nix
 - [x] default.nix
-- [ ] general.nix
-- [ ] gestures.nix
+- [x] general.nix
+- [x] gestures.nix
 - [ ] keybinds.nix
 - [-] monitors.nix
 - [x] plugins.nix
