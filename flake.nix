@@ -28,10 +28,15 @@
       inputs.hyprland.follows = "hyprland";
     };
     import-tree.url = "github:vic/import-tree";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote?ref=v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     millennium = {
       url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=release";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

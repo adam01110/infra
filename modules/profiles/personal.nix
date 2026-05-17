@@ -5,11 +5,13 @@
 
       # Profile common.
       # keep-sorted start
+      home-manager
       locale
       slim
       stylixPersonal
       timezone
       tweaks
+      users
       # keep-sorted end
     ];
 

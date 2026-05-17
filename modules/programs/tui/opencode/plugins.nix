@@ -1,8 +1,10 @@
 {self, ...}: {
   flake.modules.homeManager.opencode = {pkgs, ...}: {
     imports = [
+      # keep-sorted start
       pkgs.nur.repos.adam0.hmModules.opencode-plugins
       self.modules.homeManager.nur
+      # keep-sorted end
     ];
 
     programs.opencode.plugins = {
@@ -12,6 +14,7 @@
       dynamic-context-pruning.enable = true;
       ignore.enable = true;
       lazy-mcp.enable = true;
+      oc-tps.enable = true;
       unmoji.enable = true;
       # keep-sorted end
 

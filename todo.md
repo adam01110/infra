@@ -17,11 +17,11 @@
 
 ## .github/
 
-- [ ] dependabot.yml
+- [-] dependabot.yml
 
 ## .github/workflows/
 
-- [ ] ci.yml
+- [-] ci.yml
 
 ## flake/
 
@@ -204,8 +204,8 @@
 - [x] discord.nix
 - [x] eza.nix
 - [x] gtk.nix
-- [ ] hyprcursor.nix
-- [ ] noctalia.nix
+- [x] hyprcursor.nix
+- [x] noctalia.nix
 - [x] opencode.nix
 - [x] other.nix
 - [x] overzicht.nix
@@ -487,14 +487,14 @@
 
 ## modules/system/
 
-- [ ] default.nix
+- [x] default.nix
 - [ ] disk.nix
 - [x] locale.nix (moved to modules/profiles/locale.nix)
-- [ ] nix.nix
+- [x] nix.nix
 - [x] slim.nix (moved to modules/profiles/slim.nix)
 - [x] sops.nix (moved to modules/nix/sops.nix)
 - [x] tweaks.nix (moved to modules/profiles/tweaks.nix)
-- [ ] user.nix
+- [x] user.nix
 
 ## modules/system/cli/
 
@@ -568,7 +568,7 @@
 - [-] default.nix
 - [x] envfs.nix (moved into the envfs module)
 - [x] external-pkgs.nix
-- [ ] hyprland-plugins.nix
+- [x] hyprland-plugins.nix
 - [-] pkgs.nix
 - [-] superhtml.nix
 - [-] zaread.nix

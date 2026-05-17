@@ -8,4 +8,14 @@
   in {
     nix = inputs.determinate.packages.${system}.default;
   };
+
+  flake.modules.nixos.determinate = {
+    nix.settings = let
+      cache = "https://install.determinate.systems";
+    in {
+      substituters = [cache];
+      trusted-substituters = [cache];
+      trusted-public-keys = ["cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="];
+    };
+  };
 }

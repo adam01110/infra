@@ -174,7 +174,6 @@
         prefixes = ["home-manager"];
       };
 
-      # TODO: Enable after migrating the lanzaboote flake input.
       lanzaboote = {
         rawDoc = mkNixosDoc inputs.lanzaboote.nixosModules.lanzaboote;
         prefixes = ["boot.lanzaboote"];

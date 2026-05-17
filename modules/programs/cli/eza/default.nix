@@ -1,5 +1,13 @@
 {
-  flake.modules.homeManager.eza = _: {
+  flake.modules.homeManager.eza = {
+    # keep-sorted start
+    config,
+    lib,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (lib) getExe;
+  in {
     programs.eza = {
       enable = true;
 
@@ -14,6 +22,16 @@
         "--time-style=long-iso"
         # keep-sorted end
       ];
+    };
+
+    home.shellAliases = let
+      eza = getExe config.programs.eza.package;
+      ezaTree = "${eza} --tree --git-ignore";
+    in {
+      # keep-sorted start
+      lt = ezaTree;
+      tree = ezaTree;
+      # keep-sorted end
     };
   };
 }

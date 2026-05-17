@@ -13,6 +13,16 @@
     };
   };
 
+  flake.modules.nixos.neovim = {
+    nix.settings = let
+      cache = "https://nvf.cachix.org/";
+    in {
+      substituters = [cache];
+      trusted-substituters = [cache];
+      trusted-public-keys = ["nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI="];
+    };
+  };
+
   flake.modules.homeManager.neovim = {
     config,
     lib,

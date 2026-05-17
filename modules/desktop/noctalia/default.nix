@@ -16,6 +16,16 @@
     };
   };
 
+  flake.modules.nixos.noctalia = {
+    nix.settings = let
+      cache = "https://noctalia.cachix.org";
+    in {
+      substituters = [cache];
+      trusted-substituters = [cache];
+      trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
+    };
+  };
+
   flake.modules.homeManager.noctalia = {lib, ...}: let
     inherit (lib) mkEnableOption;
   in {
@@ -29,7 +39,11 @@
       enable = true;
       systemd.enable = true;
 
-      # keep-sorted start
+      # keep-sorted start block=yes newline_separated=yes
+      # Enable calendar support in the flake-provided Noctalia build.
+      packageOverrides.calendarSupport = true;
+
+      # Use the current theming schema.
       settings.templates.enableUserTheming = false;
       # keep-sorted end
     };

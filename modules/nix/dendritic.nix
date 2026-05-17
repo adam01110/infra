@@ -6,7 +6,9 @@
   };
 
   imports = [
-    inputs.flake-parts.flakeModules.modules
+    # keep-sorted start
     inputs.flake-file.flakeModules.dendritic
+    inputs.flake-parts.flakeModules.modules
+    # keep-sorted end
   ];
 }

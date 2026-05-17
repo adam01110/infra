@@ -1,27 +1,25 @@
 {
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
+    config,
     lib,
-    osConfig,
     # keep-sorted end
     ...
   }: let
     inherit (lib) mkForce;
-    colors = osConfig.lib.stylix.colors.withHashtag;
+    colors = config.lib.stylix.colors.withHashtag;
   in {
+    stylix.targets.noctalia-shell.colors.override.withHashtag = with colors; {
+      # keep-sorted start
+      base05 = base06;
+      base0C = base0D;
+      base0D = base0B;
+      base0E = base0A;
+      # keep-sorted end
+    };
+
     programs.noctalia-shell = {
       # keep-sorted start block=yes newline_separated=yes
-      # Write the noctalia color palette to a json file.
-      colors = with colors; {
-        # keep-sorted start
-        mHover = mkForce base0D;
-        mOnSurface = mkForce base06;
-        mPrimary = mkForce base0B;
-        mSecondary = mkForce base0A;
-        mTertiary = mkForce base0D;
-        # keep-sorted end
-      };
-
       # System monitor colors from stylix.
       settings = {
         # keep-sorted start block=yes newline_separated=yes

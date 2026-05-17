@@ -48,8 +48,7 @@
     
     config,
     inputs,
-    lib,
-    pkgs, ...
+    lib, ...
     # keep-sorted end
   }: let
     inherit
@@ -87,24 +86,10 @@
         portalPackage = null;
       };
 
-      # keep-sorted start block=yes newline_separated=yes
-      # Install hyprpicker for the color-pick keybind.
-      home.packages = [pkgs.hyprpicker];
-
-      # Enable hyprcursor theme support.
-      home.pointerCursor.hyprcursor.enable = true;
-
-      # Enable hyprshot for screenshotting with hyprland.
-      programs = {
-        hyprshot.enable = true;
-
-        nixhypr = {
-          enable = true;
-          extraLua = concatStringsSep "\n" cfg.extraLuaSnippets;
-        };
+      programs.nixhypr = {
+        enable = true;
+        extraLua = concatStringsSep "\n" cfg.extraLuaSnippets;
       };
-
-      # keep-sorted end
     };
   };
 }
