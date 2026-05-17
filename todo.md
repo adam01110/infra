@@ -199,7 +199,7 @@
 ## modules/home/desktop/stylix/
 
 - [x] default.nix
-- [ ] delta.nix
+- [x] delta.nix
 - [x] disabled.nix
 - [x] discord.nix
 - [x] eza.nix
