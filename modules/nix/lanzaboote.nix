@@ -6,11 +6,11 @@
 
   flake.modules.nixos.lanzaboote = {
     # keep-sorted start
-    
     inputs,
     lib,
-    pkgs, ...
+    pkgs,
     # keep-sorted end
+    ...
   }: let
     inherit (builtins) attrValues;
     inherit (lib) mkForce;

@@ -1,6 +1,8 @@
 {
+  # keep-sorted start
   inputs,
   self,
+  # keep-sorted end
   ...
 }: let
   lib = inputs.nixpkgs.lib.extend (_final: prev: {

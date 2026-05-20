@@ -1,6 +1,8 @@
 {
+  # keep-sorted start
   inputs,
   self,
+  # keep-sorted end
   ...
 }: {
   flake-file.inputs.tuigreet = {

@@ -1,5 +1,7 @@
-{
-  flake.modules.homeManager.hyprland = {
+{inputs, ...}: {
+  flake.modules.homeManager.hyprland = {lib, ...}: let
+    inherit ((import "${inputs.hyprland}/nix/lib.nix" lib)) toHyprlang;
+  in {
     programs.nixhypr = {
       settings = {
         # Window decoration options including blur and shadow.
@@ -241,8 +243,8 @@
     };
 
     # Style hints for applications that read hypr conf snippets.
-    xdg.configFile."hypr/application-style.conf".text = ''
-      roundness=0
-    '';
+    xdg.configFile."hypr/application-style.conf".text = toHyprlang {} {
+      roundness = 0;
+    };
   };
 }

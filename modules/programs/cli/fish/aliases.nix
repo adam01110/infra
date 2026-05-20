@@ -1,10 +1,10 @@
 {
   flake.modules.homeManager.fish = {
     # keep-sorted start
-    
     lib,
-    pkgs, ...
+    pkgs,
     # keep-sorted end
+    ...
   }: let
     inherit (lib) getExe';
   in {

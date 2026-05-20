@@ -1,11 +1,15 @@
 {
+  # keep-sorted start
   inputs,
   self,
+  # keep-sorted end
   ...
 }: {
   flake.modules.homeManager.spotify = {
+    # keep-sorted start
     config,
     pkgs,
+    # keep-sorted end
     ...
   }: let
     inherit (config.lib.stylix) colors;

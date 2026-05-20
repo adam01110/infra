@@ -6,6 +6,7 @@
       nixpkgs.follows = "nixpkgs";
     };
   };
+
   flake.modules.nixos.nur = {
     imports = [inputs.nur.modules.nixos.default];
   };

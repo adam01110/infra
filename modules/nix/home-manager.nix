@@ -9,8 +9,10 @@
   imports = [inputs.home-manager.flakeModules.home-manager];
 
   flake.modules.nixos.home-manager = {
+    # keep-sorted start
     config,
     vars,
+    # keep-sorted end
     ...
   }: let
     inherit (vars) username;

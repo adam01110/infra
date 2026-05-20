@@ -16,10 +16,10 @@
 
   flake.modules.nixos.hyprland = {
     # keep-sorted start
-    
     inputs,
-    pkgs, ...
+    pkgs,
     # keep-sorted end
+    ...
   }: let
     inherit (pkgs.stdenv.hostPlatform) system;
 
@@ -44,9 +44,11 @@
   };
 
   flake.modules.homeManager.hyprland = {
+    # keep-sorted start
     config,
     inputs,
     lib,
+    # keep-sorted end
     ...
   }: let
     inherit

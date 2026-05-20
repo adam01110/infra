@@ -1,7 +1,9 @@
 {
   flake.modules.homeManager.rumdl = {
+    # keep-sorted start
     config,
     pkgs,
+    # keep-sorted end
     ...
   }: let
     tomlFormat = pkgs.formats.toml {};

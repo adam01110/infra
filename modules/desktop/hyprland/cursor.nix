@@ -1,11 +1,11 @@
 {self, ...}: {
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
-    
     config,
     lib,
-    pkgs, ...
+    pkgs,
     # keep-sorted end
+    ...
   }: let
     inherit (lib) mkForce;
   in {

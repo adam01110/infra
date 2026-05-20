@@ -1,9 +1,9 @@
 {
   # keep-sorted start
-  
   inputs,
-  self, ...
+  self,
   # keep-sorted end
+  ...
 }: {
   flake-file.inputs = {
     hyprland-plugins = {

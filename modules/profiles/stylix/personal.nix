@@ -1,6 +1,8 @@
 {
+  # keep-sorted start
   lib,
   self,
+  # keep-sorted end
   ...
 }: let
   inherit (lib.self) stylixDisabledTargets;

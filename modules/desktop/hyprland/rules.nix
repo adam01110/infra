@@ -1,13 +1,13 @@
 {
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
-    
     config,
     inputs,
     lib,
     osConfig,
-    pkgs, ...
+    pkgs,
     # keep-sorted end
+    ...
   }: let
     inherit
       (lib)

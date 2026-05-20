@@ -1,11 +1,11 @@
 {self, ...}: {
   flake.modules.nixos.users = {
     # keep-sorted start
-    
     config,
     pkgs,
-    vars, ...
+    vars,
     # keep-sorted end
+    ...
   }: let
     inherit
       (vars)

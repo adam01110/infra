@@ -1,6 +1,8 @@
 {
+  # keep-sorted start
   inputs,
   self,
+  # keep-sorted end
   ...
 }: {
   flake-file.inputs = {
@@ -24,8 +26,10 @@
   };
 
   flake.modules.homeManager.neovim = {
+    # keep-sorted start
     config,
     lib,
+    # keep-sorted end
     ...
   }: let
     inherit

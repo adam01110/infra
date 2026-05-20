@@ -1,7 +1,9 @@
 {
   flake.modules.homeManager.television = {
+    # keep-sorted start
     config,
     lib,
+    # keep-sorted end
     ...
   }: let
     inherit

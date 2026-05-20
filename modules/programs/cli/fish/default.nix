@@ -1,8 +1,10 @@
 {
   flake.modules.homeManager.fish = {
+    # keep-sorted start
     config,
     lib,
     pkgs,
+    # keep-sorted end
     ...
   }: let
     inherit

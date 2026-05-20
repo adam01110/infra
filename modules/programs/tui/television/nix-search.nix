@@ -6,8 +6,10 @@
   ...
 }: {
   flake.modules.homeManager.television = {
+    # keep-sorted start
     osConfig,
     pkgs,
+    # keep-sorted end
     ...
   }: let
     inherit (builtins) toJSON;
