@@ -22,7 +22,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.1";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.2";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins?ref=v0.55.0";
       inputs.hyprland.follows = "hyprland";
@@ -88,6 +88,10 @@
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
+    };
+    secrets = {
+      url = "git+ssh://git@github.com/adam01110/secrets.git";
+      flake = false;
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";

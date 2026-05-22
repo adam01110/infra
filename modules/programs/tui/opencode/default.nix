@@ -43,11 +43,11 @@
       env
     );
   in {
-    imports = [
+    imports = with self.modules.homeManager; [
       # keep-sorted start
-      self.modules.homeManager.nur
-      self.modules.homeManager.shellAbbreviations
-      self.modules.homeManager.xdgTerminal
+      nur
+      shellAbbreviations
+      xdgTerminal
       # keep-sorted end
     ];
 
@@ -67,17 +67,14 @@
         postBuild = ''
           wrapProgram $out/bin/opencode \
             ${wrapEnvArgs} \
-            --prefix PATH : ${makeBinPath (attrValues {
-              inherit (pkgs.nur.repos.adam0) modular-mcp;
-              inherit
-                (pkgs)
-                # keep-sorted start
-                libnotify
-                wl-clipboard
-                # keep-sorted end
-                ;
-            }
-            // mcpServers)}
+            --prefix PATH : ${makeBinPath ((with pkgs; [
+              # keep-sorted start
+              libnotify
+              nur.repos.adam0.modular-mcp
+              wl-clipboard
+              # keep-sorted end
+            ])
+            ++ attrValues mcpServers)}
         '';
       };
 

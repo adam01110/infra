@@ -43,11 +43,14 @@
 
     cfg = config.nvf;
   in {
-    imports = [
-      inputs.nvf.homeManagerModules.default
-      self.modules.homeManager.git
-      self.modules.homeManager.stylixBase
-    ];
+    imports =
+      [inputs.nvf.homeManagerModules.default]
+      ++ (with self.modules.homeManager; [
+        # keep-sorted start
+        git
+        stylixBase
+        # keep-sorted end
+      ]);
 
     options.nvf = {
       # keep-sorted start block=yes newline_separated=yes

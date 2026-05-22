@@ -20,9 +20,11 @@
   ];
 in {
   flake.modules.nixos.stylixPersonal = {pkgs, ...}: {
-    imports = [
-      self.modules.nixos.nur
-      self.modules.nixos.stylixBase
+    imports = with self.modules.nixos; [
+      # keep-sorted start
+      nur
+      stylixBase
+      # keep-sorted end
     ];
 
     stylix = {

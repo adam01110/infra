@@ -7,7 +7,6 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
     inherit
       (lib)
       # keep-sorted start
@@ -89,16 +88,13 @@
       };
 
       # Assorted low-level tweaks and helper tools.
-      environment.systemPackages = attrValues {
-        inherit
-          (pkgs)
-          # keep-sorted start
-          bash
-          coreutils
-          hdparm
-          # keep-sorted end
-          ;
-      };
+      environment.systemPackages = with pkgs; [
+        # keep-sorted start
+        bash
+        coreutils
+        hdparm
+        # keep-sorted end
+      ];
 
       # Systemd limits and tmpfiles overrides.
       systemd = {

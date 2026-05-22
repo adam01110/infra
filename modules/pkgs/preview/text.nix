@@ -1,22 +1,12 @@
 _: {
-  perSystem = {pkgs, ...}: let
-    inherit (builtins) attrValues;
-  in {
+  perSystem = {pkgs, ...}: {
     packages.text-preview = pkgs.writeShellApplication {
       # SPDX-License-Identifier: AGPL-3.0-or-later
       name = "text-preview";
-      runtimeInputs =
-        [
-          pkgs.bat
-        ]
-        ++ attrValues {
-          inherit
-            (pkgs)
-            # keep-sorted start
-            file
-            # keep-sorted end
-            ;
-        };
+      runtimeInputs = with pkgs; [
+        file
+        bat
+      ];
       text = ''
         path="''${1-}"
 

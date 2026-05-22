@@ -9,22 +9,24 @@
     ...
   }: let
     inherit (builtins) toJSON;
-    inherit (lib) genAttrs;
+    inherit
+      (lib)
+      # keep-sorted start
+      genAttrs
+      optional
+      # keep-sorted end
+      ;
     inherit (config.lib.file) mkOutOfStoreSymlink;
     inherit (vars) gitUsername;
 
-    inherit
-      (config.xdg)
-      # keep-sorted start
-      stateHome
-      # keep-sorted end
-      ;
+    inherit (config.xdg) stateHome;
+    cfgBattery = config.programs.noctalia-shell.battery.enable;
     videosDir = config.xdg.userDirs.videos;
   in {
-    imports = [
+    imports = with self.modules; [
       # keep-sorted start
-      self.modules.generic.vars
-      self.modules.homeManager.sops
+      generic.vars
+      homeManager.sops
       # keep-sorted end
     ];
 
@@ -49,17 +51,19 @@
             sourceUrl = noctaliaPluginsUrl;
           };
         in
-          genAttrs [
-            # keep-sorted start
-            "github-feed"
-            "kaomoji-provider"
-            "nvim-session-provider"
-            "privacy-indicator"
-            "screen-recorder"
-            "unicode-picker"
-            "web-search"
-            # keep-sorted end
-          ]
+          genAttrs ([
+              # keep-sorted start
+              "github-feed"
+              "kaomoji-provider"
+              "keybind-cheatsheet"
+              "nvim-session-provider"
+              "privacy-indicator"
+              "screen-recorder"
+              "unicode-picker"
+              "web-search"
+              # keep-sorted end
+            ]
+            ++ optional cfgBattery "battery-monitor-plus")
           mkPlugin;
       };
 
@@ -70,6 +74,15 @@
       pluginSettings = {
         # keep-sorted start block=yes newline_separated=yes
         github-feed = mkOutOfStoreSymlink config.sops.templates."noctalia-github-config".path;
+
+        battery-monitor-plus = {
+          # keep-sorted start
+          hideIfNotDetected = false;
+          showPowerInBar = false;
+          showPowerProfiles = true;
+          showTimeInBar = false;
+          # keep-sorted end
+        };
 
         nvim-session-provider.sessionDir = "${stateHome}/nvf/sessions";
 

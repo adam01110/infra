@@ -1,7 +1,5 @@
 {
-  flake.modules.nixos.printing = {pkgs, ...}: let
-    inherit (builtins) attrValues;
-  in {
+  flake.modules.nixos.printing = {pkgs, ...}: {
     services.printing = {
       enable = true;
       # Allow network clients to reach cups.
@@ -11,18 +9,15 @@
       webInterface = false;
 
       # Printer drivers packages.
-      drivers = attrValues {
-        inherit
-          (pkgs)
-          # keep-sorted start
-          foomatic-db-ppds
-          foomatic-db-ppds-withNonfreeDb
-          gutenprint
-          gutenprint-bin
-          splix
-          # keep-sorted end
-          ;
-      };
+      drivers = with pkgs; [
+        # keep-sorted start
+        foomatic-db-ppds
+        foomatic-db-ppds-withNonfreeDb
+        gutenprint
+        gutenprint-bin
+        splix
+        # keep-sorted end
+      ];
 
       # Enable network printer discovery and share local queues by default.
       browsing = true;

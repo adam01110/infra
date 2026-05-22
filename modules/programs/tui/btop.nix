@@ -28,6 +28,8 @@
       else pkgs.btop;
   in {
     options.btop.gpuBackends = mkOption {
+      description = "Select GPU backends to enable in btop.";
+
       type = types.listOf (
         types.enum [
           # keep-sorted start
@@ -37,7 +39,6 @@
         ]
       );
       default = [];
-      description = "Select GPU backends to enable in btop.";
     };
 
     config.programs.btop = {

@@ -10,10 +10,10 @@
     inherit (lib) concatStringsSep;
     inherit (vars) username;
   in {
-    imports = [
+    imports = with self.modules; [
       # keep-sorted start
-      self.modules.generic.vars
-      self.modules.nixos.sops
+      generic.vars
+      nixos.sops
       # keep-sorted end
     ];
 

@@ -11,6 +11,7 @@
   flake.modules.nixos.home-manager = {
     # keep-sorted start
     config,
+    pkgs,
     vars,
     # keep-sorted end
     ...
@@ -23,7 +24,8 @@
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      backupFileExtension = "backup";
+      startAsUserService = true;
+      backupCommand = "${pkgs.trash-cli}/bin/trash";
 
       users.${username} = {
         home = {

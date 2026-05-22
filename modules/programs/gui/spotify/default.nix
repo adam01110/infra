@@ -10,22 +10,17 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.homeManager.spotify = {
-    # keep-sorted start
-    lib,
-    pkgs,
-    # keep-sorted end
-    ...
-  }: let
-    inherit (lib) attrValues;
+  flake.modules.homeManager.spotify = {pkgs, ...}: let
     inherit (pkgs.stdenv.hostPlatform) system;
 
     # Access spicetify-nix packages.
     spicePkgs = inputs.spicetify-nix.legacyPackages.${system};
   in {
     imports = [
+      # keep-sorted start
       inputs.spicetify-nix.homeManagerModules.spicetify
       self.modules.homeManager.nur
+      # keep-sorted end
     ];
 
     programs.spicetify = {
@@ -40,10 +35,9 @@
 
       # keep-sorted start block=yes newline_separated=yes
       # Enable extensions.
-      enabledExtensions = attrValues {
+      enabledExtensions =
         # Extensions from spicetify-nix.
-        inherit
-          (spicePkgs.extensions)
+        (with spicePkgs.extensions; [
           # keep-sorted start
           aiBandBlocker
           betterGenres
@@ -58,29 +52,23 @@
           seekSong
           wikify
           # keep-sorted end
-          ;
-
+        ])
         # Extensions from adam0's nur.
-        inherit
-          (pkgs.nur.repos.adam0.spicetifyExtensions)
+        ++ (with pkgs.nur.repos.adam0.spicetifyExtensions; [
           # keep-sorted start
           moreLyrics
           playlistIcons
           volumePercentage
           # keep-sorted end
-          ;
-      };
+        ]);
 
       # Enable CSS snippets.
-      enabledSnippets = attrValues {
-        inherit
-          (spicePkgs.snippets)
-          # keep-sorted start
-          pointer
-          removeTheArtistsAndCreditsSectionsFromTheSidebar
-          # keep-sorted end
-          ;
-      };
+      enabledSnippets = with spicePkgs.snippets; [
+        # keep-sorted start
+        pointer
+        removeTheArtistsAndCreditsSectionsFromTheSidebar
+        # keep-sorted end
+      ];
       # keep-sorted end
     };
   };

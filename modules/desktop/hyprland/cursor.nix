@@ -9,10 +9,10 @@
   }: let
     inherit (lib) mkForce;
   in {
-    imports = [
+    imports = with self.modules.homeManager; [
       # keep-sorted start
-      self.modules.homeManager.nur
-      self.modules.homeManager.stylixPersonal
+      nur
+      stylixPersonal
       # keep-sorted end
     ];
 

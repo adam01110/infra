@@ -7,7 +7,6 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
     inherit (lib) getExe;
     inherit (lib.generators) mkLuaInline;
 
@@ -124,15 +123,12 @@
     programs.nvf.settings.vim = {
       # keep-sorted start block=yes newline_separated=yes
       # Provide CLI tools consumed by dashboard terminal sections.
-      extraPackages = attrValues {
-        inherit
-          (pkgs)
-          # keep-sorted start
-          dwt1-shell-color-scripts
-          gh-notify
-          # keep-sorted end
-          ;
-      };
+      extraPackages = with pkgs; [
+        # keep-sorted start
+        dwt1-shell-color-scripts
+        gh-notify
+        # keep-sorted end
+      ];
 
       # Global shortcut to reopen the startup dashboard at any time.
       keymaps = [
@@ -315,13 +311,10 @@
             section = "terminal";
             cmd = getExe (pkgs.writeShellApplication {
               name = "dashboard-git-status";
-              runtimeInputs = attrValues {
-                inherit
-                  (pkgs)
-                  gawk
-                  git
-                  ;
-              };
+              runtimeInputs = with pkgs; [
+                gawk
+                git
+              ];
               text = ''
                 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
                   git -c color.status=always status --short --branch --renames \

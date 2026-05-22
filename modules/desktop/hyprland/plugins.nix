@@ -22,9 +22,9 @@
     programs.nixhypr = {
       extraLuaSnippets = [
         ''
-          -- add hyprsplit and configure it.
-          local hs = dofile("${pkgs.nur.repos.adam0.hyprsplit}/init.lua")
-          hs.config({ num_workspaces = 8 })
+          -- Expose hyprsplit for keybind dispatchers.
+          hyprsplit = dofile("${pkgs.nur.repos.adam0.hyprsplit}/init.lua")
+          hyprsplit.config({ num_workspaces = 8 })
         ''
       ];
 

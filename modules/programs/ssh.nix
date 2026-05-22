@@ -8,10 +8,10 @@
   }: let
     inherit (vars) username;
   in {
-    imports = [
+    imports = with self.modules; [
       # keep-sorted start
-      self.modules.generic.vars
-      self.modules.homeManager.sops
+      generic.vars
+      homeManager.sops
       # keep-sorted end
     ];
 

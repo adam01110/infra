@@ -71,9 +71,10 @@
 
     options.programs.nixhypr = {
       extraLuaSnippets = mkOption {
+        description = "Lua snippets concatenated into nixhypr's extraLua.";
+
         type = types.listOf types.lines;
         default = [];
-        description = "Lua snippets concatenated into nixhypr's extraLua.";
       };
     };
 

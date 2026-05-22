@@ -6,7 +6,6 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
     inherit (pkgs) fetchFromGitHub;
     inherit (pkgs.vimUtils) buildVimPlugin;
   in {
@@ -21,16 +20,13 @@
         hash = "sha256-Dq0eahhshmgdrof9eG3rBNm06UCCsjMYNkBs4KE/cEQ=";
       };
 
-      dependencies = attrValues {
-        inherit
-          (pkgs.vimPlugins)
-          # keep-sorted start
-          plenary-nvim
-          sqlite-lua
-          telescope-nvim
-          # keep-sorted end
-          ;
-      };
+      dependencies = with pkgs.vimPlugins; [
+        # keep-sorted start
+        plenary-nvim
+        sqlite-lua
+        telescope-nvim
+        # keep-sorted end
+      ];
 
       meta = with lib; {
         description = "Frecency sorting for all Telescope pickers";

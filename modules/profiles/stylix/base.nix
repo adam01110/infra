@@ -37,7 +37,7 @@ in {
   flake-file.inputs.stylix = {
     url = "github:danth/stylix";
     inputs = {
-      #keep-sorted start
+      # keep-sorted start
       flake-parts.follows = "flake-parts";
       nixpkgs.follows = "nixpkgs";
       nur.follows = "nur";

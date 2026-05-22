@@ -9,11 +9,7 @@
   }: let
     inherit (lib) getExe;
   in {
-    imports = [
-      # keep-sorted start
-      self.modules.homeManager.xdgTerminal
-      # keep-sorted end
-    ];
+    imports = [self.modules.homeManager.xdgTerminal];
 
     programs.noctalia-shell = {
       # keep-sorted start block=yes newline_separated=yes

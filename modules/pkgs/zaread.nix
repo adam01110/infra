@@ -6,7 +6,6 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
     inherit (lib) makeBinPath;
     inherit
       (pkgs)
@@ -29,17 +28,14 @@
         hash = "sha256-4tqi9tvFqB5MZIEluqVmmMWH+hN1c2Jy10C1/iGI6e4=";
       };
 
-      pathAdd = makeBinPath (attrValues {
-        inherit
-          (pkgs)
-          # keep-sorted start
-          libreoffice
-          md2pdf
-          typst
-          zathura
-          # keep-sorted end
-          ;
-      });
+      pathAdd = makeBinPath (with pkgs; [
+        # keep-sorted start
+        libreoffice
+        md2pdf
+        typst
+        zathura
+        # keep-sorted end
+      ]);
 
       nativeBuildInputs = [makeWrapper];
       buildInputs = [bashNonInteractive];

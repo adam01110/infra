@@ -19,9 +19,10 @@
     cfg = config.programs.fish;
   in {
     options.programs.fish.interactiveShellInitSnippets = mkOption {
+      description = "Fish snippets concatenated into interactiveShellInit.";
+
       type = types.listOf types.lines;
       default = [];
-      description = "Fish snippets concatenated into interactiveShellInit.";
     };
 
     config = {

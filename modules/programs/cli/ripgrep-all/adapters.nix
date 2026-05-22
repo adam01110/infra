@@ -6,7 +6,6 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
     inherit (lib) makeBinPath;
     inherit (pkgs) symlinkJoin;
   in {
@@ -20,17 +19,15 @@
         nativeBuildInputs = [pkgs.makeWrapper];
         postBuild = ''
           wrapProgram $out/bin/rga \
-            --prefix PATH : ${makeBinPath (attrValues {
-            inherit
-              (pkgs)
+            --prefix PATH : ${
+            makeBinPath (with pkgs; [
               # keep-sorted start
               csvkit
               fastgron
+              nur.repos.adam0.qq-jfry
               # keep-sorted end
-              ;
-
-            inherit (pkgs.nur.repos.adam0) qq-jfryy;
-          })}
+            ])
+          }
         '';
       };
     };

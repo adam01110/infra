@@ -27,8 +27,8 @@
         # keep-sorted end
 
         # keep-sorted start
-        agent.explore.reasoningEffort = "medium";
-        agent.general.reasoningEffort = "medium";
+        agent.explore.reasoningEffort = "low";
+        agent.general.reasoningEffort = "low";
         # keep-sorted end
       };
 

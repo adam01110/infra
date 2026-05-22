@@ -24,8 +24,9 @@
     options.zen-browser = {
       # keep-sorted start block=yes newline_separated=yes
       commit-space = mkOption {
-        type = types.int;
         description = "Memory threshold (in MiB) at which tabs are unloaded when available commit space is low";
+
+        type = types.int;
       };
 
       travel.enable = mkEnableOption "Enable travel specific preferences.";

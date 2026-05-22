@@ -127,12 +127,8 @@
             }
           ]
           ++ [{id = "KeepAwake";}]
-          # Show the battery widget when enabled.
-          ++ (optional cfgBattery {
-            id = "Battery";
-            showPowerProfiles = true;
-            DisplayMode = "icon-hover";
-          })
+          # Show the plugin battery widget when enabled.
+          ++ (optional cfgBattery {id = "plugin:battery-monitor-plus";})
           ++ [
             {id = "plugin:github-feed";}
 

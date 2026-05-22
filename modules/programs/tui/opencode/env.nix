@@ -1,12 +1,19 @@
 {
   flake.modules.homeManager.opencode = {lib, ...}: let
-    inherit (lib) mkOption types;
+    inherit
+      (lib)
+      # keep-sorted start
+      mkOption
+      types
+      # keep-sorted end
+      ;
     inherit (lib.self) envFlags;
   in {
     options.programs.opencode.env = mkOption {
+      description = "Environment variables set by the wrapped opencode launcher.";
+
       type = types.attrsOf types.anything;
       default = {};
-      description = "Environment variables set by the wrapped opencode launcher.";
     };
 
     config.programs.opencode.env = let

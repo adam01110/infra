@@ -19,8 +19,10 @@
 
   flake.modules.homeManager.zen = {
     imports = [
+      # keep-sorted start
       inputs.zen-browser.homeModules.beta
       self.modules.homeManager.stylixBase
+      # keep-sorted end
     ];
 
     programs.zen-browser.enable = true;

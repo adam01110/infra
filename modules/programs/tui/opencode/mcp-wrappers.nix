@@ -7,7 +7,14 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) getExe mkOption types;
+    inherit
+      (lib)
+      # keep-sorted start
+      getExe
+      mkOption
+      types
+      # keep-sorted end
+      ;
     inherit (pkgs) writeShellApplication;
 
     # keep-sorted start block=yes newline_separated=yes
@@ -35,25 +42,28 @@
     imports = [self.modules.homeManager.sops];
 
     options.programs.opencode.mcpServers = mkOption {
+      description = "MCP server packages added to the wrapped opencode launcher PATH.";
+
       type = types.attrsOf types.package;
       default = {};
-      description = "MCP server packages added to the wrapped opencode launcher PATH.";
     };
 
-    config.programs.opencode.mcpServers = {
-      inherit
+    config = {
+      sops.secrets = {
         # keep-sorted start
-        context7McpWrapper
-        githubMcpServerWrapper
+        "ai/context7_key" = {};
+        "ai/github_access_token" = {};
         # keep-sorted end
-        ;
-    };
+      };
 
-    sops.secrets = {
-      # keep-sorted start
-      "ai/context7_key" = {};
-      "ai/github_access_token" = {};
-      # keep-sorted end
+      programs.opencode.mcpServers = {
+        inherit
+          # keep-sorted start
+          context7McpWrapper
+          githubMcpServerWrapper
+          # keep-sorted end
+          ;
+      };
     };
   };
 }

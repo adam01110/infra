@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = {pkgs, ...}: {
+  flake.modules.homeManager.neovim = _: {
     programs.nvf.settings.vim = {
       # keep-sorted start block=yes newline_separated=yes
       binds = {
@@ -17,12 +17,6 @@
           desc = "Open cheatsheet";
         }
       ];
-
-      lazy.plugins."noCheatSheet.nvim" = {
-        cmd = "Cheatsheet";
-        package = pkgs.nocheatsheet-nvim;
-        setupModule = "nocheatsheet";
-      };
       # keep-sorted end
     };
   };

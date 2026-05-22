@@ -1,18 +1,10 @@
 {
   perSystem = {pkgs, ...}: let
-    inherit (builtins) attrValues;
     inherit (pkgs) writeShellApplication;
   in {
     packages.os-age = writeShellApplication {
       name = "os-age";
-      runtimeInputs = attrValues {
-        inherit
-          (pkgs)
-          # keep-sorted start
-          coreutils
-          # keep-sorted end
-          ;
-      };
+      runtimeInputs = [pkgs.coreutils];
       text = ''
         birth_install="$(stat -c %W /)"
         current="$(date +%s)"

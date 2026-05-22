@@ -10,19 +10,22 @@
     cfg = config.home.shellAbbreviations;
   in {
     options.home.shellAbbreviations = mkOption {
-      default = {};
       description = ''
         Shell abbreviations that expand as fish abbreviations and fall back to
         aliases in shells without native abbreviation support.
       '';
+
       type = types.attrsOf types.str;
+      default = {};
     };
 
     config = {
+      # keep-sorted start
       programs.bash.shellAliases = cfg;
       programs.fish.shellAbbrs = cfg;
       programs.nushell.shellAliases = cfg;
       programs.zsh.shellAliases = cfg;
+      # keep-sorted end
     };
   };
 }

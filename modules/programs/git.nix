@@ -27,11 +27,11 @@
 
     colors = osConfig.lib.stylix.colors.withHashtag;
   in {
-    imports = [
+    imports = with self.mdoules; [
       # keep-sorted start
-      self.modules.generic.vars
-      self.modules.homeManager.sops
-      self.modules.homeManager.ssh
+      generic.vars
+      homeManager.sops
+      homeManager.ssh
       # keep-sorted end
     ];
 
@@ -93,6 +93,7 @@
         options = with colors; {
           true-color = "always";
           line-numbers = true;
+          side-by-side = true;
           syntax-theme = "base16-stylix";
 
           # Let the desktop MIME handler open linked files.

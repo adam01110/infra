@@ -11,7 +11,6 @@
     inherit
       (lib)
       # keep-sorted start
-      attrValues
       getExe
       removeSuffix
       # keep-sorted end
@@ -22,10 +21,10 @@
     downloadsDir = config.xdg.userDirs.download;
     monospaceFont = config.stylix.fonts.monospace.name;
   in {
-    imports = [
+    imports = with self.modules; [
       # keep-sorted start
-      self.modules.generic.vars
-      self.modules.homeManager.stylixPersonal
+      generic.vars
+      homeManager.stylixPersonal
       # keep-sorted end
     ];
 
@@ -41,17 +40,14 @@
         # keep-sorted end
 
         # Specify which Java runtimes to install.
-        jdks = attrValues {
-          inherit
-            (pkgs)
-            # keep-sorted start
-            jdk17
-            jdk21
-            jdk8
-            temurin-bin-25
-            # keep-sorted end
-            ;
-        };
+        jdks = with pkgs; [
+          # keep-sorted start
+          jdk17
+          jdk21
+          jdk8
+          temurin-bin-25
+          # keep-sorted end
+        ];
       };
 
       settings = {

@@ -12,7 +12,6 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
     inherit (lib) mkForce;
   in {
     imports = [inputs.lanzaboote.nixosModules.lanzaboote];
@@ -53,14 +52,11 @@
     };
 
     # Extra packages for lanzaboote.
-    environment.systemPackages = attrValues {
-      inherit
-        (pkgs)
-        # keep-sorted start
-        sbctl
-        tpm2-tss
-        # keep-sorted end
-        ;
-    };
+    environment.systemPackages = with pkgs; [
+      # keep-sorted start
+      sbctl
+      tpm2-tss
+      # keep-sorted end
+    ];
   };
 }

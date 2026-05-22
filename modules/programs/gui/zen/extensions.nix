@@ -1,12 +1,6 @@
 {self, ...}: {
   flake.modules.homeManager.zen = {pkgs, ...}: let
-    inherit
-      (builtins)
-      # keep-sorted start
-      attrValues
-      mapAttrs
-      # keep-sorted end
-      ;
+    inherit (builtins) mapAttrs;
   in {
     imports = [self.modules.homeManager.nur];
 
@@ -14,36 +8,33 @@
     programs.zen-browser.profiles.default.extensions = {
       # Force extensions to be enabled.
       force = true;
-      packages = attrValues {
-        inherit
-          (pkgs.nur.repos.rycee.firefox-addons)
-          # Content blocking.
-          # keep-sorted start
-          consent-o-matic
-          don-t-fuck-with-paste
-          fastforwardteam
-          istilldontcareaboutcookies
-          localcdn
-          sponsorblock
-          ublock-origin
-          # keep-sorted end
-          # Annoyances.
-          # keep-sorted start
-          bitwarden
-          darkreader
-          dearrow
-          indie-wiki-buddy
-          libredirect
-          modrinthify
-          pronoundb
-          return-youtube-dislikes
-          shinigami-eyes
-          translate-web-pages
-          violentmonkey
-          wikiwand-wikipedia-modernized
-          # keep-sorted end
-          ;
-      };
+      packages = with pkgs.nur.repos.rycee.firefox-addons; [
+        # Content blocking.
+        # keep-sorted start
+        consent-o-matic
+        don-t-fuck-with-paste
+        fastforwardteam
+        istilldontcareaboutcookies
+        localcdn
+        sponsorblock
+        ublock-origin
+        # keep-sorted end
+        # Annoyances.
+        # keep-sorted start
+        bitwarden
+        darkreader
+        dearrow
+        indie-wiki-buddy
+        libredirect
+        modrinthify
+        pronoundb
+        return-youtube-dislikes
+        shinigami-eyes
+        translate-web-pages
+        violentmonkey
+        wikiwand-wikipedia-modernized
+        # keep-sorted end
+      ];
     };
 
     # Add extensions not in nur.

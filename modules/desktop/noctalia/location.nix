@@ -22,15 +22,21 @@
 
     cfgLocation = config.programs.noctalia-shell.location.source;
   in {
-    imports = [
+    imports = with self.modules; [
       # keep-sorted start
-      self.modules.generic.vars
-      self.modules.homeManager.sops
+      generic.vars
+      homeManager.sops
       # keep-sorted end
     ];
 
     # Control whether Noctalia reads weather data from autolocation or sops.
     options.programs.noctalia-shell.location.source = mkOption {
+      description = ''
+        Configure the Noctalia location source.
+        Set to "autolocate" to use automatic location detection, or to "sops"
+        to read the location from the `noctalia/location` secret.
+      '';
+
       type = types.nullOr (types.enum [
         # keep-sorted start
         "autolocate"
@@ -38,11 +44,6 @@
         # keep-sorted end
       ]);
       default = "autolocate";
-      description = ''
-        Configure the Noctalia location source.
-        Set to "autolocate" to use automatic location detection, or to "sops"
-        to read the location from the `noctalia/location` secret.
-      '';
     };
 
     config = mkMerge [

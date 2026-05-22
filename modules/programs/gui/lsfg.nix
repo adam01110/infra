@@ -1,16 +1,11 @@
 {
-  flake.modules.nixos.lsfg = {pkgs, ...}: let
-    inherit (builtins) attrValues;
-  in {
+  flake.modules.nixos.lsfg = {pkgs, ...}: {
     # Add lossless scaling linux packages.
-    environment.systemPackages = attrValues {
-      inherit
-        (pkgs)
-        # keep-sorted start
-        lsfg-vk
-        lsfg-vk-ui
-        # keep-sorted end
-        ;
-    };
+    environment.systemPackages = with pkgs; [
+      # keep-sorted start
+      lsfg-vk
+      lsfg-vk-ui
+      # keep-sorted end
+    ];
   };
 }

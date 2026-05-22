@@ -1,19 +1,15 @@
 {
   perSystem = {pkgs, ...}: let
-    inherit (builtins) attrValues;
     inherit (pkgs) writeShellApplication;
   in {
     packages.djvutorga-adapter = writeShellApplication {
       name = "djvutorga";
-      runtimeInputs = attrValues {
-        inherit
-          (pkgs)
-          # keep-sorted start
-          coreutils
-          djvulibre
-          # keep-sorted end
-          ;
-      };
+      runtimeInputs = with pkgs; [
+        # keep-sorted start
+        coreutils
+        djvulibre
+        # keep-sorted end
+      ];
       text = ''
         set -o errtrace -o errexit -o nounset -o pipefail
         [[ "''${TRACE:-0}" == "1" ]] && set -o xtrace

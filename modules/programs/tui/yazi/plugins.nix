@@ -7,7 +7,6 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
     inherit (pkgs.lib.generators) mkLuaInline;
   in {
     imports = [self.modules.homeManager.nur];
@@ -15,20 +14,17 @@
     programs.yazi = {
       package = pkgs.yazi.override {
         optionalDeps =
-          attrValues {
-            inherit
-              (pkgs)
-              # keep-sorted start
-              _7zz
-              chafa
-              ffmpeg
-              imagemagick
-              jq
-              poppler-utils
-              resvg
-              # keep-sorted end
-              ;
-          }
+          (with pkgs; [
+            # keep-sorted start
+            _7zz
+            chafa
+            ffmpeg
+            imagemagick
+            jq
+            poppler-utils
+            resvg
+            # keep-sorted end
+          ])
           # Reuse packages from home-manager modules to avoid duplicate package selections.
           ++ (map (program: config.programs.${program}.package) [
             # keep-sorted start
@@ -40,41 +36,38 @@
 
       # Add runtime helpers for Yazi plugins.
       extraPackages =
-        attrValues {
-          inherit
-            (pkgs)
-            # keep-sorted start
-            _7zz
-            chafa
-            # spot
-            coreutils
-            ffmpeg
-            # preview-epub
-            gnome-epub-thumbnailer
-            imagemagick
-            # spot-image
-            inkscape
-            jq
-            # mediainfo & spot-audio
-            mediainfo
-            poppler-utils
-            resvg
-            # recycle-bin
-            trash-cli
-            # preview-cbz
-            unrar
-            # spot-cbz & preview-cbz
-            unzip
-            # mount
-            util-linux
-            # ucp
-            wl-clipboard
-            # keep-sorted end
-            # faster-piper
-            glow
-            sqlite
-            ;
-        }
+        (with pkgs; [
+          # keep-sorted start
+          _7zz
+          chafa
+          # spot
+          coreutils
+          ffmpeg
+          # preview-epub
+          gnome-epub-thumbnailer
+          imagemagick
+          # spot-image
+          inkscape
+          jq
+          # mediainfo & spot-audio
+          mediainfo
+          poppler-utils
+          resvg
+          # recycle-bin
+          trash-cli
+          # preview-cbz
+          unrar
+          # spot-cbz & preview-cbz
+          unzip
+          # mount
+          util-linux
+          # ucp
+          wl-clipboard
+          # keep-sorted end
+          # faster-piper
+          glow
+          sqlite
+        ])
         # Reuse packages from home-manager modules to avoid duplicate package selections.
         ++ (map (program: config.programs.${program}.package) [
           # keep-sorted start
@@ -90,6 +83,7 @@
 
       # Keep plugins without dedicated modules together here.
       plugins = {
+        # keep-sorted start block=yes newline_separated=yes
         full-border = {
           package = pkgs.yaziPlugins.full-border;
           setup = true;
@@ -108,6 +102,7 @@
           package = pkgs.yaziPlugins.starship;
           setup = true;
         };
+        # keep-sorted end
       };
     };
   };

@@ -32,9 +32,10 @@
     ];
   in {
     options.nvtop.types = mkOption {
+      description = "Choose which GPU types to monitor with nvtop.";
+
       type = types.listOf (types.enum gpuTypes);
       default = [];
-      description = "Choose which GPU types to monitor with nvtop.";
     };
 
     # Override enables multiple gpu backends in single nvtop instance.

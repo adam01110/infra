@@ -1,4 +1,10 @@
 {
+  # keep-sorted start
+  inputs,
+  self,
+  # keep-sorted end
+  ...
+}: {
   flake.modules.homeManager.xdgPortal = {
     # keep-sorted start
     config,
@@ -8,14 +14,23 @@
     ...
   }: let
     inherit (lib) getExe;
+    inherit ((import "${inputs.hyprland}/nix/lib.nix" lib)) toHyprlang;
   in {
-    xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = let
-      terminalCommand = getExe config.xdg.terminal-exec.package;
-    in ''
-      [filechooser]
-      cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
-      env=TERMCMD=${terminalCommand} --title=Termfilechooser
-    '';
+    imports = [self.modules.homeManager.hyprland];
+
+    xdg.configFile = {
+      "xdg-desktop-portal-termfilechooser/config".text = let
+        terminalCommand = getExe config.xdg.terminal-exec.package;
+      in ''
+        [filechooser]
+        cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+        env=TERMCMD=${terminalCommand} --title=Termfilechooser
+      '';
+
+      "hypr/xdph.conf".text = toHyprlang {} {
+        max_fps = 60;
+      };
+    };
   };
 
   flake.modules.nixos.xdgPortal = {
@@ -25,7 +40,6 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
     inherit (lib) mkAfter;
   in {
     # keep-sorted start block=yes newline_separated=yes
@@ -79,15 +93,12 @@
         };
 
         # Provide the gtk and terminal file chooser portals.
-        extraPortals = attrValues {
-          inherit
-            (pkgs)
-            # keep-sorted start
-            xdg-desktop-portal-gtk
-            xdg-desktop-portal-termfilechooser
-            # keep-sorted end
-            ;
-        };
+        extraPortals = with pkgs; [
+          # keep-sorted start
+          xdg-desktop-portal-gtk
+          xdg-desktop-portal-termfilechooser
+          # keep-sorted end
+        ];
         # keep-sorted end
       };
     };

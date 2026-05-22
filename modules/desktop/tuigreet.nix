@@ -28,12 +28,13 @@
       # keep-sorted end
       ;
     inherit (vars) username;
+
     tomlFormat = pkgs.formats.toml {};
   in {
-    imports = [
+    imports = with self.modules; [
       # keep-sorted start
-      self.modules.generic.vars
-      self.modules.nixos.uwsm
+      generic.vars
+      nixos.uwsm
       # keep-sorted end
     ];
 

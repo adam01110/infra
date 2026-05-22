@@ -1,6 +1,5 @@
 {
   perSystem = {pkgs, ...}: let
-    inherit (builtins) attrValues;
     inherit (pkgs.lib) escapeShellArg;
     inherit (pkgs) writeShellApplication;
 
@@ -31,15 +30,12 @@
   in {
     packages.performant-mode = writeShellApplication {
       name = "performant-mode";
-      runtimeInputs = attrValues {
-        inherit
-          (pkgs)
-          # keep-sorted start
-          gawk
-          hyprland
-          # keep-sorted end
-          ;
-      };
+      runtimeInputs = with pkgs; [
+        # keep-sorted start
+        gawk
+        hyprland
+        # keep-sorted end
+      ];
       excludeShellChecks = ["SC2276"];
       text = ''
         get_option_value() {

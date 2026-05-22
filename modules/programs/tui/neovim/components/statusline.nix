@@ -32,7 +32,7 @@
               added = " ";
               modified = " ";
               removed = " ";
-              # keep-sorted ends
+              # keep-sorted end
             };
 
             source = mkLuaInline ''

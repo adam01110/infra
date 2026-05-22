@@ -1,24 +1,20 @@
 {
   perSystem = {pkgs, ...}: let
-    inherit (builtins) attrValues;
     inherit (pkgs) writeShellApplication;
   in {
     packages.systemd-status-preview = writeShellApplication {
       # Share one preview helper across tools that inspect systemd units.
       name = "systemd-status-preview";
-      runtimeInputs = attrValues {
-        inherit
-          (pkgs)
-          # keep-sorted start
-          bat
-          coreutils
-          gawk
-          gnugrep
-          gnused
-          systemd
-          # keep-sorted end
-          ;
-      };
+      runtimeInputs = with pkgs; [
+        # keep-sorted start
+        bat
+        coreutils
+        gawk
+        gnugrep
+        gnused
+        systemd
+        # keep-sorted end
+      ];
       text = ''
         mode="unit"
 

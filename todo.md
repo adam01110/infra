@@ -158,7 +158,7 @@
 - [x] default.nix
 - [x] general.nix
 - [x] gestures.nix
-- [ ] keybinds.nix
+- [x] keybinds.nix
 - [-] monitors.nix
 - [x] plugins.nix
 - [x] rules.nix

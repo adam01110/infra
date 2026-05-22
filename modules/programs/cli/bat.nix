@@ -10,10 +10,10 @@
     inherit (lib) getExe;
     bat = getExe config.programs.bat.package;
   in {
-    imports = [
+    imports = with self.modules.homeManager; [
       # keep-sorted start
-      self.modules.homeManager.fish
-      self.modules.homeManager.nur
+      fish
+      nur
       # keep-sorted end
     ];
 
