@@ -1,7 +1,9 @@
-{
+{self, ...}: {
   flake.modules.homeManager.fzf = {lib, ...}: let
     inherit (lib) mkForce;
   in {
+    imports = [self.modules.homeManager.stylixBase];
+
     programs.fzf = let
       enableShellIntegration = false;
     in {

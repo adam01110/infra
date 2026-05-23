@@ -10,7 +10,7 @@
   in {
     imports = [self.modules.homeManager.stylixBase];
 
-    nvf.luaConfigPreSnippets = [
+    programs.nvf.settings.vim.luaConfigPreSnippets = [
       # Install Telescope as the global vim.ui.select provider after UI startup.
       ''
         vim.api.nvim_create_autocmd("User", {

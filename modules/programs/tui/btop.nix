@@ -9,7 +9,7 @@
   }: let
     inherit (lib) mkOption types;
 
-    inherit (config.btop) gpuBackends;
+    inherit (config.programs.btop) gpuBackends;
     hasCuda = lib.elem "cuda" gpuBackends;
     hasRocm = lib.elem "rocm" gpuBackends;
 
@@ -27,7 +27,7 @@
       then pkgs.btop-rocm
       else pkgs.btop;
   in {
-    options.btop.gpuBackends = mkOption {
+    options.programs.btop.gpuBackends = mkOption {
       description = "Select GPU backends to enable in btop.";
 
       type = types.listOf (

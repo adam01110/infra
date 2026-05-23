@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
@@ -9,10 +9,14 @@
   }: let
     inherit (lib) optional;
 
+    # keep-sorted start
+    cfgBattery = config.programs.noctalia-shell.battery.enable;
     cfgBluetooth = osConfig.capabilities.bluetooth;
     cfgGpu = config.programs.noctalia-shell.systemMonitor.enableGpu;
-    cfgBattery = config.programs.noctalia-shell.battery.enable;
+    # keep-sorted end
   in {
+    imports = [self.modules.homeManager.wiremix];
+
     programs.noctalia-shell.settings.bar = {
       # keep-sorted start
       backgroundOpacity = 1;
@@ -127,7 +131,6 @@
             }
           ]
           ++ [{id = "KeepAwake";}]
-          # Show the plugin battery widget when enabled.
           ++ (optional cfgBattery {id = "plugin:battery-monitor-plus";})
           ++ [
             {id = "plugin:github-feed";}

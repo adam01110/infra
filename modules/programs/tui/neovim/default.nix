@@ -41,7 +41,7 @@
       # keep-sorted end
       ;
 
-    cfg = config.nvf;
+    cfg = config.programs.nvf.settings.vim;
   in {
     imports =
       [inputs.nvf.homeManagerModules.default]
@@ -52,18 +52,18 @@
         # keep-sorted end
       ]);
 
-    options.nvf = {
+    options.programs.nvf.settings.vim = {
       # keep-sorted start block=yes newline_separated=yes
-      borderType = mkOption {
-        type = types.str;
-        default = "single";
-        description = "Border style for Neovim floating UI.";
-      };
-
       luaConfigPreSnippets = mkOption {
         type = types.listOf types.lines;
         default = [];
         description = "Lua snippets concatenated into nvf's luaConfigPre.";
+      };
+
+      ui.borderType = mkOption {
+        type = types.str;
+        default = "single";
+        description = "Border style for Neovim floating UI.";
       };
       # keep-sorted end
     };

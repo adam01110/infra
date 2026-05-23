@@ -7,7 +7,7 @@
     ...
   }: let
     inherit (lib.generators) mkLuaInline;
-    inherit (config.nvf) borderType;
+    inherit (config.programs.nvf.settings.vim.ui) borderType;
   in {
     programs.nvf.settings.vim.notify.nvim-notify = {
       enable = true;

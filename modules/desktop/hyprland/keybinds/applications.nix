@@ -20,8 +20,10 @@ _: {
   in {
     imports = with self.modules.homeManager; [
       # keep-sorted start
+      discord
       ghostty
       noctalia
+      zen
       # keep-sorted end
     ];
 

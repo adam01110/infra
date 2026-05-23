@@ -1,7 +1,7 @@
 {
   flake.modules.homeManager.neovim = {config, ...}: {
     programs.nvf.settings.vim = let
-      inherit (config.nvf) borderType;
+      inherit (config.programs.nvf.settings.vim.ui) borderType;
     in {
       # keep-sorted start block=yes newline_separated=yes
       ui = {

@@ -24,7 +24,12 @@
   }: let
     inherit (vars) username;
   in {
-    imports = [inputs.home-manager.nixosModules.home-manager];
+    imports = [
+      # keep-sorted start
+      inputs.home-manager.nixosModules.home-manager
+      self.modules.generic.vars
+      # keep-sorted end
+    ];
 
     home-manager = {
       useGlobalPkgs = true;

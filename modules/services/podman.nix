@@ -1,27 +1,14 @@
 {self, ...}: {
   flake.modules.nixos.podman = {
     # keep-sorted start
-    config,
-    lib,
     pkgs,
     vars,
     # keep-sorted end
     ...
   }: let
-    inherit
-      (lib)
-      # keep-sorted start
-      mkEnableOption
-      mkIf
-      # keep-sorted end
-      ;
     inherit (vars) username;
-
-    cfgAutoPrune = config.optServices.podman.autoPrune.enable;
   in {
     imports = [self.modules.generic.vars];
-
-    options.optServices.podman.autoPrune.enable = mkEnableOption "Enable podman auto-prune.";
 
     virtualisation = {
       podman = {
@@ -29,18 +16,6 @@
         enable = true;
         # Expose docker-compatible socket for tooling that expects dockerd.
         dockerSocket.enable = true;
-
-        # Clean up unused images/containers regularly.
-        autoPrune = mkIf cfgAutoPrune {
-          enable = true;
-
-          flags = [
-            # keep-sorted start
-            "--all"
-            "--force"
-            # keep-sorted end
-          ];
-        };
       };
 
       # Disable the podman compose warning about external command execution.

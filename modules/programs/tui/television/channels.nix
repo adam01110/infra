@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.television = {
     # keep-sorted start
     config,
@@ -6,6 +6,14 @@
     # keep-sorted end
     ...
   }: {
+    imports = with self.modules.homeManager; [
+      # keep-sorted start
+      bat
+      eza
+      zoxide
+      # keep-sorted end
+    ];
+
     programs.television.package = pkgs.television.withPackages (
       _:
       # Bundle tools that channel commands shell out to.

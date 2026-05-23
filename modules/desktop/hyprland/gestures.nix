@@ -3,6 +3,7 @@
     # keep-sorted start
     config,
     lib,
+    self,
     # keep-sorted end
     ...
   }: let
@@ -23,6 +24,13 @@
 
     cfg = config.programs.nixhypr.touch.enable;
   in {
+    imports =   [
+      # keep-sorted start
+      noctalia
+      overzicht
+      # keep-sorted end
+    ];
+
     options.programs.nixhypr.touch.enable = mkEnableOption "Enable touch-specific configuration";
 
     config = mkIf cfg {

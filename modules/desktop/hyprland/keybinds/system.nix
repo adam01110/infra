@@ -3,6 +3,7 @@ _: {
     # keep-sorted start
     config,
     lib,
+    self,
     # keep-sorted end
     ...
   }: let
@@ -20,7 +21,7 @@ _: {
     overzicht = "${getExe config.programs.overzicht.package} ipc call";
     # keep-sorted end
   in {
-    imports = [
+    imports =   [
       # keep-sorted start
       noctalia
       overzicht

@@ -12,7 +12,7 @@
     imports = [self.modules.homeManager.stylixBase];
 
     # keep-sorted start block=yes newline_separated=yes
-    nvf.luaConfigPreSnippets = [
+    programs.nvf.settings.vim.luaConfigPreSnippets = [
       ''
         function _G.LCB(bufnr, clicks, button, modifiers)
           if button ~= "l" then

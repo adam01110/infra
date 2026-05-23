@@ -16,9 +16,9 @@
       # keep-sorted end
       ;
 
-    cfgTimezone = config.optServices.timezone;
+    cfgTimezone = config.services.timezone;
   in {
-    options.optServices.timezone = mkOption {
+    options.services.timezone = mkOption {
       description = ''
         Configure the system time zone or enable automatic adjustment.
         Set to a time zone string (for example "Europe/Amsterdam") to use a fixed time zone,

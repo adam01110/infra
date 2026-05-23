@@ -27,7 +27,7 @@
 
     colors = osConfig.lib.stylix.colors.withHashtag;
   in {
-    imports = with self.mdoules; [
+    imports = with self.modules; [
       # keep-sorted start
       generic.vars
       homeManager.sops

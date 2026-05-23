@@ -1,5 +1,7 @@
-{
+{self, ...}: {
   flake.modules.homeManager.noctalia = {config, ...}: {
+    imports = [self.modules.homeManager.hyprland];
+
     programs.noctalia-shell.settings.general = let
       # Use sharp corners (no rounding) for consistent design.
       radius = 0;

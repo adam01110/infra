@@ -15,7 +15,12 @@
       # keep-sorted end
       ;
   in {
-    imports = [self.modules.nixos.sops];
+    imports = with self.modules; [
+      # keep-sorted start
+      generic.vars
+      nixos.sops
+      # keep-sorted end
+    ];
 
     # Ensure the user account can be created with a password managed by sops-nix.
     sops.secrets.user_password.neededForUsers = true;

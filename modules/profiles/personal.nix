@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.personal = {
+  flake.modules.nixos.personal = {config, ...}: {
     imports =
       (with self.modules.nixos; [
         # keep-sorted start
@@ -21,7 +21,7 @@
       ])
       ++ [self.modules.generic.determinate];
 
-    disko.devices = self.diskoConfigurations.ext4.disko.devices;
+    disko.devices = (self.diskoConfigurations.ext4 config.disko.disk).disko.devices;
   };
 
   flake.modules.homeManager.personal = {

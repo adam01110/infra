@@ -16,7 +16,12 @@
     inherit (lib) getExe;
     inherit ((import "${inputs.hyprland}/nix/lib.nix" lib)) toHyprlang;
   in {
-    imports = [self.modules.homeManager.hyprland];
+    imports = with self.modules.homeManager; [
+      # keep-sorted start
+      hyprland
+      xdgTerminal
+      # keep-sorted end
+    ];
 
     xdg.configFile = {
       "xdg-desktop-portal-termfilechooser/config".text = let

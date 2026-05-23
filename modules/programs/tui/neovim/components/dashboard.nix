@@ -16,7 +16,7 @@
 
     # keep-sorted start block=yes newline_separated=yes
     # Capture dashboard metrics once so the footer can read cached values.
-    nvf.luaConfigPreSnippets = [
+    programs.nvf.settings.vim.luaConfigPreSnippets = [
       # Cache startup timing and plugin counts after the UI attaches.
       ''
         vim.g.snacks_dashboard_start_ns = vim.uv.hrtime()

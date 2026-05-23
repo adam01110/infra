@@ -9,7 +9,15 @@
   }: let
     inherit (pkgs.lib.generators) mkLuaInline;
   in {
-    imports = [self.modules.homeManager.nur];
+    imports = with self.modules.homeManager; [
+      # keep-sorted start
+      bat
+      fd
+      nur
+      ripgrep
+      television
+      # keep-sorted end
+    ];
 
     programs.yazi = {
       package = pkgs.yazi.override {

@@ -6,7 +6,12 @@
     # keep-sorted end
     ...
   }: {
-    imports = [self.modules.homeManager.stylixPersonal];
+    imports = with self.modules; [
+      # keep-sorted start
+      generic.vars
+      homeManager.stylixPersonal
+      # keep-sorted end
+    ];
 
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes

@@ -21,23 +21,24 @@
   in {
     imports = [self.modules.generic.vars];
 
-    options.zen-browser = {
-      # keep-sorted start block=yes newline_separated=yes
-      commit-space = mkOption {
-        description = "Memory threshold (in MiB) at which tabs are unloaded when available commit space is low";
+    options.programs.zen-browser.profiles = mkOption {
+      type = types.attrsOf (types.submodule {
+        options.preferences = {
+          # keep-sorted start block=yes newline_separated=yes
+          commitSpace = mkOption {
+            description = "Memory threshold (in MiB) at which tabs are unloaded when available commit space is low";
 
-        type = types.int;
-      };
+            type = types.int;
+          };
 
-      travel.enable = mkEnableOption "Enable travel specific preferences.";
-      # keep-sorted end
+          travel.enable = mkEnableOption "Enable travel specific preferences.";
+          # keep-sorted end
+        };
+      });
     };
 
     config.programs.zen-browser.profiles.default.settings = let
-      # keep-sorted start
-      cfgCommitSpace = config.zen-browser.commit-space;
-      cfgTravel = config.zen-browser.travel.enable;
-      # keep-sorted end
+      cfg = config.programs.zen-browser.profiles.default.preferences;
 
       flattenSettings = prefix:
         concatMapAttrs (name: value: let
@@ -78,7 +79,7 @@
           # keep-sorted end
 
           # keep-sorted start
-          low_commit_space_threshold_mb = cfgCommitSpace;
+          low_commit_space_threshold_mb = cfg.commitSpace;
           low_commit_space_threshold_percent = 20;
           # keep-sorted end
 
@@ -399,7 +400,7 @@
 
         network = {
           # keep-sorted start
-          captive-portal-service.enabled = cfgTravel;
+          captive-portal-service.enabled = cfg.travel.enable;
           connectivity-service.enabled = false;
           # keep-sorted end
 

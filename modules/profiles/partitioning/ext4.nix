@@ -6,12 +6,12 @@
 
   imports = [inputs.disko.flakeModules.disko];
 
-  flake.diskoConfigurations.ext4 = {
+  flake.diskoConfigurations.ext4 = disk: {
     disko.devices = {
       disk = {
         main = {
           type = "disk";
-          device = "/dev/nvme0n1";
+          device = disk;
           content = {
             type = "gpt";
             partitions = {
@@ -38,12 +38,8 @@
                     mountpoint = "/";
                     mountOptions = [
                       # #keep-sorted start
-                      "commit=8"
-                      "data=writeback"
                       "defaults"
                       "errors=remount-ro"
-                      "fast_commit"
-                      "journal_async_commit"
                       "noatime"
                       # keep-sorted end
                     ];

@@ -27,6 +27,7 @@
       # keep-sorted start
       generic.vars
       homeManager.sops
+      homeManager.xdgDirs
       # keep-sorted end
     ];
 

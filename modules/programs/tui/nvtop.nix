@@ -31,7 +31,7 @@
       # keep-sorted end
     ];
   in {
-    options.nvtop.types = mkOption {
+    options.programs.nvtop.types = mkOption {
       description = "Choose which GPU types to monitor with nvtop.";
 
       type = types.listOf (types.enum gpuTypes);
@@ -40,7 +40,7 @@
 
     # Override enables multiple gpu backends in single nvtop instance.
     config.home.packages = let
-      selectedTypes = config.nvtop.types;
+      selectedTypes = config.programs.nvtop.types;
     in
       if selectedTypes == []
       then []
