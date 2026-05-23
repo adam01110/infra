@@ -17,7 +17,7 @@
       # keep-sorted end
       ;
   in {
-    options.optTweaks.rcuLazy.enable = mkEnableOption "Enable RCU lazy mode.";
+    options.tweaks.rcuLazy.enable = mkEnableOption "Enable RCU lazy mode.";
 
     config = {
       # keep-sorted start block=yes newline_separated=yes
@@ -37,13 +37,11 @@
 
         # Memory and system tuning for desktop responsiveness.
         kernel.sysctl = {
-          # Prefer compressed swap sooner to keep file cache and anonymous memory flexible.
           # keep-sorted start
           "vm.swappiness" = 100;
           "vm.vfs_cache_pressure" = 50;
           # keep-sorted end
 
-          # Cap dirty data in bytes so writeback starts predictably across ram sizes.
           # keep-sorted start
           "vm.dirty_background_bytes" = 67108864;
           "vm.dirty_bytes" = 268435456;
@@ -51,20 +49,17 @@
           "vm.page-cluster" = 0;
           # keep-sorted end
 
-          # Drop watchdog and console noise that can add scheduler jitter.
           # keep-sorted start
           "kernel.nmi_watchdog" = 0;
           "kernel.printk" = "3 3 3 3";
           "kernel.unprivileged_userns_clone" = 1;
           # keep-sorted end
 
-          # Keep kernel address exposure and kexec locked down despite the performance focus.
           # keep-sorted start
           "kernel.kexec_load_disabled" = 1;
           "kernel.kptr_restrict" = 2;
           # keep-sorted end
 
-          # Leave headroom for heavier desktop and gaming network bursts.
           # keep-sorted start
           "fs.file-max" = 2097152;
           "net.core.netdev_max_backlog" = 4096;
@@ -84,7 +79,7 @@
             "lru_gen=y"
           ]
           # Optionally enable rcu lazy mode for battery life on laptops.
-          ++ optional config.optTweaks.rcuLazy.enable "rcutree.enable_rcu_lazy=1";
+          ++ optional config.tweaks.rcuLazy.enable "rcutree.enable_rcu_lazy=1";
       };
 
       # Assorted low-level tweaks and helper tools.
@@ -98,6 +93,8 @@
 
       # Systemd limits and tmpfiles overrides.
       systemd = {
+        coredump.settings.Coredump.Storage = "journal";
+
         tmpfiles.rules = [
           "e /var/lib/systemd/coredump - - - 3d"
 

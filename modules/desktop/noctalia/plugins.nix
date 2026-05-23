@@ -73,8 +73,6 @@
 
       pluginSettings = {
         # keep-sorted start block=yes newline_separated=yes
-        github-feed = mkOutOfStoreSymlink config.sops.templates."noctalia-github-config".path;
-
         battery-monitor-plus = {
           # keep-sorted start
           hideIfNotDetected = false;
@@ -83,6 +81,8 @@
           showTimeInBar = false;
           # keep-sorted end
         };
+
+        github-feed = mkOutOfStoreSymlink config.sops.templates."noctalia-github-config".path;
 
         nvim-session-provider.sessionDir = "${stateHome}/nvf/sessions";
 

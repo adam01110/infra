@@ -104,7 +104,6 @@
       + "/options.json";
 
     # Keep only sources with stable namespaces.
-    # TODO: This entire list.
     sources = {
       # Home Manager-backed sources.
       # keep-sorted start block=yes newline_separated=yes
@@ -126,7 +125,11 @@
         prefixes = ["programs.nixcord"];
       };
 
-      # TODO: Enable after migrating the noctalia flake input.
+      nixhypr = {
+        rawDoc = mkHomeManagerDoc inputs.nixhypr.homeManagerModules.default;
+        prefixes = ["programs.nixhypr"];
+      };
+
       noctalia = {
         rawDoc = mkHomeManagerDoc inputs.noctalia.homeModules.default;
         prefixes = ["programs.noctalia-shell"];
@@ -165,7 +168,6 @@
 
       # NixOS-backed sources.
       # keep-sorted start block=yes newline_separated=yes
-      # TODO: Enable after migrating the disko flake input.
       disko = {
         rawDoc = mkNixosDoc inputs.disko.nixosModules.disko;
         prefixes = ["disko"];

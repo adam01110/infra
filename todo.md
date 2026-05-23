@@ -488,7 +488,7 @@
 ## modules/system/
 
 - [x] default.nix
-- [ ] disk.nix
+- [x] disk.nix
 - [x] locale.nix (moved to modules/profiles/locale.nix)
 - [x] nix.nix
 - [x] slim.nix (moved to modules/profiles/slim.nix)
@@ -511,7 +511,7 @@
 
 - [x] hyprland.nix (merged into hyprland/default.nix)
 - [x] stylix.nix
-- [ ] tablet.nix
+- [x] tablet.nix
 - [x] tuigreet.nix
 - [x] xdg-portal.nix
 

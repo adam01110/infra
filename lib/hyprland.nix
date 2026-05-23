@@ -60,17 +60,4 @@ in {
   hyprlandGroupNumbers = genList (index: index + 1) 5;
   hyprlandWorkspaceNumbers = genList (index: index + 1) 8;
   # keep-sorted end
-
-  hyprlandResetCursorZoomLua = ''
-    function()
-      hl.config({ cursor = { zoom_factor = 1.0 } })
-    end
-  '';
-
-  hyprlandCursorZoomLua = delta: ''
-    function()
-      local current = hl.get_config("cursor.zoom_factor")
-      hl.config({ cursor = { zoom_factor = math.max(1.0, current + ${delta}) } })
-    end
-  '';
 }

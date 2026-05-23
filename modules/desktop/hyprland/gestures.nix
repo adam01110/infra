@@ -20,10 +20,12 @@
     noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc call";
     overzicht = getExe config.programs.overzicht.package;
     # keep-sorted end
-  in {
-    options.hyprland.touch.enable = mkEnableOption "Enable touch-specific configuration";
 
-    config = mkIf config.hyprland.touch.enable {
+    cfg = config.programs.nixhypr.touch.enable;
+  in {
+    options.programs.nixhypr.touch.enable = mkEnableOption "Enable touch-specific configuration";
+
+    config = mkIf cfg {
       programs.nixhypr = {
         gestures = [
           {

@@ -5,6 +5,10 @@
 
   inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    disko = {
+      url = "github:nix-community/disko?ref=latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     eh = {
       url = "github:NotAShelf/eh";
       inputs.nixpkgs.follows = "nixpkgs";

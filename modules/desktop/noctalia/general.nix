@@ -4,8 +4,7 @@
       # Use sharp corners (no rounding) for consistent design.
       radius = 0;
 
-      # TODO: Replace with actual option.
-      cfgTouch = config.hyprland.touch.enable;
+      cfgTouch = config.programs.nixhypr.touch.enable;
     in {
       # keep-sorted start
       animationSpeed = 2;

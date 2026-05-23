@@ -1,21 +1,27 @@
 {self, ...}: {
   flake.modules.nixos.personal = {
-    imports = with self.modules.nixos; [
-      capabilities
+    imports =
+      (with self.modules.nixos; [
+        # keep-sorted start
+        capabilities
+        disko
+        tmp
+        # keep-sorted end
 
-      # Profile common.
-      # keep-sorted start
-      home-manager
-      locale
-      slim
-      stylixPersonal
-      timezone
-      tweaks
-      users
-      # keep-sorted end
-    ];
+        # Profile common.
+        # keep-sorted start
+        home-manager
+        locale
+        slim
+        stylixPersonal
+        timezone
+        tweaks
+        users
+        # keep-sorted end
+      ])
+      ++ [self.modules.generic.determinate];
 
-    nixpkgs.overlays = [self.overlays.determinate];
+    disko.devices = self.diskoConfigurations.ext4.disko.devices;
   };
 
   flake.modules.homeManager.personal = {
