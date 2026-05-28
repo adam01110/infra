@@ -1,11 +1,5 @@
 {
   perSystem = {pkgs, ...}: let
-    inherit
-      (builtins)
-      # keep-sorted start
-      filter
-      # keep-sorted end
-      ;
     inherit (pkgs) buildFHSEnv;
 
     # Slim lutris provides minimal lutris with essential dependencies.
@@ -182,11 +176,8 @@
           ])
           ++ xorgDeps pkgs
           ++ gstreamerDeps pkgs;
-
-        # Keep Lutris building while upstream openldap checks fail here.
-        customLdap = pkgs.openldap.overrideAttrs (_: {doCheck = false;});
       in
-        filter (p: (p.pname or "") != "openldap") originalPkgs ++ [customLdap];
+        originalPkgs;
 
       extraInstallCommands = ''
         mkdir -p $out/share

@@ -1,12 +1,10 @@
-{self, ...}: {
+{
   flake.modules.homeManager.noctalia = {config, ...}: {
-    imports = [self.modules.homeManager.hyprland];
-
     programs.noctalia-shell.settings.general = let
       # Use sharp corners (no rounding) for consistent design.
       radius = 0;
 
-      cfgTouch = config.programs.nixhypr.touch.enable;
+      cfgTouch = config.programs.nixhypr.touch.enable or false;
     in {
       # keep-sorted start
       animationSpeed = 2;

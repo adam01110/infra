@@ -1,9 +1,9 @@
 {
-  flake.modules.homeManager.polkit = _: {
+  flake.modules.homeManager.polkit = {
     services.polkit-gnome.enable = true;
   };
 
-  flake.modules.nixos.polkit = _: {
+  flake.modules.nixos.polkit = {
     security.polkit.enable = true;
   };
 }

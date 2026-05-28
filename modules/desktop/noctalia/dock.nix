@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia = _: {
+  flake.modules.homeManager.noctalia = {
     programs.noctalia-shell.settings.dock = {
       # keep-sorted start
       backgroundOpacity = 0.95;

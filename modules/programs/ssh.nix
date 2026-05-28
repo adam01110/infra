@@ -40,9 +40,9 @@
       enableDefaultConfig = false;
 
       # Dedicate a key for github traffic to keep identities separate.
-      matchBlocks."github.com" = {
-        hostname = "github.com";
-        identityFile = "~/.ssh/git";
+      settings."github.com" = {
+        HostName = "github.com";
+        IdentityFile = "~/.ssh/git";
       };
 
       # Pull in the sops-generated server host.

@@ -25,8 +25,6 @@
 
     pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
   in {
-    imports = [self.modules.nixos.uwsm];
-
     nixpkgs.overlays = [self.overlays.hyprland];
 
     programs.hyprland = {
@@ -43,40 +41,13 @@
     };
   };
 
-  flake.modules.homeManager.hyprland = {
-    # keep-sorted start
-    config,
-    inputs,
-    lib,
-    # keep-sorted end
-    ...
-  }: let
-    inherit
-      (lib)
+  flake.modules.homeManager.hyprland = {self, ...}: {
+    imports = with self.modules.homeManager; [
       # keep-sorted start
-      concatStringsSep
-      mkOption
-      types
-      # keep-sorted end
-      ;
-
-    cfg = config.programs.nixhypr;
-  in {
-    imports = [
-      # keep-sorted start
-      inputs.nixhypr.homeManagerModules.default
-      self.modules.homeManager.uwsm
+      nixhypr
+      uwsm
       # keep-sorted end
     ];
-
-    options.programs.nixhypr = {
-      extraLuaSnippets = mkOption {
-        description = "Lua snippets concatenated into nixhypr's extraLua.";
-
-        type = types.listOf types.lines;
-        default = [];
-      };
-    };
 
     config = {
       wayland.windowManager.hyprland = {
@@ -87,10 +58,7 @@
         portalPackage = null;
       };
 
-      programs.nixhypr = {
-        enable = true;
-        extraLua = concatStringsSep "\n" cfg.extraLuaSnippets;
-      };
+      programs.nixhypr.enable = true;
     };
   };
 }

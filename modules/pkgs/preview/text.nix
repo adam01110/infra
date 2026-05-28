@@ -1,4 +1,4 @@
-_: {
+{
   perSystem = {pkgs, ...}: {
     packages.text-preview = pkgs.writeShellApplication {
       # SPDX-License-Identifier: AGPL-3.0-or-later

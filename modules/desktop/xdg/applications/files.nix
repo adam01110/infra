@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.xdgApplications = _: {
+  flake.modules.homeManager.xdgApplications = {
     xdg.mimeApps.defaultApplications = {
       # keep-sorted start
       "application/x-modrinth-modpack+zip" = "org.prismlauncher.PrismLauncher.desktop";

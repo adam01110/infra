@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.discord = _: {
+  flake.modules.homeManager.discord = {
     programs.nixcord = {
       # Write main equibop configuration.
       config = {

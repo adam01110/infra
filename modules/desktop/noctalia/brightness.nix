@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia = _: {
+  flake.modules.homeManager.noctalia = {
     programs.noctalia-shell.settings.brightness = {
       # keep-sorted start
       enableDdcSupport = true;

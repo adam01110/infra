@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = _: {
+  flake.modules.homeManager.neovim = {
     programs.nvf.settings.vim = {
       keymaps = [
         # keep-sorted start block=yes newline_separated=yes

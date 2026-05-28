@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.mangohud = _: {
+  flake.modules.homeManager.mangohud = {
     programs.mangohud = {
       enable = true;
 

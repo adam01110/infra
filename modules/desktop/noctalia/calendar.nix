@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia = _: {
+  flake.modules.homeManager.noctalia = {
     programs.noctalia-shell = {
       # Enable calendar support in the flake-provided Noctalia build.
       packageOverrides.calendarSupport = true;

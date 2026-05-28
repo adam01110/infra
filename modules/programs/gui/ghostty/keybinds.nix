@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ghostty = _: {
+  flake.modules.homeManager.ghostty = {
     programs.ghostty.settings.keybind = [
       # keep-sorted start
       "alt+f4=unbind"

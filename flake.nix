@@ -46,6 +46,15 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-userstyles = {
+      url = "github:adam01110/nix-userstyles";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.flake-parts.follows = "flake-parts";

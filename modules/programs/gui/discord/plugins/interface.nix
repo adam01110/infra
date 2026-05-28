@@ -1,12 +1,11 @@
 {self, ...}: {
   flake.modules.homeManager.discord = {
     # keep-sorted start
-    config,
     lib,
     # keep-sorted end
     ...
   }: let
-    inherit (lib) fromHexString mkEnableOption;
+    inherit (lib) mkEnableOption;
   in
     # Interface and layout related plugins.
     {
@@ -104,25 +103,6 @@
         platformSpoofer.enable = true;
 
         previewMessage.enable = true;
-
-        questify = {
-          enable = true;
-          # keep-sorted start
-          completeGameQuestsInBackground = true;
-          completeVideoQuestsInBackground = true;
-          # keep-sorted end
-          fetchingQuestsInterval = 0;
-          # keep-sorted start
-          questButtonDisplay = "never";
-          questButtonUnclaimed = "none";
-          # keep-sorted end
-          # keep-sorted start
-          restyleQuestsClaimed = fromHexString config.lib.stylix.colors.base0E;
-          restyleQuestsExpired = fromHexString config.lib.stylix.colors.base00;
-          restyleQuestsIgnored = fromHexString config.lib.stylix.colors.base08;
-          restyleQuestsUnclaimed = fromHexString config.lib.stylix.colors.base0D;
-          # keep-sorted end
-        };
 
         readAllNotificationsButton.enable = true;
 

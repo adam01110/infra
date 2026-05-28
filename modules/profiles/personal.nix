@@ -1,37 +1,39 @@
 {self, ...}: {
   flake.modules.nixos.personal = {config, ...}: {
-    imports =
-      (with self.modules.nixos; [
-        # keep-sorted start
-        capabilities
-        disko
-        tmp
-        # keep-sorted end
+    imports = with self.modules;
+      [generic.determinate]
+      ++ (with nixos; [
+        base
 
-        # Profile common.
         # keep-sorted start
-        home-manager
-        locale
-        slim
+        appimage
+        hyprland
+        java
+        noctalia
+        pipewire
+        polkit
+        power-profiles-daemon
         stylixPersonal
-        timezone
-        tweaks
-        users
+        tuigreet
+        upower
+        xdgPortal
         # keep-sorted end
-      ])
-      ++ [self.modules.generic.determinate];
+      ]);
 
-    disko.devices = (self.diskoConfigurations.ext4 config.disko.disk).disko.devices;
+    disko.devices = (self.diskoConfigurations.ext4 config.disko.selectedDisk).disko.devices;
   };
 
   flake.modules.homeManager.personal = {
     imports = with self.modules.homeManager; [
-      # Profile common.
+      base
+
       # keep-sorted start
       env
       face
       git
       gtk
+      hyprland
+      nvtop
       # keep-sorted end
     ];
   };

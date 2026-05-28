@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.uwsm = {pkgs, ...}: {
     programs.uwsm.package = pkgs.uwsm.override {uuctlSupport = false;};
   };

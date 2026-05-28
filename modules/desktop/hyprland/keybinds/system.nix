@@ -1,9 +1,8 @@
-_: {
+{
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
     config,
     lib,
-    self,
     # keep-sorted end
     ...
   }: let
@@ -21,13 +20,6 @@ _: {
     overzicht = "${getExe config.programs.overzicht.package} ipc call";
     # keep-sorted end
   in {
-    imports =   [
-      # keep-sorted start
-      noctalia
-      overzicht
-      # keep-sorted end
-    ];
-
     config.programs.nixhypr.bindGroups = [
       (mkNixhyprBindGroup "System" [
         # keep-sorted start block=yes newline_separated=yes

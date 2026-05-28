@@ -1,4 +1,4 @@
-_: {
+{
   perSystem = {pkgs, ...}: {
     packages.man-preview = pkgs.writeShellApplication {
       name = "man-preview";

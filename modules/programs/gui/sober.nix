@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.homeManager.sober = _: let
+  flake.modules.homeManager.sober = let
     pkg = "org.vinegarhq.Sober";
   in {
     imports = [self.modules.homeManager.flatpak];

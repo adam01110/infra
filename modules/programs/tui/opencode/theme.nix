@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.homeManager.opencode = _: {
+  flake.modules.homeManager.opencode = {
     imports = [self.modules.homeManager.stylixBase];
 
     # Keep the opencode background transparent to match stylix.

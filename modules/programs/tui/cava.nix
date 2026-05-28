@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.homeManager.cava = _: {
+  flake.modules.homeManager.cava = {
     imports = [self.modules.homeManager.stylixBase];
 
     programs.cava = {

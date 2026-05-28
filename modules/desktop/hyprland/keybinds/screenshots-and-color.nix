@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
     config,

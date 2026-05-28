@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.television = _: {
+  flake.modules.homeManager.television = {
     programs.television.settings = let
       # Use minimal box borders to match the rest of the terminal theme.
       borderType = "plain";

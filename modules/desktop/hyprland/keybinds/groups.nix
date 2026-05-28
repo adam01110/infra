@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.homeManager.hyprland = {lib, ...}: let
     inherit (lib) concatLists;
     inherit

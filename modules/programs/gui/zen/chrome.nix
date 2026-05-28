@@ -1,4 +1,18 @@
 {self, ...}: {
+  flake-file.inputs = {
+    nix-userstyles = {
+      url = "github:adam01110/nix-userstyles";
+      inputs = {
+        # keep-sorted start
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+        # keep-sorted end
+      };
+    };
+  };
+
   flake.modules.homeManager.zen = {
     # keep-sorted start
     config,

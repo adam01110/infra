@@ -1,9 +1,8 @@
-_: {
+{
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
     config,
     lib,
-    self,
     # keep-sorted end
     ...
   }: let
@@ -21,8 +20,6 @@ _: {
 
     noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc call";
   in {
-    imports = [self.modules.homeManager.noctalia];
-
     options.hyprland.brightness.enable = mkEnableOption "function-row brightness keybindings";
 
     config.programs.nixhypr.bindGroups = [

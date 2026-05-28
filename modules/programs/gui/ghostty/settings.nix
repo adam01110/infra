@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ghostty = _: {
+  flake.modules.homeManager.ghostty = {
     programs.ghostty.settings = {
       # Font settings.
       font-feature = "-calt, -liga, -dlig";

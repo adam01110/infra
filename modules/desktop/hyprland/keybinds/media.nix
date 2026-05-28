@@ -1,9 +1,8 @@
-_: {
+{
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
     config,
     lib,
-    self,
     # keep-sorted end
     ...
   }: let
@@ -12,8 +11,6 @@ _: {
 
     noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc call";
   in {
-    imports = [self.modules.homeManager.noctalia];
-
     config.programs.nixhypr.bindGroups = [
       (mkNixhyprBindGroup "Media" [
         # keep-sorted start block=yes newline_separated=yes

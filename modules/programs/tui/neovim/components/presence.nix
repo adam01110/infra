@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = _: {
+  flake.modules.homeManager.neovim = {
     # Discord rich presence via cord.nvim.
     programs.nvf.settings.vim.presence.cord-nvim = {
       enable = true;

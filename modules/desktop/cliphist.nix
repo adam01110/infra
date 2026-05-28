@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.cliphist = _: {
+  flake.modules.homeManager.cliphist = {
     services.cliphist.enable = true;
   };
 }

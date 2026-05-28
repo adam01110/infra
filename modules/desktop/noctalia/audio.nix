@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia = _: {
+  flake.modules.homeManager.noctalia = {
     programs.noctalia-shell.settings.audio = {
       # keep-sorted start
       cavaFrameRate = 60;

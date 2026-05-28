@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.yazi = _: let
+  flake.modules.homeManager.yazi = let
     # Memory allocation for image previews in megabytes.
     imageAllocMB = 1024;
   in {

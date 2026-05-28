@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.discord = _: {
+  flake.modules.homeManager.discord = {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
       dragify.enable = true;

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.starship = _: {
+  flake.modules.homeManager.starship = {
     programs.starship.settings = {
       # keep-sorted start block=yes newline_separated=yes
       fossil_branch = {

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = _: {
+  flake.modules.homeManager.neovim = {
     programs.nvf.settings.vim.git = {
       # keep-sorted start block=yes newline_separated=yes
       git-conflict.enable = true;

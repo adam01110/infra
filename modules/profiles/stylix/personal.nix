@@ -1,11 +1,5 @@
-{
-  # keep-sorted start
-  lib,
-  self,
-  # keep-sorted end
-  ...
-}: let
-  inherit (lib.self) stylixDisabledTargets;
+{self, ...}: let
+  inherit (self.lib.self) stylixDisabledTargets;
 
   disabledHomeTargets = stylixDisabledTargets [
     # keep-sorted start
@@ -20,6 +14,8 @@
   ];
 in {
   flake.modules.nixos.stylixPersonal = {pkgs, ...}: {
+    key = "infra-nixos-stylixPersonal";
+
     imports = with self.modules.nixos; [
       # keep-sorted start
       nur
@@ -70,6 +66,8 @@ in {
   };
 
   flake.modules.homeManager.stylixPersonal = {
+    key = "infra-homeManager-stylixPersonal";
+
     imports = [self.modules.homeManager.stylixBase];
 
     stylix = {

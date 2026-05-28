@@ -1,5 +1,5 @@
-{pkgs, ...}: {
-  flake.modules.homeManager.hyprland = {
+{
+  flake.modules.homeManager.hyprland = {pkgs, ...}: {
     home.packages = [pkgs.hyprpicker];
   };
 }

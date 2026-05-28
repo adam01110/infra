@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = _: {
+  flake.modules.homeManager.neovim = {
     programs.nvf.settings.vim.autocomplete.blink-cmp = {
       enable = true;
       friendly-snippets.enable = true;

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia = _: {
+  flake.modules.homeManager.noctalia = {
     programs.noctalia-shell.settings.sessionMenu = {
       # keep-sorted start
       countdownDuration = 8000;

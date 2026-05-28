@@ -1,6 +1,5 @@
 {
   # keep-sorted start
-  lib,
   self,
   # keep-sorted end
   ...
@@ -8,6 +7,7 @@
   flake.modules.homeManager.git = {
     # keep-sorted start
     config,
+    lib,
     osConfig,
     pkgs,
     vars,
