@@ -3,9 +3,12 @@
     inherit (vars) gitUsername;
   in {
     imports = with self.modules; [
-      # keep-sorted start
+      # keep-sorted start block=yes
       generic.vars
-      homeManager.git
+      {
+        key = "homeManager-git";
+        imports = [homeManager.git];
+      }
       # keep-sorted end
     ];
 

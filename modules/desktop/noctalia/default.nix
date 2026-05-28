@@ -37,7 +37,12 @@
   flake.modules.homeManager.noctalia = {lib, ...}: let
     inherit (lib) mkEnableOption;
   in {
-    imports = [inputs.noctalia.homeModules.default];
+    imports = [
+      # keep-sorted start
+      inputs.noctalia.homeModules.default
+      self.modules.homeManager.cliphist
+      # keep-sorted end
+    ];
 
     # Expose an enable toggle for battery widgets.
     options.programs.noctalia-shell.battery.enable = mkEnableOption "Enable the battery service & widgets.";

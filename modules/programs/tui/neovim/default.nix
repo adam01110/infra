@@ -46,9 +46,12 @@
     imports =
       [inputs.nvf.homeManagerModules.default]
       ++ (with self.modules.homeManager; [
-        # keep-sorted start
-        git
+        # keep-sorted start block=yes
         stylixBase
+        {
+          key = "homeManager-git";
+          imports = [git];
+        }
         # keep-sorted end
       ]);
 

@@ -21,7 +21,12 @@
       name: (monitors.${name}.position or null) == "0x0"
     ) (attrNames monitors);
   in {
-    imports = [self.modules.homeManager.hyprland];
+    imports = [
+      {
+        key = "homeManager-hyprland";
+        imports = [self.modules.homeManager.hyprland];
+      }
+    ];
 
     config = mkIf (candidates != []) {
       programs.nixhypr.devices = [

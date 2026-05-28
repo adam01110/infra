@@ -15,8 +15,6 @@
   flake.modules.homeManager.hyprland = {pkgs, ...}: {
     imports = [self.modules.homeManager.nur];
 
-    nixpkgs.overlays = [self.overlays.hyprland-plugins];
-
     wayland.windowManager.hyprland.plugins = [pkgs.hyprlandPlugins.hyprfocus];
 
     programs.nixhypr = {

@@ -11,9 +11,12 @@
     bat = getExe config.programs.bat.package;
   in {
     imports = with self.modules.homeManager; [
-      # keep-sorted start
-      fish
+      # keep-sorted start block=yes
       nur
+      {
+        key = "homeManager-fish";
+        imports = [fish];
+      }
       # keep-sorted end
     ];
 

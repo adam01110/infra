@@ -8,7 +8,6 @@
     ...
   }: {
     imports = [self.modules.homeManager.zathura];
-    nixpkgs.overlays = [self.overlays.pkgs];
 
     # keep-sorted start block=yes newline_separated=yes
     home.packages = [pkgs.zaread];

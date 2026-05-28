@@ -2,7 +2,7 @@
   inherit (lib) mkEnableOption;
 in {
   flake.modules.nixos.capabilities = {
-    key = "infra-nixos-capabilities";
+    key = "nixos-capabilities";
 
     options.capabilities = {
       # keep-sorted start

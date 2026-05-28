@@ -11,10 +11,16 @@
     inherit (lib.self) mkNixhyprBindGroup;
   in {
     imports = with self.modules.homeManager; [
-      # keep-sorted start
-      discord
+      # keep-sorted start block=yes
       ghostty
-      zen
+      {
+        key = "homeManager-discord";
+        imports = [discord];
+      }
+      {
+        key = "homeManager-zen";
+        imports = [zen];
+      }
       # keep-sorted end
     ];
 

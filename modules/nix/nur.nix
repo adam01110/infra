@@ -12,6 +12,5 @@
   };
 
   flake.modules.homeManager.nur = {
-    imports = [inputs.nur.modules.homeManager.default];
   };
 }

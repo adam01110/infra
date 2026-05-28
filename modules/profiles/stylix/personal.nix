@@ -14,7 +14,7 @@
   ];
 in {
   flake.modules.nixos.stylixPersonal = {pkgs, ...}: {
-    key = "infra-nixos-stylixPersonal";
+    key = "nixos-stylixPersonal";
 
     imports = with self.modules.nixos; [
       # keep-sorted start
@@ -66,7 +66,7 @@ in {
   };
 
   flake.modules.homeManager.stylixPersonal = {
-    key = "infra-homeManager-stylixPersonal";
+    key = "homeManager-stylixPersonal";
 
     imports = [self.modules.homeManager.stylixBase];
 

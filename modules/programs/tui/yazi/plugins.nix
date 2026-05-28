@@ -10,12 +10,15 @@
     inherit (pkgs.lib.generators) mkLuaInline;
   in {
     imports = with self.modules.homeManager; [
-      # keep-sorted start
+      # keep-sorted start block=yes
       bat
       fd
       nur
       ripgrep
-      television
+      {
+        key = "homeManager-television";
+        imports = [television];
+      }
       # keep-sorted end
     ];
 

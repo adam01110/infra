@@ -2,7 +2,12 @@
   flake.modules.homeManager.atuin = {config, ...}: let
     inherit (config.xdg) cacheHome;
   in {
-    imports = [self.modules.homeManager.fish];
+    imports = [
+      {
+        key = "homeManager-fish";
+        imports = [self.modules.homeManager.fish];
+      }
+    ];
 
     programs.atuin = let
       logLevel = "error";

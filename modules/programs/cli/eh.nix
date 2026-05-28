@@ -19,12 +19,18 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) getExe;
+    inherit
+      (lib)
+      # keep-sorted start
+      getExe
+      getExe'
+      # keep-sorted end
+      ;
     inherit (pkgs) writeShellApplication;
 
     # keep-sorted start
     eh = getExe pkgs.eh;
-    nix = getExe pkgs.nix;
+    nix = getExe' pkgs.nix "nix";
     # keep-sorted end
 
     nixWrapper = writeShellApplication {
@@ -46,9 +52,11 @@
       '';
     };
   in {
-    nixpkgs.overlays = [self.overlays.eh];
-
     home.packages = [pkgs.eh nixWrapper];
+  };
+
+  flake.modules.nixos.eh = {
+    nixpkgs.overlays = [self.overlays.eh];
   };
 
   flake.overlays.eh = final: _prev: let

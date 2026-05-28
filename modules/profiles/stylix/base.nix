@@ -1,6 +1,7 @@
 {inputs, ...}: let
   stylixConfig = {
     enable = true;
+    enableReleaseChecks = false;
     autoEnable = false;
 
     polarity = "dark";
@@ -46,7 +47,7 @@ in {
   };
 
   flake.modules.nixos.stylixBase = {
-    key = "infra-nixos-stylixBase";
+    key = "nixos-stylixBase";
 
     imports = [inputs.stylix.nixosModules.stylix];
 
@@ -58,7 +59,7 @@ in {
     osConfig ? null,
     ...
   }: {
-    key = "infra-homeManager-stylixBase";
+    key = "homeManager-stylixBase";
 
     imports = lib.optional (osConfig == null) inputs.stylix.homeModules.stylix;
 

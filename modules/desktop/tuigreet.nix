@@ -32,9 +32,12 @@
     tomlFormat = pkgs.formats.toml {};
   in {
     imports = with self.modules; [
-      # keep-sorted start
+      # keep-sorted start block=yes
       generic.vars
-      nixos.uwsm
+      {
+        key = "nixos-uwsm";
+        imports = [nixos.uwsm];
+      }
       # keep-sorted end
     ];
 

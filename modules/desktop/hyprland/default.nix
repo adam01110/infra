@@ -25,7 +25,10 @@
 
     pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
   in {
-    nixpkgs.overlays = [self.overlays.hyprland];
+    nixpkgs.overlays = with self.overlays; [
+      hyprland
+      hyprland-plugins
+    ];
 
     programs.hyprland = {
       enable = true;

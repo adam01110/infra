@@ -34,7 +34,7 @@
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      extraSpecialArgs = {inherit inputs self vars;};
+      extraSpecialArgs = {inherit inputs pkgs self vars;};
 
       startAsUserService = true;
       backupCommand = "${pkgs.trash-cli}/bin/trash";
@@ -42,6 +42,7 @@
       users.${username} = {
         home = {
           inherit username;
+          enableNixpkgsReleaseCheck = false;
           homeDirectory = "/home/${username}";
 
           # Align home manager state version with the system.

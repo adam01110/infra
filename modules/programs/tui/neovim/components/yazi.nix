@@ -1,6 +1,11 @@
 {self, ...}: {
   flake.modules.homeManager.neovim = {config, ...}: {
-    imports = [self.modules.homeManager.yazi];
+    imports = [
+      {
+        key = "homeManager-yazi";
+        imports = [self.modules.homeManager.yazi];
+      }
+    ];
 
     programs.nvf.settings.vim.utility.yazi-nvim = {
       enable = true;

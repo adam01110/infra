@@ -63,8 +63,7 @@
         gstreamer
         # keep-sorted end
       ];
-  in {
-    packages.lutris = buildFHSEnv {
+    lutris = buildFHSEnv {
       pname = "lutris";
       inherit (pkgs.lutris-unwrapped) version;
       runScript = "lutris";
@@ -208,5 +207,7 @@
         mainProgram = "lutris";
       };
     };
+  in {
+    packages.lutris = lutris;
   };
 }

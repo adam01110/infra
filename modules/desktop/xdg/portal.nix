@@ -17,9 +17,12 @@
     inherit ((import "${inputs.hyprland}/nix/lib.nix" lib)) toHyprlang;
   in {
     imports = with self.modules.homeManager; [
-      # keep-sorted start
-      hyprland
+      # keep-sorted start block=yes
       xdgTerminal
+      {
+        key = "homeManager-hyprland";
+        imports = [hyprland];
+      }
       # keep-sorted end
     ];
 

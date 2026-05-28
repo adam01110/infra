@@ -1,10 +1,16 @@
 {self, ...}: {
   flake.modules.homeManager.hyprland = {
     imports = with self.modules.homeManager; [
-      # keep-sorted start
+      # keep-sorted start block=yes
       nixhyprBinds
-      noctalia
-      overzicht
+      {
+        key = "homeManager-noctalia";
+        imports = [noctalia];
+      }
+      {
+        key = "homeManager-overzicht";
+        imports = [overzicht];
+      }
       # keep-sorted end
     ];
 

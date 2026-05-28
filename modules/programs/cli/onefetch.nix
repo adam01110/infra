@@ -7,7 +7,12 @@
   }: let
     inherit (pkgs) onefetch;
   in {
-    imports = [self.modules.homeManager.shellAbbreviations];
+    imports = [
+      {
+        key = "homeManager-shellAbbreviations";
+        imports = [self.modules.homeManager.shellAbbreviations];
+      }
+    ];
 
     home.packages = [onefetch];
     home.shellAbbreviations.of = "onefetch";

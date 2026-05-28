@@ -10,9 +10,10 @@
   in {
     home-manager.users.${username} = {
       imports = with self.modules.homeManager; [
-        # keep-sorted start
         personal
-        # keep-sorted end
+
+        bluetui
+        impala
       ];
 
       # keep-sorted start block=yes newline_separated=yes

@@ -7,7 +7,12 @@
   }: let
     inherit (pkgs) gitfetch;
   in {
-    imports = [self.modules.homeManager.shellAbbreviations];
+    imports = [
+      {
+        key = "homeManager-shellAbbreviations";
+        imports = [self.modules.homeManager.shellAbbreviations];
+      }
+    ];
 
     home.packages = [gitfetch];
     home.shellAbbreviations.gf = "gitfetch";

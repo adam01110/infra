@@ -7,7 +7,6 @@
       (packages)
       # keep-sorted start
       djvutorga-adapter
-      lutris
       man-preview
       nocheatsheet-nvim
       os-age

@@ -3,20 +3,53 @@
     imports = with self.modules;
       [generic.determinate]
       ++ (with nixos; [
+        # Profiles
+        # keep-sorted start
         base
+        stylixPersonal
+        # keep-sorted end
 
+        # Desktop
+        # keep-sorted start block=yes
+        hyprland
+        noctalia
+        polkit
+        tablet
+        tuigreet
+        xdgPortal
+        {
+          key = "nixos-uwsm";
+          imports = [uwsm];
+        }
+        # keep-sorted end
+
+        # Programs
         # keep-sorted start
         appimage
-        hyprland
         java
-        noctalia
+        # keep-sorted end
+
+        # GUI
+        seahorse
+
+        # Services
+        # keep-sorted start
+        evolution-data-server
+        flatpak
+        geoclue
+        gnome-keyring
+        gvfs
+        libinput
         pipewire
-        polkit
         power-profiles-daemon
-        stylixPersonal
-        tuigreet
         upower
-        xdgPortal
+        # keep-sorted end
+
+        # Gaming
+        # keep-sorted start
+        lsfg
+        optiscaler
+        steam
         # keep-sorted end
       ]);
 
@@ -25,15 +58,121 @@
 
   flake.modules.homeManager.personal = {
     imports = with self.modules.homeManager; [
+      # Profiles
       base
 
+      # Common
       # keep-sorted start
       env
       face
-      git
+      gh
+      gpg
+      ssh
+      sshfs
+      # keep-sorted end
+
+      # Desktop
+      # keep-sorted start block=yes
+      polkit
+      stylixPersonal
+      tablet
+      uwsm
+      xdgApplications
+      xdgPortal
+      xdgTerminal
+      {
+        key = "homeManager-hyprland";
+        imports = [hyprland];
+      }
+      {
+        key = "homeManager-noctalia";
+        imports = [noctalia];
+      }
+      {
+        key = "homeManager-overzicht";
+        imports = [overzicht];
+      }
+      # keep-sorted end
+
+      # Programs
+      # keep-sorted start block=yes
       gtk
-      hyprland
+      {
+        key = "homeManager-git";
+        imports = [git];
+      }
+      # keep-sorted end
+
+      # CLI
+      # keep-sorted start block=yes
+      bonsai
+      cpond
+      direnv
+      gitfetch
+      onefetch
+      pipes
+      ripgrep-all
+      rumdl
+      zoxide
+      {
+        key = "homeManager-fish";
+        imports = [fish];
+      }
+      # keep-sorted end
+
+      # TUI
+      # keep-sorted start block=yes
+      cava
       nvtop
+      opencode
+      wiremix
+      {
+        key = "homeManager-television";
+        imports = [television];
+      }
+      # keep-sorted end
+
+      # GUI
+      # keep-sorted start block=yes
+      aseprite
+      beeper
+      bitwarden
+      bleachbit
+      crosspipe
+      decibels
+      flatseal
+      ghostty
+      gimp
+      loupe
+      onlyoffice
+      proton
+      showtime
+      spotify
+      upscayl
+      zaread
+      zathura
+      {
+        key = "homeManager-discord";
+        imports = [discord];
+      }
+      {
+        key = "homeManager-zen";
+        imports = [zen];
+      }
+      # keep-sorted end
+
+      # Services
+      flatpak
+
+      # Gaming
+      # keep-sorted start
+      heroic
+      lutris
+      mangohud
+      mcpelauncher
+      optiscaler
+      prism
+      sober
       # keep-sorted end
     ];
   };

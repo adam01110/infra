@@ -44,10 +44,13 @@
     );
   in {
     imports = with self.modules.homeManager; [
-      # keep-sorted start
+      # keep-sorted start block=yes
       nur
-      shellAbbreviations
       xdgTerminal
+      {
+        key = "homeManager-shellAbbreviations";
+        imports = [shellAbbreviations];
+      }
       # keep-sorted end
     ];
 

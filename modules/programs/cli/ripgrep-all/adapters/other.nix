@@ -3,7 +3,6 @@
     # keep-sorted start
     lib,
     pkgs,
-    self,
     # keep-sorted end
     ...
   }: let
@@ -20,8 +19,6 @@
     pptx2md = getExe pkgs.pptx2md-adapter;
     # keep-sorted end
   in {
-    nixpkgs.overlays = [self.overlays.pkgs];
-
     programs.ripgrep-all.custom_adapters = [
       # keep-sorted start block=yes newline_separated=yes
       # Extract plain text from DjVu files with a local wrapper.

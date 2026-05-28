@@ -11,9 +11,12 @@
     cfgGpu = config.programs.noctalia-shell.systemMonitor.enableGpu;
   in {
     imports = with self.modules.homeManager; [
-      # keep-sorted start
-      btop
+      # keep-sorted start block=yes
       xdgTerminal
+      {
+        key = "homeManager-btop";
+        imports = [btop];
+      }
       # keep-sorted end
     ];
 
