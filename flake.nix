@@ -102,10 +102,6 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
-    secrets = {
-      url = "git+ssh://git@github.com/adam01110/secrets.git";
-      flake = false;
-    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

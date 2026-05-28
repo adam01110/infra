@@ -1,7 +1,12 @@
-{inputs, ...}: let
+{
+  # keep-sorted start
+  inputs,
+  self,
+  # keep-sorted end
+  ...
+}: let
   sopsConfig = {
-    # Keep the shared secret inventory outside the public infra repo.
-    defaultSopsFile = "${inputs.secrets}/secrets.yaml";
+    defaultSopsFile = "${self}/secrets.yml";
     defaultSopsFormat = "yaml";
 
     validateSopsFiles = false;
@@ -15,11 +20,6 @@
   };
 in {
   flake-file.inputs = {
-    secrets = {
-      url = "git+ssh://git@github.com/adam01110/secrets.git";
-      flake = false;
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -1651,7 +1651,6 @@
         "nur": "nur",
         "nvf": "nvf",
         "overzicht": "overzicht",
-        "secrets": "secrets",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
@@ -1700,22 +1699,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
-      }
-    },
-    "secrets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1779478615,
-        "narHash": "sha256-AdsgPi/RA9eQWQFCn3iNyRoUzlkRfOkMsd6ndoRsUtk=",
-        "ref": "refs/heads/main",
-        "rev": "bf2aad377f3cf16f87172760b8e24f05011667de",
-        "revCount": 2,
-        "type": "git",
-        "url": "ssh://git@github.com/adam01110/secrets.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/adam01110/secrets.git"
       }
     },
     "sops-nix": {

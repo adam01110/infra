@@ -60,14 +60,14 @@ nix run .#write-flake
 
 ## Secrets
 
-- Runtime secrets are kept outside this public repo in the private `adam01110/secrets` flake input.
+- Runtime secrets live in a local `secrets.yml` at the project root (gitignored).
 - Recipient rules live in `.sops.yaml` for one user PGP key and three host Age keys.
 - SOPS Nix is shared between NixOS and Home Manager through `modules/nix/sops.nix`.
 
-Edit flow for the private secrets repository:
+Edit flow:
 
 ```bash
-sops secrets.yaml
+sops secrets.yml
 ```
 
 ## Customization
