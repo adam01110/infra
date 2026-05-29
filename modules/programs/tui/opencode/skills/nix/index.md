@@ -5,99 +5,32 @@ description: Use this skill to locate which Nix package provides a command or fi
 
 # Nix Index
 
-Use this skill to map files to packages.
+Use `nix-locate` to map files/commands to packages. Do not run or manage `nix-index`.
 
-## Core Commands
-
-Find the package that provides a command:
+Common queries:
 
 ```bash
 nix-locate --top-level --whole-name --type x --type s '/bin/rg'
-```
-
-Find the package that provides any file path:
-
-```bash
 nix-locate --top-level --whole-name '/share/applications/firefox.desktop'
 nix-locate --top-level --whole-name '/lib/libssl.so'
-```
-
-Search more loosely when the exact path is unknown:
-
-```bash
 nix-locate --top-level --type x 'bin/(rg|ripgrep)'
 nix-locate --top-level 'python.*/site-packages/pandas'
-```
-
-Inspect all outputs instead of only top-level packages when necessary:
-
-```bash
 nix-locate --whole-name '/bin/hello'
 ```
 
-## Command-Not-Found Workflow
+Command-not-found workflow:
 
-If the user asks which package provides a missing command, prefer `nix-locate` over generic `nix search`.
+1. Try `nix-locate --top-level --whole-name --type x --type s "/bin/foo"`.
+2. If empty, broaden to `nix-locate --top-level --type x 'bin/foo'` or regex.
+3. If the file may live in a split output, retry without `--top-level`.
+4. If still empty, fall back to `nix-search-tv`.
 
-For a missing executable `foo`, try:
+Result handling:
 
-```bash
-nix-locate --top-level --whole-name --type x --type s "/bin/foo"
-```
-
-If nothing matches, broaden the query:
-
-```bash
-nix-locate --top-level --type x 'bin/foo'
-nix-locate --top-level --type x 'bin/.+foo.+'
-```
-
-## Restrictions
-
-- Do not run `nix-index`.
-- Do not explain how to build, refresh, delete, or inspect the database.
-- Do not tell the user to manage cache paths.
-- If lookup fails, broaden the `nix-locate` query or fall back to `nix-search-tv`.
-
-## Result Handling
-
-- Prefer `--top-level` when the user wants an installable package attribute.
-- Prefer `--whole-name` when the full file path is known.
-- Add `--type x --type s` for executable lookup.
-- Treat multiple matches as normal; report the most likely package first, then mention close alternatives.
-- If the user wants package metadata, follow up with `nix-search-tv preview --offline --indexes nixpkgs <attr>`.
-- If `nix-locate` does not find a match, stay in query mode rather than switching to database maintenance steps.
-
-## Common Patterns
-
-Resolve a binary name to a package:
-
-```bash
-nix-locate --top-level --whole-name --type x --type s '/bin/git'
-```
-
-Resolve a desktop file to a package:
-
-```bash
-nix-locate --top-level --whole-name '/share/applications/org.gnome.Calculator.desktop'
-```
-
-Resolve a shared library to a package:
-
-```bash
-nix-locate --top-level --whole-name '/lib/libzstd.so'
-```
-
-## Troubleshooting
-
-No results:
-
-- Remove `--whole-name` and search with a broader regex.
-- Remove `--top-level` if the file may live in a split output.
-- Fall back to `nix-search-tv` if a broader `nix-locate` query still does not help.
-
-Too many results:
-
-- Add `--whole-name`.
-- Restrict the path, such as `/bin/foo` instead of `foo`.
-- Add `--type` filters.
+- Use `--top-level` for installable package attrs.
+- Use `--whole-name` for known full paths.
+- Add `--type x --type s` for executables.
+- Multiple matches are normal; report the likely package first plus close alternatives.
+- For too many results, add `--whole-name`, restrict the path such as `/bin/foo`, or add `--type` filters.
+- For metadata, run `nix-search-tv preview --indexes nixpkgs <attr>`.
+- Never suggest database build/refresh/delete/cache maintenance.
