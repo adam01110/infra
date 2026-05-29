@@ -1,11 +1,4 @@
-{inputs, ...}: {
-  flake-file.inputs.disko = {
-    url = "github:nix-community/disko?ref=latest";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
-  imports = [inputs.disko.flakeModules.disko];
-
+_: {
   flake.diskoConfigurations.ext4 = disk: {
     disko.devices = {
       disk = {
