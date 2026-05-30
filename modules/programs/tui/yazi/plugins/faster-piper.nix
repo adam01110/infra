@@ -26,7 +26,7 @@
           mkYaziUrlEntries "${piper} CLICOLOR_FORCE=1 glow -w=$w -s=dark -- \"$1\"" ["*.md"]
           ++
           # SQLite database files.
-          mkYaziUrlEntries ''${piper} sqlite3 -readonly "$1" ".schema --indent"'' ["*.db" "*.sqlite" "*.sqlite3"]
+          mkYaziUrlEntries ''${piper} sqlite3 -readonly "$1" ".schema --indent"'' ["*.{db,sqlite,sqlite3}"]
           ++
           # Systemd service files.
           mkYaziUrlEntries ''${piper} ${systemdStatusPreview} --from-path "$1"'' ["*/systemd/*"];
@@ -36,7 +36,7 @@
           mkYaziUrlEntries usePreloader ["*.md"]
           ++
           # SQLite database files.
-          mkYaziUrlEntries usePreloader ["*.db" "*.sqlite" "*.sqlite3"]
+          mkYaziUrlEntries usePreloader ["*.{db,sqlite,sqlite3}"]
           ++
           # Systemd service files.
           mkYaziUrlEntries usePreloader ["*/systemd/*"];

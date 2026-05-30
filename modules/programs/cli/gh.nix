@@ -1,10 +1,31 @@
 {self, ...}: {
-  flake.modules.homeManager.gh = {vars, ...}: let
+  flake.modules.homeManager.gh = {
+    # keep-sorted start
+    config,
+    lib,
+    pkgs,
+    vars,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (lib) getExe;
+    inherit (pkgs) writeShellApplication;
     inherit (vars) gitUsername;
+
+    ghWrapper = writeShellApplication {
+      name = "gh";
+      runtimeInputs = [pkgs.coreutils];
+      text = ''
+        GH_TOKEN="$(cat "${config.sops.secrets.github_token.path}")"
+        export GH_TOKEN
+        exec "${getExe pkgs.gh}" "$@"
+      '';
+    };
   in {
     imports = with self.modules; [
       # keep-sorted start block=yes
       generic.vars
+      homeManager.sops
       {
         key = "homeManager-git";
         imports = [homeManager.git];
@@ -12,8 +33,12 @@
       # keep-sorted end
     ];
 
+    sops.secrets.github_token = {};
+
     programs.gh = {
       enable = true;
+
+      package = ghWrapper;
 
       hosts."github.com".user = gitUsername;
 

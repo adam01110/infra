@@ -5,18 +5,10 @@
   # keep-sorted end
   ...
 }: let
-  sopsConfig = {
+  defaultConfig = {
     defaultSopsFile = "${self}/secrets.yaml";
     defaultSopsFormat = "yaml";
-
     validateSopsFiles = false;
-
-    # Use a pre-provisioned age key file on disk.
-    age = {
-      sshKeyPaths = [];
-      generateKey = false;
-      keyFile = "/var/lib/sops-nix/key.txt";
-    };
   };
 in {
   flake-file.inputs = {
@@ -26,13 +18,43 @@ in {
     };
   };
 
-  flake.modules.nixos.sops = {
+  flake.modules.nixos.sops = {vars, ...}: let
+    inherit (vars) username;
+  in {
     imports = [inputs.sops-nix.nixosModules.sops];
-    sops = sopsConfig;
+
+    systemd.tmpfiles.rules = [
+      "d /home/${username}/.config/sops 0700 ${username} users - -"
+      "d /home/${username}/.config/sops/age 0700 ${username} users - -"
+      "C /home/${username}/.config/sops/age/key.txt 0400 ${username} users - /var/lib/sops-nix/key.txt"
+    ];
+
+    sops =
+      defaultConfig
+      // {
+        # Use a pre-provisioned age key file on disk.
+        age = {
+          sshKeyPaths = [];
+          generateKey = false;
+          keyFile = "/var/lib/sops-nix/key.txt";
+        };
+      };
   };
 
-  flake.modules.homeManager.sops = {
+  flake.modules.homeManager.sops = {vars, ...}: let
+    inherit (vars) username;
+  in {
     imports = [inputs.sops-nix.homeManagerModules.sops];
-    sops = sopsConfig;
+
+    sops =
+      defaultConfig
+      // {
+        # User service cannot read the root-owned system key.
+        age = {
+          sshKeyPaths = [];
+          generateKey = false;
+          keyFile = "/home/${username}/.config/sops/age/key.txt";
+        };
+      };
   };
 }

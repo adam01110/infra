@@ -27,7 +27,10 @@
     imports = with self.modules.homeManager; [
       # keep-sorted start
       eza
-      zoxide
+      {
+        key = "homeManager-zoxide";
+        imports = [zoxide];
+      }
       # keep-sorted end
     ];
 

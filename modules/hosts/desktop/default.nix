@@ -1,10 +1,14 @@
 {self, ...}: {
   flake.modules.nixos.desktop = {
     imports = with self.modules.nixos; [
+      # Profiles
       # keep-sorted start
+      gaming
       personal
-      roccat
       # keep-sorted end
+
+      # Hardware
+      roccat
     ];
 
     # System version for state compatibility - do not modify.

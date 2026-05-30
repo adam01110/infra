@@ -44,13 +44,6 @@
         power-profiles-daemon
         upower
         # keep-sorted end
-
-        # Gaming
-        # keep-sorted start
-        lsfg
-        optiscaler
-        steam
-        # keep-sorted end
       ]);
 
     nixpkgs.overlays = [
@@ -126,10 +119,13 @@
       pipes
       ripgrep-all
       rumdl
-      zoxide
       {
         key = "homeManager-fish";
         imports = [fish];
+      }
+      {
+        key = "homeManager-zoxide";
+        imports = [zoxide];
       }
       # keep-sorted end
 
@@ -159,6 +155,7 @@
       loupe
       onlyoffice
       proton
+      seahorse
       showtime
       spotify
       upscayl
@@ -176,17 +173,6 @@
 
       # Services
       flatpak
-
-      # Gaming
-      # keep-sorted start
-      heroic
-      lutris
-      mangohud
-      mcpelauncher
-      optiscaler
-      prism
-      sober
-      # keep-sorted end
     ];
   };
 }

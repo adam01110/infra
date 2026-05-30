@@ -4,7 +4,7 @@
       plugins.relative-motions = {
         package = pkgs.yaziPlugins.relative-motions;
         setup = true;
-        settings.show_numbers = "relative";
+        settings.show_numbers = "relative_absolute";
       };
 
       # Bind number keys to relative-motions steps.

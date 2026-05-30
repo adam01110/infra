@@ -34,7 +34,16 @@
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      extraSpecialArgs = {inherit inputs pkgs self vars;};
+      extraSpecialArgs = {
+        inherit
+          # keep-sorted start
+          inputs
+          pkgs
+          self
+          vars
+          # keep-sorted end
+          ;
+      };
 
       startAsUserService = true;
       backupCommand = "${pkgs.trash-cli}/bin/trash";

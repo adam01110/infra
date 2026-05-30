@@ -8,7 +8,9 @@
   in {
     home-manager.users.${username} = {
       imports = with self.modules.homeManager; [
+        # Profiles
         # keep-sorted start
+        gaming
         personal
         # keep-sorted end
       ];

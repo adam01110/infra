@@ -32,7 +32,7 @@
       name = "github-mcp-server-wrapper";
       runtimeInputs = [pkgs.coreutils];
       text = ''
-        GITHUB_PERSONAL_ACCESS_TOKEN="$(cat "${config.sops.secrets."ai/github_access_token".path}")"
+        GITHUB_PERSONAL_ACCESS_TOKEN="$(cat "${config.sops.secrets."ai/github_token".path}")"
         export GITHUB_PERSONAL_ACCESS_TOKEN
         exec "${getExe pkgs.github-mcp-server}" stdio --read-only "$@"
       '';
@@ -52,7 +52,7 @@
       sops.secrets = {
         # keep-sorted start
         "ai/context7_key" = {};
-        "ai/github_access_token" = {};
+        "ai/github_token" = {};
         # keep-sorted end
       };
 

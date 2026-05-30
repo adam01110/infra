@@ -8,7 +8,7 @@
       enable = true;
 
       # Set flake root.
-      flake = "/home/${username}/Nixos";
+      flake = "/home/${username}/Infra";
     };
   };
 }

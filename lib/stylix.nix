@@ -56,6 +56,14 @@ in {
   # Select the base0* palette used by nix-userstyles and similar consumers.
   stylixPalette = config: filterAttrs (name: _: hasPrefix "base0" name) config.lib.stylix.colors;
 
+  # Format a Stylix base color as a CSS rgb channel list.
+  stylixRgb = colors: base:
+    concatStringsSep ", " [
+      colors."${base}-rgb-r"
+      colors."${base}-rgb-g"
+      colors."${base}-rgb-b"
+    ];
+
   # Blend a hex foreground color toward a hex background color.
   blendHex = alpha: bg: fg: let
     bgHex = substring 1 (stringLength bg - 1) bg;

@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.modules.homeManager.nixhyprBinds = {
+  flake.modules.homeManager.nixhypr = {
     # keep-sorted start
     config,
     lib,

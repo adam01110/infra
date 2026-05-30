@@ -10,7 +10,10 @@
       # keep-sorted start
       bat
       eza
-      zoxide
+      {
+        key = "homeManager-zoxide";
+        imports = [zoxide];
+      }
       # keep-sorted end
     ];
 

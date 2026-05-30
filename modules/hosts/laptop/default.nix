@@ -1,11 +1,21 @@
 {self, ...}: {
   flake.modules.nixos.laptop = {
     imports = with self.modules.nixos; [
+      # Hardware
       # keep-sorted start
       bluetooth
       lidswitch
-      personal
       roccat
+      # keep-sorted end
+
+      # Profiles
+      # keep-sorted start
+      gaming
+      personal
+      # keep-sorted end
+
+      # Services
+      # keep-sorted start
       scx
       tlp
       wifi

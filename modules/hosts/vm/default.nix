@@ -1,7 +1,9 @@
 {self, ...}: {
   flake.modules.nixos.vm = {
     imports = with self.modules.nixos; [
+      # Profiles
       # keep-sorted start
+      gaming
       personal
       # keep-sorted end
     ];
