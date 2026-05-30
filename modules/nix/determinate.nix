@@ -3,8 +3,10 @@
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
   };
 
-  flake.modules.generic.determinate = {
-    imports = [inputs.determinate.nixosModules.default];
+  flake.modules.generic.determinate = {pkgs, ...}: let
+    inherit (pkgs.stdenv.hostPlatform) system;
+  in {
+    nix.package = inputs.determinate.inputs.nix.packages.${system}.default;
 
     nix.settings = let
       cache = "https://install.determinate.systems";

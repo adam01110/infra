@@ -62,7 +62,8 @@
 
     nixpkgs.config = {
       allowInsecurePredicate = pkg:
-        lib.getName pkg == "nodejs" && lib.hasPrefix "20." (lib.getVersion pkg);
+        (lib.getName pkg == "electron" && lib.getVersion pkg == "39.8.10")
+        || (lib.getName pkg == "nodejs" && lib.hasPrefix "20." (lib.getVersion pkg));
       allowUnfree = true;
     };
   };
