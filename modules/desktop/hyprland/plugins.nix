@@ -12,19 +12,21 @@
     };
   };
 
-  flake.modules.homeManager.hyprland = {pkgs, ...}: {
+  flake.modules.homeManager.hyprland = {
+    lib,
+    pkgs,
+    ...
+  }: {
     imports = [self.modules.homeManager.nur];
 
     wayland.windowManager.hyprland.plugins = [pkgs.hyprlandPlugins.hyprfocus];
 
     programs.nixhypr = {
-      extraLuaSnippets = [
-        ''
-          -- Expose hyprsplit for keybind dispatchers.
-          hyprsplit = dofile("${pkgs.nur.repos.adam0.hyprsplit}/init.lua")
-          hyprsplit.config({ num_workspaces = 8 })
-        ''
-      ];
+      _generatedConfig = lib.mkOrder 875 ''
+        -- Expose hyprsplit for keybind dispatchers.
+        hyprsplit = dofile("${pkgs.nur.repos.adam0.hyprsplit}/init.lua")
+        hyprsplit.config({ num_workspaces = 8 })
+      '';
 
       settings.plugin.hyprfocus = {
         # keep-sorted start
