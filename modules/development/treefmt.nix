@@ -50,6 +50,7 @@
           ".direnv/*"
           ".sops.yaml"
           "flake.nix"
+          "secrets.yaml"
           # keep-sorted end
         ];
         # keep-sorted end

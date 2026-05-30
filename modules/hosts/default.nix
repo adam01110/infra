@@ -12,6 +12,11 @@
     # keep-sorted end
   };
 in {
+  perSystem = {system, ...}:
+    lib.optionalAttrs (system == hosts.vm) {
+      packages.vm = self.nixosConfigurations.vm.config.system.build.vm;
+    };
+
   flake.nixosConfigurations = lib.mapAttrs (name: system:
     self.lib.nixosSystem {
       specialArgs = {

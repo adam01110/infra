@@ -2,5 +2,4 @@
 .direnv
 .rumdl_cache
 result*
-secrets.yaml
 # keep-sorted end

@@ -53,6 +53,19 @@
         # keep-sorted end
       ]);
 
+    nixpkgs.overlays = [
+      (_final: prev: {
+        openldap = prev.openldap.overrideAttrs (old: {
+          # Skip flaky syncrepl test on current nixpkgs.
+          preCheck =
+            (old.preCheck or "")
+            + ''
+              rm -f tests/scripts/test017-syncreplication-refresh
+            '';
+        });
+      })
+    ];
+
     disko.devices = (self.diskoConfigurations.ext4 config.disko.selectedDisk).disko.devices;
   };
 

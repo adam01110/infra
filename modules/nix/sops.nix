@@ -6,7 +6,7 @@
   ...
 }: let
   sopsConfig = {
-    defaultSopsFile = "${self}/secrets.yml";
+    defaultSopsFile = "${self}/secrets.yaml";
     defaultSopsFormat = "yaml";
 
     validateSopsFiles = false;

@@ -1,20 +1,10 @@
-{
-  inputs,
-  self,
-  ...
-}: {
+{inputs, ...}: {
   flake-file.inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
   };
 
-  flake.overlays.determinate = final: _prev: let
-    inherit (final.stdenv.hostPlatform) system;
-  in {
-    nix = inputs.determinate.packages.${system}.default;
-  };
-
   flake.modules.generic.determinate = {
-    nixpkgs.overlays = [self.overlays.determinate];
+    imports = [inputs.determinate.nixosModules.default];
 
     nix.settings = let
       cache = "https://install.determinate.systems";

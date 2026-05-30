@@ -1,4 +1,8 @@
-{self, ...}: {
+{
+  lib,
+  self,
+  ...
+}: {
   flake.modules.nixos.nix = {config, ...}: {
     imports = [self.modules.nixos.sops];
 
@@ -56,6 +60,10 @@
       extraOptions = "!include ${config.sops.templates."access_tokens".path}";
     };
 
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config = {
+      allowInsecurePredicate = pkg:
+        lib.getName pkg == "nodejs" && lib.hasPrefix "20." (lib.getVersion pkg);
+      allowUnfree = true;
+    };
   };
 }
