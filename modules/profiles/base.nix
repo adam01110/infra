@@ -44,7 +44,6 @@
       # CLI
       # keep-sorted start
       bandwhich
-      eh
       man
       sudo
       # keep-sorted end
@@ -70,7 +69,6 @@
       # keep-sorted start
       bat
       bun
-      eh
       eza
       fastfetch
       fd
