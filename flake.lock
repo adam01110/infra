@@ -509,22 +509,6 @@
         "type": "github"
       }
     },
-    "ghostty-cursor-shaders": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1778252515,
-        "narHash": "sha256-G/UIr1bKnxn1AcHl/4FL/jou6b7M2VeREslYVELxdmw=",
-        "owner": "sahaj-b",
-        "repo": "ghostty-cursor-shaders",
-        "rev": "06d4e90fb5410e9c4d0b3131584060adddf89406",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sahaj-b",
-        "repo": "ghostty-cursor-shaders",
-        "type": "github"
-      }
-    },
     "git-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -1574,7 +1558,6 @@
         "eh": "eh",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts_2",
-        "ghostty-cursor-shaders": "ghostty-cursor-shaders",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
