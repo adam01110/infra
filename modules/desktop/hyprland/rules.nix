@@ -25,7 +25,7 @@
     hyprfocus = "${pkgs.hyprlandPlugins.hyprfocus}/lib/libhyprfocus.so";
     hyprpicker = getExe pkgs.hyprpicker;
     noctalia-qs = getExe' inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.quickshell ".quickshell-wrapped";
-    overzicht = getExe config.programs.overzicht.package;
+    overzicht = "${escapeRegex quickshell}.*${escapeRegex "${config.programs.overzicht.package}/share/overzicht"}";
     quickshell = getExe pkgs.quickshell;
     xdg-desktop-portal-hyprland = getExe' osConfig.programs.hyprland.portalPackage ".xdg-desktop-portal-hyprland-wrapped";
     # keep-sorted end
@@ -70,13 +70,7 @@
         }
 
         {
-          binary = escapeRegex overzicht;
-          mode = "allow";
-          type = "screencopy";
-        }
-
-        {
-          binary = escapeRegex quickshell;
+          binary = overzicht;
           mode = "allow";
           type = "screencopy";
         }

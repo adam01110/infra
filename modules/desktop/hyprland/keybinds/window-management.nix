@@ -34,12 +34,17 @@
         }
 
         {
-          description = "Swap split";
+          description = "Reset zoom";
 
-          keys = ["SUPER" "Z"];
-          action = "layout";
+          keys = ["SUPER" "SHIFT" "minus"];
+          lua = "zoom_reset";
+        }
 
-          args = "swapsplit";
+        {
+          description = "Reset zoom";
+
+          keys = ["SUPER" "SHIFT" "mouse_down"];
+          lua = "zoom_reset";
         }
 
         {
@@ -58,6 +63,45 @@
           action = "layout";
 
           args = "togglesplit";
+        }
+
+        {
+          description = "Toggle zoom";
+
+          keys = ["SUPER" "Z"];
+          lua = "zoom";
+        }
+
+        {
+          description = "Zoom in";
+
+          keys = ["SUPER" "equal"];
+          lua = "function() zoom(1.1) end";
+
+          options.repeating = true;
+        }
+
+        {
+          description = "Zoom in";
+
+          keys = ["SUPER" "mouse_down"];
+          lua = "function() zoom(1.1) end";
+        }
+
+        {
+          description = "Zoom out";
+
+          keys = ["SUPER" "minus"];
+          lua = "function() zoom(0.9) end";
+
+          options.repeating = true;
+        }
+
+        {
+          description = "Zoom out";
+
+          keys = ["SUPER" "mouse_up"];
+          lua = "function() zoom(0.9) end";
         }
         # keep-sorted end
       ])
