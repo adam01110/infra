@@ -11,7 +11,6 @@
     # keep-sorted start
     mapAttrs
     mkDefault
-    optionalAttrs
     # keep-sorted end
     ;
 
@@ -19,15 +18,9 @@
     # keep-sorted start
     desktop = "x86_64-linux";
     laptop = "x86_64-linux";
-    vm = "x86_64-linux";
     # keep-sorted end
   };
 in {
-  perSystem = {system, ...}:
-    optionalAttrs (system == hosts.vm) {
-      packages.vm = self.nixosConfigurations.vm.config.system.build.vm;
-    };
-
   flake.nixosConfigurations = mapAttrs (name: system:
     self.lib.nixosSystem {
       specialArgs = {

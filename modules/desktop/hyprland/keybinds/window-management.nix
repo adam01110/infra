@@ -41,13 +41,6 @@
         }
 
         {
-          description = "Reset zoom";
-
-          keys = ["SUPER" "SHIFT" "mouse_down"];
-          lua = "zoom_reset";
-        }
-
-        {
           description = "Toggle floating";
 
           keys = ["SUPER" "V"];
@@ -82,26 +75,12 @@
         }
 
         {
-          description = "Zoom in";
-
-          keys = ["SUPER" "mouse_down"];
-          lua = "function() zoom(1.1) end";
-        }
-
-        {
           description = "Zoom out";
 
           keys = ["SUPER" "minus"];
           lua = "function() zoom(0.9) end";
 
           options.repeating = true;
-        }
-
-        {
-          description = "Zoom out";
-
-          keys = ["SUPER" "mouse_up"];
-          lua = "function() zoom(0.9) end";
         }
         # keep-sorted end
       ])
