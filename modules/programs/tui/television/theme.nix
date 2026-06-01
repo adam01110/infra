@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.television = {
     # keep-sorted start
     config,
@@ -10,8 +10,6 @@
 
     colors = config.lib.stylix.colors.withHashtag;
   in {
-    imports = [self.modules.homeManager.stylixBase];
-
     xdg.configFile."television/themes/".source = with colors;
       tomlFormat.generate "television-stylix.toml" {
         # general

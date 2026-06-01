@@ -1,9 +1,7 @@
-{self, ...}: {
+{
   flake.modules.homeManager.zathura = {config, ...}: let
     sansSerifFont = config.stylix.fonts.sansSerif.name;
   in {
-    imports = [self.modules.homeManager.stylixPersonal];
-
     programs.zathura = {
       enable = true;
 

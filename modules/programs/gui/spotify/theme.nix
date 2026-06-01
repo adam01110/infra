@@ -1,10 +1,4 @@
-{
-  # keep-sorted start
-  inputs,
-  self,
-  # keep-sorted end
-  ...
-}: {
+{inputs, ...}: {
   flake.modules.homeManager.spotify = {
     # keep-sorted start
     config,
@@ -18,8 +12,6 @@
     font = config.stylix.fonts.monospace.name;
     spicePkgs = inputs.spicetify-nix.legacyPackages.${system};
   in {
-    imports = [self.modules.homeManager.stylixPersonal];
-
     # keep-sorted start block=yes newline_separated=yes
     # Apply local Spicetify overrides on top of the Stylix palette.
     programs.spicetify = {

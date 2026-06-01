@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.nixos.optiscaler = {
     nix.settings = let
       cache = "https://uriotv.cachix.org";
@@ -10,8 +10,6 @@
   };
 
   flake.modules.homeManager.optiscaler = {pkgs, ...}: {
-    imports = [self.modules.homeManager.nur];
-
     home.packages = [pkgs.nur.repos.uriotv.optiscaler-client];
   };
 }

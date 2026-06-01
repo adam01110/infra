@@ -1,7 +1,5 @@
-{self, ...}: {
+{
   flake.modules.homeManager.gtk = {config, ...}: {
-    imports = [self.modules.homeManager.stylixPersonal];
-
     gtk.gtk4.theme = config.gtk.theme;
 
     dconf.settings = {

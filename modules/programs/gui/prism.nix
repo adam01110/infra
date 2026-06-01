@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.prism = {
     # keep-sorted start
     config,
@@ -21,13 +21,6 @@
     downloadsDir = config.xdg.userDirs.download;
     monospaceFont = config.stylix.fonts.monospace.name;
   in {
-    imports = with self.modules; [
-      # keep-sorted start
-      generic.vars
-      homeManager.stylixPersonal
-      # keep-sorted end
-    ];
-
     programs.prismlauncher = {
       enable = true;
 

@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.ripgrep-all = {
     # keep-sorted start
     lib,
@@ -9,8 +9,6 @@
     inherit (lib) makeBinPath;
     inherit (pkgs) symlinkJoin;
   in {
-    imports = [self.modules.homeManager.nur];
-
     programs.ripgrep-all = {
       # Wrap rga so adapters can find their runtime tools.
       package = symlinkJoin {

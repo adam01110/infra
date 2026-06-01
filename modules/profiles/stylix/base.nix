@@ -46,8 +46,6 @@ in {
   };
 
   flake.modules.nixos.stylixBase = {
-    key = "nixos-stylixBase";
-
     imports = [inputs.stylix.nixosModules.stylix];
 
     stylix = stylixConfig;
@@ -58,8 +56,6 @@ in {
     osConfig ? null,
     ...
   }: {
-    key = "homeManager-stylixBase";
-
     imports = lib.optional (osConfig == null) inputs.stylix.homeModules.stylix;
 
     stylix = stylixConfig;

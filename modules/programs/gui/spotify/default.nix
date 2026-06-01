@@ -1,10 +1,4 @@
-{
-  # keep-sorted start
-  inputs,
-  self,
-  # keep-sorted end
-  ...
-}: {
+{inputs, ...}: {
   flake-file.inputs.spicetify-nix = {
     url = "github:Gerg-L/spicetify-nix";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -16,12 +10,7 @@
     # Access spicetify-nix packages.
     spicePkgs = inputs.spicetify-nix.legacyPackages.${system};
   in {
-    imports = [
-      # keep-sorted start
-      inputs.spicetify-nix.homeManagerModules.spicetify
-      self.modules.homeManager.nur
-      # keep-sorted end
-    ];
+    imports = [inputs.spicetify-nix.homeManagerModules.spicetify];
 
     programs.spicetify = {
       enable = true;

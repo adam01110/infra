@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.euclid = {
+  flake.modules.nixos.euclid = {config, ...}: {
     imports = with self.modules.nixos; [
       # Profiles
       server
@@ -7,8 +7,8 @@
       # Services
       # keep-sorted start
       godns
-      postgres
       mysql
+      postgres
       # keep-sorted end
     ];
 
@@ -19,6 +19,7 @@
 
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";
+    disko.devices = (self.diskoConfigurations.btrfs config.disko.selectedDisk).disko.devices;
 
     # extra data mounts.
     fileSystems = let

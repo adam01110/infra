@@ -1,7 +1,5 @@
-{self, ...}: {
+{
   flake.modules.nixos.wifi = {
-    imports = [self.modules.nixos.capabilities];
-
     config = {
       capabilities.wifi = true;
 

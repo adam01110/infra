@@ -1,7 +1,5 @@
-{self, ...}: {
+{
   flake.modules.nixos.bluetooth = {
-    imports = [self.modules.nixos.capabilities];
-
     config = {
       capabilities.bluetooth = true;
 

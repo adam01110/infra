@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.opencode = {
     # keep-sorted start
     config,
@@ -43,17 +43,6 @@
       env
     );
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start block=yes
-      nur
-      xdgTerminal
-      {
-        key = "homeManager-shellAbbreviations";
-        imports = [shellAbbreviations];
-      }
-      # keep-sorted end
-    ];
-
     # keep-sorted start block=yes newline_separated=yes
     home.shellAbbreviations.oc = "opencode";
 

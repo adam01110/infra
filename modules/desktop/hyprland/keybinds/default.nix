@@ -1,20 +1,7 @@
-{self, ...}: {
+{
   flake.modules.homeManager.hyprland = {lib, ...}: let
     inherit (lib) mkOrder;
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start block=yes
-      {
-        key = "homeManager-noctalia";
-        imports = [noctalia];
-      }
-      {
-        key = "homeManager-overzicht";
-        imports = [overzicht];
-      }
-      # keep-sorted end
-    ];
-
     config.programs.hylix = {
       _generatedConfig = mkOrder 899 ''
         local MAX_ZOOM = 3

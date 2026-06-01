@@ -1,7 +1,6 @@
 {
   # keep-sorted start
   inputs,
-  self,
   # keep-sorted end
   ...
 }: {
@@ -11,12 +10,7 @@
   };
 
   flake.modules.homeManager.discord = {config, ...}: {
-    imports = [
-      # keep-sorted start
-      inputs.nixcord.homeModules.nixcord
-      self.modules.generic.vars
-      # keep-sorted end
-    ];
+    imports = [inputs.nixcord.homeModules.nixcord];
 
     # keep-sorted start block=yes newline_separated=yes
     programs.nixcord = {

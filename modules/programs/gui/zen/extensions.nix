@@ -1,9 +1,7 @@
-{self, ...}: {
+{
   flake.modules.homeManager.zen = {pkgs, ...}: let
     inherit (builtins) mapAttrs;
   in {
-    imports = [self.modules.homeManager.nur];
-
     # Add extensions in nur.
     programs.zen-browser.profiles.default.extensions = {
       # Force extensions to be enabled.

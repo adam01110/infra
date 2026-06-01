@@ -1,24 +1,24 @@
 {self, ...}: {
-  flake.modules.nixos.stylixServer = {
+  flake.modules.nixos.stylixServer = {pkgs, ...}: {
     imports = [self.modules.nixos.stylixBase];
 
     stylix = {
       fonts = {
         sansSerif = {
-          name = null;
-          package = null;
+          name = "DejaVu Sans";
+          package = pkgs.dejavu_fonts;
         };
         serif = {
-          name = null;
-          package = null;
+          name = "DejaVu Serif";
+          package = pkgs.dejavu_fonts;
         };
         monospace = {
-          name = null;
-          package = null;
+          name = "DejaVu Sans Mono";
+          package = pkgs.dejavu_fonts;
         };
         emoji = {
-          name = null;
-          package = null;
+          name = "Noto Color Emoji";
+          package = pkgs.noto-fonts-color-emoji;
         };
       };
 

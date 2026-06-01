@@ -1,4 +1,4 @@
-_: {
+{
   flake.diskoConfigurations.ext4 = disk: {
     disko.devices = {
       disk = {

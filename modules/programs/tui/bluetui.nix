@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.bluetui = {
     # keep-sorted start
     config,
@@ -20,8 +20,6 @@
     cfgBluetooth = osConfig.capabilities.bluetooth;
     pkg = pkgs.bluetui;
   in {
-    imports = [self.modules.homeManager.xdgTerminal];
-
     config =
       # Only install when bluetooth is enabled.
       mkIf cfgBluetooth {

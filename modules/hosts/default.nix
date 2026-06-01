@@ -17,8 +17,11 @@
   hosts = {
     # keep-sorted start
     desktop = "x86_64-linux";
-    euclid = "x86_64-linux";
     laptop = "x86_64-linux";
+    # keep-sorted end
+
+    # keep-sorted start
+    euclid = "x86_64-linux";
     # keep-sorted end
   };
 in {

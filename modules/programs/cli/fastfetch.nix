@@ -13,13 +13,6 @@
     # Escape code for fastfetch color formatting.
     esc = fromJSON "\"\\u001b\"";
   in {
-    imports = [
-      {
-        key = "homeManager-shellAbbreviations";
-        imports = [self.modules.homeManager.shellAbbreviations];
-      }
-    ];
-
     programs.fastfetch = {
       enable = true;
 

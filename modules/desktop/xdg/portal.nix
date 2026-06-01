@@ -1,10 +1,4 @@
-{
-  # keep-sorted start
-  inputs,
-  self,
-  # keep-sorted end
-  ...
-}: {
+{inputs, ...}: {
   flake.modules.homeManager.xdgPortal = {
     # keep-sorted start
     config,
@@ -16,16 +10,6 @@
     inherit (lib) getExe;
     inherit ((import "${inputs.hyprland}/nix/lib.nix" lib)) toHyprlang;
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start block=yes
-      xdgTerminal
-      {
-        key = "homeManager-hyprland";
-        imports = [hyprland];
-      }
-      # keep-sorted end
-    ];
-
     xdg.configFile = {
       "xdg-desktop-portal-termfilechooser/config".text = let
         terminalCommand = getExe config.xdg.terminal-exec.package;

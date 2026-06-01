@@ -1,10 +1,4 @@
-{
-  # keep-sorted start
-  inputs,
-  self,
-  # keep-sorted end
-  ...
-}: {
+{inputs, ...}: {
   flake-file.inputs = {
     nvf = {
       url = "github:adam01110/nvf?ref=personal";
@@ -43,17 +37,7 @@
 
     cfg = config.programs.nvf.settings.vim;
   in {
-    imports =
-      [inputs.nvf.homeManagerModules.default]
-      ++ (with self.modules.homeManager; [
-        # keep-sorted start block=yes
-        stylixBase
-        {
-          key = "homeManager-git";
-          imports = [git];
-        }
-        # keep-sorted end
-      ]);
+    imports = [inputs.nvf.homeManagerModules.default];
 
     options.programs.nvf.settings.vim = {
       # keep-sorted start block=yes newline_separated=yes

@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.zen = {
     # keep-sorted start
     config,
@@ -19,8 +19,6 @@
       ;
     inherit (vars) countryCode;
   in {
-    imports = [self.modules.generic.vars];
-
     options.programs.zen-browser.profiles = mkOption {
       type = types.attrsOf (types.submodule {
         options.preferences = {

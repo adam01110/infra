@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
@@ -10,16 +10,6 @@
 
     cfgGpu = config.programs.noctalia-shell.systemMonitor.enableGpu;
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start block=yes
-      xdgTerminal
-      {
-        key = "homeManager-btop";
-        imports = [btop];
-      }
-      # keep-sorted end
-    ];
-
     # Expose a GPU toggle for Noctalia system monitor widgets.
     options.programs.noctalia-shell.systemMonitor.enableGpu = mkEnableOption "Enable dGPU monitoring and GPU temperature widgets.";
 

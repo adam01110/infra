@@ -1,9 +1,7 @@
-{self, ...}: {
+{
   flake.modules.homeManager.neovim = {config, ...}: let
     colors = config.lib.stylix.colors.withHashtag;
   in {
-    imports = [self.modules.homeManager.stylixBase];
-
     programs.nvf.settings.vim = {
       searchCase = "smart";
 

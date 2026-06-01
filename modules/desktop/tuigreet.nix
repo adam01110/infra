@@ -31,16 +31,6 @@
 
     tomlFormat = pkgs.formats.toml {};
   in {
-    imports = with self.modules; [
-      # keep-sorted start block=yes
-      generic.vars
-      {
-        key = "nixos-uwsm";
-        imports = [nixos.uwsm];
-      }
-      # keep-sorted end
-    ];
-
     # keep-sorted start block=yes newline_separated=yes
     environment = {
       # Generate tuigreet configuration.

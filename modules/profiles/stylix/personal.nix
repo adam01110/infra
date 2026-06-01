@@ -14,14 +14,7 @@
   ];
 in {
   flake.modules.nixos.stylixPersonal = {pkgs, ...}: {
-    key = "nixos-stylixPersonal";
-
-    imports = with self.modules.nixos; [
-      # keep-sorted start
-      nur
-      stylixBase
-      # keep-sorted end
-    ];
+    imports = [self.modules.nixos.stylixBase];
 
     stylix = {
       cursor = {
@@ -66,8 +59,6 @@ in {
   };
 
   flake.modules.homeManager.stylixPersonal = {
-    key = "homeManager-stylixPersonal";
-
     imports = [self.modules.homeManager.stylixBase];
 
     stylix = {

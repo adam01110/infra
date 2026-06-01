@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.gh = {
     # keep-sorted start
     config,
@@ -22,17 +22,6 @@
       '';
     };
   in {
-    imports = with self.modules; [
-      # keep-sorted start block=yes
-      generic.vars
-      homeManager.sops
-      {
-        key = "homeManager-git";
-        imports = [homeManager.git];
-      }
-      # keep-sorted end
-    ];
-
     sops.secrets.github_token = {};
 
     programs.gh = {

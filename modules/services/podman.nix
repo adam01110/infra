@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.nixos.podman = {
     # keep-sorted start
     pkgs,
@@ -8,8 +8,6 @@
   }: let
     inherit (vars) username;
   in {
-    imports = [self.modules.generic.vars];
-
     virtualisation = {
       podman = {
         # Enable podman service and tooling.

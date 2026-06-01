@@ -47,11 +47,6 @@
       ];
     };
   in {
-    imports = with self.modules.homeManager; [
-      nur
-      stylixPersonal
-    ];
-
     home.packages = [pkg];
 
     xdg.configFile."BeeperTexts/custom.css".text = with colors; ''

@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.ssh = {
     # keep-sorted start
     config,
@@ -8,13 +8,6 @@
   }: let
     inherit (vars) username;
   in {
-    imports = with self.modules; [
-      # keep-sorted start
-      generic.vars
-      homeManager.sops
-      # keep-sorted end
-    ];
-
     sops = {
       secrets = {
         # Hostname for the euclid server host, stored in sops.

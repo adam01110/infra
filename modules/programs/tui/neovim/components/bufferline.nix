@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.neovim = {
     # keep-sorted start
     config,
@@ -9,8 +9,6 @@
     colors = config.lib.stylix.colors.withHashtag;
     inherit (lib.generators) mkLuaInline;
   in {
-    imports = [self.modules.homeManager.stylixBase];
-
     # keep-sorted start block=yes newline_separated=yes
     programs.nvf.settings.vim.luaConfigPreSnippets = [
       ''

@@ -3,12 +3,9 @@
     # keep-sorted start
     lib,
     pkgs,
-    self,
     # keep-sorted end
     ...
   }: {
-    imports = [self.modules.homeManager.zathura];
-
     # keep-sorted start block=yes newline_separated=yes
     home.packages = [pkgs.zaread];
 

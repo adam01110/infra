@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.nixos.network = {
     # keep-sorted start
     config,
@@ -10,13 +10,6 @@
     inherit (lib) concatStringsSep;
     inherit (vars) username;
   in {
-    imports = with self.modules; [
-      # keep-sorted start
-      generic.vars
-      nixos.sops
-      # keep-sorted end
-    ];
-
     sops = let
       hostname = config.networking.hostName;
     in {

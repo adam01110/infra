@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.discord = {
     # keep-sorted start
     lib,
@@ -9,8 +9,6 @@
   in
     # Interface and layout related plugins.
     {
-      imports = [self.modules.homeManager.stylixPersonal];
-
       # User option to toggle camera features in plugins.
       options.programs.nixcord.equibop.camera.enable = mkEnableOption "Enable camera functionality for Equibop plugins.";
 

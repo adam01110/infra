@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.discord = {
     # keep-sorted start
     config,
@@ -24,8 +24,6 @@
       (readFile ./system24.css)
     );
   in {
-    imports = [self.modules.homeManager.stylixPersonal];
-
     programs.nixcord.config = {
       # Enable custom css themes.
       enabledThemes = [

@@ -1,9 +1,7 @@
-{self, ...}: {
+{
   flake.modules.homeManager.onlyoffice = {vars, ...}: let
     inherit (vars) fullName;
   in {
-    imports = [self.modules.generic.vars];
-
     programs.onlyoffice = {
       # keep-sorted start block=yes newline_separated=yes
       enable = true;

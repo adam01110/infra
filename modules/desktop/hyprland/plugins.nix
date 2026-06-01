@@ -1,10 +1,4 @@
-{
-  # keep-sorted start
-  inputs,
-  self,
-  # keep-sorted end
-  ...
-}: {
+{inputs, ...}: {
   flake-file.inputs = {
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins?ref=v0.55.0";
@@ -13,14 +7,14 @@
   };
 
   flake.modules.homeManager.hyprland = {
+    # keep-sorted start
     lib,
     pkgs,
+    # keep-sorted end
     ...
   }: let
     inherit (lib) mkOrder;
   in {
-    imports = [self.modules.homeManager.nur];
-
     wayland.windowManager.hyprland.plugins = [pkgs.hyprlandPlugins.hyprfocus];
 
     programs.hylix = {

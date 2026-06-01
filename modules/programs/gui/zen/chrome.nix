@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake-file.inputs = {
     nix-userstyles = {
       url = "github:adam01110/nix-userstyles";
@@ -31,8 +31,6 @@
     # Convert the stylix base16 scheme into a format accepted by nix-userstyles.
     palette = stylixPalette config;
   in {
-    imports = [self.modules.homeManager.stylixPersonal];
-
     # Remove rounded corners in zen browser interface.
     programs.zen-browser.profiles.default = {
       userChrome = ''

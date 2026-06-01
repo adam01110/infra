@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
     config,
@@ -9,13 +9,6 @@
   }: let
     inherit (lib) mkForce;
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start
-      nur
-      stylixPersonal
-      # keep-sorted end
-    ];
-
     # Install and export the Hyprcursor theme selected by Stylix.
     home = {
       # Hyprcursor variant of the configured Bibata cursor package.

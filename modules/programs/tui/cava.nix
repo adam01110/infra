@@ -1,7 +1,5 @@
-{self, ...}: {
+{
   flake.modules.homeManager.cava = {
-    imports = [self.modules.homeManager.stylixBase];
-
     programs.cava = {
       enable = true;
 

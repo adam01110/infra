@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.yazi = {
     # keep-sorted start
     config,
@@ -9,19 +9,6 @@
   }: let
     inherit (pkgs.lib.generators) mkLuaInline;
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start block=yes
-      bat
-      fd
-      nur
-      ripgrep
-      {
-        key = "homeManager-television";
-        imports = [television];
-      }
-      # keep-sorted end
-    ];
-
     programs.yazi = {
       package = pkgs.yazi.override {
         optionalDeps =

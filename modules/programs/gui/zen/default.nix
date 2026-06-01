@@ -1,10 +1,4 @@
-{
-  # keep-sorted start
-  inputs,
-  self,
-  # keep-sorted end
-  ...
-}: {
+{inputs, ...}: {
   flake-file.inputs = {
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake?ref=beta";
@@ -18,12 +12,7 @@
   };
 
   flake.modules.homeManager.zen = {
-    imports = [
-      # keep-sorted start
-      inputs.zen-browser.homeModules.beta
-      self.modules.homeManager.stylixBase
-      # keep-sorted end
-    ];
+    imports = [inputs.zen-browser.homeModules.beta];
 
     programs.zen-browser.enable = true;
 

@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.wiremix = {
     # keep-sorted start
     config,
@@ -11,8 +11,6 @@
 
     pkg = pkgs.wiremix;
   in {
-    imports = [self.modules.homeManager.xdgTerminal];
-
     # keep-sorted start block=yes newline_separated=yes
     home.packages = [pkg];
 

@@ -1,9 +1,7 @@
-{self, ...}: {
+{
   flake.modules.homeManager.sober = let
     pkg = "org.vinegarhq.Sober";
   in {
-    imports = [self.modules.homeManager.flatpak];
-
     # Install the flatpak and expose Discord IPC sockets.
     services.flatpak = {
       packages = [pkg];

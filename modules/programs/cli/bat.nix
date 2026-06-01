@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.bat = {
     # keep-sorted start
     config,
@@ -10,16 +10,6 @@
     inherit (lib) getExe;
     bat = getExe config.programs.bat.package;
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start block=yes
-      nur
-      {
-        key = "homeManager-fish";
-        imports = [fish];
-      }
-      # keep-sorted end
-    ];
-
     programs.bat = {
       enable = true;
 

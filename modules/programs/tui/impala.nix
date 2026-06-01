@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.impala = {
     # keep-sorted start
     config,
@@ -20,8 +20,6 @@
     cfgWifi = osConfig.capabilities.wifi;
     pkg = pkgs.impala;
   in {
-    imports = [self.modules.homeManager.xdgTerminal];
-
     config =
       # Only install when wifi is enabled.
       mkIf cfgWifi {

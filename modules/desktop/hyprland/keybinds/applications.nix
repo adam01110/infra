@@ -4,26 +4,11 @@
     config,
     lib,
     pkgs,
-    self,
     # keep-sorted end
     ...
   }: let
     inherit (lib.self) mkHylixBindGroup;
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start block=yes
-      ghostty
-      {
-        key = "homeManager-discord";
-        imports = [discord];
-      }
-      {
-        key = "homeManager-zen";
-        imports = [zen];
-      }
-      # keep-sorted end
-    ];
-
     config = let
       inherit (lib) getExe;
 

@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
@@ -9,8 +9,6 @@
     inherit (lib) mkForce;
     colors = config.lib.stylix.colors.withHashtag;
   in {
-    imports = [self.modules.homeManager.stylixBase];
-
     stylix.targets.noctalia-shell.colors.override.withHashtag = with colors; {
       # keep-sorted start
       base05 = base06;

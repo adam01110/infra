@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.television = {
     # keep-sorted start
     config,
@@ -11,8 +11,6 @@
 
     fd = getExe config.programs.fd.package;
   in {
-    imports = [self.modules.homeManager.fd];
-
     programs.television.channels.files = {
       # keep-sorted start block=yes newline_separated=yes
       actions.edit = {

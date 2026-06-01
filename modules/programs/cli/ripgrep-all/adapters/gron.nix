@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.ripgrep-all = {
     # keep-sorted start
     lib,
@@ -13,8 +13,6 @@
     qq = getExe pkgs.nur.repos.adam0.qq-jfryy;
     # keep-sorted end
   in {
-    imports = [self.modules.homeManager.nur];
-
     programs.ripgrep-all.custom_adapters = [
       # keep-sorted start block=yes newline_separated=yes
       # Convert JSON into line-oriented assignments for grep.

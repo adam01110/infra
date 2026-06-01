@@ -1,9 +1,7 @@
-{self, ...}: {
+{
   flake.modules.homeManager.eza = {config, ...}: let
     colors = config.lib.stylix.colors.withHashtag;
   in {
-    imports = [self.modules.homeManager.stylixBase];
-
     programs.eza.theme = with colors; {
       # keep-sorted start block=yes newline_separated=yes
       colourful = true;

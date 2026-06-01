@@ -16,11 +16,8 @@
         polkit
         tablet
         tuigreet
+        uwsm
         xdgPortal
-        {
-          key = "nixos-uwsm";
-          imports = [uwsm];
-        }
         # keep-sorted end
 
         # Programs
@@ -66,24 +63,17 @@
 
       # Desktop
       # keep-sorted start block=yes
+      cliphist
+      ghostty
+      hyprland
+      noctalia
+      overzicht
       polkit
       stylixPersonal
       uwsm
       xdgApplications
       xdgPortal
       xdgTerminal
-      {
-        key = "homeManager-hyprland";
-        imports = [hyprland];
-      }
-      {
-        key = "homeManager-noctalia";
-        imports = [noctalia];
-      }
-      {
-        key = "homeManager-overzicht";
-        imports = [overzicht];
-      }
       # keep-sorted end
 
       # Programs
@@ -99,14 +89,6 @@
       pipes
       ripgrep-all
       rumdl
-      {
-        key = "homeManager-fish";
-        imports = [fish];
-      }
-      {
-        key = "homeManager-zoxide";
-        imports = [zoxide];
-      }
       # keep-sorted end
 
       # TUI
@@ -124,8 +106,8 @@
       bleachbit
       crosspipe
       decibels
+      discord
       flatseal
-      ghostty
       gimp
       loupe
       onlyoffice
@@ -136,14 +118,7 @@
       upscayl
       zaread
       zathura
-      {
-        key = "homeManager-discord";
-        imports = [discord];
-      }
-      {
-        key = "homeManager-zen";
-        imports = [zen];
-      }
+      zen
       # keep-sorted end
 
       # Services

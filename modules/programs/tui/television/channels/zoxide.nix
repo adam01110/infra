@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.television = {
     # keep-sorted start
     config,
@@ -24,16 +24,6 @@
       # keep-sorted end
       ;
   in {
-    imports = with self.modules.homeManager; [
-      # keep-sorted start
-      eza
-      {
-        key = "homeManager-zoxide";
-        imports = [zoxide];
-      }
-      # keep-sorted end
-    ];
-
     programs.television.channels.zoxide = let
       zoxide = getExe config.programs.zoxide.package;
     in {

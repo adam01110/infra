@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.nixos.locale = {vars, ...}: let
     inherit
       (vars)
@@ -8,8 +8,6 @@
       # keep-sorted end
       ;
   in {
-    imports = [self.modules.generic.vars];
-
     i18n = {
       inherit defaultLocale;
       extraLocaleSettings = {

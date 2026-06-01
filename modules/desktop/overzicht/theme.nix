@@ -1,12 +1,10 @@
-{self, ...}: {
+{
   flake.modules.homeManager.overzicht = {config, ...}: let
     # keep-sorted start
     colors = config.lib.stylix.colors.withHashtag;
     sansSerifFont = config.stylix.fonts.sansSerif.name;
     # keep-sorted end
   in {
-    imports = [self.modules.homeManager.stylixPersonal];
-
     # Feed the Stylix palette through Overzicht's module options.
     programs.overzicht = {
       # keep-sorted start block=yes newline_separated=yes

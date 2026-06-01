@@ -4,7 +4,6 @@
     config,
     lib,
     pkgs,
-    self,
     # keep-sorted end
     ...
   }: let
@@ -17,8 +16,6 @@
     screenshotDir = "${config.xdg.userDirs.pictures}/Screenshots";
     # keep-sorted end
   in {
-    imports = [self.modules.homeManager.xdgDirs];
-
     config.programs.hylix.bindGroups = [
       (mkHylixBindGroup "Screenshots And Color" [
         # keep-sorted start block=yes newline_separated=yes

@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.yazi = {
     # keep-sorted start
     lib,
@@ -13,8 +13,6 @@
     systemdStatusPreview = getExe pkgs.systemd-status-preview;
     usePreloader = "faster-piper --rely-on-preloader";
   in {
-    imports = [self.modules.homeManager.nur];
-
     programs.yazi = {
       plugins.faster-piper = pkgs.nur.repos.adam0.yaziPlugins.faster-piper;
 

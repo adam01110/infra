@@ -1,9 +1,4 @@
 {
-  # keep-sorted start
-  self,
-  # keep-sorted end
-  ...
-}: {
   flake.modules.homeManager.git = {
     # keep-sorted start
     config,
@@ -27,14 +22,6 @@
 
     colors = osConfig.lib.stylix.colors.withHashtag;
   in {
-    imports = with self.modules; [
-      # keep-sorted start
-      generic.vars
-      homeManager.sops
-      homeManager.ssh
-      # keep-sorted end
-    ];
-
     sops = {
       secrets = {
         # Per-user git email address stored in sops.

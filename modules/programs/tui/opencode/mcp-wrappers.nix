@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.opencode = {
     # keep-sorted start
     config,
@@ -39,8 +39,6 @@
     };
     # keep-sorted end
   in {
-    imports = [self.modules.homeManager.sops];
-
     options.programs.opencode.mcpServers = mkOption {
       description = "MCP server packages added to the wrapped opencode launcher PATH.";
 

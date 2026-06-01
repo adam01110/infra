@@ -1,7 +1,5 @@
-{self, ...}: {
+{
   flake.modules.homeManager.yazi = {pkgs, ...}: {
-    imports = [self.modules.homeManager.nur];
-
     programs.yazi = {
       plugins.tv = pkgs.nur.repos.adam0.yaziPlugins.tv;
 

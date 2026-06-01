@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
@@ -22,13 +22,6 @@
 
     cfgLocation = config.programs.noctalia-shell.location.source;
   in {
-    imports = with self.modules; [
-      # keep-sorted start
-      generic.vars
-      homeManager.sops
-      # keep-sorted end
-    ];
-
     # Control whether Noctalia reads weather data from autolocation or sops.
     options.programs.noctalia-shell.location.source = mkOption {
       description = ''

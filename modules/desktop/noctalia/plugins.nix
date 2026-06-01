@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
@@ -25,15 +25,6 @@
 
     colors = config.lib.stylix.colors.withHashtag;
   in {
-    imports = with self.modules; [
-      # keep-sorted start
-      generic.vars
-      homeManager.sops
-      homeManager.stylixBase
-      homeManager.xdgDirs
-      # keep-sorted end
-    ];
-
     # keep-sorted start block=yes newline_separated=yes
     programs.noctalia-shell = {
       plugins = let

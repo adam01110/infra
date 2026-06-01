@@ -27,8 +27,10 @@
     pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
   in {
     nixpkgs.overlays = with self.overlays; [
+      # keep-sorted start
       hyprland
       hyprland-plugins
+      # keep-sorted end
     ];
 
     programs.hyprland = {
@@ -45,19 +47,8 @@
     };
   };
 
-  flake.modules.homeManager.hyprland = {
-    # keep-sorted start
-    inputs,
-    self,
-    # keep-sorted end
-    ...
-  }: {
-    imports = [
-      # keep-sorted start
-      inputs.hylix.homeManagerModules.default
-      self.modules.homeManager.uwsm
-      # keep-sorted end
-    ];
+  flake.modules.homeManager.hyprland = {inputs, ...}: {
+    imports = [inputs.hylix.homeManagerModules.default];
 
     config = {
       wayland.windowManager.hyprland = {

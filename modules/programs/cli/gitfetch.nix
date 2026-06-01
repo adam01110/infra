@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.gitfetch = {
     # keep-sorted start
     config,
@@ -20,14 +20,6 @@
       '';
     };
   in {
-    imports = with self.modules.homeManager; [
-      sops
-      {
-        key = "homeManager-shellAbbreviations";
-        imports = [shellAbbreviations];
-      }
-    ];
-
     sops.secrets.gitfetch_github_token = {};
 
     home.packages = [gitfetchWrapper];

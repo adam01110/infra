@@ -1,9 +1,7 @@
-{self, ...}: {
+{
   flake.modules.nixos.geoclue = {config, ...}: let
     cfgWifi = config.capabilities.wifi;
   in {
-    imports = [self.modules.nixos.capabilities];
-
     services.geoclue2 = {
       enable = true;
 

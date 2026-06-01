@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland = _: {
+  flake.modules.homeManager.hyprland = {
     programs.hylix.animations = {
       animations = [
         # keep-sorted start block=yes newline_separated=yes

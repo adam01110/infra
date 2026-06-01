@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
@@ -9,8 +9,6 @@
   }: let
     inherit (lib) getExe;
   in {
-    imports = [self.modules.homeManager.xdgTerminal];
-
     programs.noctalia-shell = {
       # keep-sorted start block=yes newline_separated=yes
       # Keep launcher runtime tools in the wrapped shell package path.

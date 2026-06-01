@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.nixos.godns = {
     # keep-sorted start
     config,
@@ -16,8 +16,6 @@
 
     secrets = config.sops.secrets;
   in {
-    imports = [self.modules.nixos.sops];
-
     sops.secrets = {
       # keep-sorted startr
       "godns/login_token" = {};
@@ -38,8 +36,8 @@
           };
         in [
           # keep-sorted start
-          (mkDomain orbitDomain)
           (mkDomain groundDomain)
+          (mkDomain orbitDomain)
           # keep-sorted end
         ];
 
@@ -49,10 +47,10 @@
 
         ip_urls = [
           # keep-sorted start
+          "https://api-ipv4.ip.sb/ip"
           "https://api.ip.sb/ip"
           "https://api.ipify.org"
           "https://myip.biturl.top"
-          "https://api-ipv4.ip.sb/ip"
           # keep-sorted end
         ];
       };

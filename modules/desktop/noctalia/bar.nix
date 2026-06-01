@@ -1,4 +1,4 @@
-{self, ...}: {
+{
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
@@ -15,8 +15,6 @@
     cfgGpu = config.programs.noctalia-shell.systemMonitor.enableGpu;
     # keep-sorted end
   in {
-    imports = [self.modules.homeManager.wiremix];
-
     programs.noctalia-shell.settings.bar = {
       # keep-sorted start
       backgroundOpacity = 1;
