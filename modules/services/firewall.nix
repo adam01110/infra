@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.nftables = {
+  flake.modules.nixos.firewall = {
     networking.nftables.enable = true;
   };
 }

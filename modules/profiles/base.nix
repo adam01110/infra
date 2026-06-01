@@ -23,9 +23,9 @@
       ananicy
       avahi
       bpftune
+      firewall
       locate
       network
-      nftables
       printing
       timesyncd
       tmp
@@ -65,6 +65,12 @@
       xdgDirs
       # keep-sorted end
 
+      # Programs
+      {
+        key = "homeManager-git";
+        imports = [git];
+      }
+
       # CLI
       # keep-sorted start
       bat
@@ -88,9 +94,14 @@
       atuin
       fzf
       neovim
+      nvtop
       {
         key = "homeManager-btop";
         imports = [btop];
+      }
+      {
+        key = "homeManager-television";
+        imports = [television];
       }
       {
         key = "homeManager-yazi";

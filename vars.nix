@@ -19,4 +19,10 @@ rec {
   noctaliaFirstDayOfWeek = 1;
   regionalLocale = "nl_${countryCode}.UTF-8";
   # keep-sorted end
+
+  # Domains
+  # keep-sorted start
+  groundDomain = "zezura.xyz";
+  orbitDomain = "adam0.dev";
+  # keep-sorted end
 }

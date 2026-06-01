@@ -5,6 +5,19 @@
 
       desktopEntries = {
         # keep-sorted start block=yes newline_separated=yes
+        kvantummanager = {
+          name = "Kvantum Manager";
+          exec = "kvantummanager";
+          icon = "kvantum";
+          noDisplay = true;
+          categories = [
+            "DesktopSettings"
+            "Qt"
+            "Settings"
+            "Utility"
+          ];
+        };
+
         qt5ct = {
           name = "Qt5 Settings";
           exec = "qt5ct";
@@ -29,19 +42,6 @@
             "Settings"
           ];
           settings.Keywords = "settings;desktop;qt;qtsettings;qt6;";
-        };
-
-        kvantummanager = {
-          name = "Kvantum Manager";
-          exec = "kvantummanager";
-          icon = "kvantum";
-          noDisplay = true;
-          categories = [
-            "DesktopSettings"
-            "Qt"
-            "Settings"
-            "Utility"
-          ];
         };
         # keep-sorted end
       };

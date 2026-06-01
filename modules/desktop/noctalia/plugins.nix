@@ -95,7 +95,7 @@
           # keep-sorted end
 
           # keep-sorted start
-          descriptionTextColor = base00;
+          descriptionTextColor = base05;
           keyColorAlt = base08;
           keyColorMouse = base0E;
           keyColorNumeric = base0D;

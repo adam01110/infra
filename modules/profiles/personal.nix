@@ -46,19 +46,6 @@
         # keep-sorted end
       ]);
 
-    nixpkgs.overlays = [
-      (_final: prev: {
-        openldap = prev.openldap.overrideAttrs (old: {
-          # Skip flaky syncrepl test on current nixpkgs.
-          preCheck =
-            (old.preCheck or "")
-            + ''
-              rm -f tests/scripts/test017-syncreplication-refresh
-            '';
-        });
-      })
-    ];
-
     disko.devices = (self.diskoConfigurations.ext4 config.disko.selectedDisk).disko.devices;
   };
 
@@ -100,13 +87,7 @@
       # keep-sorted end
 
       # Programs
-      # keep-sorted start block=yes
       gtk
-      {
-        key = "homeManager-git";
-        imports = [git];
-      }
-      # keep-sorted end
 
       # CLI
       # keep-sorted start block=yes
@@ -131,13 +112,8 @@
       # TUI
       # keep-sorted start block=yes
       cava
-      nvtop
       opencode
       wiremix
-      {
-        key = "homeManager-television";
-        imports = [television];
-      }
       # keep-sorted end
 
       # GUI
