@@ -10,6 +10,11 @@
     defaultSopsFormat = "yaml";
     validateSopsFiles = false;
   };
+
+  defaultAgeConfig = {
+    sshKeyPaths = [];
+    generateKey = false;
+  };
 in {
   flake-file.inputs = {
     sops-nix = {
@@ -33,11 +38,7 @@ in {
       defaultConfig
       // {
         # Use a pre-provisioned age key file on disk.
-        age = {
-          sshKeyPaths = [];
-          generateKey = false;
-          keyFile = "/var/lib/sops-nix/key.txt";
-        };
+        age = defaultAgeConfig // {keyFile = "/var/lib/sops-nix/key.txt";};
       };
   };
 
@@ -50,11 +51,7 @@ in {
       defaultConfig
       // {
         # User service cannot read the root-owned system key.
-        age = {
-          sshKeyPaths = [];
-          generateKey = false;
-          keyFile = "/home/${username}/.config/sops/age/key.txt";
-        };
+        age = defaultAgeConfig // {keyFile = "/home/${username}/.config/sops/age/key.txt";};
       };
   };
 }

@@ -1,5 +1,7 @@
 {self, ...}: {
-  flake.modules.nixos.euclid = {config, ...}: {
+  flake.modules.nixos.euclid = {lib, ...}: let
+    inherit (lib) mkForce;
+  in {
     imports = with self.modules.nixos; [
       # Profiles
       server
@@ -9,6 +11,7 @@
       godns
       mysql
       postgres
+      ssh
       # keep-sorted end
     ];
 
@@ -17,9 +20,14 @@
 
     networking.hostName = "euclid";
 
+    sops.age = {
+      sshKeyPaths = mkForce ["/etc/ssh/key"];
+      generateKey = mkForce false;
+      keyFile = mkForce null;
+    };
+
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";
-    disko.devices = (self.diskoConfigurations.btrfs config.disko.selectedDisk).disko.devices;
 
     # extra data mounts.
     fileSystems = let

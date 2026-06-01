@@ -7,6 +7,9 @@ keys:
       - &laptop age1k25zg5u386wqlxf73gyr5f9d7c0q2hawyqrpdd22j94xt0y78s0sgjayuv
       - &vm age18xgnqqn70msl9wzqpnlwjpupwtkzzyxq65tvpsr7zzpkq7av6fjs2hz79d
       # keep-sorted end
+      # keep-sorted start
+      - &euclid age1f2pmdmv29e98phn5r9sj9m85ysu3t03wpsf98xgex6fzqkyv8g5shs2sr8
+      # keep-sorted end
 creation_rules:
   - path_regex: ^secrets\.yaml$
     key_groups:
@@ -17,4 +20,7 @@ creation_rules:
           - *desktop
           - *laptop
           - *vm
+          # keep-sorted end
+          # keep-sorted start
+          - *euclid
           # keep-sorted end

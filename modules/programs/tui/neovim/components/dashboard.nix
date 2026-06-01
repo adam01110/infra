@@ -11,6 +11,16 @@
     inherit (lib.generators) mkLuaInline;
 
     colors = config.lib.stylix.colors.withHashtag;
+
+    dashboardGhNotify = pkgs.writeShellApplication {
+      name = "dashboard-gh-notify";
+      runtimeInputs = [pkgs.coreutils];
+      text = ''
+        GH_TOKEN="$(cat "${config.sops.secrets.github_token.path}")"
+        export GH_TOKEN
+        exec "${getExe pkgs.gh-notify}" "$@"
+      '';
+    };
   in {
     # keep-sorted start block=yes newline_separated=yes
     # Capture dashboard metrics once so the footer can read cached values.
@@ -123,8 +133,8 @@
       # Provide CLI tools consumed by dashboard terminal sections.
       extraPackages = with pkgs; [
         # keep-sorted start
+        dashboardGhNotify
         dwt1-shell-color-scripts
-        gh-notify
         # keep-sorted end
       ];
 
@@ -296,7 +306,7 @@
             icon = "";
             title = "Notifications";
             section = "terminal";
-            cmd = "${getExe pkgs.gh-notify} -s -a -n4";
+            cmd = "${getExe dashboardGhNotify} -s -a -n4";
             height = 4;
             padding = 1;
             indent = 3;
