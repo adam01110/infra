@@ -4,6 +4,7 @@
       mimeApps.enable = true;
 
       desktopEntries = {
+        # keep-sorted start block=yes newline_separated=yes
         qt5ct = {
           name = "Qt5 Settings";
           exec = "qt5ct";
@@ -29,6 +30,20 @@
           ];
           settings.Keywords = "settings;desktop;qt;qtsettings;qt6;";
         };
+
+        kvantummanager = {
+          name = "Kvantum Manager";
+          exec = "kvantummanager";
+          icon = "kvantum";
+          noDisplay = true;
+          categories = [
+            "DesktopSettings"
+            "Qt"
+            "Settings"
+            "Utility"
+          ];
+        };
+        # keep-sorted end
       };
     };
   };
