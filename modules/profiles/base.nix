@@ -1,7 +1,12 @@
 {self, ...}: {
   flake.modules.nixos.base = {
     imports =
-      [self.modules.generic.vars]
+      (with self.modules.generic; [
+        # keep-sorted start
+        determinate
+        vars
+        # keep-sorted end
+      ])
       ++ (with self.modules.nixos; [
         # Core
         # keep-sorted start

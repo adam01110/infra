@@ -1,47 +1,45 @@
 {self, ...}: {
   flake.modules.nixos.personal = {config, ...}: {
-    imports = with self.modules;
-      [generic.determinate]
-      ++ (with nixos; [
-        # Profiles
-        # keep-sorted start
-        base
-        stylixPersonal
-        # keep-sorted end
+    imports = with self.modules.nixos; [
+      # Profiles
+      # keep-sorted start
+      base
+      stylixPersonal
+      # keep-sorted end
 
-        # Desktop
-        # keep-sorted start block=yes
-        hyprland
-        noctalia
-        polkit
-        tablet
-        tuigreet
-        uwsm
-        xdgPortal
-        # keep-sorted end
+      # Desktop
+      # keep-sorted start block=yes
+      hyprland
+      noctalia
+      polkit
+      tablet
+      tuigreet
+      uwsm
+      xdgPortal
+      # keep-sorted end
 
-        # Programs
-        # keep-sorted start
-        appimage
-        java
-        # keep-sorted end
+      # Programs
+      # keep-sorted start
+      appimage
+      java
+      # keep-sorted end
 
-        # GUI
-        seahorse
+      # GUI
+      seahorse
 
-        # Services
-        # keep-sorted start
-        evolution-data-server
-        flatpak
-        geoclue
-        gnome-keyring
-        gvfs
-        libinput
-        pipewire
-        power-profiles-daemon
-        upower
-        # keep-sorted end
-      ]);
+      # Services
+      # keep-sorted start
+      evolution-data-server
+      flatpak
+      geoclue
+      gnome-keyring
+      gvfs
+      libinput
+      pipewire
+      power-profiles-daemon
+      upower
+      # keep-sorted end
+    ];
 
     disko.devices = (self.diskoConfigurations.ext4 config.disko.selectedDisk).disko.devices;
   };

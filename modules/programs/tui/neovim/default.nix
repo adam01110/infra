@@ -1,4 +1,10 @@
-{inputs, ...}: {
+{
+  # keep-sorted start
+  inputs,
+  self,
+  # keep-sorted end
+  ...
+}: {
   flake-file.inputs = {
     nvf = {
       url = "github:adam01110/nvf?ref=personal";
@@ -10,6 +16,8 @@
   };
 
   flake.modules.nixos.neovim = {
+    nixpkgs.overlays = [self.overlays.pkgs];
+
     nix.settings = let
       cache = "https://nvf.cachix.org/";
     in {

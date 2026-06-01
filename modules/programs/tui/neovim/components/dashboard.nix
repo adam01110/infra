@@ -126,6 +126,8 @@
       ''
     ];
 
+    sops.secrets.github_token = {};
+
     # keep-sorted end
 
     programs.nvf.settings.vim = {
