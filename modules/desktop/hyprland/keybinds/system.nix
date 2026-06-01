@@ -13,15 +13,15 @@
       getExe'
       # keep-sorted end
       ;
-    inherit (lib.self) mkNixhyprBindGroup;
+    inherit (lib.self) mkHylixBindGroup;
 
     # keep-sorted start
     noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc call";
     overzicht = "${getExe config.programs.overzicht.package} ipc call";
     # keep-sorted end
   in {
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "System" [
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "System" [
         # keep-sorted start block=yes newline_separated=yes
         {
           description = "Keybind cheatsheet";

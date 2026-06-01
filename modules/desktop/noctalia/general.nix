@@ -4,7 +4,7 @@
       # Use sharp corners (no rounding) for consistent design.
       radius = 0;
 
-      cfgTouch = config.programs.nixhypr.touch.enable or false;
+      cfgTouch = config.programs.hylix.touch.enable or false;
     in {
       # keep-sorted start
       animationSpeed = 2;

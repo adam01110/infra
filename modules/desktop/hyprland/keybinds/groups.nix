@@ -6,12 +6,12 @@
       # keep-sorted start
       hyprlandDirections
       hyprlandGroupNumbers
-      mkNixhyprBindGroup
+      mkHylixBindGroup
       # keep-sorted end
       ;
   in {
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "Groups" (concatLists [
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "Groups" (concatLists [
         [
           # keep-sorted start block=yes newline_separated=yes
           {

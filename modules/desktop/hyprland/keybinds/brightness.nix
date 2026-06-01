@@ -14,7 +14,7 @@
       optionals
       # keep-sorted end
       ;
-    inherit (lib.self) mkNixhyprBindGroup;
+    inherit (lib.self) mkHylixBindGroup;
 
     cfg = config.hyprland.brightness;
 
@@ -22,8 +22,8 @@
   in {
     options.hyprland.brightness.enable = mkEnableOption "function-row brightness keybindings";
 
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "Brightness" (optionals cfg.enable [
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "Brightness" (optionals cfg.enable [
         # keep-sorted start block=yes newline_separated=yes
         {
           description = "Brightness down";

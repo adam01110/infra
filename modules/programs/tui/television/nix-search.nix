@@ -107,6 +107,11 @@
     sources = {
       # Home Manager-backed sources.
       # keep-sorted start block=yes newline_separated=yes
+      hylix = {
+        rawDoc = mkHomeManagerDoc inputs.hylix.homeManagerModules.default;
+        prefixes = ["programs.hylix"];
+      };
+
       nix-flatpak = {
         rawDoc = mkHomeManagerDoc inputs.nix-flatpak.homeManagerModules.nix-flatpak;
         prefixes = ["services.flatpak"];
@@ -123,11 +128,6 @@
       nixcord = {
         rawDoc = mkHomeManagerDoc inputs.nixcord.homeModules.nixcord;
         prefixes = ["programs.nixcord"];
-      };
-
-      nixhypr = {
-        rawDoc = mkHomeManagerDoc inputs.nixhypr.homeManagerModules.default;
-        prefixes = ["programs.nixhypr"];
       };
 
       noctalia = {

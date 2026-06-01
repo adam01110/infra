@@ -2,11 +2,12 @@
   flake-file.inputs = {
     hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.2";
 
-    nixhypr = {
-      url = "github:karol-broda/nixhypr";
+    hylix = {
+      url = "github:adam01110/hylix";
       inputs = {
         # keep-sorted start
-        hyprland.follows = "hyprland";
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
         # keep-sorted end
@@ -44,11 +45,17 @@
     };
   };
 
-  flake.modules.homeManager.hyprland = {self, ...}: {
-    imports = with self.modules.homeManager; [
+  flake.modules.homeManager.hyprland = {
+    # keep-sorted start
+    inputs,
+    self,
+    # keep-sorted end
+    ...
+  }: {
+    imports = [
       # keep-sorted start
-      nixhypr
-      uwsm
+      inputs.hylix.homeManagerModules.default
+      self.modules.homeManager.uwsm
       # keep-sorted end
     ];
 
@@ -61,7 +68,7 @@
         portalPackage = null;
       };
 
-      programs.nixhypr.enable = true;
+      programs.hylix.enable = true;
     };
   };
 }

@@ -13,6 +13,6 @@
       # keep-sorted end
     ];
 
-    config.programs.nixhypr.settings.binds.movefocus_cycles_fullscreen = true;
+    config.programs.hylix.settings.binds.movefocus_cycles_fullscreen = true;
   };
 }

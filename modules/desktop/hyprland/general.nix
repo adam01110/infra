@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.hyprland = {
-    programs.nixhypr.settings = {
+    programs.hylix.settings = {
       # keep-sorted start block=yes newline_separated=yes
       # Suppress noisy logs and watchdog timeouts.
       debug = {
@@ -78,14 +78,7 @@
       };
 
       # Renderer tweaks.
-      render = {
-        # keep-sorted start
-        new_render_scheduling = true;
-        use_shader_blur_blend = true;
-        # keep-sorted end
-
-        ctm_animation = 0;
-      };
+      render.ctm_animation = 0;
 
       # Keep xwayland windows scaled correctly.
       xwayland.force_zero_scaling = true;

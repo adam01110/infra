@@ -22,11 +22,14 @@
     inherit (config.xdg) stateHome;
     cfgBattery = config.programs.noctalia-shell.battery.enable;
     videosDir = config.xdg.userDirs.videos;
+
+    colors = config.lib.stylix.colors.withHashtag;
   in {
     imports = with self.modules; [
       # keep-sorted start
       generic.vars
       homeManager.sops
+      homeManager.stylixBase
       homeManager.xdgDirs
       # keep-sorted end
     ];
@@ -84,6 +87,31 @@
         };
 
         github-feed = mkOutOfStoreSymlink config.sops.templates."noctalia-github-config".path;
+
+        keybind-cheatsheet = with colors; {
+          # keep-sorted start
+          windowWidth = 1600;
+          hyprlandParserMode = "lua";
+          # keep-sorted end
+
+          # keep-sorted start
+          descriptionTextColor = base00;
+          keyTextAlt = base00;
+          keyTextCtrl = base00;
+          keyTextDefault = base00;
+          keyTextMouse = base00;
+          keyTextNumeric = base00;
+          keyTextPrint = base00;
+          keyTextShift = base00;
+          keyTextSuper = base00;
+          keyTextXF86 = base00;
+          keyColorMouse = base0E;
+          keyColorAlt = base08;
+          keyColorXF86 = base0D;
+          keyColorPrint = base0D;
+          keyColorNumeric = base0D;
+          # keep-sorted end
+        };
 
         nvim-session-provider.sessionDir = "${stateHome}/nvf/sessions";
 

@@ -44,7 +44,6 @@
           "*.mdx"
         ];
 
-        # Keep sops and direnv files out of formatting and linting.
         global.excludes = [
           # keep-sorted start
           ".direnv/*"

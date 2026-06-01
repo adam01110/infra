@@ -19,7 +19,7 @@
 
       # keep-sorted start block=yes newline_separated=yes
       # Configure the vm display settings.
-      programs.nixhypr.monitors = [
+      programs.hylix.monitors = [
         {
           output = "Virtual-1";
           mode = "1920x1080@60";

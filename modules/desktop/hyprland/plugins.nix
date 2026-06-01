@@ -13,10 +13,8 @@
   };
 
   flake.modules.homeManager.hyprland = {
-    # keep-sorted start
     lib,
     pkgs,
-    # keep-sorted end
     ...
   }: let
     inherit (lib) mkOrder;
@@ -25,8 +23,8 @@
 
     wayland.windowManager.hyprland.plugins = [pkgs.hyprlandPlugins.hyprfocus];
 
-    programs.nixhypr = {
-      _generatedConfig = mkOrder 875 ''
+    programs.hylix = {
+      _generatedConfig = mkOrder 899 ''
         -- Expose hyprsplit for keybind dispatchers.
         hyprsplit = dofile("${pkgs.nur.repos.adam0.hyprsplit}/init.lua")
         hyprsplit.config({ num_workspaces = 8 })

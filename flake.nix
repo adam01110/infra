@@ -51,10 +51,12 @@
       url = "github:kaylorben/nixcord";
       inputs.flake-parts.follows = "flake-parts";
     };
-    nixhypr = {
-      url = "github:karol-broda/nixhypr";
+    hylix = {
+      url = "github:adam01110/hylix";
       inputs = {
-        hyprland.follows = "hyprland";
+        flake-file.follows = "flake-file";
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };

@@ -1,9 +1,9 @@
 {
   flake.modules.homeManager.hyprland = {lib, ...}: let
-    inherit (lib.self) mkNixhyprBindGroup;
+    inherit (lib.self) mkHylixBindGroup;
   in {
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "Window Management" [
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "Window Management" [
         # keep-sorted start block=yes newline_separated=yes
         {
           description = "Close window";

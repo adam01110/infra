@@ -5,12 +5,12 @@
       (lib.self)
       # keep-sorted start
       hyprlandDirections
-      mkNixhyprBindGroup
+      mkHylixBindGroup
       # keep-sorted end
       ;
   in {
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "Layout And Resize" (concatLists [
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "Layout And Resize" (concatLists [
         (map (direction: {
             description = "Resize ${direction.label}";
 

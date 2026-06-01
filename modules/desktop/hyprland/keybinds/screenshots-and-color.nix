@@ -9,7 +9,7 @@
     ...
   }: let
     inherit (lib) getExe;
-    inherit (lib.self) mkNixhyprBindGroup;
+    inherit (lib.self) mkHylixBindGroup;
 
     # keep-sorted start
     hyprpicker = getExe pkgs.hyprpicker;
@@ -19,8 +19,8 @@
   in {
     imports = [self.modules.homeManager.xdgDirs];
 
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "Screenshots And Color" [
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "Screenshots And Color" [
         # keep-sorted start block=yes newline_separated=yes
         {
           description = "Color picker";

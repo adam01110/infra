@@ -7,12 +7,12 @@
     ...
   }: let
     inherit (lib) getExe';
-    inherit (lib.self) mkNixhyprBindGroup;
+    inherit (lib.self) mkHylixBindGroup;
 
     noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc call";
   in {
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "Shell" [
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "Shell" [
         # keep-sorted start block=yes newline_separated=yes
         {
           description = "Clipboard";

@@ -22,48 +22,69 @@
     equibop = getExe config.programs.nixcord.equibop.package;
     grim = getExe pkgs.grim;
     hyprctl = getExe' osConfig.programs.hyprland.package "hyprctl";
+    hyprfocus = "${pkgs.hyprlandPlugins.hyprfocus}/lib/libhyprfocus.so";
     hyprpicker = getExe pkgs.hyprpicker;
-    quickshell = getExe' inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.quickshell ".quickshell-wrapped";
+    noctalia-qs = getExe' inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.quickshell ".quickshell-wrapped";
+    overzicht = getExe config.programs.overzicht.package;
+    quickshell = getExe pkgs.quickshell;
     xdg-desktop-portal-hyprland = getExe' osConfig.programs.hyprland.portalPackage ".xdg-desktop-portal-hyprland-wrapped";
     # keep-sorted end
   in {
-    programs.nixhypr = {
+    programs.hylix = {
       permissions = [
         {
-          allow = "allow";
           binary = escapeRegex hyprctl;
+          mode = "allow";
+          type = "plugin";
+        }
+
+        {
+          binary = escapeRegex hyprfocus;
+          mode = "allow";
           type = "plugin";
         }
 
         # keep-sorted start block=yes newline_separated=yes
         {
-          type = "screencopy";
-          allow = "allow";
           binary = escapeRegex equibop;
+          mode = "allow";
+          type = "screencopy";
         }
 
         {
-          type = "screencopy";
-          allow = "allow";
           binary = escapeRegex grim;
+          mode = "allow";
+          type = "screencopy";
         }
 
         {
-          type = "screencopy";
-          allow = "allow";
           binary = escapeRegex hyprpicker;
+          mode = "allow";
+          type = "screencopy";
         }
 
         {
+          binary = escapeRegex noctalia-qs;
+          mode = "allow";
           type = "screencopy";
-          allow = "allow";
+        }
+
+        {
+          binary = escapeRegex overzicht;
+          mode = "allow";
+          type = "screencopy";
+        }
+
+        {
           binary = escapeRegex quickshell;
+          mode = "allow";
+          type = "screencopy";
         }
 
         {
-          type = "screencopy";
-          allow = "allow";
           binary = escapeRegex xdg-desktop-portal-hyprland;
+          mode = "allow";
+          type = "screencopy";
         }
         # keep-sorted end
       ];

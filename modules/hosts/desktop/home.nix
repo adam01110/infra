@@ -20,7 +20,7 @@
       programs.btop.gpuBackends = ["rocm"];
 
       # Configure dual monitor setup.
-      programs.nixhypr.monitors = [
+      programs.hylix.monitors = [
         {
           output = "DP-1";
           mode = "1920x1080@144";

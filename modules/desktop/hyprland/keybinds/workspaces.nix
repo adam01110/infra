@@ -4,12 +4,12 @@
       (lib.self)
       # keep-sorted start
       hyprlandWorkspaceNumbers
-      mkNixhyprBindGroup
+      mkHylixBindGroup
       # keep-sorted end
       ;
   in {
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "Workspaces" (map (workspace: {
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "Workspaces" (map (workspace: {
           description = "Workspace ${toString workspace}";
 
           keys = ["SUPER" (toString workspace)];
@@ -17,7 +17,7 @@
         })
         hyprlandWorkspaceNumbers))
 
-      (mkNixhyprBindGroup "Move To Workspace" (map (workspace: {
+      (mkHylixBindGroup "Move To Workspace" (map (workspace: {
           description = "Move to workspace ${toString workspace}";
 
           keys = ["SUPER" "SHIFT" (toString workspace)];
@@ -25,7 +25,7 @@
         })
         hyprlandWorkspaceNumbers))
 
-      (mkNixhyprBindGroup "Move To Workspace Silent" (map (workspace: {
+      (mkHylixBindGroup "Move To Workspace Silent" (map (workspace: {
           description = "Move to workspace ${toString workspace} (silent)";
 
           keys = ["SUPER" "CTRL" (toString workspace)];

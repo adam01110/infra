@@ -23,12 +23,12 @@
         # keep-sorted end
       ];
 
-      # keep-sorted start block=yes newline_separated=yes
       # Enable laptop hardware features.
       programs.nixcord.equibop.camera.enable = true;
 
+      # keep-sorted start block=yes newline_separated=yes
       # Enable laptop-specific hyprland features.
-      programs.nixhypr = {
+      programs.hylix = {
         # keep-sorted start block=yes newline_separated=yes
         monitors = [
           {

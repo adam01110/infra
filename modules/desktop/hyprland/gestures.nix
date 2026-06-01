@@ -21,12 +21,12 @@
     overzicht = getExe config.programs.overzicht.package;
     # keep-sorted end
 
-    cfg = config.programs.nixhypr.touch.enable;
+    cfg = config.programs.hylix.touch.enable;
   in {
-    options.programs.nixhypr.touch.enable = mkEnableOption "Enable touch-specific configuration";
+    options.programs.hylix.touch.enable = mkEnableOption "Enable touch-specific configuration";
 
     config = mkIf cfg {
-      programs.nixhypr = {
+      programs.hylix = {
         gestures = [
           {
             direction = "horizontal";

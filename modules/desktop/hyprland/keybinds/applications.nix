@@ -8,7 +8,7 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib.self) mkNixhyprBindGroup;
+    inherit (lib.self) mkHylixBindGroup;
   in {
     imports = with self.modules.homeManager; [
       # keep-sorted start block=yes
@@ -34,8 +34,8 @@
 
       app = command: "${runapp} ${command}";
     in {
-      programs.nixhypr.bindGroups = [
-        (mkNixhyprBindGroup "Applications" [
+      programs.hylix.bindGroups = [
+        (mkHylixBindGroup "Applications" [
           # keep-sorted start block=yes newline_separated=yes
           {
             description = "Browser";

@@ -2,7 +2,7 @@
   flake.modules.homeManager.hyprland = {lib, ...}: let
     inherit ((import "${inputs.hyprland}/nix/lib.nix" lib)) toHyprlang;
   in {
-    programs.nixhypr = {
+    programs.hylix = {
       settings = {
         # Window decoration options including blur and shadow.
         decoration = {

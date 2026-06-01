@@ -4,12 +4,12 @@
       (lib.self)
       # keep-sorted start
       hyprlandDirections
-      mkNixhyprBindGroup
+      mkHylixBindGroup
       # keep-sorted end
       ;
   in {
-    config.programs.nixhypr.bindGroups = [
-      (mkNixhyprBindGroup "Window Move" (map (direction: {
+    config.programs.hylix.bindGroups = [
+      (mkHylixBindGroup "Window Move" (map (direction: {
           description = "Move window ${direction.label}";
 
           keys = ["SUPER" "SHIFT" direction.key];

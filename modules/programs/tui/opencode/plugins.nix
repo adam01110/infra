@@ -14,7 +14,6 @@
       dynamic-context-pruning.enable = true;
       ignore.enable = true;
       lazy-mcp.enable = true;
-      oc-tps.enable = true;
       unmoji.enable = true;
       # keep-sorted end
 

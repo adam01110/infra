@@ -9,17 +9,18 @@
     inherit
       (lib)
       # keep-sorted start
-      attrNames
       filter
       head
       mkIf
       # keep-sorted end
       ;
 
-    monitors = config.hyprland.monitors or {};
-    candidates = filter (
-      name: (monitors.${name}.position or null) == "0x0"
-    ) (attrNames monitors);
+    monitors = config.programs.hylix.monitors or [];
+    candidates =
+      filter (
+        monitor: (monitor.position or null) == "0x0"
+      )
+      monitors;
   in {
     imports = [
       {
@@ -29,13 +30,10 @@
     ];
 
     config = mkIf (candidates != []) {
-      programs.nixhypr.devices = [
-        {
-          name = "opentabletdriver-virtual-artist-tablet";
-          output = head candidates;
-          transform = 0;
-        }
-      ];
+      programs.hylix.settings.input.tablet = {
+        inherit ((head candidates)) output;
+        transform = 0;
+      };
     };
   };
 
