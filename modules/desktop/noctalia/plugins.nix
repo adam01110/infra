@@ -90,12 +90,17 @@
 
         keybind-cheatsheet = with colors; {
           # keep-sorted start
-          windowWidth = 1600;
           hyprlandParserMode = "lua";
+          windowWidth = 1600;
           # keep-sorted end
 
           # keep-sorted start
           descriptionTextColor = base00;
+          keyColorAlt = base08;
+          keyColorMouse = base0E;
+          keyColorNumeric = base0D;
+          keyColorPrint = base0D;
+          keyColorXF86 = base0D;
           keyTextAlt = base00;
           keyTextCtrl = base00;
           keyTextDefault = base00;
@@ -105,11 +110,6 @@
           keyTextShift = base00;
           keyTextSuper = base00;
           keyTextXF86 = base00;
-          keyColorMouse = base0E;
-          keyColorAlt = base08;
-          keyColorXF86 = base0D;
-          keyColorPrint = base0D;
-          keyColorNumeric = base0D;
           # keep-sorted end
         };
 

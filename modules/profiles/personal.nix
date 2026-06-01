@@ -81,7 +81,6 @@
       # keep-sorted start block=yes
       polkit
       stylixPersonal
-      tablet
       uwsm
       xdgApplications
       xdgPortal

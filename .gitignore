@@ -2,4 +2,5 @@
 .direnv
 .rumdl_cache
 result*
+vm.qcow2
 # keep-sorted end

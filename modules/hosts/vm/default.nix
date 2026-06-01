@@ -1,5 +1,7 @@
 {self, ...}: {
-  flake.modules.nixos.vm = {
+  flake.modules.nixos.vm = {vars, ...}: let
+    inherit (vars) username;
+  in {
     imports = with self.modules.nixos; [
       # Profiles
       # keep-sorted start
@@ -9,6 +11,13 @@
     ];
 
     networking.hostName = "vm";
+
+    virtualisation.vmVariant.virtualisation.sharedDirectories.sops-nix-key = {
+      # Provide the host age key at the path sops-nix expects in the guest.
+      source = "/home/${username}/.config/sops/age";
+      target = "/var/lib/sops-nix";
+      securityModel = "none";
+    };
 
     # System version for state compatibility - do not modify.
     system.stateVersion = "26.05";

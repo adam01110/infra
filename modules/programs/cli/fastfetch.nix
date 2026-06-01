@@ -28,8 +28,12 @@
         logo = {
           source = "${self}/assets/nix.png";
           type = "kitty";
-          height = 15;
-          width = 35;
+
+          # keep-sorted start
+          height = 16;
+          padding.left = 2;
+          width = 32;
+          # keep-sorted end
         };
 
         # Configure display formatting and binary prefix standards.

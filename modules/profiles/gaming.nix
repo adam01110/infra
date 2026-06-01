@@ -13,7 +13,6 @@
     imports = with self.modules.homeManager; [
       # keep-sorted start
       heroic
-      lutris
       mangohud
       mcpelauncher
       optiscaler
