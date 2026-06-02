@@ -8,7 +8,7 @@ keys:
       - &vm age18xgnqqn70msl9wzqpnlwjpupwtkzzyxq65tvpsr7zzpkq7av6fjs2hz79d
       # keep-sorted end
       # keep-sorted start
-      - &euclid age1f2pmdmv29e98phn5r9sj9m85ysu3t03wpsf98xgex6fzqkyv8g5shs2sr8
+      - &euclid age1yl52c6aemw9anmfuqayamvsnkvlu6fmy0kk3gzvrraexxd9pr90qvs8pe5
       # keep-sorted end
 creation_rules:
   - path_regex: ^secrets\.yaml$

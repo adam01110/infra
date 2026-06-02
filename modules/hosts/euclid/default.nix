@@ -1,7 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.euclid = {lib, ...}: let
-    inherit (lib) mkForce;
-  in {
+  flake.modules.nixos.euclid = {...}: {
     imports = with self.modules.nixos; [
       # Profiles
       server
@@ -19,12 +17,6 @@
     system.stateVersion = "26.05";
 
     networking.hostName = "euclid";
-
-    sops.age = {
-      sshKeyPaths = mkForce ["/etc/ssh/key"];
-      generateKey = mkForce false;
-      keyFile = mkForce null;
-    };
 
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";
