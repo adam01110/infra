@@ -48,7 +48,11 @@ in {
   flake.modules.nixos.stylixBase = {
     imports = [inputs.stylix.nixosModules.stylix];
 
-    stylix = stylixConfig;
+    stylix =
+      stylixConfig
+      // {
+        targets.kmscon.enable = false;
+      };
   };
 
   flake.modules.homeManager.stylixBase = {
