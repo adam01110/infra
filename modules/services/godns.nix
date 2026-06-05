@@ -26,6 +26,7 @@
 
     services.godns = {
       enable = true;
+
       package = pkgs.godns.overrideAttrs (old: {
         # Porkbun returns inconsistent create IDs; GoDNS does not use them.
         postPatch =
