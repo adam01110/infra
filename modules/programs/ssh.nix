@@ -1,29 +1,10 @@
 {
-  flake.modules.homeManager.ssh = {
-    # keep-sorted start
-    config,
-    vars,
-    # keep-sorted end
-    ...
-  }: let
-    inherit (vars) username;
+  flake.modules.homeManager.ssh = {vars, ...}: let
+    inherit (vars) groundDomain username;
   in {
-    sops = {
-      secrets = {
-        # Hostname for the euclid server host, stored in sops.
-        "servers/euclid/hostname" = {};
-
-        # Write the ssh public and private keys.
-        "servers/euclid/private_ssh_key".path = "/home/${username}/.ssh/euclid";
-        "servers/euclid/public_ssh_key".path = "/home/${username}/.ssh/euclid.pub";
-      };
-
-      # Template that expands to a host block included below.
-      templates."ssh-config-server".content = ''
-        Host server
-          HostName ${config.sops.placeholder."servers/euclid/hostname"}
-          IdentityFile ~/.ssh/server
-      '';
+    sops.secrets = {
+      "servers/euclid/private_ssh_key".path = "/home/${username}/.ssh/euclid";
+      "servers/euclid/public_ssh_key".path = "/home/${username}/.ssh/euclid.pub";
     };
 
     programs.ssh = {
@@ -33,13 +14,17 @@
       enableDefaultConfig = false;
 
       # Dedicate a key for github traffic to keep identities separate.
-      settings."github.com" = {
-        HostName = "github.com";
-        IdentityFile = "~/.ssh/git";
-      };
+      settings = {
+        "github.com" = {
+          HostName = "github.com";
+          IdentityFile = "~/.ssh/git";
+        };
 
-      # Pull in the sops-generated server host.
-      includes = [config.sops.templates."ssh-config-server".path];
+        euclid = {
+          HostName = "euclid.${groundDomain}";
+          IdentityFile = "~/.ssh/euclid";
+        };
+      };
     };
   };
 }

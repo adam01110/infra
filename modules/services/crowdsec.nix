@@ -1,6 +1,8 @@
 {inputs, ...}: {
-  flake-file.inputs.nixpkgs-crowdsec = {
-    url = "github:TornaxO7/nixpkgs/crowdsec";
+  flake-file = {
+    inputs.nixpkgs-crowdsec = {
+      url = "github:TornaxO7/nixpkgs/crowdsec";
+    };
   };
 
   flake.overlays.crowdsec = final: _prev: let
