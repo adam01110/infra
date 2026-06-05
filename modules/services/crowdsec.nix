@@ -3,9 +3,29 @@
     url = "github:TornaxO7/nixpkgs/crowdsec";
   };
 
-  flake.modules.nixos.crowdsec = {config, ...}: let
+  flake.overlays.crowdsec = final: _prev: let
+    crowdsecPkgs = inputs.nixpkgs-crowdsec.legacyPackages.${final.stdenv.hostPlatform.system};
+  in {
+    inherit
+      (crowdsecPkgs)
+      # keep-sorted start
+      crowdsec
+      crowdsec-firewall-bouncer
+      # keep-sorted end
+      ;
+  };
+
+  flake.modules.nixos.crowdsec = {
+    # keep-sorted start
+    config,
+    self,
+    # keep-sorted end
+    ...
+  }: let
     dataDir = "/var/lib/crowdsec/data";
   in {
+    nixpkgs.overlays = [self.overlays.crowdsec];
+
     disabledModules = [
       # keep-sorted start
       "services/security/crowdsec-firewall-bouncer.nix"

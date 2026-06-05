@@ -20,52 +20,54 @@
         # keep-sorted end
       ];
 
-      # keep-sorted start block=yes newline_separated=yes
-      # Enable rocm gpu backend for system monitoring.
-      programs.btop.gpuBackends = ["rocm"];
+      programs = {
+        # keep-sorted start block=yes newline_separated=yes
+        # Enable rocm gpu backend for system monitoring.
+        btop.gpuBackends = ["rocm"];
 
-      # Configure dual monitor setup.
-      programs.hylix.monitors = [
-        {
-          output = "DP-1";
-          mode = "1920x1080@144";
-          position = "-1920x96";
-          scale = "1";
-          extra.vrr = 0;
-        }
+        # Configure dual monitor setup.
+        hylix.monitors = [
+          {
+            output = "DP-1";
+            mode = "1920x1080@144";
+            position = "-1920x96";
+            scale = "1";
+            extra.vrr = 0;
+          }
 
-        {
-          output = "DP-2";
-          mode = "2560x1440@170";
-          position = "0x0";
-          scale = "1";
-        }
-      ];
+          {
+            output = "DP-2";
+            mode = "2560x1440@170";
+            position = "0x0";
+            scale = "1";
+          }
+        ];
 
-      programs.noctalia-shell = {
-        # keep-sorted start newline_separated=yes
-        # Keep the desktop weather location in sops.
-        location.source = "sops";
+        noctalia-shell = {
+          # keep-sorted start newline_separated=yes
+          # Keep the desktop weather location in sops.
+          location.source = "sops";
 
-        # Enable gpu acceleration for noctalia.
-        systemMonitor.enableGpu = true;
+          # Avoid desktop suspend after idle blanking.
+          settings.idle.suspendTimeout = mkForce 0;
 
-        # Avoid desktop suspend after idle blanking.
-        settings.idle.suspendTimeout = mkForce 0;
+          # Enable gpu acceleration for noctalia.
+          systemMonitor.enableGpu = true;
+          # keep-sorted end
+        };
+
+        # Gpu monitoring support for multi-gpu desktop.
+        nvtop.types = [
+          # keep-sorted start
+          "amd"
+          "intel"
+          # keep-sorted end
+        ];
+
+        # Browser memory allocation for desktop usage.
+        zen-browser.profiles.default.preferences.commitSpace = 25698;
         # keep-sorted end
       };
-
-      # Gpu monitoring support for multi-gpu desktop.
-      programs.nvtop.types = [
-        # keep-sorted start
-        "amd"
-        "intel"
-        # keep-sorted end
-      ];
-
-      # Browser memory allocation for desktop usage.
-      programs.zen-browser.profiles.default.preferences.commitSpace = 25698;
-      # keep-sorted end
     };
   };
 }

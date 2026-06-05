@@ -31,6 +31,7 @@
         options = [
           # keep-sorted start
           "compress=zstd"
+          "defaults"
           "noatime"
           "subvol=${subvol}"
           # keep-sorted end
@@ -40,8 +41,6 @@
       # keep-sorted start
       "/mnt/immich" = mkBtrfsMount "/dev/disk/by-uuid/2262a52f-3110-462e-815a-7717886b8cc7" "@";
       "/mnt/media" = mkBtrfsMount "/dev/disk/by-uuid/7bf5484e-67c1-4c67-a20f-cd47b1d6fb21" "@";
-      "/mnt/monitor0" = mkBtrfsMount "/dev/disk/by-uuid/7bf5484e-67c1-4c67-a20f-cd47b1d6fb21" "@monitor";
-      "/mnt/monitor1" = mkBtrfsMount "/dev/disk/by-uuid/2262a52f-3110-462e-815a-7717886b8cc7" "@monitor";
       # keep-sorted end
     };
   };

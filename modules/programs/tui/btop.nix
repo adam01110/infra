@@ -47,6 +47,9 @@
 
       settings = {
         # keep-sorted start newline_separated=yes
+        # Hide btrfs subvolume mounts from disk widgets.
+        disks_filter = "exclude=/home /nix /root /var/cache /var/lib /var/log";
+
         # Disable logging.
         log_level = "DISABLED";
 
