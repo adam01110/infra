@@ -56,8 +56,10 @@ in {
   };
 
   flake.modules.homeManager.stylixBase = {
+    # keep-sorted start
     lib,
     osConfig ? null,
+    # keep-sorted end
     ...
   }: {
     imports = lib.optional (osConfig == null) inputs.stylix.homeModules.stylix;

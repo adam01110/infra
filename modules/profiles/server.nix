@@ -1,5 +1,13 @@
 {self, ...}: {
-  flake.modules.nixos.server = {config, ...}: {
+  flake.modules.nixos.server = {
+    # keep-sorted start
+    config,
+    lib,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (lib) mkForce;
+  in {
     imports = with self.modules.nixos; [
       # Profiles
       # keep-sorted start
@@ -14,6 +22,9 @@
     ];
 
     disko.devices = (self.diskoConfigurations.btrfs config.disko.selectedDisk).disko.devices;
+
+    # Shell config exists before TTY/SSH login.
+    home-manager.startAsUserService = mkForce false;
   };
 
   flake.modules.homeManager.server = {

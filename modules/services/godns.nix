@@ -2,6 +2,7 @@
   flake.modules.nixos.godns = {
     # keep-sorted start
     config,
+    pkgs,
     vars,
     # keep-sorted end
     ...
@@ -25,6 +26,17 @@
 
     services.godns = {
       enable = true;
+      package = pkgs.godns.overrideAttrs (old: {
+        # Porkbun returns inconsistent create IDs; GoDNS does not use them.
+        postPatch =
+          (old.postPatch or "")
+          + ''
+            substituteInPlace internal/provider/porkbun/porkbun_handler.go \
+              --replace-fail 'ID     string `json:"id,omitempty"`' ""
+            substituteInPlace internal/utils/constants.go \
+              --replace-fail 'DefaultTimeout = 10' 'DefaultTimeout = 30'
+          '';
+      });
 
       settings = {
         provider = "Porkbun";
