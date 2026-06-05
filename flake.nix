@@ -61,6 +61,7 @@
       inputs.flake-parts.follows = "flake-parts";
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/crowdsec";
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell?ref=v4.7.7";
       inputs = {

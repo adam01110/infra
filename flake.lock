@@ -1260,6 +1260,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-crowdsec": {
+      "locked": {
+        "lastModified": 1780424212,
+        "narHash": "sha256-3mUjG/7A0x/P3q2Mzsqq+aBO4kWL86oxLOeleysvAEA=",
+        "owner": "TornaxO7",
+        "repo": "nixpkgs",
+        "rev": "5500e2a84a59e9bafd7ff9030f607a84b8784d32",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TornaxO7",
+        "ref": "crowdsec",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1777168982,
@@ -1574,6 +1590,7 @@
         "nix-userstyles": "nix-userstyles",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_6",
+        "nixpkgs-crowdsec": "nixpkgs-crowdsec",
         "noctalia": "noctalia",
         "noctalia-qs": "noctalia-qs",
         "nur": "nur",

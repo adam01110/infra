@@ -6,6 +6,7 @@
 
       # Services
       # keep-sorted start
+      crowdsec
       godns
       mysql
       postgres

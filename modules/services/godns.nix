@@ -1,4 +1,4 @@
-{self, ...}: {
+_: {
   flake.overlays.godns = _final: prev: let
     version = "3.4.1";
 
