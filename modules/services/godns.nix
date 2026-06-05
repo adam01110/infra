@@ -46,6 +46,8 @@
         (oldAttrs.postPatch or "")
         + ''
           cp ${packageLock} web/package-lock.json
+          substituteInPlace internal/provider/porkbun/porkbun_handler.go \
+            --replace-fail 'ID     string `json:"id,omitempty"`' 'ID     interface{} `json:"id,omitempty"`'
         '';
 
       __darwinAllowLocalNetworking = true;
@@ -55,6 +57,7 @@
   flake.modules.nixos.godns = {
     # keep-sorted start
     config,
+    pkgs,
     self,
     vars,
     # keep-sorted end
@@ -120,5 +123,7 @@
         # keep-sorted end
       ];
     };
+
+    systemd.services.godns.environment.SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
   };
 }
