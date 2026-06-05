@@ -49,7 +49,7 @@
           };
 
           layout = {
-            widgets.status = {
+            widgets.status_bar = {
               # keep-sorted start
               show_background = false;
               show_command = false;

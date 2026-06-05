@@ -32,7 +32,6 @@
         firewall
         locate
         network
-        printing
         timesyncd
         tmp
         udisks2

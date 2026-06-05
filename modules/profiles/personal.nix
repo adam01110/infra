@@ -33,6 +33,7 @@
       flatpak
       geoclue
       gnome-keyring
+      printing
       gvfs
       libinput
       pipewire
