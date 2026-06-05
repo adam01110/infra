@@ -33,11 +33,11 @@
       flatpak
       geoclue
       gnome-keyring
-      printing
       gvfs
       libinput
       pipewire
       power-profiles-daemon
+      printing
       upower
       # keep-sorted end
     ];

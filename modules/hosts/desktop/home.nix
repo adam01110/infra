@@ -1,9 +1,14 @@
 {
   flake.modules.nixos.desktop = {
+    # keep-sorted start
+    lib,
     self,
     vars,
+    # keep-sorted end
     ...
   }: let
+    inherit (lib) mkForce;
+
     inherit (vars) username;
   in {
     home-manager.users.${username} = {
@@ -44,6 +49,9 @@
 
         # Enable gpu acceleration for noctalia.
         systemMonitor.enableGpu = true;
+
+        # Avoid desktop suspend after idle blanking.
+        settings.idle.suspendTimeout = mkForce 0;
         # keep-sorted end
       };
 

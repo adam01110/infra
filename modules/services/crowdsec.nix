@@ -32,7 +32,7 @@
           # keep-sorted start
           #"crowdsecurity/appsec-generic-rules"
           #"crowdsecurity/appsec-virtual-patching"
-          "crowdsecurity/http-cve"
+          #"crowdsecurity/http-cve"
           "crowdsecurity/linux"
           "crowdsecurity/sshd"
           # keep-sorted end
