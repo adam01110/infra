@@ -17,7 +17,7 @@
     secrets = config.sops.secrets;
   in {
     sops.secrets = {
-      # keep-sorted startr
+      # keep-sorted start
       "godns/login_token" = {};
       "godns/password" = {};
       # keep-sorted end
@@ -28,6 +28,8 @@
 
       settings = {
         provider = "Porkbun";
+        login_token_file = "$CREDENTIALS_DIRECTORY/login_token";
+        password_file = "$CREDENTIALS_DIRECTORY/password";
 
         domains = let
           mkDomain = domain: {

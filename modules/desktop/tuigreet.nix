@@ -49,6 +49,13 @@
           };
 
           layout = {
+            widgets.status = {
+              # keep-sorted start
+              show_background = false;
+              show_command = false;
+              # keep-sorted end
+            };
+
             # keep-sorted start
             container_padding = 1;
             prompt_padding = 1;
