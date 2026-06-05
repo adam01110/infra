@@ -93,7 +93,7 @@ _: {
         domains = let
           mkDomain = domain: {
             domain_name = domain;
-            sub_domains = ["@"];
+            sub_domains = ["@" "*"];
           };
         in [
           # keep-sorted start
