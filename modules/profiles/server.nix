@@ -17,6 +17,7 @@
 
       # Services
       # keep-sorted start
+      btrfs-autoscrub
       podman
       ssh
       traefik

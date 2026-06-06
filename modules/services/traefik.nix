@@ -1,7 +1,9 @@
 {
   flake.modules.nixos.traefik = {
+    # keep-sorted start
     config,
     vars,
+    # keep-sorted end
     ...
   }: let
     secrets = config.sops.secrets;
