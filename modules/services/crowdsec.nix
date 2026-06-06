@@ -89,11 +89,14 @@
   flake.modules.nixos.crowdsec-server = {
     # keep-sorted start
     config,
+    lib,
     pkgs,
     self,
     # keep-sorted end
     ...
   }: let
+    inherit (lib) mkForce;
+
     dataDir = "/var/lib/crowdsec/data";
   in {
     imports = [self.modules.nixos.crowdsec-base];
@@ -143,6 +146,11 @@
         requires = ["postgresql.service"];
       };
 
+      crowdsec-firewall-bouncer-register.serviceConfig.RestrictAddressFamilies = mkForce [
+        # PostgreSQL local socket access.
+        "AF_UNIX"
+      ];
+
       crowdsec-setup = {
         after = ["postgresql.service"];
         requires = ["postgresql.service"];
@@ -164,7 +172,7 @@
               exit 0
             fi
 
-            if ${pkgs.crowdsec}/bin/cscli bouncers add "traefik-bouncer" --key "$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/traefik_bouncer_key")"; then
+            if ${pkgs.crowdsec}/bin/cscli bouncers add "traefik-bouncer" --key "$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/traefik_bouncer_key")" >/dev/null; then
               exit 0
             fi
 
