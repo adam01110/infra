@@ -86,12 +86,12 @@
               http = {
                 tls.certResolver = "myresolver";
                 middlewares = ["crowdsec@file"];
+              };
 
-                transport.respondingTimeouts = {
-                  readTimeout = "600s";
-                  writeTimeout = "600s";
-                  idleTimeout = "600s";
-                };
+              transport.respondingTimeouts = {
+                readTimeout = "600s";
+                writeTimeout = "600s";
+                idleTimeout = "600s";
               };
             };
             # keep-sorted end
