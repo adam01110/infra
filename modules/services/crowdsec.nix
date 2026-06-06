@@ -49,6 +49,7 @@
           "crowdsecurity/linux"
           "crowdsecurity/sshd"
           "crowdsecurity/traefik"
+          "firix/authentik"
           # keep-sorted end
         ];
       };
@@ -67,6 +68,15 @@
             filenames = ["/var/log/traefik/*.log"];
             labels.type = "traefik";
             source = "file";
+          }
+
+          {
+            journalctl_filter = [
+              "_SYSTEMD_UNIT=authentik.service"
+              "_SYSTEMD_UNIT=authentik-worker.service"
+            ];
+            labels.type = "authentik";
+            source = "journalctl";
           }
 
           {
@@ -197,6 +207,7 @@
           User = config.services.crowdsec.user;
         };
       };
+
       # keep-sorted end
     };
   };

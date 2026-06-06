@@ -6,6 +6,7 @@
 
       # Services
       # keep-sorted start
+      authentik
       crowdsec-server
       godns
       mysql

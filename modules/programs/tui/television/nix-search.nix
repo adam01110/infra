@@ -168,6 +168,22 @@
 
       # NixOS-backed sources.
       # keep-sorted start block=yes newline_separated=yes
+      authentik-nix = {
+        rawDoc = mkNixosDoc inputs.authentik-nix.nixosModules.default;
+        prefixes = [
+          "services.authentik"
+          "services.authentik-ldap"
+          "services.authentik-proxy"
+          "services.authentik-rac"
+          "services.authentik-radius"
+        ];
+      };
+
+      determinate = {
+        rawDoc = mkNixosDoc inputs.determinate.nixosModules.default;
+        prefixes = ["determinate"];
+      };
+
       disko = {
         rawDoc = mkNixosDoc inputs.disko.nixosModules.disko;
         prefixes = ["disko"];

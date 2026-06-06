@@ -1,7 +1,5 @@
 {inputs, ...}: {
-  flake-file.inputs = {
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
-  };
+  flake-file.inputs.determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
   flake.modules.generic.determinate = {pkgs, ...}: let
     inherit (pkgs.stdenv.hostPlatform) system;

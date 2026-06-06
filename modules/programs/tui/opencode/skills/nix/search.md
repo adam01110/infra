@@ -5,7 +5,7 @@ description: Use this skill to search NixOS packages and options with `nix-searc
 
 # Nix Search
 
-Use `nix-search-tv` for packages/options. Builtin indexes: `nixpkgs`, `home-manager`, `nixos`, `nur`, `noogle`. Custom option indexes: `disko`, `home-manager-nixos`, `lanzaboote`, `nix-flatpak`, `nix-index-database`, `nixcord`, `noctalia`, `nvf`, `overzicht`, `sops-nix`, `sops-nix-home-manager`, `spicetify-nix`, `stylix`, `stylix-home-manager`, `zen-browser`.
+Use `nix-search-tv` for packages/options. Builtin indexes: `home-manager`, `nixos`, `nixpkgs`, `noogle`, `nur`. Custom option indexes: `authentik-nix`, `determinate`, `disko`, `home-manager-nixos`, `hylix`, `lanzaboote`, `nix-flatpak`, `nix-index-database`, `nixcord`, `noctalia`, `nvf`, `overzicht`, `sops-nix`, `sops-nix-home-manager`, `spicetify-nix`, `stylix`, `stylix-home-manager`, `zen-browser`.
 
 This repo wires builtin indexes through `settings.indexes` and custom option sources through `settings.experimental.options_file`; both use `--indexes <name>`.
 
@@ -19,6 +19,7 @@ nix-search-tv preview --indexes nixpkgs firefox
 nix-search-tv preview --indexes nixos boot.loader.systemd-boot.enable
 nix-search-tv preview --indexes zen-browser enable
 nix-search-tv preview --indexes nixpkgs --json firefox
+nix-search-tv source --indexes authentik-nix services.authentik
 nix-search-tv source --indexes noctalia programs.noctalia-shell.settings.bar
 nix-search-tv homepage --indexes nixpkgs firefox
 ```

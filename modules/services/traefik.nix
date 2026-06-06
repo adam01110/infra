@@ -20,11 +20,6 @@
         };
 
         "traefik/mail" = {};
-
-        "traefik/redis_crowdsec_password" = {
-          owner = "traefik";
-          mode = "0400";
-        };
         # keep-sorted end
       };
 
@@ -35,16 +30,6 @@
 
     services = {
       # keep-sorted start block=yes newline_separated=yes
-      redis.servers.traefik-crowdsec = {
-        enable = true;
-        bind = "127.0.0.1";
-        port = 6379;
-        databases = 1;
-        maxclients = 64;
-        save = [];
-        requirePassFile = secrets."traefik/redis_crowdsec_password".path;
-      };
-
       traefik = {
         enable = true;
         group = "podman";
@@ -118,26 +103,73 @@
         };
 
         dynamicConfigOptions = {
-          http.middlewares = {
-            redirect-to-https.redirectscheme = {
-              scheme = "https";
-              permanent = true;
+          http = {
+            middlewares = {
+              authentik.forwardAuth = {
+                address = "http://[::1]:9005/outpost.goauthentik.io/auth/traefik";
+                trustForwardHeader = true;
+                authResponseHeaders = [
+                  # keep-sorted start
+                  "X-authentik-email"
+                  "X-authentik-entitlements"
+                  "X-authentik-groups"
+                  "X-authentik-jwt"
+                  "X-authentik-meta-app"
+                  "X-authentik-meta-jwks"
+                  "X-authentik-meta-outpost"
+                  "X-authentik-meta-provider"
+                  "X-authentik-meta-version"
+                  "X-authentik-name"
+                  "X-authentik-uid"
+                  "X-authentik-username"
+                  # keep-sorted end
+                ];
+              };
+
+              crowdsec.plugin.bouncer = {
+                enabled = true;
+                crowdsecMode = "appsec";
+                crowdsecAppsecEnabled = true;
+                crowdsecAppsecHost = "127.0.0.1:7424";
+                crowdsecAppsecKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
+              };
+
+              redirect-to-https.redirectscheme = {
+                scheme = "https";
+                permanent = true;
+              };
             };
 
-            crowdsec.plugin.bouncer = {
-              enabled = true;
-              crowdsecMode = "stream";
-              crowdsecLapiHost = "127.0.0.1:8080";
-              crowdsecLapiKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
+            routers = {
+              authentik = {
+                entryPoints = ["websecure"];
+                rule = "Host(`authentik.${groundDomain}`)";
+                service = "authentik";
+              };
 
-              crowdsecAppsecEnabled = true;
-              crowdsecAppsecHost = "127.0.0.1:7424";
-              crowdsecAppsecKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
+              authentik-outpost = {
+                entryPoints = ["websecure"];
+                priority = 15;
+                rule = "PathPrefix(`/outpost.goauthentik.io/`)";
+                service = "authentik-outpost";
+              };
 
-              redisCacheEnabled = true;
-              redisCacheHost = "127.0.0.1:6379";
-              redisCachePasswordFile = secrets."traefik/redis_crowdsec_password".path;
-              redisCacheDatabase = "0";
+              traefik-dashboard = {
+                entryPoints = ["websecure"];
+                middlewares = ["authentik@file"];
+                rule = "Host(`traefik.${groundDomain}`)";
+                service = "api@internal";
+              };
+            };
+
+            services = {
+              authentik.loadBalancer.servers = [
+                {url = "http://[::1]:9000";}
+              ];
+
+              authentik-outpost.loadBalancer.servers = [
+                {url = "http://[::1]:9005/outpost.goauthentik.io";}
+              ];
             };
           };
 

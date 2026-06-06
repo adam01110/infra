@@ -4,13 +4,13 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     disko = {
       url = "github:nix-community/disko?ref=latest";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    eh = {
-      url = "github:NotAShelf/eh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-file.url = "github:vic/flake-file";
