@@ -18,16 +18,7 @@
       ;
   };
 
-  flake.modules.nixos.crowdsec = {
-    # keep-sorted start
-    config,
-    pkgs,
-    self,
-    # keep-sorted end
-    ...
-  }: let
-    dataDir = "/var/lib/crowdsec/data";
-  in {
+  flake.modules.nixos.crowdsec-base = {self, ...}: {
     nixpkgs.overlays = [self.overlays.crowdsec];
 
     disabledModules = [
@@ -43,13 +34,6 @@
       "${inputs.nixpkgs-crowdsec}/nixos/modules/services/security/crowdsec.nix"
       # keep-sorted end
     ];
-
-    sops.secrets = {
-      # keep-sorted start
-      "crowdsec/console_enroll_key" = {};
-      "traefik/crowdsec_bouncer_key" = {};
-      # keep-sorted end
-    };
 
     services.crowdsec = {
       enable = true;
@@ -71,35 +55,69 @@
 
       settings = {
         acquisitions = [
-          {
-            journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
-            labels.type = "syslog";
-            source = "journalctl";
-          }
-          {
-            filenames = ["/var/log/traefik/*.log"];
-            labels.type = "traefik";
-            source = "file";
-          }
+          # keep-sorted start block=yes newline_separated=yes
           {
             appsec_configs = ["crowdsecurity/appsec-default"];
             labels.type = "appsec";
             listen_addr = "127.0.0.1:7424";
             source = "appsec";
           }
+
+          {
+            filenames = ["/var/log/traefik/*.log"];
+            labels.type = "traefik";
+            source = "file";
+          }
+
+          {
+            journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
+            labels.type = "syslog";
+            source = "journalctl";
+          }
+          # keep-sorted end
         ];
+      };
+    };
+  };
 
-        config.api.server.online_client.credentials_path = "${dataDir}/online_api_credentials.yaml";
+  flake.modules.nixos.crowdsec-agent = {self, ...}: {
+    imports = [self.modules.nixos.crowdsec-base];
 
-        config.db_config = {
+    services.crowdsec.settings.config.api.server.enable = false;
+  };
+
+  flake.modules.nixos.crowdsec-server = {
+    # keep-sorted start
+    config,
+    pkgs,
+    self,
+    # keep-sorted end
+    ...
+  }: let
+    dataDir = "/var/lib/crowdsec/data";
+  in {
+    imports = [self.modules.nixos.crowdsec-base];
+
+    sops.secrets = {
+      # keep-sorted start
+      "crowdsec/console_enroll_key" = {};
+      "traefik/crowdsec_bouncer_key" = {};
+      # keep-sorted end
+    };
+
+    services.crowdsec.settings = {
+      config = {
+        api.server.online_client.credentials_path = "${dataDir}/online_api_credentials.yaml";
+
+        db_config = {
           db_name = "crowdsec";
           db_path = "/run/postgresql";
           type = "pgx";
           user = "crowdsec";
         };
-
-        console.enrollKeyFile = config.sops.secrets."crowdsec/console_enroll_key".path;
       };
+
+      console.enrollKeyFile = config.sops.secrets."crowdsec/console_enroll_key".path;
     };
 
     services.postgresql = {
@@ -119,6 +137,7 @@
     };
 
     systemd.services = {
+      # keep-sorted start block=yes newline_separated=yes
       crowdsec = {
         after = ["postgresql.service"];
         requires = ["postgresql.service"];
@@ -170,6 +189,7 @@
           User = config.services.crowdsec.user;
         };
       };
+      # keep-sorted end
     };
   };
 }

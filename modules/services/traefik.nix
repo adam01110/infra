@@ -11,12 +11,12 @@
           mode = "0400";
         };
 
+        "traefik/mail" = {};
+
         "traefik/redis_crowdsec_password" = {
           owner = "traefik";
           mode = "0400";
         };
-
-        "traefik/mail" = {};
         # keep-sorted end
       };
 

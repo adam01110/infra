@@ -64,6 +64,10 @@ in {
   }: {
     imports = lib.optional (osConfig == null) inputs.stylix.homeModules.stylix;
 
-    stylix = stylixConfig;
+    stylix =
+      stylixConfig
+      // {
+        targets.btop.opacity.override.terminal = 0.0;
+      };
   };
 }

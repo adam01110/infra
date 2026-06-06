@@ -14,15 +14,7 @@
       setWallpaperOnAllMonitors = true;
       showHiddenFiles = true;
       skipStartupTransition = true;
-      transitionType = [
-        # keep-sorted start
-        "disc"
-        "fade"
-        "honeycomb"
-        "stripes"
-        "wipe"
-        # keep-sorted end
-      ];
+      transitionType = ["honeycomb"];
       # keep-sorted end
     };
   };
