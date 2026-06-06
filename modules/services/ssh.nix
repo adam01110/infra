@@ -20,6 +20,13 @@
     services.openssh = {
       enable = true;
 
+      listenAddresses = [
+        {
+          addr = "127.0.0.1";
+          port = 2222;
+        }
+      ];
+
       authorizedKeysFiles = mkForce [config.sops.secrets."servers/${hostname}/public_ssh_key".path];
 
       settings = {

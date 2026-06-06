@@ -1,5 +1,11 @@
 {self, ...}: {
-  flake.modules.nixos.personal = {config, ...}: {
+  flake.modules.nixos.personal = {
+    config,
+    vars,
+    ...
+  }: let
+    inherit (vars) groundDomain;
+  in {
     imports = with self.modules.nixos; [
       # Profiles
       # keep-sorted start
@@ -43,6 +49,16 @@
     ];
 
     disko.devices = (self.diskoConfigurations.ext4 config.disko.selectedDisk).disko.devices;
+
+    services.stunnel = {
+      enable = true;
+
+      clients.ssh-euclid = {
+        accept = "127.0.0.1:2201";
+        connect = "euclid.${groundDomain}:22";
+        sni = "euclid.${groundDomain}";
+      };
+    };
   };
 
   flake.modules.homeManager.personal = {

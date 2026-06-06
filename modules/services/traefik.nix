@@ -1,7 +1,13 @@
 {
-  flake.modules.nixos.traefik = {config, ...}: let
+  flake.modules.nixos.traefik = {
+    config,
+    vars,
+    ...
+  }: let
     secrets = config.sops.secrets;
     templates = config.sops.templates;
+
+    inherit (vars) groundDomain;
   in {
     sops = {
       secrets = {
@@ -59,6 +65,8 @@
 
           entryPoints = {
             # keep-sorted start block=yes newline_separated=yes
+            ssh.address = ":22";
+
             web = {
               address = ":80";
 
@@ -107,26 +115,41 @@
           # keep-sorted end
         };
 
-        dynamicConfigOptions.http.middlewares = {
-          redirect-to-https.redirectscheme = {
-            scheme = "https";
-            permanent = true;
+        dynamicConfigOptions = {
+          http.middlewares = {
+            redirect-to-https.redirectscheme = {
+              scheme = "https";
+              permanent = true;
+            };
+
+            crowdsec.plugin.bouncer = {
+              enabled = true;
+              crowdsecMode = "stream";
+              crowdsecLapiHost = "127.0.0.1:8080";
+              crowdsecLapiKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
+
+              crowdsecAppsecEnabled = true;
+              crowdsecAppsecHost = "127.0.0.1:7424";
+              crowdsecAppsecKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
+
+              redisCacheEnabled = true;
+              redisCacheHost = "127.0.0.1:6379";
+              redisCachePasswordFile = secrets."traefik/redis_crowdsec_password".path;
+              redisCacheDatabase = "0";
+            };
           };
 
-          crowdsec.plugin.bouncer = {
-            enabled = true;
-            crowdsecMode = "stream";
-            crowdsecLapiHost = "127.0.0.1:8080";
-            crowdsecLapiKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
+          tcp = {
+            routers.ssh-euclid = {
+              entryPoints = ["ssh"];
+              rule = "HostSNI(`euclid.${groundDomain}`)";
+              service = "ssh-euclid";
+              tls.certResolver = "myresolver";
+            };
 
-            crowdsecAppsecEnabled = true;
-            crowdsecAppsecHost = "127.0.0.1:7424";
-            crowdsecAppsecKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
-
-            redisCacheEnabled = true;
-            redisCacheHost = "127.0.0.1:6379";
-            redisCachePasswordFile = secrets."traefik/redis_crowdsec_password".path;
-            redisCacheDatabase = "0";
+            services.ssh-euclid.loadBalancer.servers = [
+              {address = "127.0.0.1:2222";}
+            ];
           };
         };
       };
@@ -135,6 +158,7 @@
 
     networking.firewall.allowedTCPPorts = [
       # keep-sorted start numeric=yes
+      22
       80
       443
       # keep-sorted end
