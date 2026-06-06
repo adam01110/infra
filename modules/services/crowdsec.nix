@@ -91,8 +91,25 @@
 
         config.api.server.online_client.credentials_path = "${dataDir}/online_api_credentials.yaml";
 
+        config.db_config = {
+          db_name = "crowdsec";
+          db_path = "/run/postgresql";
+          type = "pgx";
+          user = "crowdsec";
+        };
+
         console.enrollKeyFile = config.sops.secrets."crowdsec/console_enroll_key".path;
       };
+    };
+
+    services.postgresql = {
+      ensureDatabases = ["crowdsec"];
+      ensureUsers = [
+        {
+          ensureDBOwnership = true;
+          name = "crowdsec";
+        }
+      ];
     };
 
     services.crowdsec-firewall-bouncer = {
@@ -101,44 +118,57 @@
       createRulesets = true;
     };
 
-    systemd.services."crowdsec-traefik-bouncer" = {
-      after = ["crowdsec.service"];
-      before = ["traefik.service"];
-      description = "Register Traefik CrowdSec bouncer";
-      requiredBy = ["traefik.service"];
-      requires = ["crowdsec.service"];
+    systemd.services = {
+      crowdsec = {
+        after = ["postgresql.service"];
+        requires = ["postgresql.service"];
+      };
 
-      script = ''
-        set -eu
+      crowdsec-setup = {
+        after = ["postgresql.service"];
+        requires = ["postgresql.service"];
+      };
 
-        attempt=1
-        while [ "$attempt" -le 30 ]; do
-          if ${pkgs.crowdsec}/bin/cscli bouncers list | ${pkgs.gnugrep}/bin/grep -q "traefik-bouncer"; then
-            exit 0
-          fi
+      crowdsec-traefik-bouncer = {
+        after = ["crowdsec.service"];
+        before = ["traefik.service"];
+        description = "Register Traefik CrowdSec bouncer";
+        requiredBy = ["traefik.service"];
+        requires = ["crowdsec.service"];
 
-          if ${pkgs.crowdsec}/bin/cscli bouncers add "traefik-bouncer" --key "$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/traefik_bouncer_key")"; then
-            exit 0
-          fi
+        script = ''
+          set -eu
 
-          attempt=$((attempt + 1))
-          ${pkgs.coreutils}/bin/sleep 2
-        done
+          attempt=1
+          while [ "$attempt" -le 30 ]; do
+            if ${pkgs.crowdsec}/bin/cscli bouncers list | ${pkgs.gnugrep}/bin/grep -q "traefik-bouncer"; then
+              exit 0
+            fi
 
-        ${pkgs.crowdsec}/bin/cscli bouncers list
-        exit 1
-      '';
+            if ${pkgs.crowdsec}/bin/cscli bouncers add "traefik-bouncer" --key "$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/traefik_bouncer_key")"; then
+              exit 0
+            fi
 
-      serviceConfig = {
-        DynamicUser = true;
-        Group = config.services.crowdsec.group;
-        LoadCredential = [
-          "traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"
-        ];
-        StateDirectory = "crowdsec";
-        StateDirectoryMode = "0750";
-        Type = "oneshot";
-        User = config.services.crowdsec.user;
+            attempt=$((attempt + 1))
+            ${pkgs.coreutils}/bin/sleep 2
+          done
+
+          ${pkgs.crowdsec}/bin/cscli bouncers list
+          exit 1
+        '';
+
+        serviceConfig = {
+          DynamicUser = true;
+          Group = config.services.crowdsec.group;
+          LoadCredential = [
+            "traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"
+          ];
+          StateDirectory = "crowdsec";
+          StateDirectoryMode = "0750";
+          RemainAfterExit = true;
+          Type = "oneshot";
+          User = config.services.crowdsec.user;
+        };
       };
     };
   };
