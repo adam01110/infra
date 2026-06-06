@@ -18,10 +18,14 @@
       # Services
       # keep-sorted start
       podman
+      ssh
+      traefik
       # keep-sorted end
     ];
 
     disko.devices = (self.diskoConfigurations.btrfs config.disko.selectedDisk).disko.devices;
+
+    powerManagement.cpuFreqGovernor = "performance";
 
     # Shell config exists before TTY/SSH login.
     home-manager.startAsUserService = mkForce false;

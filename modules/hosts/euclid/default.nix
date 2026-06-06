@@ -10,7 +10,6 @@
       godns
       mysql
       postgres
-      ssh
       # keep-sorted end
     ];
 
@@ -39,8 +38,8 @@
       };
     in {
       # keep-sorted start
-      "/mnt/immich" = mkBtrfsMount "/dev/disk/by-uuid/2262a52f-3110-462e-815a-7717886b8cc7" "@";
-      "/mnt/media" = mkBtrfsMount "/dev/disk/by-uuid/7bf5484e-67c1-4c67-a20f-cd47b1d6fb21" "@";
+      "/mnt/immich" = mkBtrfsMount "/dev/disk/by-uuid/2262a52f-3110-462e-815a-7717886b8cc7" "root";
+      "/mnt/media" = mkBtrfsMount "/dev/disk/by-uuid/7bf5484e-67c1-4c67-a20f-cd47b1d6fb21" "root";
       # keep-sorted end
     };
   };

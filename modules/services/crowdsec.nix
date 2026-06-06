@@ -21,6 +21,7 @@
   flake.modules.nixos.crowdsec = {
     # keep-sorted start
     config,
+    pkgs,
     self,
     # keep-sorted end
     ...
@@ -43,7 +44,12 @@
       # keep-sorted end
     ];
 
-    sops.secrets."crowdsec/console_enroll_key" = {};
+    sops.secrets = {
+      # keep-sorted start
+      "crowdsec/console_enroll_key" = {};
+      "traefik/crowdsec_bouncer_key" = {};
+      # keep-sorted end
+    };
 
     services.crowdsec = {
       enable = true;
@@ -53,24 +59,34 @@
       hub = {
         collections = [
           # keep-sorted start
-          #"crowdsecurity/appsec-generic-rules"
-          #"crowdsecurity/appsec-virtual-patching"
-          #"crowdsecurity/http-cve"
+          "crowdsecurity/appsec-generic-rules"
+          "crowdsecurity/appsec-virtual-patching"
+          "crowdsecurity/http-cve"
           "crowdsecurity/linux"
           "crowdsecurity/sshd"
+          "crowdsecurity/traefik"
           # keep-sorted end
         ];
       };
 
       settings = {
         acquisitions = [
-          # keep-sorted start
           {
             journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
             labels.type = "syslog";
             source = "journalctl";
           }
-          # keep-sorted end
+          {
+            filenames = ["/var/log/traefik/*.log"];
+            labels.type = "traefik";
+            source = "file";
+          }
+          {
+            appsec_configs = ["crowdsecurity/appsec-default"];
+            labels.type = "appsec";
+            listen_addr = "127.0.0.1:7424";
+            source = "appsec";
+          }
         ];
 
         config.api.server.online_client.credentials_path = "${dataDir}/online_api_credentials.yaml";
@@ -83,6 +99,47 @@
       enable = true;
       registerBouncer.enable = true;
       createRulesets = true;
+    };
+
+    systemd.services."crowdsec-traefik-bouncer" = {
+      after = ["crowdsec.service"];
+      before = ["traefik.service"];
+      description = "Register Traefik CrowdSec bouncer";
+      requiredBy = ["traefik.service"];
+      requires = ["crowdsec.service"];
+
+      script = ''
+        set -eu
+
+        attempt=1
+        while [ "$attempt" -le 30 ]; do
+          if ${pkgs.crowdsec}/bin/cscli bouncers list | ${pkgs.gnugrep}/bin/grep -q "traefik-bouncer"; then
+            exit 0
+          fi
+
+          if ${pkgs.crowdsec}/bin/cscli bouncers add "traefik-bouncer" --key "$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/traefik_bouncer_key")"; then
+            exit 0
+          fi
+
+          attempt=$((attempt + 1))
+          ${pkgs.coreutils}/bin/sleep 2
+        done
+
+        ${pkgs.crowdsec}/bin/cscli bouncers list
+        exit 1
+      '';
+
+      serviceConfig = {
+        DynamicUser = true;
+        Group = config.services.crowdsec.group;
+        LoadCredential = [
+          "traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"
+        ];
+        StateDirectory = "crowdsec";
+        StateDirectoryMode = "0750";
+        Type = "oneshot";
+        User = config.services.crowdsec.user;
+      };
     };
   };
 }

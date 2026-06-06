@@ -65,8 +65,6 @@
         PrintMotd = false;
         TCPKeepAlive = "no";
         # keep-sorted end
-
-        SetEnv = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/${username}/bin";
       };
     };
   };
