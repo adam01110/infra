@@ -163,5 +163,9 @@
       443
       # keep-sorted end
     ];
+
+    systemd.tmpfiles.rules = [
+      "d /var/log/traefik 0750 traefik traefik -"
+    ];
   };
 }
