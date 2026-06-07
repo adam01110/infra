@@ -31,7 +31,7 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.2";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.3";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins?ref=v0.55.0";
       inputs.hyprland.follows = "hyprland";

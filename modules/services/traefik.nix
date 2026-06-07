@@ -198,7 +198,7 @@
             };
 
             services.ssh-euclid.loadBalancer.servers = [
-              {address = "127.0.0.1:2222";}
+              {address = "[::1]:2222";}
             ];
           };
         };

@@ -17,24 +17,40 @@
       secrets.${hawserTokenSecret} = {};
 
       templates."hawser.env".content = ''
-        DOCKHAND_TOKEN=${config.sops.placeholder.${hawserTokenSecret}}
+        TOKEN=${config.sops.placeholder.${hawserTokenSecret}}
       '';
     };
 
     virtualisation.oci-containers.containers.hawser = {
       hostname = "hawser";
-      image = "fnsys/hawser:latest";
-      extraOptions = ["--network=host"];
+      image = "ghcr.io/finsys/hawser:latest";
+      extraOptions = [
+        "--network=host"
+
+        # Health check.
+        "--health-cmd=wget -q --spider http://[::1]:2376/_hawser/health || exit 1"
+        "--health-interval=30s"
+        "--health-retries=3"
+        "--health-start-period=10s"
+        "--health-timeout=5s"
+      ];
 
       environment = {
-        DOCKHAND_SERVER_URL = "https://dockhand.${groundDomain}";
-        HAWSER_AGENT_NAME = hostname;
+        AGENT_NAME = hostname;
+        DOCKHAND_SERVER_URL = "wss://dockhand.${groundDomain}/api/hawser/connect";
+        STACKS_DIR = "/var/lib/hawser/stacks";
       };
 
       environmentFiles = [config.sops.templates."hawser.env".path];
-      volumes = ["/run/podman/podman.sock:/var/run/docker.sock"];
+      volumes = [
+        "/run/podman/podman.sock:/var/run/docker.sock"
+        "/var/lib/hawser/stacks:/var/lib/hawser/stacks"
+      ];
     };
 
-    systemd.services.podman-hawser.serviceConfig.TimeoutStopSec = mkForce "60s";
+    systemd = {
+      tmpfiles.rules = ["d /var/lib/hawser/stacks 0750 root root -"];
+      services.podman-hawser.serviceConfig.TimeoutStopSec = mkForce "60s";
+    };
   };
 }

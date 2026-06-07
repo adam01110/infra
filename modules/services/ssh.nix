@@ -22,7 +22,7 @@
 
       listenAddresses = [
         {
-          addr = "127.0.0.1";
+          addr = "::1";
           port = 2222;
         }
       ];

@@ -1,6 +1,6 @@
 {self, ...}: {
   flake-file.inputs = {
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.2";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.3";
 
     hylix = {
       url = "github:adam01110/hylix";
