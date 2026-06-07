@@ -201,5 +201,7 @@
     systemd.tmpfiles.rules = [
       "d /var/log/traefik 0750 traefik traefik -"
     ];
+
+    systemd.services.traefik.serviceConfig.TimeoutStopSec = "60s";
   };
 }
