@@ -143,16 +143,6 @@
       console.enrollKeyFile = config.sops.secrets."crowdsec/console_enroll_key".path;
     };
 
-    services.postgresql = {
-      ensureDatabases = ["crowdsec"];
-      ensureUsers = [
-        {
-          ensureDBOwnership = true;
-          name = "crowdsec";
-        }
-      ];
-    };
-
     services.crowdsec-firewall-bouncer = {
       enable = true;
       registerBouncer.enable = true;
@@ -163,25 +153,27 @@
       crowdsec = setupUnit;
       crowdsec-setup = setupUnit;
 
-      crowdsec-firewall-bouncer-register.serviceConfig.RestrictAddressFamilies = mkForce [
-        # PostgreSQL local socket access.
-        "AF_UNIX"
-      ];
+      # PostgreSQL local socket access.
+      crowdsec-firewall-bouncer-register.serviceConfig.RestrictAddressFamilies = mkForce ["AF_UNIX"];
 
       crowdsec-traefik-bouncer = {
+        description = "Register Traefik CrowdSec bouncer";
+
+        # keep-sorted start block=yes newline_separated=yes
         after = [
           "crowdsec.service"
           "sops-install-secrets.service"
         ];
 
         before = ["traefik.service"];
-        description = "Register Traefik CrowdSec bouncer";
+
         requiredBy = ["traefik.service"];
 
         requires = [
           "crowdsec.service"
           "sops-install-secrets.service"
         ];
+        # keep-sorted end
 
         script = ''
           set -eu
@@ -205,14 +197,19 @@
         '';
 
         serviceConfig = {
+          # keep-sorted start
           DynamicUser = true;
           Group = config.services.crowdsec.group;
-          LoadCredential = ["traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"];
-          RemainAfterExit = true;
           StateDirectory = "crowdsec";
           StateDirectoryMode = "0750";
-          Type = "oneshot";
           User = config.services.crowdsec.user;
+          # keep-sorted end
+
+          # keep-sorted stat
+          RemainAfterExit = true;
+          Type = "oneshot";
+          LoadCredential = ["traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"];
+          # keep-sorted end
         };
       };
     };

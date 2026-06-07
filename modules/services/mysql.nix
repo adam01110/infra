@@ -6,7 +6,7 @@
 
       settings = {
         mysqld = {
-          # TODO(remote access): Revisit database exposure once the access model is decided.
+          # TODO: Revisit database exposure once the access model is decided.
           bind-address = "127.0.0.1";
           innodb_buffer_pool_size = "512M";
           max_connections = 100;

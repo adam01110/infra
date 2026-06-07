@@ -157,6 +157,12 @@
                 service = "authentik-outpost";
               };
 
+              dockhand = {
+                entryPoints = ["websecure"];
+                rule = "Host(`dockhand.${groundDomain}`)";
+                service = "dockhand";
+              };
+
               traefik-dashboard = {
                 entryPoints = ["websecure"];
                 middlewares = ["authentik@file"];
@@ -167,13 +173,19 @@
             };
 
             services = {
+              # keep-sorted start block=yes newline_separated=yes
+              authentik-outpost.loadBalancer.servers = [
+                {url = "http://[::1]:9005/outpost.goauthentik.io";}
+              ];
+
               authentik.loadBalancer.servers = [
                 {url = "http://[::1]:9000";}
               ];
 
-              authentik-outpost.loadBalancer.servers = [
-                {url = "http://[::1]:9005/outpost.goauthentik.io";}
+              dockhand.loadBalancer.servers = [
+                {url = "http://[::1]:3000";}
               ];
+              # keep-sorted end
             };
           };
 
@@ -202,10 +214,9 @@
       # keep-sorted end
     ];
 
-    systemd.tmpfiles.rules = [
-      "d /var/log/traefik 0750 traefik traefik -"
-    ];
-
-    systemd.services.traefik.serviceConfig.TimeoutStopSec = "60s";
+    systemd = {
+      tmpfiles.rules = ["d /var/log/traefik 0750 traefik traefik -"];
+      services.traefik.serviceConfig.TimeoutStopSec = "60s";
+    };
   };
 }

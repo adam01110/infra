@@ -15,7 +15,7 @@
       package = pkgs.postgresql_18;
 
       settings = {
-        # TODO(remote access): Revisit database exposure once the access model is decided.
+        # TODO: Revisit database exposure once the access model is decided.
         listen_addresses = mkForce "127.0.0.1,::1";
 
         shared_buffers = "256MB";
@@ -24,6 +24,27 @@
         log_disconnections = true;
         log_min_duration_statement = 1000;
       };
+
+      ensureDatabases = [
+        # keep-sorted start
+        "crowdsec"
+        "dockhand"
+        # keep-sorted end
+      ];
+
+      ensureUsers = [
+        # keep-sorted start block=yes newline_separated=yes
+        {
+          ensureDBOwnership = true;
+          name = "crowdsec";
+        }
+
+        {
+          ensureDBOwnership = true;
+          name = "dockhand";
+        }
+        # keep-sorted end
+      ];
 
       authentication = ''
         local all all peer

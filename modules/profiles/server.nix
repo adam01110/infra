@@ -18,6 +18,7 @@
       # Services
       # keep-sorted start
       btrfs-autoscrub
+      hawser
       podman
       ssh
       traefik

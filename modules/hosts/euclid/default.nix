@@ -8,6 +8,7 @@
       # keep-sorted start
       authentik
       crowdsec-server
+      dockhand
       godns
       mysql
       postgres
