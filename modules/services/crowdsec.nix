@@ -108,6 +108,16 @@
     inherit (lib) mkForce;
 
     dataDir = "/var/lib/crowdsec/data";
+
+    setupDeps = [
+      "postgresql.service"
+      "sops-install-secrets.service"
+    ];
+
+    setupUnit = {
+      after = setupDeps;
+      requires = setupDeps;
+    };
   in {
     imports = [self.modules.nixos.crowdsec-base];
 
@@ -150,42 +160,24 @@
     };
 
     systemd.services = {
-      # keep-sorted start block=yes newline_separated=yes
-      crowdsec = {
-        after = [
-          "postgresql.service"
-          "sops-install-secrets.service"
-        ];
-        requires = [
-          "postgresql.service"
-          "sops-install-secrets.service"
-        ];
-      };
+      crowdsec = setupUnit;
+      crowdsec-setup = setupUnit;
 
       crowdsec-firewall-bouncer-register.serviceConfig.RestrictAddressFamilies = mkForce [
         # PostgreSQL local socket access.
         "AF_UNIX"
       ];
 
-      crowdsec-setup = {
-        after = [
-          "postgresql.service"
-          "sops-install-secrets.service"
-        ];
-        requires = [
-          "postgresql.service"
-          "sops-install-secrets.service"
-        ];
-      };
-
       crowdsec-traefik-bouncer = {
         after = [
           "crowdsec.service"
           "sops-install-secrets.service"
         ];
+
         before = ["traefik.service"];
         description = "Register Traefik CrowdSec bouncer";
         requiredBy = ["traefik.service"];
+
         requires = [
           "crowdsec.service"
           "sops-install-secrets.service"
@@ -215,18 +207,14 @@
         serviceConfig = {
           DynamicUser = true;
           Group = config.services.crowdsec.group;
-          LoadCredential = [
-            "traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"
-          ];
+          LoadCredential = ["traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"];
+          RemainAfterExit = true;
           StateDirectory = "crowdsec";
           StateDirectoryMode = "0750";
-          RemainAfterExit = true;
           Type = "oneshot";
           User = config.services.crowdsec.user;
         };
       };
-
-      # keep-sorted end
     };
   };
 }

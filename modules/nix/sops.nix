@@ -8,6 +8,7 @@
   defaultConfig = {
     defaultSopsFile = "${self}/secrets.yaml";
     defaultSopsFormat = "yaml";
+    gnupg.sshKeyPaths = [];
     validateSopsFiles = false;
   };
 
