@@ -105,6 +105,7 @@
         dynamicConfigOptions = {
           http = {
             middlewares = {
+              # keep-sorted start block=yes newline_separated=yes
               authentik.forwardAuth = {
                 address = "http://[::1]:9005/outpost.goauthentik.io/auth/traefik";
                 trustForwardHeader = true;
@@ -138,9 +139,11 @@
                 scheme = "https";
                 permanent = true;
               };
+              # keep-sorted end
             };
 
             routers = {
+              # keep-sorted start block=yes newline_separated=yes
               authentik = {
                 entryPoints = ["websecure"];
                 rule = "Host(`authentik.${groundDomain}`)";
@@ -160,6 +163,7 @@
                 rule = "Host(`traefik.${groundDomain}`)";
                 service = "api@internal";
               };
+              # keep-sorted end
             };
 
             services = {

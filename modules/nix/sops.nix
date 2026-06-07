@@ -39,6 +39,7 @@ in {
       // {
         # Use a pre-provisioned age key file on disk.
         age = defaultAgeConfig // {keyFile = "/var/lib/sops-nix/key.txt";};
+        useSystemdActivation = true;
       };
   };
 

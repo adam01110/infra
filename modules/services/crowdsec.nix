@@ -152,8 +152,14 @@
     systemd.services = {
       # keep-sorted start block=yes newline_separated=yes
       crowdsec = {
-        after = ["postgresql.service"];
-        requires = ["postgresql.service"];
+        after = [
+          "postgresql.service"
+          "sops-install-secrets.service"
+        ];
+        requires = [
+          "postgresql.service"
+          "sops-install-secrets.service"
+        ];
       };
 
       crowdsec-firewall-bouncer-register.serviceConfig.RestrictAddressFamilies = mkForce [
@@ -162,16 +168,28 @@
       ];
 
       crowdsec-setup = {
-        after = ["postgresql.service"];
-        requires = ["postgresql.service"];
+        after = [
+          "postgresql.service"
+          "sops-install-secrets.service"
+        ];
+        requires = [
+          "postgresql.service"
+          "sops-install-secrets.service"
+        ];
       };
 
       crowdsec-traefik-bouncer = {
-        after = ["crowdsec.service"];
+        after = [
+          "crowdsec.service"
+          "sops-install-secrets.service"
+        ];
         before = ["traefik.service"];
         description = "Register Traefik CrowdSec bouncer";
         requiredBy = ["traefik.service"];
-        requires = ["crowdsec.service"];
+        requires = [
+          "crowdsec.service"
+          "sops-install-secrets.service"
+        ];
 
         script = ''
           set -eu
