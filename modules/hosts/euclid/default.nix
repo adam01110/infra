@@ -15,6 +15,9 @@
       # keep-sorted end
     ];
 
+    # Same-host connection: hawser reaches dockhand directly without public TLS.
+    services.hawser.dockhandServerUrl = "ws://127.0.0.1:3000/api/hawser/connect";
+
     # System version for state compatibility - do not modify.
     system.stateVersion = "26.05";
 
