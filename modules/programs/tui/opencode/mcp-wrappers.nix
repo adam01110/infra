@@ -4,6 +4,7 @@
     config,
     lib,
     pkgs,
+    vars,
     # keep-sorted end
     ...
   }: let
@@ -11,6 +12,7 @@
       (lib)
       # keep-sorted start
       getExe
+      getExe'
       mkOption
       types
       # keep-sorted end
@@ -18,6 +20,16 @@
     inherit (pkgs) writeShellApplication;
 
     # keep-sorted start block=yes newline_separated=yes
+    authentikMcpWrapper = writeShellApplication {
+      name = "authentik-mcp-wrapper";
+      runtimeInputs = [pkgs.coreutils];
+      text = ''
+        AUTHENTIK_TOKEN="$(cat "${config.sops.secrets."ai/authentik_token".path}")"
+        export AUTHENTIK_TOKEN
+        exec "${getExe' pkgs.uv "uvx"}" authentik-mcp --base-url "https://authentik.${vars.groundDomain}" --token "$AUTHENTIK_TOKEN" "$@"
+      '';
+    };
+
     context7McpWrapper = writeShellApplication {
       name = "context7-mcp-wrapper";
       runtimeInputs = [pkgs.coreutils];
@@ -49,6 +61,7 @@
     config = {
       sops.secrets = {
         # keep-sorted start
+        "ai/authentik_token" = {};
         "ai/context7_key" = {};
         "ai/github_token" = {};
         # keep-sorted end
@@ -57,6 +70,7 @@
       programs.opencode.mcpServers = {
         inherit
           # keep-sorted start
+          authentikMcpWrapper
           context7McpWrapper
           githubMcpServerWrapper
           # keep-sorted end

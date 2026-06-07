@@ -153,7 +153,7 @@
               authentik-outpost = {
                 entryPoints = ["websecure"];
                 priority = 15;
-                rule = "PathPrefix(`/outpost.goauthentik.io/`)";
+                rule = "Host(`traefik.${groundDomain}`) && PathPrefix(`/outpost.goauthentik.io/`)";
                 service = "authentik-outpost";
               };
 
