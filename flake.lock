@@ -696,11 +696,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780279599,
-        "narHash": "sha256-ZCj+xW1MTm4fiDWalREvbDVG+UFM9RmhObeHQ49sIHI=",
+        "lastModified": 1780858356,
+        "narHash": "sha256-3imyFQXBp08TMWMVljPsYXjBFCdtLI5qwmHh7tHxQQg=",
         "owner": "adam01110",
         "repo": "hylix",
-        "rev": "ee990d20a41b80b2294631c64d6db0630e0b3c8a",
+        "rev": "86af0f084df78612981136a7389f033b3bb3b9a6",
         "type": "github"
       },
       "original": {

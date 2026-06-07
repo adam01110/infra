@@ -22,7 +22,7 @@
 
         euclid = {
           HostKeyAlias = "euclid.${groundDomain}";
-          HostName = "::1";
+          HostName = "127.0.0.1";
           IdentityFile = "~/.ssh/euclid";
           Port = 2201;
         };

@@ -27,7 +27,7 @@
     };
 
     systemd = {
-      tmpfiles.rules = ["d /var/lib/dockhand 0750 root root -"];
+      tmpfiles.rules = ["d /var/lib/dockhand 0750 1001 1001 -"];
 
       services = {
         dockhand-postgres-password = {
