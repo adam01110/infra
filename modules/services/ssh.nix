@@ -20,12 +20,17 @@
     services.openssh = {
       enable = true;
 
+      ports = [2222];
+
+      listenAddresses = [
+        {addr = "::1";}
+      ];
+
       authorizedKeysFiles = mkForce [config.sops.secrets."servers/${hostname}/public_ssh_key".path];
 
       settings = {
         # keep-sorted start
         AllowUsers = [username];
-        ListenAddress = "[::1]:2222";
         PermitRootLogin = "no";
         # keep-sorted end
 
