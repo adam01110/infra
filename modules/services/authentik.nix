@@ -55,5 +55,7 @@
         environmentFile = config.sops.templates."authentik-proxy.env".path;
       };
     };
+
+    systemd.services.authentik-worker.serviceConfig.TimeoutStopSec = "60s";
   };
 }

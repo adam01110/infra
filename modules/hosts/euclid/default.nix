@@ -7,6 +7,7 @@
       # Services
       # keep-sorted start
       authentik
+      cloudbeaver
       crowdsec-server
       dockhand
       godns

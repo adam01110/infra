@@ -106,6 +106,11 @@
           http = {
             middlewares = {
               # keep-sorted start block=yes newline_separated=yes
+              authentik-proxy.forwardAuth = {
+                address = "http://[::1]:9005/outpost.goauthentik.io/auth/traefik";
+                trustForwardHeader = true;
+              };
+
               authentik.forwardAuth = {
                 address = "http://[::1]:9005/outpost.goauthentik.io/auth/traefik";
                 trustForwardHeader = true;
@@ -133,6 +138,8 @@
                 crowdsecAppsecEnabled = true;
                 crowdsecAppsecHost = "127.0.0.1:7424";
                 crowdsecAppsecKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
+                crowdsecLapiUrl = "http://127.0.0.1:8080";
+                crowdsecLapiKeyFile = secrets."traefik/crowdsec_bouncer_key".path;
               };
 
               redirect-to-https.redirectscheme = {
@@ -155,6 +162,13 @@
                 priority = 15;
                 rule = "Host(`traefik.${groundDomain}`) && PathPrefix(`/outpost.goauthentik.io/`)";
                 service = "authentik-outpost";
+              };
+
+              cloudbeaver = {
+                entryPoints = ["websecure"];
+                middlewares = ["authentik@file"];
+                rule = "Host(`cloudbeaver.${groundDomain}`)";
+                service = "cloudbeaver";
               };
 
               dockhand = {
@@ -180,6 +194,10 @@
 
               authentik.loadBalancer.servers = [
                 {url = "http://[::1]:9000";}
+              ];
+
+              cloudbeaver.loadBalancer.servers = [
+                {url = "http://127.0.0.1:8978";}
               ];
 
               dockhand.loadBalancer.servers = [
@@ -216,7 +234,11 @@
 
     systemd = {
       tmpfiles.rules = ["d /var/log/traefik 0750 traefik traefik -"];
-      services.traefik.serviceConfig.TimeoutStopSec = "60s";
+
+      services.traefik = {
+        serviceConfig.TimeoutStopSec = "60s";
+        stopIfChanged = false;
+      };
     };
   };
 }

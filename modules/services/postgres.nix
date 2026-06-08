@@ -1,13 +1,19 @@
 {
   flake.modules.nixos.postgres = {
     # keep-sorted start
+    config,
     lib,
     pkgs,
+    vars,
     # keep-sorted end
     ...
   }: let
     inherit (lib) mkForce;
+
+    inherit (vars) username;
   in {
+    sops.secrets."postgres/admin_password" = {};
+
     services.postgresql = {
       enable = true;
       enableTCPIP = true;
@@ -27,6 +33,7 @@
 
       ensureDatabases = [
         # keep-sorted start
+        "cloudbeaver"
         "crowdsec"
         "dockhand"
         # keep-sorted end
@@ -36,12 +43,21 @@
         # keep-sorted start block=yes newline_separated=yes
         {
           ensureDBOwnership = true;
+          name = "cloudbeaver";
+        }
+
+        {
+          ensureDBOwnership = true;
           name = "crowdsec";
         }
 
         {
           ensureDBOwnership = true;
           name = "dockhand";
+        }
+
+        {
+          name = username;
         }
         # keep-sorted end
       ];
@@ -59,6 +75,41 @@
 
       compression = "zstd";
       compressionLevel = 3;
+    };
+
+    systemd.services.postgres-admin = {
+      # keep-sorted start block=yes newline_separated=yes
+      after = [
+        "postgresql.service"
+        "sops-install-secrets.service"
+      ];
+
+      requiredBy = ["multi-user.target"];
+
+      requires = [
+        "postgresql.service"
+        "sops-install-secrets.service"
+      ];
+      # keep-sorted end
+
+      script = ''
+        set -eu
+        password="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/admin_password")"
+        ${config.services.postgresql.package}/bin/psql --dbname postgres --command "ALTER USER ${username} WITH SUPERUSER PASSWORD \$${username}\$''${password}\$${username}\$;"
+      '';
+
+      serviceConfig = {
+        # keep-sorted start
+        Group = "postgres";
+        Type = "oneshot";
+        User = "postgres";
+        # keep-sorted end
+
+        # keep-sorted start
+        LoadCredential = ["admin_password:${config.sops.secrets."postgres/admin_password".path}"];
+        RemainAfterExit = true;
+        # keep-sorted end
+      };
     };
   };
 }

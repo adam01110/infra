@@ -23,6 +23,14 @@
       (map (name: themeVars.${name}) (attrNames themeVars))
       (readFile ./system24.css)
     );
+
+    externalThemeLinks = [
+      # keep-sorted start
+      "https://raw.githubusercontent.com/Augenbl1ck/Discord-Styles/refs/heads/main/expProfile.css"
+      "https://raw.githubusercontent.com/mudrhiod/discord-iconpacks/refs/heads/master/vencord/solar/solar.css"
+      "https://raw.githubusercontent.com/yiruzu/vencord-snippets/refs/heads/main/snippets/BubbleUsernames/import.css"
+      # keep-sorted end
+    ];
   in {
     programs.nixcord.config = {
       # Enable custom css themes.
@@ -34,13 +42,10 @@
       ];
 
       # Load external theme links for enhanced styling.
-      themeLinks = [
-        # keep-sorted start
-        "https://raw.githubusercontent.com/Augenbl1ck/Discord-Styles/refs/heads/main/expProfile.css"
-        "https://raw.githubusercontent.com/mudrhiod/discord-iconpacks/refs/heads/master/vencord/solar/solar.css"
-        "https://raw.githubusercontent.com/yiruzu/vencord-snippets/refs/heads/main/snippets/BubbleUsernames/import.css"
-        # keep-sorted end
-      ];
+      themeLinks = externalThemeLinks;
+
+      # Enable external theme links after adding them to the theme list.
+      enabledThemeLinks = externalThemeLinks;
     };
 
     # Add snippets stylesheet for additional styling.

@@ -205,10 +205,10 @@
           User = config.services.crowdsec.user;
           # keep-sorted end
 
-          # keep-sorted stat
+          # keep-sorted start
+          LoadCredential = ["traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"];
           RemainAfterExit = true;
           Type = "oneshot";
-          LoadCredential = ["traefik_bouncer_key:${config.sops.secrets."traefik/crowdsec_bouncer_key".path}"];
           # keep-sorted end
         };
       };

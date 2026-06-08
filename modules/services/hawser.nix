@@ -34,27 +34,26 @@
 
           # Health check.
           "--health-cmd=wget -q --spider http://[::1]:2376/_hawser/health || exit 1"
-          "--health-interval=30s"
-          "--health-retries=3"
-          "--health-start-period=10s"
+          "--health-interval=60s"
+          "--health-retries=5"
+          "--health-start-period=30s"
           "--health-timeout=5s"
         ];
 
         environment = {
           AGENT_NAME = hostname;
           DOCKHAND_SERVER_URL = config.services.hawser.dockhandServerUrl;
-          STACKS_DIR = "/var/lib/hawser/stacks";
         };
 
         environmentFiles = [config.sops.templates."hawser.env".path];
         volumes = [
           "/run/podman/podman.sock:/var/run/docker.sock"
-          "/var/lib/hawser/stacks:/var/lib/hawser/stacks"
+          "/var/lib/hawser:/data/stacks"
         ];
       };
 
       systemd = {
-        tmpfiles.rules = ["d /var/lib/hawser/stacks 0750 root root -"];
+        tmpfiles.rules = ["d /var/lib/hawser 0750 root root -"];
         services.podman-hawser.serviceConfig.TimeoutStopSec = mkForce "60s";
       };
     };

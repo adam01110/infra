@@ -70,7 +70,12 @@
         podman-dockhand = {
           after = ["dockhand-postgres-password.service"];
           requires = ["dockhand-postgres-password.service"];
-          serviceConfig.TimeoutStopSec = mkForce "60s";
+          stopIfChanged = false;
+
+          serviceConfig = {
+            SuccessExitStatus = [143];
+            TimeoutStopSec = mkForce "60s";
+          };
         };
       };
     };
