@@ -21,8 +21,8 @@
       package = pkgs.postgresql_18;
 
       settings = {
-        # TODO: Revisit database exposure once the access model is decided.
-        listen_addresses = mkForce "127.0.0.1,::1";
+        # Listen only on local and WireGuard addresses.
+        listen_addresses = mkForce "127.0.0.1,::1,10.100.0.1";
 
         shared_buffers = "256MB";
         maintenance_work_mem = "128MB";
@@ -66,6 +66,7 @@
         local all all peer
         host all all 127.0.0.1/32 scram-sha-256
         host all all ::1/128 scram-sha-256
+        host all all 10.100.0.0/24 scram-sha-256
       '';
     };
 

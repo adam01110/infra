@@ -3,19 +3,24 @@
     # keep-sorted start
     config,
     lib,
-    vars,
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkForce mkOption;
+    inherit
+      (lib)
+      # keep-sorted start
+      mkForce
+      mkOption
+      types
+      # keep-sorted end
+      ;
 
-    inherit (vars) groundDomain;
     hostname = config.networking.hostName;
     hawserTokenSecret = "dockhand/hawser_tokens/${hostname}";
   in {
     options.services.hawser.dockhandServerUrl = mkOption {
-      type = lib.types.str;
-      default = "wss://dockhand.${groundDomain}/api/hawser/connect";
+      type = types.str;
+      default = "ws://10.100.0.1:3000/api/hawser/connect";
       description = "WebSocket URL for the dockhand server agent connection endpoint.";
     };
 
@@ -29,6 +34,7 @@
       virtualisation.oci-containers.containers.hawser = {
         hostname = "hawser";
         image = "ghcr.io/finsys/hawser:latest";
+
         extraOptions = [
           "--network=host"
 

@@ -20,7 +20,17 @@
     virtualisation.oci-containers.containers.dockhand = {
       hostname = "dockhand";
       image = "fnsys/dockhand:latest";
-      extraOptions = ["--network=host"];
+
+      extraOptions = [
+        "--network=host"
+
+        # Health check.
+        "--health-cmd=curl -fsSo /dev/null http://127.0.0.1:3000/api/health || exit 1"
+        "--health-interval=60s"
+        "--health-retries=5"
+        "--health-start-period=30s"
+        "--health-timeout=5s"
+      ];
 
       environmentFiles = [config.sops.templates."dockhand.env".path];
       volumes = ["/var/lib/dockhand:/app/data"];

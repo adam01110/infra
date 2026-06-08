@@ -24,11 +24,12 @@
     virtualisation.oci-containers.containers.cloudbeaver = {
       hostname = "cloudbeaver";
       image = "dbeaver/cloudbeaver:latest";
+
       extraOptions = [
         "--network=host"
 
         # Health check.
-        "--health-cmd=wget -q --spider http://127.0.0.1:8978/ || exit 1"
+        "--health-cmd=curl -fsSo /dev/null http://127.0.0.1:8978/ || exit 1"
         "--health-interval=60s"
         "--health-retries=5"
         "--health-start-period=30s"
@@ -36,7 +37,7 @@
       ];
 
       environment = {
-        CB_SERVER_URL = "https://cloudbeaver.${groundDomain}/";
+        CB_SERVER_URL = "https://cloudbeaver.${groundDomain}";
         CLOUDBEAVER_APP_FORWARD_PROXY = "true";
         CLOUDBEAVER_DB_BACKUP_ENABLED = "false";
         CLOUDBEAVER_DB_DRIVER = "postgres-jdbc";

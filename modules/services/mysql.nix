@@ -17,8 +17,8 @@
 
       settings = {
         mysqld = {
-          # TODO: Revisit database exposure once the access model is decided.
-          bind-address = "127.0.0.1";
+          # Firewall limits remote access to WireGuard.
+          bind-address = "0.0.0.0";
           innodb_buffer_pool_size = "512M";
           max_connections = 100;
           slow_query_log = true;
