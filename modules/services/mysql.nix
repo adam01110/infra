@@ -54,7 +54,7 @@
 
       script = ''
         set -eu
-        password="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/admin_password")"
+        password="$(${pkgs.coreutils}/bin/tr -d '\r\n' < "$CREDENTIALS_DIRECTORY/admin_password")"
         escaped_password="''${password//\'/\'\'}"
         ${config.services.mysql.package}/bin/mysql -e "
           CREATE USER IF NOT EXISTS '${username}'@'127.0.0.1' IDENTIFIED BY '$escaped_password';

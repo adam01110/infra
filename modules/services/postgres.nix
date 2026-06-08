@@ -94,8 +94,8 @@
 
       script = ''
         set -eu
-        password="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/admin_password")"
-        ${config.services.postgresql.package}/bin/psql --dbname postgres --command "ALTER USER ${username} WITH SUPERUSER PASSWORD \$${username}\$''${password}\$${username}\$;"
+        password="$(${pkgs.coreutils}/bin/tr -d '\r\n' < "$CREDENTIALS_DIRECTORY/admin_password")"
+        ${config.services.postgresql.package}/bin/psql --dbname postgres --command "ALTER USER ${username} WITH SUPERUSER PASSWORD \''$${username}\''$''${password}\''$${username}\''$;"
       '';
 
       serviceConfig = {
