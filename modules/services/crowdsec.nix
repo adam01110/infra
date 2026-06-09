@@ -139,6 +139,9 @@
       };
 
       templates."crowdsec-gotify-notification" = {
+        mode = "0640";
+        owner = config.services.crowdsec.user;
+        group = config.services.crowdsec.group;
         path = "/etc/crowdsec/notifications/gotify-alerts.yaml";
         content = ''
           type: http
