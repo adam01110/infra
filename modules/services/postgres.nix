@@ -36,6 +36,7 @@
         "cloudbeaver"
         "crowdsec"
         "dockhand"
+        "gotify"
         # keep-sorted end
       ];
 
@@ -54,6 +55,11 @@
         {
           ensureDBOwnership = true;
           name = "dockhand";
+        }
+
+        {
+          ensureDBOwnership = true;
+          name = "gotify";
         }
 
         {

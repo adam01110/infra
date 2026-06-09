@@ -63,7 +63,7 @@
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/crowdsec";
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.7";
+      url = "github:noctalia-dev/noctalia?ref=legacy-v4";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         noctalia-qs.follows = "noctalia-qs";

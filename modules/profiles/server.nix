@@ -21,7 +21,6 @@
       hawser
       podman
       ssh
-      traefik
       # keep-sorted end
     ];
 

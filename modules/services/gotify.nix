@@ -1,0 +1,35 @@
+{
+  flake.modules.nixos.gotify = {lib, ...}: let
+    inherit (lib) mkForce;
+  in {
+    users = {
+      groups.gotify = {};
+      users.gotify = {
+        group = "gotify";
+        isSystemUser = true;
+      };
+    };
+
+    services.gotify = {
+      enable = true;
+      stateDirectoryName = "gotify";
+
+      environment = {
+        GOTIFY_SERVER_PORT = 44407;
+        GOTIFY_DATABASE_CONNECTION = "host=/run/postgresql user=gotify dbname=gotify sslmode=disable";
+        GOTIFY_DATABASE_DIALECT = "postgres";
+      };
+    };
+
+    systemd.services.gotify-server = {
+      after = ["postgresql.service"];
+      requires = ["postgresql.service"];
+
+      serviceConfig = {
+        DynamicUser = mkForce false;
+        User = "gotify";
+        Group = "gotify";
+      };
+    };
+  };
+}

@@ -177,6 +177,12 @@
                 service = "dockhand";
               };
 
+              gotify = {
+                entryPoints = ["websecure"];
+                rule = "Host(`gotify.${groundDomain}`)";
+                service = "gotify";
+              };
+
               traefik-dashboard = {
                 entryPoints = ["websecure"];
                 middlewares = ["authentik@file"];
@@ -202,6 +208,10 @@
 
               dockhand.loadBalancer.servers = [
                 {url = "http://127.0.0.1:3000";}
+              ];
+
+              gotify.loadBalancer.servers = [
+                {url = "http://127.0.0.1:44407";}
               ];
               # keep-sorted end
             };

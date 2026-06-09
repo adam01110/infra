@@ -14,27 +14,28 @@
       mysql
       postgres
       wireguard
+      traefik
+      gotify
       # keep-sorted end
     ];
-
-    # Same-host connection: hawser reaches dockhand directly without public TLS.
-    services.hawser.dockhandServerUrl = "ws://127.0.0.1:3000/api/hawser/connect";
-
-    services.homelabWireguard = {
-      enable = true;
-      address = "10.100.0.1/24";
-      privateKeySecret = "wireguard/euclid/private_key";
-    };
 
     # System version for state compatibility - do not modify.
     system.stateVersion = "26.05";
 
     networking.hostName = "euclid";
 
+    # Same-host connection: hawser reaches dockhand directly without public TLS.
+    services.hawser.dockhandServerUrl = "ws://127.0.0.1:3000/api/hawser/connect";
+
+    # Wireguard stuff.
+    services.homelabWireguard = {
+      enable = true;
+      address = "10.100.0.1/24";
+      privateKeySecret = "wireguard/euclid/private_key";
+    };
     networking.hosts = {
       "10.100.0.1" = ["euclid.wg"];
     };
-
     networking.firewall.interfaces.wg0.allowedTCPPorts = [
       # keep-sorted start numeric=yes
       3000
