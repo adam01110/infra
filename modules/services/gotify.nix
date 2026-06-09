@@ -20,7 +20,7 @@
       };
 
       templates."gotify.env".content = ''
-        GOTIFY_OIDC_CLIENTID = ${config.sops.placeholder."gotify/client_id"}
+        GOTIFY_OIDC_CLIENTID=${config.sops.placeholder."gotify/client_id"}
         GOTIFY_OIDC_CLIENTSECRET=${config.sops.placeholder."gotify/client_secret"}
       '';
     };
@@ -56,14 +56,20 @@
 
     systemd.services.gotify-server = {
       after = [
+        # keep-sorted start
         "authentik-worker.service"
         "authentik.service"
         "postgresql.service"
+        "sops-install-secrets.service"
+        # keep-sorted end
       ];
       requires = [
+        # keep-sorted start
         "authentik-worker.service"
         "authentik.service"
         "postgresql.service"
+        "sops-install-secrets.service"
+        # keep-sorted end
       ];
 
       preStart = let
