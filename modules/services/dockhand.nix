@@ -8,6 +8,9 @@
     ...
   }: let
     inherit (lib) mkForce;
+
+    secrets = config.sops.secrets;
+    templates = config.sops.templates;
   in {
     sops = {
       secrets."dockhand/database_password" = {};
@@ -32,7 +35,7 @@
         "--health-timeout=5s"
       ];
 
-      environmentFiles = [config.sops.templates."dockhand.env".path];
+      environmentFiles = [templates."dockhand.env".path];
       volumes = ["/var/lib/dockhand:/app/data"];
     };
 
@@ -71,7 +74,7 @@
             # keep-sorted end
 
             # keep-sorted start
-            LoadCredential = ["database_password:${config.sops.secrets."dockhand/database_password".path}"];
+            LoadCredential = ["database_password:${secrets."dockhand/database_password".path}"];
             RemainAfterExit = true;
             # keep-sorted end
           };

@@ -1367,6 +1367,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-crowdsec-blocklist-import": {
+      "locked": {
+        "lastModified": 1778009350,
+        "narHash": "sha256-TxHxJ0Gg7iGpPDXGYUBrGa2eDa+ZiyuAooQ3BuGbNPI=",
+        "owner": "gaelj",
+        "repo": "nixpkgs",
+        "rev": "c018e9c39209205cf02bc60bb59da29fc05c1c37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gaelj",
+        "ref": "init-crowdsec-blocklist-import",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1777168982,
@@ -1559,11 +1575,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780982947,
-        "narHash": "sha256-XeZqQEa8wztuEQMASi46o4ZPsJZQkKZGbg5OaFON/Ig=",
+        "lastModified": 1781003294,
+        "narHash": "sha256-LlCAtY0iTj/QAmZH2pEtEVFgoN2W10mUnWQ9kd8zmxE=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "0e8d2ff58607457a3634aeeca850b3cfbde54462",
+        "rev": "b9af271942a328837d4dde3d2f336798dce0c53c",
         "type": "github"
       },
       "original": {
@@ -1746,6 +1762,7 @@
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-crowdsec": "nixpkgs-crowdsec",
+        "nixpkgs-crowdsec-blocklist-import": "nixpkgs-crowdsec-blocklist-import",
         "noctalia": "noctalia",
         "noctalia-qs": "noctalia-qs",
         "nur": "nur",

@@ -62,6 +62,7 @@
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/crowdsec";
+    nixpkgs-crowdsec-blocklist-import.url = "github:gaelj/nixpkgs/init-crowdsec-blocklist-import";
     noctalia = {
       url = "github:noctalia-dev/noctalia?ref=legacy-v4";
       inputs = {

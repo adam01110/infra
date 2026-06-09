@@ -10,6 +10,9 @@
   }: let
     inherit (lib) mkForce;
 
+    secrets = config.sops.secrets;
+    templates = config.sops.templates;
+
     inherit (vars) groundDomain;
   in {
     sops = {
@@ -51,7 +54,7 @@
         CLOUDBEAVER_QM_DB_USER = "cloudbeaver";
       };
 
-      environmentFiles = [config.sops.templates."cloudbeaver.env".path];
+      environmentFiles = [templates."cloudbeaver.env".path];
       volumes = ["/var/lib/cloudbeaver:/opt/cloudbeaver/workspace"];
     };
 
@@ -90,7 +93,7 @@
             # keep-sorted end
 
             # keep-sorted start
-            LoadCredential = ["database_password:${config.sops.secrets."cloudbeaver/database_password".path}"];
+            LoadCredential = ["database_password:${secrets."cloudbeaver/database_password".path}"];
             RemainAfterExit = true;
             # keep-sorted end
           };

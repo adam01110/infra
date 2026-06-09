@@ -6,7 +6,9 @@
     inherit
       (packages)
       # keep-sorted start
+      crowdsec-blocklist-import
       djvutorga-adapter
+      gotify-optimize-images
       man-preview
       nocheatsheet-nvim
       os-age
