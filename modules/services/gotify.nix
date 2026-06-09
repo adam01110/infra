@@ -12,8 +12,9 @@
       (lib)
       # keep-sorted start
       getExe
-      mkForce
+      getExe'
       mkAfter
+      mkForce
       # keep-sorted end
       ;
 
@@ -85,7 +86,7 @@
         inherit (config.services.gotify) stateDirectoryName;
         oidcDiscoveryUrl = "${config.services.gotify.environment.GOTIFY_OIDC_ISSUER}.well-known/openid-configuration";
       in ''
-        for attempt in $(${pkgs.coreutils}/bin/seq 1 60); do
+        for attempt in $(${getExe' pkgs.coreutils "seq"} 1 60); do
           if ${getExe pkgs.curl} --fail --silent --show-error --max-time 5 ${oidcDiscoveryUrl} >/dev/null; then
             break
           fi

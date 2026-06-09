@@ -67,35 +67,11 @@
 
       settings = {
         acquisitions = [
-          # keep-sorted start block=yes newline_separated=yes
-          {
-            appsec_configs = ["crowdsecurity/appsec-default"];
-            labels.type = "appsec";
-            listen_addr = "127.0.0.1:7424";
-            source = "appsec";
-          }
-
-          {
-            filenames = ["/var/log/traefik/*.log"];
-            labels.type = "traefik";
-            source = "file";
-          }
-
-          {
-            journalctl_filter = [
-              "_SYSTEMD_UNIT=authentik.service"
-              "_SYSTEMD_UNIT=authentik-worker.service"
-            ];
-            labels.type = "authentik";
-            source = "journalctl";
-          }
-
           {
             journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
             labels.type = "syslog";
             source = "journalctl";
           }
-          # keep-sorted end
         ];
       };
     };
@@ -166,7 +142,7 @@
         path = "/etc/crowdsec/notifications/gotify-alerts.yaml";
         content = ''
           type: http
-          name: gotify_alerts
+          name: gotify
           log_level: info
           url: ${gotifyUrl}
           method: POST
@@ -207,6 +183,21 @@
         };
 
         console.enrollKeyFile = secrets."crowdsec/console_enroll_key".path;
+
+        profiles = [
+          {
+            decisions = [
+              {
+                duration = "4h";
+                type = "ban";
+              }
+            ];
+            filters = [''Alert.Remediation == true && Alert.GetScope() == "Ip"''];
+            name = "default_ip_remediation";
+            notifications = ["gotify"];
+            on_success = "break";
+          }
+        ];
       };
 
       crowdsec-firewall-bouncer = {

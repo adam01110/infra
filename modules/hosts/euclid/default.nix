@@ -27,6 +27,38 @@
     # Same-host connection: hawser reaches dockhand directly without public TLS.
     services.hawser.dockhandServerUrl = "ws://127.0.0.1:3000/api/hawser/connect";
 
+    services.crowdsec.settings.acquisitions = [
+      # keep-sorted start block=yes newline_separated=yes
+      {
+        appsec_configs = ["crowdsecurity/appsec-default"];
+        labels.type = "appsec";
+        listen_addr = "127.0.0.1:7424";
+        source = "appsec";
+      }
+
+      {
+        filenames = ["/var/log/traefik/*.log"];
+        labels.type = "traefik";
+        source = "file";
+      }
+
+      {
+        journalctl_filter = [
+          "_SYSTEMD_UNIT=authentik.service"
+          "_SYSTEMD_UNIT=authentik-worker.service"
+        ];
+        labels.type = "authentik";
+        source = "journalctl";
+      }
+
+      {
+        journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
+        labels.type = "syslog";
+        source = "journalctl";
+      }
+      # keep-sorted end
+    ];
+
     # Wireguard stuff.
     services.homelabWireguard = {
       enable = true;
