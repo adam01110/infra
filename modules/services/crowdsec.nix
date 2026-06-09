@@ -115,7 +115,7 @@
     secrets = config.sops.secrets;
 
     dataDir = "/var/lib/crowdsec/data";
-    gotifyUrl = "https://127.0.0.1:4407/message";
+    gotifyUrl = "http://127.0.0.1:44407/message";
 
     setupDeps = [
       "postgresql.service"
@@ -152,7 +152,6 @@
           headers:
             X-Gotify-Key: ${config.sops.placeholder."crowdsec/gotify_api_key"}
             Content-Type: application/json
-            skip_tls_verification: true
           format: |
             {{ range . -}}
             {{ $alert := . -}}
