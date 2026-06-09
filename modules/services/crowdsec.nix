@@ -22,7 +22,13 @@
       ;
   };
 
-  flake.modules.nixos.crowdsec-base = {self, ...}: {
+  flake.modules.nixos.crowdsec-base = {
+    # keep-sorted start
+    config,
+    self,
+    # keep-sorted end
+    ...
+  }: {
     nixpkgs.overlays = [self.overlays.crowdsec];
 
     disabledModules = [
@@ -91,6 +97,15 @@
           }
           # keep-sorted end
         ];
+      };
+    };
+
+    users = {
+      groups.${config.services.crowdsec.group} = {};
+
+      users.${config.services.crowdsec.user} = {
+        group = config.services.crowdsec.group;
+        isSystemUser = true;
       };
     };
   };
