@@ -110,7 +110,13 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkForce;
+    inherit
+      (lib)
+      # keep-sorted start
+      mkAfter
+      mkForce
+      # keep-sorted end
+      ;
 
     secrets = config.sops.secrets;
 
@@ -186,35 +192,6 @@
         };
 
         console.enrollKeyFile = secrets."crowdsec/console_enroll_key".path;
-
-        profiles = mkForce [
-          # keep-sorted start
-          {
-            decisions = [
-              {
-                duration = "4h";
-                type = "ban";
-              }
-            ];
-            filters = [''Alert.Remediation == true && Alert.GetScope() == "Ip"''];
-            name = "default_ip_remediation";
-            notifications = ["gotify_alerts"];
-            on_success = "break";
-          }
-          {
-            decisions = [
-              {
-                duration = "4h";
-                type = "ban";
-              }
-            ];
-            filters = [''Alert.Remediation == true && Alert.GetScope() == "Range"''];
-            name = "default_range_remediation";
-            notifications = ["gotify_alerts"];
-            on_success = "break";
-          }
-          # keep-sorted end
-        ];
       };
 
       crowdsec-firewall-bouncer = {
@@ -234,13 +211,13 @@
       crowdsec-setup = setupUnit;
 
       crowdsec-blocklist-import-frequent = {
-        after = ["crowdsec-firewall-bouncer-register.service"];
-        wants = ["crowdsec-firewall-bouncer-register.service"];
+        after = mkAfter ["crowdsec-firewall-bouncer-register.service"];
+        requires = ["crowdsec-firewall-bouncer-register.service"];
       };
 
       crowdsec-blocklist-import-limited = {
-        after = ["crowdsec-firewall-bouncer-register.service"];
-        wants = ["crowdsec-firewall-bouncer-register.service"];
+        after = mkAfter ["crowdsec-firewall-bouncer-register.service"];
+        requires = ["crowdsec-firewall-bouncer-register.service"];
       };
 
       # PostgreSQL local socket access.

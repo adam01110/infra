@@ -95,8 +95,8 @@
       sops.secrets.${cfg.privateKeySecret} = {};
 
       systemd.services."wireguard-${cfg.interface}" = {
-        wants = ["sops-nix.service"];
-        after = ["sops-nix.service"];
+        requires = ["sops-install-secrets.service"];
+        after = ["sops-install-secrets.service"];
       };
 
       networking.wireguard.interfaces.${cfg.interface} = {

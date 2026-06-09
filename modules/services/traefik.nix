@@ -246,6 +246,9 @@
       tmpfiles.rules = ["d /var/log/traefik 0750 traefik traefik -"];
 
       services.traefik = {
+        wants = ["podman.socket"];
+        after = ["podman.socket"];
+
         serviceConfig.TimeoutStopSec = "60s";
         stopIfChanged = false;
       };

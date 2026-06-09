@@ -74,8 +74,8 @@
       network.wait-online.enable = false;
 
       services.systemd-resolved = {
-        wants = ["sops-nix.service"];
-        after = ["sops-nix.service"];
+        wants = ["sops-install-secrets.service"];
+        after = ["sops-install-secrets.service"];
       };
     };
 
