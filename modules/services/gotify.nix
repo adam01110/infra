@@ -8,7 +8,14 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkForce;
+    inherit
+      (lib)
+      # keep-sorted start
+      getExe
+      mkForce
+      mkAfter
+      # keep-sorted end
+      ;
 
     templates = config.sops.templates;
     inherit (vars) groundDomain;
@@ -55,7 +62,7 @@
     };
 
     systemd.services.gotify-server = {
-      after = [
+      after = mkAfter [
         # keep-sorted start
         "authentik-worker.service"
         "authentik.service"
@@ -63,6 +70,7 @@
         "sops-install-secrets.service"
         # keep-sorted end
       ];
+
       requires = [
         # keep-sorted start
         "authentik-worker.service"
@@ -75,7 +83,20 @@
       preStart = let
         inherit (pkgs.nur.repos.adam0) gotifyPlugins;
         inherit (config.services.gotify) stateDirectoryName;
+        oidcDiscoveryUrl = "${config.services.gotify.environment.GOTIFY_OIDC_ISSUER}.well-known/openid-configuration";
       in ''
+        for attempt in $(${pkgs.coreutils}/bin/seq 1 60); do
+          if ${getExe pkgs.curl} --fail --silent --show-error --max-time 5 ${oidcDiscoveryUrl} >/dev/null; then
+            break
+          fi
+
+          if [ "$attempt" -eq 60 ]; then
+            exit 1
+          fi
+
+          ${pkgs.coreutils}/bin/sleep 2
+        done
+
         install -Dm755 ${gotifyPlugins.gotify-authentik-plugin}/authentik-plugin.so /var/lib/${stateDirectoryName}/data/plugins/authentik-plugin.so
         install -Dm755 ${gotifyPlugins.gotify-webhooks-plugin}/webhooks-plugin.so /var/lib/${stateDirectoryName}/data/plugins/webhooks-plugin.so
         chown gotify:gotify /var/lib/gotify/data/plugins/*.so
