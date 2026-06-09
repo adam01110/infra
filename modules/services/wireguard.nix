@@ -94,6 +94,11 @@
     config = mkIf cfg.enable {
       sops.secrets.${cfg.privateKeySecret} = {};
 
+      systemd.services."wireguard-${cfg.interface}" = {
+        wants = ["sops-nix.service"];
+        after = ["sops-nix.service"];
+      };
+
       networking.wireguard.interfaces.${cfg.interface} = {
         ips = [cfg.address];
 

@@ -233,6 +233,16 @@
       crowdsec = setupUnit;
       crowdsec-setup = setupUnit;
 
+      crowdsec-blocklist-import-frequent = {
+        after = ["crowdsec-firewall-bouncer-register.service"];
+        wants = ["crowdsec-firewall-bouncer-register.service"];
+      };
+
+      crowdsec-blocklist-import-limited = {
+        after = ["crowdsec-firewall-bouncer-register.service"];
+        wants = ["crowdsec-firewall-bouncer-register.service"];
+      };
+
       # PostgreSQL local socket access.
       crowdsec-firewall-bouncer-register.serviceConfig.RestrictAddressFamilies = mkForce ["AF_UNIX"];
 
