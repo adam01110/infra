@@ -11,11 +11,11 @@
       crowdsec-server
       dockhand
       godns
+      gotify
       mysql
       postgres
-      wireguard
       traefik
-      gotify
+      wireguard
       # keep-sorted end
     ];
 

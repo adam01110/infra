@@ -19,6 +19,13 @@
   in {
     options.services.homelabWireguard = {
       # keep-sorted start block=yes newline_separated=yes
+      address = mkOption {
+        description = "WireGuard interface address.";
+
+        type = types.str;
+        example = "10.100.0.1/24";
+      };
+
       enable = mkOption {
         description = "Enable the homelab WireGuard interface.";
 
@@ -33,25 +40,11 @@
         type = types.str;
       };
 
-      address = mkOption {
-        description = "WireGuard interface address.";
-
-        type = types.str;
-        example = "10.100.0.1/24";
-      };
-
       listenPort = mkOption {
         description = "WireGuard UDP listen port.";
 
         default = 51820;
         type = types.port;
-      };
-
-      privateKeySecret = mkOption {
-        description = "Sops secret path containing the WireGuard private key.";
-
-        type = types.str;
-        example = "wireguard/euclid/private_key";
       };
 
       peers = mkOption {
@@ -87,6 +80,13 @@
           };
         });
         description = "WireGuard peers.";
+      };
+
+      privateKeySecret = mkOption {
+        description = "Sops secret path containing the WireGuard private key.";
+
+        type = types.str;
+        example = "wireguard/euclid/private_key";
       };
       # keep-sorted end
     };
