@@ -104,15 +104,19 @@
     inherit
       (lib)
       # keep-sorted start
+      getExe
       mkAfter
       mkForce
       # keep-sorted end
       ;
 
     secrets = config.sops.secrets;
+    templates = config.sops.templates;
 
     dataDir = "/var/lib/crowdsec/data";
     gotifyUrl = "http://127.0.0.1:44407/message";
+
+    proxyPort = "12346";
 
     setupDeps = [
       "postgresql.service"
@@ -135,37 +139,50 @@
         # keep-sorted end
       };
 
-      templates."crowdsec-gotify-notification" = {
-        mode = "0640";
-        owner = config.services.crowdsec.user;
-        group = config.services.crowdsec.group;
-        path = "/etc/crowdsec/notifications/gotify-alerts.yaml";
-        content = ''
-          type: http
-          name: gotify
-          log_level: info
-          url: ${gotifyUrl}
-          method: POST
-          headers:
-            X-Gotify-Key: ${config.sops.placeholder."crowdsec/gotify_api_key"}
-            Content-Type: application/json
-          format: |
-            {{ range . -}}
-            {{ $alert := . -}}
-            {
-              "extras": {
-                "client::display": {
-                  "contentType": "text/markdown"
-                }
-              },
-              "priority": 3,
-              {{range .Decisions -}}
-              "title": "{{.Type }} {{ .Value }} for {{.Duration}}",
-              "message": "{{.Scenario}}\n\n[crowdsec cti](https://app.crowdsec.net/cti/{{.Value -}})\n\n[shodan](https://www.shodan.io/host/{{.Value -}})"
-              {{end -}}
-            }
-            {{ end -}}
-        '';
+      templates = {
+        "crowdsec-blocklist-import-env" = {
+          mode = "0640";
+          owner = config.services.crowdsec.user;
+          group = config.services.crowdsec.group;
+          path = "/etc/crowdsec/blocklist-import.env";
+          content = ''
+            WEBHOOK_TYPE: "generic"
+            WEBHOOK_URL=http://127.0.0.1:${proxyPort}
+          '';
+        };
+
+        "crowdsec-gotify-notification" = {
+          mode = "0640";
+          owner = config.services.crowdsec.user;
+          group = config.services.crowdsec.group;
+          path = "/etc/crowdsec/notifications/gotify-alerts.yaml";
+          content = ''
+            type: http
+            name: gotify
+            log_level: info
+            url: ${gotifyUrl}
+            method: POST
+            headers:
+              X-Gotify-Key: ${config.sops.placeholder."crowdsec/gotify_api_key"}
+              Content-Type: application/json
+            format: |
+              {{ range . -}}
+              {{ $alert := . -}}
+              {
+                "extras": {
+                  "client::display": {
+                    "contentType": "text/markdown"
+                  }
+                },
+                "priority": 3,
+                {{range .Decisions -}}
+                "title": "{{.Type }} {{ .Value }} for {{.Duration}}",
+                "message": "{{.Scenario}}\n\n[crowdsec cti](https://app.crowdsec.net/cti/{{.Value -}})\n\n[shodan](https://www.shodan.io/host/{{.Value -}})"
+                {{end -}}
+              }
+              {{ end -}}
+          '';
+        };
       };
     };
 
@@ -185,6 +202,7 @@
         console.enrollKeyFile = secrets."crowdsec/console_enroll_key".path;
 
         profiles = [
+          # keep-sorted start block=yes newline_separated=yes
           {
             decisions = [
               {
@@ -192,11 +210,27 @@
                 type = "ban";
               }
             ];
+
             filters = [''Alert.Remediation == true && Alert.GetScope() == "Ip"''];
             name = "default_ip_remediation";
             notifications = ["gotify"];
             on_success = "break";
           }
+
+          {
+            decisions = [
+              {
+                duration = "4h";
+                type = "ban";
+              }
+            ];
+
+            filters = [''Alert.Remediation == true && Alert.GetScope() == "Range"''];
+            name = "default_ip_remediation";
+            notifications = ["gotify"];
+            on_success = "break";
+          }
+          # keep-sorted end
         ];
       };
 
@@ -217,13 +251,62 @@
       crowdsec-setup = setupUnit;
 
       crowdsec-blocklist-import-frequent = {
-        after = mkAfter ["crowdsec-firewall-bouncer-register.service"];
-        requires = ["crowdsec-firewall-bouncer-register.service"];
+        after = mkAfter [
+          # keep-sorted start
+          "crowdsec-blocklist-gotify-proxy.service"
+          "crowdsec-firewall-bouncer-register.service"
+          "sops-install-secrets.service"
+          # keep-sorted end
+        ];
+        requires = [
+          # keep-sorted start
+          "crowdsec-blocklist-gotify-proxy.service"
+          "crowdsec-firewall-bouncer-register.service"
+          "sops-install-secrets.service"
+          # keep-sorted end
+        ];
+
+        serviceConfig.EnvironmentFile = templates."crowdsec-blocklist-import-env".path;
       };
 
       crowdsec-blocklist-import-limited = {
-        after = mkAfter ["crowdsec-firewall-bouncer-register.service"];
-        requires = ["crowdsec-firewall-bouncer-register.service"];
+        after = mkAfter [
+          # keep-sorted start
+          "crowdsec-blocklist-gotify-proxy.service"
+          "crowdsec-firewall-bouncer-register.service"
+          "sops-install-secrets.service"
+          # keep-sorted end
+        ];
+        requires = [
+          # keep-sorted start
+          "crowdsec-blocklist-gotify-proxy.service"
+          "crowdsec-firewall-bouncer-register.service"
+          "sops-install-secrets.service"
+          # keep-sorted end
+        ];
+
+        serviceConfig.EnvironmentFile = templates."crowdsec-blocklist-import-env".path;
+      };
+
+      crowdsec-blocklist-gotify-proxy = {
+        description = "Transform blocklist-import webhook payload for Gotify";
+
+        after = ["sops-install-secrets.service"];
+        requires = ["sops-install-secrets.service"];
+
+        wantedBy = ["crowdsec-blocklist-import-frequent.service" "crowdsec-blocklist-import-limited.service"];
+
+        serviceConfig = {
+          # keep-sorted start
+          DynamicUser = true;
+          ExecStart = "${getExe pkgs.socat} TCP-LISTEN:${proxyPort},bind=127.0.0.1,fork,reuseaddr SYSTEM:${getExe pkgs.crowdsec-blocklist-gotify-proxy}";
+          LoadCredential = ["gotify_api_key:${secrets."crowdsec/gotify_api_key".path}"];
+          Restart = "on-failure";
+          StateDirectory = "crowdsec";
+          StateDirectoryMode = "0750";
+          Type = "simple";
+          # keep-sorted end
+        };
       };
 
       # PostgreSQL local socket access.
@@ -234,8 +317,10 @@
 
         # keep-sorted start block=yes newline_separated=yes
         after = [
+          # keep-sorted start
           "crowdsec.service"
           "sops-install-secrets.service"
+          # keep-sorted end
         ];
 
         before = ["traefik.service"];
@@ -243,8 +328,10 @@
         requiredBy = ["traefik.service"];
 
         requires = [
+          # keep-sorted start
           "crowdsec.service"
           "sops-install-secrets.service"
+          # keep-sorted end
         ];
         # keep-sorted end
 

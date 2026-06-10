@@ -91,7 +91,7 @@ time[datetime]:hover::after {
   display: none;
 }
 
-/* Fix overlap */
+/* Fix overlap. */
 [class*="toolbar_"] [class*="clickable_"]:has(path[d^="M4 5a3 3 0 0"]),
 #message-save-for-later-upsell,
 [class*="buttonContainer_"] [class*="button_"]:has(path[d^="M17 4H7a1 1 0 0 0-1"]),
@@ -108,4 +108,110 @@ time[datetime]:hover::after {
 }
 .headerBarContent__1a9ce {
   margin-right: calc(var(--top-bar-right-margin) / 2);
+}
+
+/* Fix decorations. */
+foreignObject {
+  mask: none;
+}
+
+/* Fix tag separator line */
+.tagsDivider_d9be46 {
+  inset-inline-start: 0px;
+  width: 100% !important;
+}
+
+/* Spotfiy slider grabber. */
+#vc-spotify-progress-bar .grabber_a562c8 {
+  padding: 0 !important;
+  height: 100% !important;
+  width: 20px !important;
+  margin: -13px !important;
+}
+.slider_a562c8:hover .grabber_a562c8 {
+  visibility: visible !important;
+}
+
+/* Fix quest progress bars. */
+.progressBar__146e2 {
+  background-color: var(--background-mod-strong) !important;
+  overflow: hidden !important;
+}
+.progressBar__146e2 circle[stroke^="rgba"] {
+  stroke-width: 40px;
+}
+.inner__146e2 {
+  z-index: 2 !important;
+}
+.content__0d616 .coverContent__146e2.progressTextWrapper__146e2 {
+  opacity: 1 !important;
+}
+
+/* Fix for replying to text. */
+.replyLabel__841c8 {
+  font-size: 0 !important;
+}
+.replyLabel__841c8::before {
+  content: "Replying to\a0";
+  font-size: 14px !important;
+  color: var(--text-default);
+}
+.replyLabel__841c8 .name__841c8 {
+  font-size: 14px !important;
+  margin-left: 0 !important;
+  display: inline-block;
+}
+
+/* Fix pfp viewer. */
+.wrapper__44b0c.viewer_d6b206 {
+  mask: none !important;
+}
+
+/* Mark all as read button size fix. */
+[aria-label="Mark All as Read"] .buttonChildrenWrapper_a22cb0 {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+/* Theme reaction button. */
+.reaction__23977.reactionMe__23977 {
+  border: var(--border-thickness) solid var(--border-hover);
+  background: var(--mention-background);
+}
+
+/* Consistent folder size */
+.folderHeader__48112 {
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.folderGroupBackground__48112 {
+  width: 40px !important;
+  margin-left: 4px;
+}
+.folderGroup__48112 .icon__6e9f8 {
+  width: 32px !important;
+  height: 32px !important;
+}
+.folderButton__48112 {
+  transform: scale(0.833) !important;
+  transform-origin: center !important;
+}
+
+/* Fix equicord switches. */
+.vc-switch-indicator .vc-switch-thumb rect {
+  rx: var(--radius-lg) !important;
+}
+
+/* Spotify player slider grabber. */
+#vc-spotify-progress-bar .grabber_a562c8 {
+  padding: 0 !important;
+  height: 100% !important;
+  width: 20px !important;
+  margin: -13px !important;
+}
+.slider_a562c8:hover .grabber_a562c8 {
+  visibility: visible !important;
 }

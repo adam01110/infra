@@ -21,11 +21,22 @@
         "authentik/proxy_token" = {};
         "authentik/secret_key" = {};
         # keep-sorted end
+
+        # keep-sorted start
+        "authentik/email/from" = {};
+        "authentik/email/host" = {};
+        "authentik/email/password" = {};
+        "authentik/email/username" = {};
+        # keep-sorted end
       };
 
       templates = {
         "authentik.env".content = ''
           AUTHENTIK_SECRET_KEY=${config.sops.placeholder."authentik/secret_key"}
+          AUTHENTIK_EMAIL__HOST=${config.sops.placeholder."authentik/email/host"}
+          AUTHENTIK_EMAIL__USERNAME=${config.sops.placeholder."authentik/email/username"}
+          AUTHENTIK_EMAIL__PASSWORD=${config.sops.placeholder."authentik/email/password"}
+          AUTHENTIK_EMAIL__FROM=${config.sops.placeholder."authentik/email/from"}
         '';
 
         "authentik-proxy.env".content = ''
@@ -47,6 +58,11 @@
           disable_startup_analytics = true;
           disable_update_check = true;
           error_reporting.enabled = false;
+
+          email = {
+            port = 465;
+            use_ssl = true;
+          };
         };
       };
 

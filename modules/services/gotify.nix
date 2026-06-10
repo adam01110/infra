@@ -12,7 +12,6 @@
       (lib)
       # keep-sorted start
       getExe
-      getExe'
       mkAfter
       mkForce
       # keep-sorted end
@@ -84,23 +83,23 @@
       preStart = let
         inherit (pkgs.nur.repos.adam0) gotifyPlugins;
         inherit (config.services.gotify) stateDirectoryName;
+
         oidcDiscoveryUrl = "${config.services.gotify.environment.GOTIFY_OIDC_ISSUER}.well-known/openid-configuration";
+        pluginDir = "/var/lib/${stateDirectoryName}/data/plugins";
+
+        wantedPlugins = [
+          # keep-sorted start block=yes newline_separated=yes
+          {
+            drv = gotifyPlugins.gotify-authentik-plugin;
+            file = "authentik-plugin.so";
+          }
+
+          #{drv = gotifyPlugins.gotify-webhooks-plugin; file = "webhooks-plugin.so";}
+          # keep-sorted end
+        ];
       in ''
-        for attempt in $(${getExe' pkgs.coreutils "seq"} 1 60); do
-          if ${getExe pkgs.curl} --fail --silent --show-error --max-time 5 ${oidcDiscoveryUrl} >/dev/null; then
-            break
-          fi
-
-          if [ "$attempt" -eq 60 ]; then
-            exit 1
-          fi
-
-          ${pkgs.coreutils}/bin/sleep 2
-        done
-
-        install -Dm755 ${gotifyPlugins.gotify-authentik-plugin}/authentik-plugin.so /var/lib/${stateDirectoryName}/data/plugins/authentik-plugin.so
-        install -Dm755 ${gotifyPlugins.gotify-webhooks-plugin}/webhooks-plugin.so /var/lib/${stateDirectoryName}/data/plugins/webhooks-plugin.so
-        chown gotify:gotify /var/lib/gotify/data/plugins/*.so
+        ${getExe pkgs.gotify-install-plugins} ${pluginDir} ${oidcDiscoveryUrl} \
+        ${builtins.concatStringsSep " " (map (p: "${p.drv}/${p.file}:${p.file}") wantedPlugins)}
       '';
 
       serviceConfig = {

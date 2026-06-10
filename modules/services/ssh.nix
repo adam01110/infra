@@ -20,6 +20,7 @@
     services.openssh = {
       enable = true;
 
+      openFirewall = false;
       ports = [2222];
 
       listenAddresses = [
