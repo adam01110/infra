@@ -4,7 +4,7 @@
   in {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
-      VCPanelSettings = {
+      vcPanelSettings = {
         enable = true;
         camera = cfgCamera;
 

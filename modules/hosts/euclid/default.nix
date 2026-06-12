@@ -11,7 +11,7 @@
       crowdsec-server
       dockhand
       godns
-      gotify
+      gotify-server
       mysql
       postgres
       traefik

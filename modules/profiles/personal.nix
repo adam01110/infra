@@ -109,6 +109,7 @@
       discord
       flatseal
       gimp
+      gotify-desktop
       loupe
       onlyoffice
       proton

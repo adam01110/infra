@@ -61,6 +61,7 @@
           "crowdsecurity/sshd"
           "crowdsecurity/traefik"
           "firix/authentik"
+          "Dominic-Wagner/vaultwarden"
           # keep-sorted end
         ];
       };

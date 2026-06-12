@@ -9,7 +9,6 @@
       crowdsec-blocklist-gotify-proxy
       crowdsec-blocklist-import
       djvutorga-adapter
-      gotify-install-plugins
       gotify-optimize-images
       man-preview
       nocheatsheet-nvim

@@ -8,9 +8,9 @@
   }: {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
-      ClearURLs.enable = true;
+      clearUrls.enable = true;
 
-      CopyUserURLs.enable = true;
+      copyUserUrls.enable = true;
 
       autoZipper.enable = true;
 

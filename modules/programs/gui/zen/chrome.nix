@@ -51,7 +51,6 @@
             # keep-sorted start
             "advent-of-code"
             "alternativeto"
-            "anonymous-overflow"
             "arch-wiki"
             "brave-search"
             "bsky"
@@ -106,6 +105,11 @@
             "youtube"
             "zen-browser-docs"
             # keep-sorted end
+
+            {
+              name = "anonymous-overflow";
+              sites = [''domain("anonymous-overflow.zezura.xyz")''];
+            }
           ];
 
           # Remove rounded corners on sites and apply nix-userstyles themes.

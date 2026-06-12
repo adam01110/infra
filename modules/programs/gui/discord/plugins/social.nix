@@ -2,9 +2,9 @@
   flake.modules.homeManager.discord = {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
-      MutualGroupDMs.enable = true;
+      mutualGroupDms.enable = true;
 
-      ReviewDB = {
+      reviewDb = {
         enable = true;
         hideBlockedUsers = false;
       };

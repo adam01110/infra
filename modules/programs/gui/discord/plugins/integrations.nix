@@ -12,7 +12,7 @@
 
       replaceGoogleSearch = {
         customEngineName = "Brave";
-        customEngineURL = "https://search.brave.com/search?q=";
+        customEngineUrl = "https://search.brave.com/search?q=";
         enable = true;
         replacementEngine = "custom";
       };

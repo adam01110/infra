@@ -1,5 +1,12 @@
 {
-  flake.modules.homeManager.atuin = {config, ...}: let
+  flake.modules.homeManager.atuin = {
+    # keep-sorted start
+    config,
+    vars,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (vars) groundDomain;
     inherit (config.xdg) cacheHome;
   in {
     programs.atuin = let
@@ -45,9 +52,10 @@
         };
         # keep-sorted end
 
-        # TODO(adam0): set sync address when ready.
-        # sync_address = "";
+        # keep-sorted start
+        sync_address = "https://atuin.${groundDomain}";
         sync_frequency = 600;
+        # keep-sorted end
       };
       # keep-sorted end
     };

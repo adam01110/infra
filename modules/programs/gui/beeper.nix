@@ -50,6 +50,12 @@
     home.packages = [pkg];
 
     xdg.configFile."BeeperTexts/custom.css".text = with colors; ''
+      *,
+      *::before,
+      *::after {
+        border-radius: 0px !important;
+      }
+
       :root {
         color-scheme: dark;
 

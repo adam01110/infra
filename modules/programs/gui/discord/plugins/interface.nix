@@ -14,14 +14,14 @@
 
       config.programs.nixcord.config.plugins = {
         # keep-sorted start block=yes newline_separated=yes
-        FullVCPFP.enable = true;
+        fullVcpfp.enable = true;
 
-        USRBG = {
+        usrbg = {
           enable = true;
           voiceBackground = true;
         };
 
-        UserPFP.enable = true;
+        userPfp.enable = true;
 
         accountPanelServerProfile = {
           enable = true;

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.gotify = {
+  flake.modules.nixos.gotify-server = {
     # keep-sorted start
     config,
     lib,
@@ -11,11 +11,23 @@
     inherit
       (lib)
       # keep-sorted start
-      getExe
       mkAfter
       mkForce
       # keep-sorted end
       ;
+
+    inherit (pkgs.nur.repos.adam0) gotifyPlugins;
+
+    gotifyPluginsDrv = pkgs.symlinkJoin {
+      name = "gotify-plugins";
+      paths = with gotifyPlugins; [
+        # keep-sorted start
+        authentik
+        slack-webhook
+        webhooks
+        # keep-sorted end
+      ];
+    };
 
     templates = config.sops.templates;
     inherit (vars) groundDomain;
@@ -68,6 +80,7 @@
         "authentik.service"
         "postgresql.service"
         "sops-install-secrets.service"
+        "systemd-tmpfiles-setup.service"
         # keep-sorted end
       ];
 
@@ -77,30 +90,9 @@
         "authentik.service"
         "postgresql.service"
         "sops-install-secrets.service"
+        "systemd-tmpfiles-setup.service"
         # keep-sorted end
       ];
-
-      preStart = let
-        inherit (pkgs.nur.repos.adam0) gotifyPlugins;
-        inherit (config.services.gotify) stateDirectoryName;
-
-        oidcDiscoveryUrl = "${config.services.gotify.environment.GOTIFY_OIDC_ISSUER}.well-known/openid-configuration";
-        pluginDir = "/var/lib/${stateDirectoryName}/data/plugins";
-
-        wantedPlugins = [
-          # keep-sorted start block=yes newline_separated=yes
-          {
-            drv = gotifyPlugins.gotify-authentik-plugin;
-            file = "authentik-plugin.so";
-          }
-
-          #{drv = gotifyPlugins.gotify-webhooks-plugin; file = "webhooks-plugin.so";}
-          # keep-sorted end
-        ];
-      in ''
-        ${getExe pkgs.gotify-install-plugins} ${pluginDir} ${oidcDiscoveryUrl} \
-        ${builtins.concatStringsSep " " (map (p: "${p.drv}/${p.file}:${p.file}") wantedPlugins)}
-      '';
 
       serviceConfig = {
         DynamicUser = mkForce false;
@@ -108,6 +100,8 @@
         Group = "gotify";
       };
     };
+
+    systemd.tmpfiles.rules = ["L+ /var/lib/gotify/data/plugins - - - - ${gotifyPluginsDrv}"];
 
     systemd.services.gotify-optimize-images = {
       description = "Optimize Gotify uploaded images";
