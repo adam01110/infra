@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.euclid = {...}: {
+  flake.modules.nixos.euclid = {config, ...}: {
     imports = with self.modules.nixos; [
       # Profiles
       server
@@ -10,6 +10,7 @@
       cloudbeaver
       crowdsec-server
       dockhand
+      flaresolverr
       godns
       gotify-server
       mysql
@@ -34,6 +35,14 @@
         labels.type = "appsec";
         listen_addr = "127.0.0.1:7424";
         source = "appsec";
+      }
+
+      {
+        docker_host = "unix:///run/podman/podman.sock";
+        follow_stderr = false;
+        follow_stdout = true;
+        source = "docker";
+        use_container_labels = true;
       }
 
       {
@@ -75,6 +84,13 @@
       5432
       # keep-sorted end
     ];
+
+    users.users.${config.services.crowdsec.user}.extraGroups = ["podman"];
+
+    systemd.services.crowdsec = {
+      after = ["podman.socket"];
+      wants = ["podman.socket"];
+    };
 
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";

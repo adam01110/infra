@@ -14,15 +14,6 @@
 
       config.programs.nixcord.config.plugins = {
         # keep-sorted start block=yes newline_separated=yes
-        fullVcpfp.enable = true;
-
-        usrbg = {
-          enable = true;
-          voiceBackground = true;
-        };
-
-        userPfp.enable = true;
-
         accountPanelServerProfile = {
           enable = true;
           prioritizeServerProfile = true;
@@ -71,6 +62,8 @@
         fullSearchContext.enable = true;
 
         fullUserInChatbox.enable = true;
+
+        fullVcpfp.enable = true;
 
         gameActivityToggle.enable = true;
 
@@ -130,7 +123,14 @@
 
         unlockedAvatarZoom.enable = true;
 
+        userPfp.enable = true;
+
         userVoiceShow.enable = true;
+
+        usrbg = {
+          enable = true;
+          voiceBackground = true;
+        };
 
         viewIcons.enable = true;
         # keep-sorted end

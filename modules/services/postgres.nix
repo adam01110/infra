@@ -92,9 +92,9 @@
         "sops-install-secrets.service"
       ];
 
-      requiredBy = ["multi-user.target"];
+      wantedBy = ["multi-user.target"];
 
-      requires = [
+      wants = [
         "postgresql.service"
         "sops-install-secrets.service"
       ];

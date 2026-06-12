@@ -54,6 +54,7 @@
       hub = {
         collections = [
           # keep-sorted start
+          "Dominic-Wagner/vaultwarden"
           "crowdsecurity/appsec-generic-rules"
           "crowdsecurity/appsec-virtual-patching"
           "crowdsecurity/http-cve"
@@ -61,7 +62,6 @@
           "crowdsecurity/sshd"
           "crowdsecurity/traefik"
           "firix/authentik"
-          "Dominic-Wagner/vaultwarden"
           # keep-sorted end
         ];
       };
@@ -106,7 +106,6 @@
       (lib)
       # keep-sorted start
       getExe
-      mkAfter
       mkForce
       # keep-sorted end
       ;
@@ -126,7 +125,7 @@
 
     setupUnit = {
       after = setupDeps;
-      requires = setupDeps;
+      wants = setupDeps;
     };
   in {
     imports = [self.modules.nixos.crowdsec-base];
@@ -252,14 +251,14 @@
       crowdsec-setup = setupUnit;
 
       crowdsec-blocklist-import-frequent = {
-        after = mkAfter [
+        after = [
           # keep-sorted start
           "crowdsec-blocklist-gotify-proxy.service"
           "crowdsec-firewall-bouncer-register.service"
           "sops-install-secrets.service"
           # keep-sorted end
         ];
-        requires = [
+        wants = [
           # keep-sorted start
           "crowdsec-blocklist-gotify-proxy.service"
           "crowdsec-firewall-bouncer-register.service"
@@ -271,14 +270,14 @@
       };
 
       crowdsec-blocklist-import-limited = {
-        after = mkAfter [
+        after = [
           # keep-sorted start
           "crowdsec-blocklist-gotify-proxy.service"
           "crowdsec-firewall-bouncer-register.service"
           "sops-install-secrets.service"
           # keep-sorted end
         ];
-        requires = [
+        wants = [
           # keep-sorted start
           "crowdsec-blocklist-gotify-proxy.service"
           "crowdsec-firewall-bouncer-register.service"
@@ -293,7 +292,8 @@
         description = "Transform blocklist-import webhook payload for Gotify";
 
         after = ["sops-install-secrets.service"];
-        requires = ["sops-install-secrets.service"];
+        stopIfChanged = false;
+        wants = ["sops-install-secrets.service"];
 
         wantedBy = ["crowdsec-blocklist-import-frequent.service" "crowdsec-blocklist-import-limited.service"];
 
@@ -305,6 +305,7 @@
           Restart = "on-failure";
           StateDirectory = "crowdsec";
           StateDirectoryMode = "0750";
+          SuccessExitStatus = [143];
           Type = "simple";
           # keep-sorted end
         };
@@ -326,9 +327,9 @@
 
         before = ["traefik.service"];
 
-        requiredBy = ["traefik.service"];
+        wantedBy = ["traefik.service"];
 
-        requires = [
+        wants = [
           # keep-sorted start
           "crowdsec.service"
           "sops-install-secrets.service"

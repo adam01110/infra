@@ -8,10 +8,6 @@
   }: {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
-      clearUrls.enable = true;
-
-      copyUserUrls.enable = true;
-
       autoZipper.enable = true;
 
       betterCommands.enable = true;
@@ -20,6 +16,8 @@
 
       cleanChannelName.enable = true;
 
+      clearUrls.enable = true;
+
       copyEmojiMarkdown.enable = true;
 
       copyFileContents.enable = true;
@@ -27,6 +25,8 @@
       copyStickerLinks.enable = true;
 
       copyUserMention.enable = true;
+
+      copyUserUrls.enable = true;
 
       customTimestamps = {
         enable = true;

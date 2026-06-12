@@ -2,13 +2,6 @@
   flake.modules.homeManager.discord = {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
-      mutualGroupDms.enable = true;
-
-      reviewDb = {
-        enable = true;
-        hideBlockedUsers = false;
-      };
-
       betterBlockedUsers.enable = true;
 
       betterInvites.enable = true;
@@ -27,6 +20,8 @@
 
       moreUserTags.enable = true;
 
+      mutualGroupDms.enable = true;
+
       newGuildSettings = {
         enable = true;
         messages = 1;
@@ -35,6 +30,11 @@
       pauseInvitesForever.enable = true;
 
       relationshipNotifier.enable = true;
+
+      reviewDb = {
+        enable = true;
+        hideBlockedUsers = false;
+      };
 
       serverInfo.enable = true;
 

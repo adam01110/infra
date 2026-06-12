@@ -8,13 +8,7 @@
     # keep-sorted end
     ...
   }: let
-    inherit
-      (lib)
-      # keep-sorted start
-      mkAfter
-      mkForce
-      # keep-sorted end
-      ;
+    inherit (lib) mkForce;
 
     inherit (pkgs.nur.repos.adam0) gotifyPlugins;
 
@@ -74,30 +68,38 @@
     };
 
     systemd.services.gotify-server = {
-      after = mkAfter [
+      after = [
         # keep-sorted start
         "authentik-worker.service"
         "authentik.service"
         "postgresql.service"
         "sops-install-secrets.service"
         "systemd-tmpfiles-setup.service"
+        "traefik.service"
         # keep-sorted end
       ];
 
-      requires = [
+      wants = [
         # keep-sorted start
         "authentik-worker.service"
         "authentik.service"
         "postgresql.service"
         "sops-install-secrets.service"
         "systemd-tmpfiles-setup.service"
+        "traefik.service"
         # keep-sorted end
       ];
+
+      unitConfig = {
+        StartLimitBurst = 60;
+        StartLimitIntervalSec = "5min";
+      };
 
       serviceConfig = {
         DynamicUser = mkForce false;
         User = "gotify";
         Group = "gotify";
+        RestartSec = "5s";
       };
     };
 

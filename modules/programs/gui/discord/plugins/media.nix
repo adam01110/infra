@@ -4,17 +4,6 @@
   in {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
-      vcPanelSettings = {
-        enable = true;
-        camera = cfgCamera;
-
-        # keep-sorted start
-        showInputDeviceHeader = true;
-        showOutputDeviceHeader = true;
-        showVideoDeviceHeader = true;
-        # keep-sorted end
-      };
-
       biggerStreamPreview.enable = true;
 
       callTimer = {
@@ -38,6 +27,17 @@
       };
 
       pictureInPicture.enable = true;
+
+      vcPanelSettings = {
+        enable = true;
+        camera = cfgCamera;
+
+        # keep-sorted start
+        showInputDeviceHeader = true;
+        showOutputDeviceHeader = true;
+        showVideoDeviceHeader = true;
+        # keep-sorted end
+      };
 
       voiceButtons = {
         enable = true;

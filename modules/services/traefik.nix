@@ -2,13 +2,10 @@
   flake.modules.nixos.traefik = {
     # keep-sorted start
     config,
-    lib,
     vars,
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkAfter;
-
     secrets = config.sops.secrets;
     templates = config.sops.templates;
 
@@ -249,8 +246,8 @@
       tmpfiles.rules = ["d /var/log/traefik 0750 traefik traefik -"];
 
       services.traefik = {
-        wants = mkAfter ["podman.socket"];
-        after = mkAfter ["podman.socket"];
+        wants = ["podman.socket"];
+        after = ["podman.socket"];
 
         serviceConfig.TimeoutStopSec = "60s";
         stopIfChanged = false;

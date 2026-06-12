@@ -71,9 +71,9 @@
 
           before = ["podman-cloudbeaver.service"];
 
-          requiredBy = ["podman-cloudbeaver.service"];
+          wantedBy = ["podman-cloudbeaver.service"];
 
-          requires = [
+          wants = [
             "postgresql.service"
             "sops-install-secrets.service"
           ];
@@ -101,9 +101,13 @@
 
         podman-cloudbeaver = {
           after = ["cloudbeaver-postgres-password.service"];
-          requires = ["cloudbeaver-postgres-password.service"];
+          stopIfChanged = false;
+          wants = ["cloudbeaver-postgres-password.service"];
 
-          serviceConfig.TimeoutStopSec = mkForce "60s";
+          serviceConfig = {
+            SuccessExitStatus = [143];
+            TimeoutStopSec = mkForce "60s";
+          };
         };
       };
     };

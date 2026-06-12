@@ -52,9 +52,9 @@
 
           before = ["podman-dockhand.service"];
 
-          requiredBy = ["podman-dockhand.service"];
+          wantedBy = ["podman-dockhand.service"];
 
-          requires = [
+          wants = [
             "postgresql.service"
             "sops-install-secrets.service"
           ];
@@ -82,8 +82,8 @@
 
         podman-dockhand = {
           after = ["dockhand-postgres-password.service"];
-          requires = ["dockhand-postgres-password.service"];
           stopIfChanged = false;
+          wants = ["dockhand-postgres-password.service"];
 
           serviceConfig = {
             SuccessExitStatus = [143];

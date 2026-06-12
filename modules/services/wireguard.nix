@@ -95,7 +95,7 @@
       sops.secrets.${cfg.privateKeySecret} = {};
 
       systemd.services."wireguard-${cfg.interface}" = {
-        requires = ["sops-install-secrets.service"];
+        wants = ["sops-install-secrets.service"];
         after = ["sops-install-secrets.service"];
       };
 
