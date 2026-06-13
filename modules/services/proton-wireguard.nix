@@ -11,9 +11,11 @@
 
     interface = "proton0";
     protonGateway = "10.2.0.1";
-    qbittorrentIPv4 = "10.89.50.11";
-    quiIPv4 = "10.89.51.12";
-    quiUrl = "http://${quiIPv4}:7476";
+    qbittorrentContainer = "qbittorrent";
+    qbittorrentNetwork = "vpn";
+    quiContainer = "qui";
+    quiNetwork = "torrent";
+    quiPort = "7476";
     routingPriority = 1000;
     routingTable = "51820";
     containerIPv4Subnets = ["10.89.50.0/24"];
@@ -24,13 +26,19 @@
     containerIPv4Set = "{ ${concatMapStringsSep ", " (subnet: subnet) containerIPv4Subnets} }";
 
     addIpRules =
-      concatMapStringsSep "\n" (subnet: ''
+      ''
+        ${pkgs.iproute2}/bin/ip -4 route add ${protonGateway} dev ${interface} 2>/dev/null || true
+      ''
+      + concatMapStringsSep "\n" (subnet: ''
         ${pkgs.iproute2}/bin/ip -4 rule add from ${subnet} table ${routingTable} priority ${toString routingPriority} 2>/dev/null || true
       '')
       containerIPv4Subnets;
 
     deleteIpRules =
-      concatMapStringsSep "\n" (subnet: ''
+      ''
+        ${pkgs.iproute2}/bin/ip -4 route del ${protonGateway} dev ${interface} 2>/dev/null || true
+      ''
+      + concatMapStringsSep "\n" (subnet: ''
         ${pkgs.iproute2}/bin/ip -4 rule del from ${subnet} table ${routingTable} priority ${toString routingPriority} 2>/dev/null || true
       '')
       containerIPv4Subnets;
@@ -83,8 +91,11 @@
       description = "Maintain Proton VPN port forwarding";
       environment = {
         PROTON_GATEWAY = protonGateway;
-        QBITTORRENT_IPV4 = qbittorrentIPv4;
-        QUI_URL = quiUrl;
+        QBITTORRENT_CONTAINER = qbittorrentContainer;
+        QBITTORRENT_NETWORK = qbittorrentNetwork;
+        QUI_CONTAINER = quiContainer;
+        QUI_NETWORK = quiNetwork;
+        QUI_PORT = quiPort;
         WIREGUARD_INTERFACE = interface;
       };
       wantedBy = ["multi-user.target"];

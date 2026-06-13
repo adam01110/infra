@@ -9,8 +9,10 @@
         coreutils
         curl
         gnused
+        iproute2
         libnatpmp
         nftables
+        podman
         # keep-sorted end
       ];
       text = ''
@@ -23,13 +25,26 @@
         mkdir -p "$state_dir"
 
         cleanup() {
+          ip -4 route del "$PROTON_GATEWAY" dev "$WIREGUARD_INTERFACE" 2>/dev/null || true
           nft delete table ip "$nft_table" 2>/dev/null || true
         }
 
         trap cleanup EXIT INT TERM
 
+        ip -4 route replace "$PROTON_GATEWAY" dev "$WIREGUARD_INTERFACE"
+
+        resolve_container_ipv4() {
+          container="$1"
+          network="$2"
+
+          podman inspect \
+            --format "{{ with index .NetworkSettings.Networks \"$network\" }}{{ .IPAddress }}{{ end }}" \
+            "$container"
+        }
+
         update_qbittorrent() {
           port="$1"
+          qui_ipv4="$2"
           proxy_path="$(tr -d '\r\n' < "$CREDENTIALS_DIRECTORY/qui_qbittorrent_proxy_path")"
 
           case "$proxy_path" in
@@ -42,7 +57,7 @@
             --silent \
             --show-error \
             --data-urlencode "json={\"listen_port\":$port,\"upnp\":false}" \
-            "$QUI_URL$proxy_path/api/v2/app/setPreferences" >/dev/null
+            "http://$qui_ipv4:$QUI_PORT$proxy_path/api/v2/app/setPreferences" >/dev/null
         }
 
         while true; do
@@ -59,7 +74,15 @@
 
           printf '%s\n' "$udp_port" > "$port_file"
 
-          if ! update_qbittorrent "$udp_port"; then
+          qbittorrent_ipv4="$(resolve_container_ipv4 "$QBITTORRENT_CONTAINER" "$QBITTORRENT_NETWORK")"
+          qui_ipv4="$(resolve_container_ipv4 "$QUI_CONTAINER" "$QUI_NETWORK")"
+
+          if [ -z "$qbittorrent_ipv4" ] || [ -z "$qui_ipv4" ]; then
+            printf 'failed to resolve container IPs: %s=%s %s=%s\n' "$QBITTORRENT_CONTAINER" "$qbittorrent_ipv4" "$QUI_CONTAINER" "$qui_ipv4" >&2
+            exit 1
+          fi
+
+          if ! update_qbittorrent "$udp_port" "$qui_ipv4"; then
             printf 'failed to update qBittorrent listening port to %s\n' "$udp_port" >&2
           fi
 
@@ -68,8 +91,8 @@
         table ip $nft_table {
           chain prerouting {
             type nat hook prerouting priority dstnat; policy accept;
-            iifname "$WIREGUARD_INTERFACE" tcp dport $udp_port dnat to $QBITTORRENT_IPV4:$udp_port
-            iifname "$WIREGUARD_INTERFACE" udp dport $udp_port dnat to $QBITTORRENT_IPV4:$udp_port
+            iifname "$WIREGUARD_INTERFACE" tcp dport $udp_port dnat to $qbittorrent_ipv4:$udp_port
+            iifname "$WIREGUARD_INTERFACE" udp dport $udp_port dnat to $qbittorrent_ipv4:$udp_port
           }
         }
         EOF
