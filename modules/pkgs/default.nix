@@ -15,6 +15,7 @@
       os-age
       performant-mode
       pptx2md-adapter
+      proton-port-forward
       systemd-status-preview
       telescope-all-recent-nvim
       text-preview

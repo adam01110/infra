@@ -10,6 +10,10 @@
     inherit (lib) concatMapStringsSep;
 
     interface = "proton0";
+    protonGateway = "10.2.0.1";
+    qbittorrentIPv4 = "10.89.50.11";
+    quiIPv4 = "10.89.51.12";
+    quiUrl = "http://${quiIPv4}:7476";
     routingPriority = 1000;
     routingTable = "51820";
     containerIPv4Subnets = ["10.89.50.0/24"];
@@ -40,6 +44,7 @@
         "wireguard/proton/endpoint" = {};
         "wireguard/proton/private_key" = {};
         "wireguard/proton/public_key" = {};
+        qbittorrent_proxy_path = {};
         # keep-sorted end
       };
 
@@ -67,6 +72,33 @@
       after = ["sops-install-secrets.service"];
       wants = ["sops-install-secrets.service"];
       # keep-sorted end
+    };
+
+    systemd.services.proton-port-forward = {
+      after = [
+        "nftables.service"
+        "sops-install-secrets.service"
+        "wg-quick-${interface}.service"
+      ];
+      description = "Maintain Proton VPN port forwarding";
+      environment = {
+        PROTON_GATEWAY = protonGateway;
+        QBITTORRENT_IPV4 = qbittorrentIPv4;
+        QUI_URL = quiUrl;
+        WIREGUARD_INTERFACE = interface;
+      };
+      wantedBy = ["multi-user.target"];
+      wants = [
+        "sops-install-secrets.service"
+        "wg-quick-${interface}.service"
+      ];
+
+      serviceConfig = {
+        ExecStart = "${pkgs.proton-port-forward}/bin/proton-port-forward";
+        LoadCredential = ["qui_qbittorrent_proxy_path:${config.sops.secrets.qbittorrent_proxy_path.path}"];
+        Restart = "always";
+        RestartSec = "5s";
+      };
     };
 
     networking = {

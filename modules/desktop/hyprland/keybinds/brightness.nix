@@ -18,7 +18,7 @@
 
     cfg = config.hyprland.brightness;
 
-    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc call";
+    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.programs.noctalia-shell.package}/share/noctalia-shell call";
   in {
     options.hyprland.brightness.enable = mkEnableOption "function-row brightness keybindings";
 
