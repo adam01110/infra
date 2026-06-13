@@ -12,6 +12,11 @@
     interface = "proton0";
     containerIPv4Subnet = "10.89.50.0/24";
     gateway = "10.2.0.1";
+    privateIPv4Subnets = [
+      "10.0.0.0/8"
+      "172.16.0.0/12"
+      "192.168.0.0/16"
+    ];
     routingTable = 51820;
     secret = config.sops.placeholder;
     ip = getExe' pkgs.iproute2 "ip";
@@ -19,12 +24,21 @@
     postUp = ''
       ${ip} -4 route replace ${gateway} dev ${interface}
       ${ip} -4 route replace default dev ${interface} table ${toString routingTable}
+      ${builtins.concatStringsSep "\n" (map (subnet: ''
+          ${ip} -4 rule del from ${containerIPv4Subnet} to ${subnet} table main priority 900 2>/dev/null || true
+          ${ip} -4 rule add from ${containerIPv4Subnet} to ${subnet} table main priority 900
+        '')
+        privateIPv4Subnets)}
       ${ip} -4 rule del from ${containerIPv4Subnet} table ${toString routingTable} priority 1000 2>/dev/null || true
       ${ip} -4 rule add from ${containerIPv4Subnet} table ${toString routingTable} priority 1000
     '';
 
     preDown = ''
       ${ip} -4 rule del from ${containerIPv4Subnet} table ${toString routingTable} priority 1000 2>/dev/null || true
+      ${builtins.concatStringsSep "\n" (map (subnet: ''
+          ${ip} -4 rule del from ${containerIPv4Subnet} to ${subnet} table main priority 900 2>/dev/null || true
+        '')
+        privateIPv4Subnets)}
       ${ip} -4 route del default dev ${interface} table ${toString routingTable} 2>/dev/null || true
       ${ip} -4 route del ${gateway} dev ${interface} 2>/dev/null || true
     '';
@@ -77,6 +91,7 @@
       description = "Maintain Proton VPN port forwarding";
       environment = {
         CONTAINER_IPV4_SUBNET = containerIPv4Subnet;
+        PRIVATE_IPV4_SUBNETS = builtins.concatStringsSep " " privateIPv4Subnets;
         PROTON_GATEWAY = gateway;
         QBITTORRENT_CONTAINER = "qbittorrent";
         QBITTORRENT_NETWORK = "vpn";
@@ -118,6 +133,7 @@
             chain forward {
               type filter hook forward priority -5; policy accept;
               ct state established,related accept
+              iifname "podman*" oifname "podman*" ip saddr ${containerIPv4Subnet} accept
               iifname "podman*" oifname "${interface}" ip saddr ${containerIPv4Subnet} accept
               iifname "podman*" ip saddr ${containerIPv4Subnet} reject
             }

@@ -34,6 +34,12 @@
         ensure_policy_routing() {
           ip -4 route replace "$PROTON_GATEWAY" dev "$WIREGUARD_INTERFACE"
           ip -4 route replace default dev "$WIREGUARD_INTERFACE" table "$ROUTING_TABLE"
+
+          for subnet in $PRIVATE_IPV4_SUBNETS; do
+            ip -4 rule del from "$CONTAINER_IPV4_SUBNET" to "$subnet" table main priority 900 2>/dev/null || true
+            ip -4 rule add from "$CONTAINER_IPV4_SUBNET" to "$subnet" table main priority 900
+          done
+
           ip -4 rule del from "$CONTAINER_IPV4_SUBNET" table "$ROUTING_TABLE" priority 1000 2>/dev/null || true
           ip -4 rule add from "$CONTAINER_IPV4_SUBNET" table "$ROUTING_TABLE" priority 1000
         }
