@@ -10,6 +10,7 @@
         curl
         gnused
         iproute2
+        jq
         libnatpmp
         nftables
         podman
@@ -30,15 +31,19 @@
 
         trap cleanup EXIT INT TERM
 
-        ip -4 route replace "$PROTON_GATEWAY" dev "$WIREGUARD_INTERFACE"
+        ensure_policy_routing() {
+          ip -4 route replace "$PROTON_GATEWAY" dev "$WIREGUARD_INTERFACE"
+          ip -4 route replace default dev "$WIREGUARD_INTERFACE" table "$ROUTING_TABLE"
+          ip -4 rule del from "$CONTAINER_IPV4_SUBNET" table "$ROUTING_TABLE" priority 1000 2>/dev/null || true
+          ip -4 rule add from "$CONTAINER_IPV4_SUBNET" table "$ROUTING_TABLE" priority 1000
+        }
 
         resolve_container_ipv4() {
           container="$1"
           network="$2"
 
-          podman inspect \
-            --format "{{ with index .NetworkSettings.Networks \"$network\" }}{{ .IPAddress }}{{ end }}" \
-            "$container"
+          podman inspect --type container --format json "$container" 2>/dev/null \
+            | jq -r --arg network "$network" '.[0].NetworkSettings.Networks[$network].IPAddress // empty'
         }
 
         update_qbittorrent() {
@@ -60,6 +65,8 @@
         }
 
         while true; do
+          ensure_policy_routing
+
           udp_output=$(natpmpc -a 1 0 udp 60 -g "$PROTON_GATEWAY")
           tcp_output=$(natpmpc -a 1 0 tcp 60 -g "$PROTON_GATEWAY")
 
@@ -68,7 +75,9 @@
 
           if [ -z "$udp_port" ] || [ -z "$tcp_port" ] || [ "$udp_port" != "$tcp_port" ]; then
             printf 'failed to get matching Proton forwarded ports\nUDP output:\n%s\nTCP output:\n%s\n' "$udp_output" "$tcp_output" >&2
-            exit 1
+            nft delete table ip "$nft_table" 2>/dev/null || true
+            sleep 45
+            continue
           fi
 
           printf '%s\n' "$udp_port" > "$port_file"
@@ -76,12 +85,16 @@
           qbittorrent_ipv4="$(resolve_container_ipv4 "$QBITTORRENT_CONTAINER" "$QBITTORRENT_NETWORK")"
           qui_ipv4="$(resolve_container_ipv4 "$QUI_CONTAINER" "$QUI_NETWORK")"
 
-          if [ -z "$qbittorrent_ipv4" ] || [ -z "$qui_ipv4" ]; then
-            printf 'failed to resolve container IPs: %s=%s %s=%s\n' "$QBITTORRENT_CONTAINER" "$qbittorrent_ipv4" "$QUI_CONTAINER" "$qui_ipv4" >&2
-            exit 1
+          if [ -z "$qbittorrent_ipv4" ]; then
+            printf 'waiting for container: %s\n' "$QBITTORRENT_CONTAINER" >&2
+            nft delete table ip "$nft_table" 2>/dev/null || true
+            sleep 45
+            continue
           fi
 
-          if ! update_qbittorrent "$udp_port" "$qui_ipv4"; then
+          if [ -z "$qui_ipv4" ]; then
+            printf 'skipping qBittorrent API update until %s is available\n' "$QUI_CONTAINER" >&2
+          elif ! update_qbittorrent "$udp_port" "$qui_ipv4"; then
             printf 'failed to update qBittorrent listening port to %s\n' "$udp_port" >&2
           fi
 

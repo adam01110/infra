@@ -7,41 +7,27 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) concatMapStringsSep;
+    inherit (lib) getExe getExe';
 
     interface = "proton0";
-    protonGateway = "10.2.0.1";
-    qbittorrentContainer = "qbittorrent";
-    qbittorrentNetwork = "vpn";
-    quiContainer = "qui";
-    quiNetwork = "torrent";
-    quiPort = "7476";
-    routingPriority = 1000;
-    routingTable = "51820";
-    containerIPv4Subnets = ["10.89.50.0/24"];
+    containerIPv4Subnet = "10.89.50.0/24";
+    gateway = "10.2.0.1";
+    routingTable = 51820;
+    secret = config.sops.placeholder;
+    ip = getExe' pkgs.iproute2 "ip";
 
-    sopsPlaceholder = config.sops.placeholder;
-    template = config.sops.templates."${interface}.conf";
+    postUp = ''
+      ${ip} -4 route replace ${gateway} dev ${interface}
+      ${ip} -4 route replace default dev ${interface} table ${toString routingTable}
+      ${ip} -4 rule del from ${containerIPv4Subnet} table ${toString routingTable} priority 1000 2>/dev/null || true
+      ${ip} -4 rule add from ${containerIPv4Subnet} table ${toString routingTable} priority 1000
+    '';
 
-    containerIPv4Set = "{ ${concatMapStringsSep ", " (subnet: subnet) containerIPv4Subnets} }";
-
-    addIpRules =
-      ''
-        ${pkgs.iproute2}/bin/ip -4 route add ${protonGateway} dev ${interface} 2>/dev/null || true
-      ''
-      + concatMapStringsSep "\n" (subnet: ''
-        ${pkgs.iproute2}/bin/ip -4 rule add from ${subnet} table ${routingTable} priority ${toString routingPriority} 2>/dev/null || true
-      '')
-      containerIPv4Subnets;
-
-    deleteIpRules =
-      ''
-        ${pkgs.iproute2}/bin/ip -4 route del ${protonGateway} dev ${interface} 2>/dev/null || true
-      ''
-      + concatMapStringsSep "\n" (subnet: ''
-        ${pkgs.iproute2}/bin/ip -4 rule del from ${subnet} table ${routingTable} priority ${toString routingPriority} 2>/dev/null || true
-      '')
-      containerIPv4Subnets;
+    preDown = ''
+      ${ip} -4 rule del from ${containerIPv4Subnet} table ${toString routingTable} priority 1000 2>/dev/null || true
+      ${ip} -4 route del default dev ${interface} table ${toString routingTable} 2>/dev/null || true
+      ${ip} -4 route del ${gateway} dev ${interface} 2>/dev/null || true
+    '';
   in {
     sops = {
       secrets = {
@@ -60,16 +46,16 @@
         mode = "0400";
         content = ''
           [Interface]
-          PrivateKey = ${sopsPlaceholder."wireguard/proton/private_key"}
-          Address = ${sopsPlaceholder."wireguard/proton/address"}
-          DNS = ${sopsPlaceholder."wireguard/proton/dns"}
+          PrivateKey = ${secret."wireguard/proton/private_key"}
+          Address = ${secret."wireguard/proton/address"}
+          DNS = ${secret."wireguard/proton/dns"}
           MTU = 1420
-          Table = ${routingTable}
+          Table = ${toString routingTable}
 
           [Peer]
-          PublicKey = ${sopsPlaceholder."wireguard/proton/public_key"}
-          AllowedIPs = ${sopsPlaceholder."wireguard/proton/allowed_ips"}
-          Endpoint = ${sopsPlaceholder."wireguard/proton/endpoint"}
+          PublicKey = ${secret."wireguard/proton/public_key"}
+          AllowedIPs = ${secret."wireguard/proton/allowed_ips"}
+          Endpoint = ${secret."wireguard/proton/endpoint"}
           PersistentKeepalive = 25
         '';
       };
@@ -82,47 +68,32 @@
       # keep-sorted end
     };
 
-    systemd.services.proton-wireguard-policy-routing = {
-      after = ["wg-quick-${interface}.service"];
-      description = "Configure Proton WireGuard policy routing";
-      partOf = ["wg-quick-${interface}.service"];
-      wantedBy = ["multi-user.target"];
-      wants = ["wg-quick-${interface}.service"];
-
-      serviceConfig = {
-        ExecStart = pkgs.writeShellScript "proton-wireguard-policy-routing-up" addIpRules;
-        ExecStop = pkgs.writeShellScript "proton-wireguard-policy-routing-down" deleteIpRules;
-        RemainAfterExit = true;
-        Type = "oneshot";
-      };
-    };
-
     systemd.services.proton-port-forward = {
       after = [
         "nftables.service"
-        "proton-wireguard-policy-routing.service"
         "sops-install-secrets.service"
         "wg-quick-${interface}.service"
       ];
       description = "Maintain Proton VPN port forwarding";
       environment = {
-        PROTON_GATEWAY = protonGateway;
-        QBITTORRENT_CONTAINER = qbittorrentContainer;
-        QBITTORRENT_NETWORK = qbittorrentNetwork;
-        QUI_CONTAINER = quiContainer;
-        QUI_NETWORK = quiNetwork;
-        QUI_PORT = quiPort;
+        CONTAINER_IPV4_SUBNET = containerIPv4Subnet;
+        PROTON_GATEWAY = gateway;
+        QBITTORRENT_CONTAINER = "qbittorrent";
+        QBITTORRENT_NETWORK = "vpn";
+        ROUTING_TABLE = toString routingTable;
+        QUI_CONTAINER = "qui";
+        QUI_NETWORK = "torrent";
+        QUI_PORT = "7476";
         WIREGUARD_INTERFACE = interface;
       };
       wantedBy = ["multi-user.target"];
       wants = [
-        "proton-wireguard-policy-routing.service"
         "sops-install-secrets.service"
         "wg-quick-${interface}.service"
       ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.proton-port-forward}/bin/proton-port-forward";
+        ExecStart = getExe pkgs.proton-port-forward;
         LoadCredential = ["qui_qbittorrent_proxy_path:${config.sops.secrets.qbittorrent_proxy_path.path}"];
         Restart = "always";
         RestartSec = "5s";
@@ -139,7 +110,7 @@
           table ip proton-wireguard-nat {
             chain postrouting {
               type nat hook postrouting priority srcnat; policy accept;
-              ip saddr ${containerIPv4Set} oifname "${interface}" masquerade
+              ip saddr ${containerIPv4Subnet} oifname "${interface}" masquerade
             }
           }
 
@@ -147,8 +118,8 @@
             chain forward {
               type filter hook forward priority -5; policy accept;
               ct state established,related accept
-              iifname "podman*" oifname "${interface}" ip saddr ${containerIPv4Set} accept
-              iifname "podman*" ip saddr ${containerIPv4Set} reject
+              iifname "podman*" oifname "${interface}" ip saddr ${containerIPv4Subnet} accept
+              iifname "podman*" ip saddr ${containerIPv4Subnet} reject
             }
           }
         '';
@@ -157,9 +128,13 @@
       wg-quick.interfaces.${interface} = {
         # keep-sorted start
         autostart = true;
-        configFile = template.path;
-        postUp = addIpRules;
-        preDown = deleteIpRules;
+        configFile = config.sops.templates."${interface}.conf".path;
+        inherit
+          # keep-sorted start
+          postUp
+          preDown
+          # keep-sorted end
+          ;
         # keep-sorted end
       };
       # keep-sorted end
