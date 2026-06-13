@@ -25,7 +25,6 @@
         mkdir -p "$state_dir"
 
         cleanup() {
-          ip -4 route del "$PROTON_GATEWAY" dev "$WIREGUARD_INTERFACE" 2>/dev/null || true
           nft delete table ip "$nft_table" 2>/dev/null || true
         }
 

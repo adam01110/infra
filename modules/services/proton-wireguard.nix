@@ -82,9 +82,25 @@
       # keep-sorted end
     };
 
+    systemd.services.proton-wireguard-policy-routing = {
+      after = ["wg-quick-${interface}.service"];
+      description = "Configure Proton WireGuard policy routing";
+      partOf = ["wg-quick-${interface}.service"];
+      wantedBy = ["multi-user.target"];
+      wants = ["wg-quick-${interface}.service"];
+
+      serviceConfig = {
+        ExecStart = pkgs.writeShellScript "proton-wireguard-policy-routing-up" addIpRules;
+        ExecStop = pkgs.writeShellScript "proton-wireguard-policy-routing-down" deleteIpRules;
+        RemainAfterExit = true;
+        Type = "oneshot";
+      };
+    };
+
     systemd.services.proton-port-forward = {
       after = [
         "nftables.service"
+        "proton-wireguard-policy-routing.service"
         "sops-install-secrets.service"
         "wg-quick-${interface}.service"
       ];
@@ -100,6 +116,7 @@
       };
       wantedBy = ["multi-user.target"];
       wants = [
+        "proton-wireguard-policy-routing.service"
         "sops-install-secrets.service"
         "wg-quick-${interface}.service"
       ];
