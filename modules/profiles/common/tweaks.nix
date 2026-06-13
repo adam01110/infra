@@ -102,10 +102,7 @@
           "w! /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"
         ];
 
-        user.extraConfig = ''
-          [Manager]
-          DefaultLimitNOFILE=1024:1048576
-        '';
+        user.settings.Manager.DefaultLimitNOFILE = "1024:1048576";
 
         settings.Manager = {
           # keep-sorted start

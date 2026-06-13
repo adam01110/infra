@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.laptop = {
+  flake.modules.nixos.laptop = {pkgs, ...}: {
     imports = with self.modules.nixos; [
       # Hardware
       # keep-sorted start
@@ -34,6 +34,9 @@
 
     # Enable rcu lazy mode for better battery life.
     tweaks.rcuLazy.enable = true;
+
+    # Use x86-64-v4 CachyOS LTO kernel.
+    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4;
 
     powerManagement.powertop.enable = true;
 

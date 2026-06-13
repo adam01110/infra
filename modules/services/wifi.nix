@@ -8,6 +8,7 @@
 
         networkmanager.wifi = {
           backend = "iwd";
+          powersave = false;
           scanRandMacAddress = true;
         };
       };

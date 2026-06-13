@@ -1,5 +1,9 @@
 {self, ...}: {
-  flake.modules.nixos.euclid = {config, ...}: {
+  flake.modules.nixos.euclid = {
+    config,
+    pkgs,
+    ...
+  }: {
     imports = with self.modules.nixos; [
       # Profiles
       server
@@ -15,6 +19,7 @@
       gotify-server
       mysql
       postgres
+      protonWireguard
       traefik
       wireguard
       # keep-sorted end
@@ -24,6 +29,9 @@
     system.stateVersion = "26.05";
 
     networking.hostName = "euclid";
+
+    # Use x86-64-v3 CachyOS LTO kernel.
+    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
 
     # Same-host connection: hawser reaches dockhand directly without public TLS.
     services.hawser.dockhandServerUrl = "ws://127.0.0.1:3000/api/hawser/connect";
@@ -35,14 +43,6 @@
         labels.type = "appsec";
         listen_addr = "127.0.0.1:7424";
         source = "appsec";
-      }
-
-      {
-        docker_host = "unix:///run/podman/podman.sock";
-        follow_stderr = false;
-        follow_stdout = true;
-        source = "docker";
-        use_container_labels = true;
       }
 
       {

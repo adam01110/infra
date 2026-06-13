@@ -10,16 +10,6 @@ mcp:
 
 Use this skill to search current, library-specific documentation through Context7.
 
-## When to Use This Skill
-
-Use this skill when the user needs:
-
-- Library or framework API documentation.
-- Setup or configuration steps.
-- Version-specific behavior.
-- Code generation grounded in current docs.
-- Accurate examples for a specific package.
-
 ## Workflow
 
 1. Resolve the library ID with `resolve-library-id` when you do not already know it.

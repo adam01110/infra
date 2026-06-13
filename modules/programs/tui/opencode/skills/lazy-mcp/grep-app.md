@@ -11,15 +11,6 @@ mcp:
 
 Use this skill to search real code examples from public GitHub repositories through grep.app.
 
-## When to Use This Skill
-
-Use this skill when the user needs:
-
-- Real-world implementation patterns.
-- API usage examples from open-source code.
-- Error strings or syntax found in actual repositories.
-- Language-specific or repository-specific code examples.
-
 ## Workflow
 
 1. Search for a concrete code pattern instead of a generic topic.

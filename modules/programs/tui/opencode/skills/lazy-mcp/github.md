@@ -10,16 +10,6 @@ mcp:
 
 Use this skill to query and inspect GitHub data through the GitHub MCP server.
 
-## When to Use This Skill
-
-Use this skill when the user needs:
-
-- Repository metadata or configuration details.
-- Source code, trees, files, or commit history.
-- Issues, pull requests, reviews, comments, or discussions.
-- Branch, release, workflow, or Actions state.
-- Collaborator, permission, or repository access information.
-
 ## Workflow
 
 1. Identify the owner and repository first.

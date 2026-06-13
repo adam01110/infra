@@ -31,17 +31,20 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.3";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.4";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins?ref=v0.55.0";
       inputs.hyprland.follows = "hyprland";
     };
     import-tree.url = "github:vic/import-tree";
     lanzaboote = {
-      url = "github:nix-community/lanzaboote?ref=v1.0.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/lanzaboote";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "tuigreet/rust-overlay";
+      };
     };
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=release";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=master";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

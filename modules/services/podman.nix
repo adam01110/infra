@@ -54,6 +54,9 @@
     networking.firewall.extraInputRules = ''
       iifname "podman*" udp dport 53 accept
       iifname "podman*" tcp dport 53 accept
+
+      # Allow containers to reach host Gotify.
+      iifname "podman*" tcp dport 44407 accept
     '';
 
     # Enable the usage of compose files with podman.

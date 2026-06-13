@@ -10,15 +10,6 @@ mcp:
 
 Use this skill to query and administer Authentik through the Authentik MCP server.
 
-## When to Use This Skill
-
-Use this skill when the user needs:
-
-- User, group, or application management.
-- Authentik event and audit inspection.
-- Flow, provider, token, or system health details.
-- Authentik configuration diagnostics or automation.
-
 ## Workflow
 
 1. Identify the Authentik object type and exact target first.

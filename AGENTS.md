@@ -26,6 +26,14 @@ For `.nix` files only. Not for prose docs, copied upstream option descriptions, 
 - Existing emphatic or humorous comments are fine if they still help readability.
 - Upstream-style package headings or labels are fine when preserving imported structure helps.
 
+## Keep-Sorted Patterns
+
+- Use matching `keep-sorted` start/end control comments for multi-item module argument sets, `inherit` groups, lists, and compact attrsets.
+- Add the `block=yes newline_separated=yes` flags for attrsets or lists whose entries are separated by blank lines.
+- Put control comments inside the list or attrset they sort, indented to the entries.
+- Do not add `keep-sorted` around single-item groups or every local `let` binding unless the surrounding file already does.
+- Keep sorted dependency groups alphabetical, such as `after`, `requires`, `wantedBy`, and `wants`.
+
 ## Review Standard
 
 - Delete comments that only restate code.

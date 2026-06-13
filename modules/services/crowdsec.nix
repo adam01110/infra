@@ -54,7 +54,6 @@
       hub = {
         collections = [
           # keep-sorted start
-          "Dominic-Wagner/vaultwarden"
           "crowdsecurity/appsec-generic-rules"
           "crowdsecurity/appsec-virtual-patching"
           "crowdsecurity/http-cve"

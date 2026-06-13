@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.desktop = {
+  flake.modules.nixos.desktop = {pkgs, ...}: {
     imports = with self.modules.nixos; [
       # Profiles
       # keep-sorted start
@@ -21,6 +21,9 @@
 
     # Enable amd rocm support for gpu.
     nixpkgs.config.rocmSupport = true;
+
+    # Use x86-64-v3 CachyOS LTO kernel.
+    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
 
     hardware.wooting.enable = true;
 

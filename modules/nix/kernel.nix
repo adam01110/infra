@@ -5,11 +5,17 @@
   # keep-sorted end
   ...
 }: {
-  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=release";
+  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=master";
 
   flake.overlays.nix-cachyos-kernel = inputs.nix-cachyos-kernel.overlays.pinned;
 
-  flake.modules.nixos.kernel = {pkgs, ...}: {
+  flake.modules.nixos.kernel = {
+    # keep-sorted start
+    lib,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: {
     nixpkgs.overlays = [self.overlays.nix-cachyos-kernel];
 
     nix.settings = let
@@ -21,6 +27,9 @@
     };
 
     # Use cachyos kernel for performance optimizations.
-    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
+    boot.kernelPackages = lib.mkDefault pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
+
+    # Avoid checking missing DTB support on x86 kernels.
+    hardware.deviceTree.enable = lib.mkDefault pkgs.stdenv.hostPlatform.isAarch64;
   };
 }
