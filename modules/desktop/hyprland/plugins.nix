@@ -1,7 +1,7 @@
 {inputs, ...}: {
   flake-file.inputs = {
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins?ref=v0.55.0";
+      url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
   };
@@ -34,10 +34,38 @@
   };
 
   flake.overlays.hyprland-plugins = final: prev: let
-    inherit (final.stdenv.hostPlatform) system;
-  in {
-    hyprlandPlugins =
-      prev.hyprlandPlugins
-      // {inherit (inputs.hyprland-plugins.packages.${system}) hyprfocus;};
-  };
+    hyprfocusPatch = final.writeText "hyprfocus-drop-hash-check.patch" ''
+      diff --git a/main.cpp b/main.cpp
+      index 900ff33..dc76942 100644
+      --- a/main.cpp
+      +++ b/main.cpp
+      @@ -119,15 +119,6 @@ static void onFocusChange(PHLWINDOW window) {
+       APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
+           PHANDLE = handle;
+
+      -    const std::string HASH        = __hyprland_api_get_hash();
+      -    const std::string CLIENT_HASH = __hyprland_api_get_client_hash();
+      -
+      -    if (HASH != CLIENT_HASH) {
+      -        HyprlandAPI::addNotification(PHANDLE, "[hyprwinwrap] Failure in initialization: Version mismatch (headers ver is not equal to running hyprland ver)",
+      -                                     CHyprColor{1.0, 0.2, 0.2, 1.0}, 5000);
+      -        throw std::runtime_error("[hww] Version mismatch");
+      -    }
+      -
+           static auto P = Event::bus()->m_events.window.active.listen([&](PHLWINDOW w, Desktop::eFocusReason r) { onFocusChange(w); });
+
+           configValues.mode = makeShared<Config::Values::CStringValue>("plugin:hyprfocus:mode", "mode to use", "flash");
+    '';
+    upstream = inputs.hyprland-plugins.overlays.default final prev;
+  in
+    upstream
+    // {
+      hyprlandPlugins =
+        upstream.hyprlandPlugins
+        // {
+          hyprfocus = upstream.hyprlandPlugins.hyprfocus.overrideAttrs (old: {
+            patches = (old.patches or []) ++ [hyprfocusPatch];
+          });
+        };
+    };
 }
