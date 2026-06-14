@@ -38,7 +38,7 @@
       default = [];
     };
 
-    # Override enables multiple gpu backends in single nvtop instance.
+    # Combine selected GPU backends into one nvtop instance.
     config.home.packages = let
       selectedTypes = config.programs.nvtop.types;
     in

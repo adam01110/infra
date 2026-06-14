@@ -4,7 +4,6 @@
     imageAllocMB = 1024;
   in {
     programs.yazi.settings = {
-      # Control memory used by image previews.
       tasks.image_alloc = imageAllocMB * 1024 * 1024;
 
       # keep-sorted start

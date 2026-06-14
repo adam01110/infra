@@ -3,7 +3,6 @@
     programs.yazi = {
       plugins.restore = pkgs.yaziPlugins.restore;
 
-      # Bind restore actions.
       keymap.mgr.prepend_keymap = [
         {
           on = ["u"];

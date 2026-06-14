@@ -30,7 +30,7 @@
                     format = "ext4";
                     mountpoint = "/";
                     mountOptions = [
-                      # #keep-sorted start
+                      # keep-sorted start
                       "defaults"
                       "errors=remount-ro"
                       "noatime"

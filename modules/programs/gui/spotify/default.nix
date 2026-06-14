@@ -23,7 +23,6 @@
       # keep-sorted end
 
       # keep-sorted start block=yes newline_separated=yes
-      # Enable extensions.
       enabledExtensions =
         # Extensions from spicetify-nix.
         (with spicePkgs.extensions; [
@@ -51,7 +50,6 @@
           # keep-sorted end
         ]);
 
-      # Enable CSS snippets.
       enabledSnippets = with spicePkgs.snippets; [
         # keep-sorted start
         pointer

@@ -32,7 +32,6 @@
         interactiveShellInit = concatStringsSep "\n" cfg.interactiveShellInitSnippets;
 
         binds = {
-          # Remove conflicting default bindings.
           # keep-sorted start
           "alt-d".erase = true;
           "alt-e".erase = true;
@@ -41,7 +40,6 @@
         };
       };
 
-      # Tools used by many things.
       home.packages = [pkgs.file];
     };
   };

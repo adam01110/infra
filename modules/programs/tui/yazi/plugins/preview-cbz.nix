@@ -5,7 +5,6 @@
 
       settings.plugin = {
         # keep-sorted start block=yes newline_separated=yes
-        # Preloaders that render content for preview-cbz.
         prepend_preloaders = [
           {
             url = "*.cb{z,r}";
@@ -13,7 +12,6 @@
           }
         ];
 
-        # Previewers that render content for preview-cbz.
         prepend_previewers = [
           {
             url = "*.cb{z,r}";

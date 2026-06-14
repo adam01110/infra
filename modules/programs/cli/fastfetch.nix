@@ -17,7 +17,6 @@
       enable = true;
 
       settings = {
-        # Use custom logo and kitty terminal image display.
         logo = {
           source = "${self}/assets/nix.png";
           type = "kitty";
@@ -29,13 +28,11 @@
           # keep-sorted end
         };
 
-        # Configure display formatting and binary prefix standards.
         display = {
           separator = " ";
           size.binaryPrefix = "jedec";
         };
 
-        # Define information modules to show in system overview.
         modules = [
           "break"
 
@@ -70,7 +67,6 @@
             key = "│ ├󰅐 OS-AGE";
             keyColor = "34";
 
-            # Calculate system installation age from root filesystem birth time.
             text = getExe pkgs.os-age;
           }
 

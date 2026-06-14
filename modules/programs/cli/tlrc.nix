@@ -5,7 +5,6 @@
     # keep-sorted start block=yes newline_separated=yes
     home.packages = [pkgs.tlrc];
 
-    # Generate systeroid settings.
     xdg.configFile."tlrc/config.toml".source = tomlFormat.generate "tlrc-config.toml" {
       cache.auto_update = false;
 

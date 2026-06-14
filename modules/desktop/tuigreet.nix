@@ -33,7 +33,6 @@
   in {
     # keep-sorted start block=yes newline_separated=yes
     environment = {
-      # Generate tuigreet configuration.
       etc."tuigreet/config.toml".source = let
         # keep-sorted start
         hyprland = getExe' config.programs.hyprland.package "start-hyprland";

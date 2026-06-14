@@ -3,7 +3,6 @@
     programs.yazi = {
       plugins.smart-paste = pkgs.yaziPlugins.smart-paste;
 
-      # Use smart-paste bindings in manager mode.
       keymap.mgr.prepend_keymap = [
         {
           on = "p";

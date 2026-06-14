@@ -20,7 +20,7 @@ rec {
   regionalLocale = "nl_${countryCode}.UTF-8";
   # keep-sorted end
 
-  # Domains
+  # Domains.
   # keep-sorted start
   groundDomain = "zezura.xyz";
   orbitDomain = "adam0.dev";

@@ -23,7 +23,7 @@
             resvg
             # keep-sorted end
           ])
-          # Reuse packages from home-manager modules to avoid duplicate package selections.
+          # Reuse Home Manager package selections.
           ++ (map (program: config.programs.${program}.package) [
             # keep-sorted start
             "fd"
@@ -32,7 +32,6 @@
           ]);
       };
 
-      # Add runtime helpers for Yazi plugins.
       extraPackages =
         (with pkgs; [
           # keep-sorted start
@@ -66,7 +65,7 @@
           glow
           sqlite
         ])
-        # Reuse packages from home-manager modules to avoid duplicate package selections.
+        # Reuse Home Manager package selections.
         ++ (map (program: config.programs.${program}.package) [
           # keep-sorted start
           "bat"
@@ -76,10 +75,10 @@
           "television"
           # keep-sorted end
         ])
-        # Pull packaged tools from the system config when home-manager does not own them.
+        # Use the system-owned udisks package.
         ++ [osConfig.services.udisks2.package];
 
-      # Keep plugins without dedicated modules together here.
+      # Group plugins without dedicated modules.
       plugins = {
         # keep-sorted start block=yes newline_separated=yes
         full-border = {

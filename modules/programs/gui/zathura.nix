@@ -13,7 +13,6 @@
         # keep-sorted end
 
         # keep-sorted start block=yes newline_separated=yes
-        # Keep zathura fonts consistent.
         font = sansSerifFont;
 
         # Use the system clipboard for text selection.

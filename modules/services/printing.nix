@@ -5,10 +5,8 @@
       # Allow network clients to reach cups.
       openFirewall = true;
 
-      # Disable the web interface.
       webInterface = false;
 
-      # Printer drivers packages.
       drivers = with pkgs; [
         # keep-sorted start
         foomatic-db-ppds
@@ -24,10 +22,8 @@
       defaultShared = true;
     };
 
-    # Enable fonts for ghostscript.
     fonts.enableGhostscriptFonts = true;
 
-    # Enable the printer config program.
     programs.system-config-printer.enable = true;
   };
 }

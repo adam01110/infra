@@ -31,7 +31,6 @@
       mutableUsers = false;
 
       users.${username} = {
-        # Hashed password file provided by sops-nix.
         hashedPasswordFile = config.sops.secrets.user_password.path;
 
         extraGroups = [

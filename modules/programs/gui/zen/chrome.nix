@@ -31,7 +31,7 @@
     # Convert the stylix base16 scheme into a format accepted by nix-userstyles.
     palette = stylixPalette config;
   in {
-    # Remove rounded corners in zen browser interface.
+    # Remove rounded corners in Zen Browser interface.
     programs.zen-browser.profiles.default = {
       userChrome = ''
         *,
@@ -46,7 +46,6 @@
         readFile (inputs.nix-userstyles.lib.mkUserContent system {
           inherit palette;
 
-          # Apply nix-userstyles themes.
           userStyles = [
             # keep-sorted start
             "advent-of-code"

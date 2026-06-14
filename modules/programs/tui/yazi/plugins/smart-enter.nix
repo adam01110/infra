@@ -3,7 +3,6 @@
     programs.yazi = {
       plugins.smart-enter = pkgs.yaziPlugins.smart-enter;
 
-      # Use smart-enter bindings in manager mode.
       keymap.mgr.prepend_keymap = [
         # keep-sorted start block=yes newline_separated=yes
         {

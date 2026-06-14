@@ -1,5 +1,5 @@
 {
-  #keep-sorted start
+  # keep-sorted start
   inputs,
   lib,
   self,

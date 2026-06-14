@@ -12,7 +12,7 @@
   in {
     xdg.configFile."television/themes/".source = with colors;
       tomlFormat.generate "television-stylix.toml" {
-        # general
+        # General
         # keep-sorted start
         background = base00;
         border_fg = base04;
@@ -20,13 +20,13 @@
         text_fg = base05;
         # keep-sorted end
 
-        # input
+        # Input
         # keep-sorted start
         input_text_fg = base08;
         result_count_fg = base08;
         # keep-sorted end
 
-        # results
+        # Results
         # keep-sorted start
         match_fg = base08;
         result_line_number_fg = base0A;
@@ -36,10 +36,10 @@
         selection_fg = base0B;
         # keep-sorted end
 
-        # preview
+        # Preview
         preview_title_fg = base0B;
 
-        # modes
+        # Modes
         # keep-sorted start
         action_picker_mode_bg = base0D;
         action_picker_mode_fg = base00;

@@ -20,7 +20,6 @@
         inherit (spicePkgs.themes.text) src;
         sidebarConfig = false;
 
-        # Set font to stylix font.
         # Force the text theme to show all images.
         # Disable border highlight animations and fades.
         # Remove rounded corners from all elements for consistent styling.

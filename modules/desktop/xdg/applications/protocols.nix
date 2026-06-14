@@ -8,7 +8,6 @@
       # keep-sorted end
       ;
   in {
-    # Register handlers for URL schemes.
     xdg.mimeApps.defaultApplications = mimeAppDefaults (
       # keep-sorted start block=yes
       (mimeAppEntries "x-scheme-handler" "zen-beta.desktop" [

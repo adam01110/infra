@@ -22,7 +22,7 @@
     programs.bun = {
       enable = true;
 
-      # Why the fuck would javascript need telementry.
+      # Why the fuck would javascript need telemetry.
       settings.telementry = false;
     };
 

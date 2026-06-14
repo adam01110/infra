@@ -21,9 +21,7 @@
 
     config = {
       # keep-sorted start block=yes newline_separated=yes
-      # Kernel parameters aimed at low latency desktops.
       boot = {
-        # Audio power management: disable power saving for continuous audio availability.
         extraModprobeConfig = ''
           options snd_hda_intel power_save=0
 
@@ -35,7 +33,6 @@
         # Enable nt sync for better wine/proton performance.
         kernelModules.ntsync = true;
 
-        # Memory and system tuning for desktop responsiveness.
         kernel.sysctl = {
           # keep-sorted start
           "vm.swappiness" = 100;
@@ -72,7 +69,6 @@
           "kernel.sched_rt_runtime_us" = -1;
         };
 
-        # Kernel boot parameters for additional tuning.
         kernelParams =
           [
             # Enable lru page generation for better memory management.
@@ -82,7 +78,6 @@
           ++ optional config.tweaks.rcuLazy.enable "rcutree.enable_rcu_lazy=1";
       };
 
-      # Assorted low-level tweaks and helper tools.
       environment.systemPackages = with pkgs; [
         # keep-sorted start
         bash
@@ -91,7 +86,6 @@
         # keep-sorted end
       ];
 
-      # Systemd limits and tmpfiles overrides.
       systemd = {
         coredump.settings.Coredump.Storage = "journal";
 

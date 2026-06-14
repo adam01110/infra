@@ -6,7 +6,6 @@
         setup = true;
       };
 
-      # Bind key to open the recycle-bin plugin menu.
       keymap.mgr.prepend_keymap = [
         {
           on = ["R" "b"];

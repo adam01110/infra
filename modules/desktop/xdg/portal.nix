@@ -84,7 +84,6 @@
           };
         };
 
-        # Provide the gtk and terminal file chooser portals.
         extraPortals = with pkgs; [
           # keep-sorted start
           xdg-desktop-portal-gtk

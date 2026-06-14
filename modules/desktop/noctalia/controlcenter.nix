@@ -11,7 +11,6 @@
     cfgBluetooth = osConfig.capabilities.bluetooth;
     cfgWifi = osConfig.capabilities.wifi;
   in {
-    # Control center tiles and shortcuts surfaced from the bar.
     programs.noctalia-shell.settings.controlCenter = {
       # keep-sorted start block=yes newline_separated=yes
       cards = [

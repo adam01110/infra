@@ -33,7 +33,6 @@
     ];
   in {
     programs.nixcord.config = {
-      # Enable custom css themes.
       enabledThemes = [
         # keep-sorted start
         "snippets.css"
@@ -41,14 +40,11 @@
         # keep-sorted end
       ];
 
-      # Load external theme links for enhanced styling.
       themeLinks = externalThemeLinks;
 
-      # Enable external theme links after adding them to the theme list.
       enabledThemeLinks = externalThemeLinks;
     };
 
-    # Add snippets stylesheet for additional styling.
     xdg.configFile."equibop/themes/snippets.css".source = ./snippets.css;
 
     # Install themed css with fonts and palette from Stylix.

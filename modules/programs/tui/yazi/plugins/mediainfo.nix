@@ -3,7 +3,6 @@
     programs.yazi = {
       plugins.mediainfo = pkgs.yaziPlugins.mediainfo;
 
-      # Use mediainfo for media and related mime types.
       settings.plugin = {
         # keep-sorted start block=yes newline_separated=yes
         # Replace default magick/image/video preloaders with mediainfo.

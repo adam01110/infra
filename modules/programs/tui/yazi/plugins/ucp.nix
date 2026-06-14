@@ -3,7 +3,6 @@
     programs.yazi = {
       plugins.ucp = pkgs.nur.repos.adam0.yaziPlugins.ucp;
 
-      # Add ucp clipboard bindings with notifications.
       keymap.mgr.prepend_keymap = [
         # keep-sorted start block=yes newline_separated=yes
         {

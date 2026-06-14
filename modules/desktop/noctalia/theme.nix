@@ -20,7 +20,6 @@
 
     programs.noctalia-shell = {
       # keep-sorted start block=yes newline_separated=yes
-      # System monitor colors from stylix.
       settings = {
         # keep-sorted start block=yes newline_separated=yes
         bar = {

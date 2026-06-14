@@ -1,7 +1,6 @@
 {
   flake.modules.homeManager.discord = {
     programs.nixcord = {
-      # Write main equibop configuration.
       config = {
         # keep-sorted start
         autoUpdate = true;

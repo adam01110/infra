@@ -13,7 +13,6 @@
   in {
     virtualisation = {
       podman = {
-        # Enable podman service and tooling.
         enable = true;
         # Expose docker-compatible socket for tooling that expects dockerd.
         dockerSocket.enable = true;
@@ -59,10 +58,8 @@
       iifname "podman*" tcp dport 44407 accept
     '';
 
-    # Enable the usage of compose files with podman.
     environment.systemPackages = [pkgs.podman-compose];
 
-    # Add user to the podman group.
     users.users.${username}.extraGroups = ["podman"];
   };
 }

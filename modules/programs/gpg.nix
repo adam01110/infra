@@ -20,8 +20,7 @@
     services.gpg-agent = {
       enable = true;
 
-      # Expose an ssh agent socket from gpg-agent so ssh can use
-      # Keys stored on smartcards or in the gpg keyring.
+      # Expose an ssh agent socket for smartcard and gpg keyring keys.
       enableSshSupport = true;
 
       # Use the gnome pinentry for passphrase prompts.

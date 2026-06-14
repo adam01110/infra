@@ -13,7 +13,6 @@
     # Expose a GPU toggle for Noctalia system monitor widgets.
     options.programs.noctalia-shell.systemMonitor.enableGpu = mkEnableOption "Enable dGPU monitoring and GPU temperature widgets.";
 
-    # Set polling for the system monitor.
     config.programs.noctalia-shell.settings.systemMonitor = let
       # Reuse a shared 4s interval for slower sensors.
       generalInterval = 4000;

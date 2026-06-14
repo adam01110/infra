@@ -68,7 +68,6 @@
       # keep-sorted end
     ];
 
-    # Wireguard stuff.
     services.homelabWireguard = {
       enable = true;
       address = "10.100.0.1/24";
@@ -97,7 +96,7 @@
 
     # extra data mounts.
     fileSystems = let
-      # helper for btrfs mounts with shared options.
+      # Btrfs mounts with shared options.
       mkBtrfsMount = device: subvol: {
         inherit device;
         fsType = "btrfs";

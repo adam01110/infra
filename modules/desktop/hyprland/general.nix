@@ -28,7 +28,7 @@
         enforce_permissions = true;
       };
 
-      # Don't show a cursor icon when hovering over borders
+      # Hide the cursor icon over borders.
       general.hover_icon_on_border = false;
 
       # Input preferences for mouse and touch.
@@ -46,7 +46,7 @@
 
       # Misc toggles for branding, performance, and dpms.
       misc = {
-        # Disable Hyprland branding visuals
+        # Disable Hyprland branding visuals.
         # keep-sorted start
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
@@ -59,7 +59,7 @@
         vrr = 1;
         # keep-sorted end
 
-        # Lockscreen monitor wakeup
+        # Wake monitors from the lockscreen.
         # keep-sorted start
         key_press_enables_dpms = true;
         mouse_move_enables_dpms = true;
@@ -70,10 +70,10 @@
         swallow_regex = "^com\\.mitchellh\\.ghostty$";
         # keep-sorted end
 
-        # Open windows on the workspace they were invoked on
+        # Open windows on the workspace they were invoked on.
         initial_workspace_tracking = 2;
 
-        # Wait longer until app not responding popup
+        # Wait longer before showing the app-not-responding popup.
         anr_missed_pings = 8;
       };
 

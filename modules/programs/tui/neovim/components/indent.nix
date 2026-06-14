@@ -1,7 +1,6 @@
 {
   flake.modules.homeManager.neovim = {
     programs.nvf.settings.vim = {
-      # Enable proper indentation across languages.
       utility = {
         # keep-sorted start
         auto-indent-nvim.enable = true;

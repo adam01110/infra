@@ -32,7 +32,6 @@
 
     services.timezone = "automatic-timezoned";
 
-    # Enable rcu lazy mode for better battery life.
     tweaks.rcuLazy.enable = true;
 
     # Use x86-64-v4 CachyOS LTO kernel.
@@ -75,7 +74,6 @@
         MEM_SLEEP_ON_BAT = "s2idle";
         # keep-sorted end
 
-        # Storage device for power management.
         DISK_DEVICES = "nvme-Samsung_SSD_980_PRO_500GB_S5GYNX0W331360B";
 
         # Intel gpu frequency limits: high performance on ac, reduced on battery.

@@ -70,7 +70,6 @@
         '';
       };
 
-      # Set agent rules.
       context = ./instructions.md;
     };
 
@@ -78,7 +77,6 @@
       # Point opencode at the shared agent skills directory.
       configFile."opencode/skills".source = mkOutOfStoreSymlink "${home}/.agents/skills";
 
-      # Create desktop entry to allow launching via launcher.
       desktopEntries.opencode = {
         name = "Opencode";
         genericName = "AI Coding Assistant";

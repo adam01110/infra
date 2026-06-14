@@ -12,7 +12,7 @@
           # keep-sorted end
         };
 
-        # Use pulseaudio as input as pipewire doesnt work on pc?
+        # Use pulseaudio because pipewire input is unreliable on pc for some reason.
         input.method = "pulse";
 
         smoothing = {

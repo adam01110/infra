@@ -19,7 +19,6 @@
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";
 
-    # Enable amd rocm support for gpu.
     nixpkgs.config.rocmSupport = true;
 
     # Use x86-64-v3 CachyOS LTO kernel.

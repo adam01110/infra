@@ -5,7 +5,6 @@
 
       settings.plugin = {
         # keep-sorted start block=yes newline_separated=yes
-        # Preloaders that render content for preview-epub.
         prepend_preloaders = [
           {
             mime = "";
@@ -13,7 +12,6 @@
           }
         ];
 
-        # Previewers that render content for preview-epub.
         prepend_previewers = [
           {
             mime = "";

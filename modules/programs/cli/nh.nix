@@ -5,7 +5,6 @@
     programs.nh = {
       enable = true;
 
-      # Set flake root.
       flake = "/home/${username}/Infra";
     };
   };

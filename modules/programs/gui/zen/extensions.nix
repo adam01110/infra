@@ -2,9 +2,8 @@
   flake.modules.homeManager.zen = {pkgs, ...}: let
     inherit (builtins) mapAttrs;
   in {
-    # Add extensions in nur.
+    # Add extensions packaged in NUR.
     programs.zen-browser.profiles.default.extensions = {
-      # Force extensions to be enabled.
       force = true;
       packages = with pkgs.nur.repos.rycee.firefox-addons; [
         # Content blocking.
@@ -35,7 +34,7 @@
       ];
     };
 
-    # Add extensions not in nur.
+    # Force-install extensions missing from NUR.
     programs.zen-browser.policies.ExtensionSettings = let
       mkExtensionSettings = mapAttrs (
         _: pluginId: {

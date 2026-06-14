@@ -22,7 +22,6 @@
       # keep-sorted end
     ];
 
-    # Enable intel virtualization support.
     boot.kernelModules = ["kvm-intel"];
 
     # Enable intel microcode updates when firmware is available.

@@ -9,7 +9,6 @@
   }: let
     inherit (lib) mkForce;
   in {
-    # Install and export the Hyprcursor theme selected by Stylix.
     home = {
       # Hyprcursor variant of the configured Bibata cursor package.
       packages = [pkgs.nur.repos.adam0.bibata-modern-cursors-gruvbox-dark-hyprcursor];
@@ -18,7 +17,6 @@
       sessionVariables.HYPRCURSOR_THEME = mkForce "${config.stylix.cursor.name}-hyprcursor";
     };
 
-    # Let Home Manager link Hyprcursor assets.
     home.pointerCursor.hyprcursor.enable = true;
   };
 }

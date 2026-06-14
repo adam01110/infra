@@ -1,6 +1,5 @@
 {
   flake.modules.homeManager.neovim = {
-    # Add satellite.nvim scrollbar indicators.
     programs.nvf.settings.vim.visuals.satellite-nvim = {
       enable = true;
       setupOpts = {

@@ -25,7 +25,7 @@
 
       programs = {
         # keep-sorted start block=yes newline_separated=yes
-        # Enable laptop-specific hyprland features.
+        # Laptop display and touch controls.
         hylix = {
           # keep-sorted start block=yes newline_separated=yes
           monitors = [
@@ -41,10 +41,9 @@
           # keep-sorted end
         };
 
-        # Enable laptop hardware features.
         nixcord.equibop.camera.enable = true;
 
-        # Enable laptop-specific noctalia features.
+        # Laptop battery and idle controls.
         noctalia-shell = {
           battery.enable = true;
           idle = {

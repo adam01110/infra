@@ -6,7 +6,6 @@
       # keep-sorted start block=yes newline_separated=yes
       enable = true;
 
-      # Set ui preferences.
       settings = {
         # keep-sorted start
         UITheme = "theme-dark";

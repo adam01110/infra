@@ -16,10 +16,8 @@
     programs.yazi = {
       plugins.faster-piper = pkgs.nur.repos.adam0.yaziPlugins.faster-piper;
 
-      # Use faster-piper for markdown, archives, compressed text, sqlite, and systemd previews.
       settings.plugin = {
         # keep-sorted start newline_separated=yes
-        # Preloaders that render content for faster-piper.
         prepend_preloaders =
           mkYaziUrlEntries "${piper} CLICOLOR_FORCE=1 glow -w=$w -s=dark -- \"$1\"" ["*.md"]
           ++

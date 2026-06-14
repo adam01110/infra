@@ -2,7 +2,6 @@
   flake.modules.homeManager.noctalia = {config, ...}: let
     picturesDir = config.xdg.userDirs.pictures;
   in {
-    # Wallpaper directory and rotation settings.
     programs.noctalia-shell.settings.wallpaper = {
       # keep-sorted start block=yes
       automationEnabled = true;

@@ -41,7 +41,7 @@
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
       # keep-sorted end
 
-      # Java toolschains.
+      # Java toolchains.
       # keep-sorted start
       GRADLE_USER_HOME = "${dataHome}/gradle";
       MAVEN_ARGS = "--settings ${configHome}/maven/settings.xml";
