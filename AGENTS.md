@@ -5,7 +5,8 @@ For `.nix` files only. Not for prose docs, copied upstream option descriptions, 
 ## Rules
 
 - Keep comments short, local, ASCII, and indented to the code they describe.
-- Write sentence fragments in present tense, start with `#`, and end with `.`.
+- Write explanatory comments as sentence fragments in present tense, start with `#`, and end with `.`.
+- Bare heading labels inside grouped lists may omit the period.
 - Prefer standalone comments above code, not trailing comments.
 - Comment intent, rationale, constraints, non-obvious transformations, generated structure, or meaningful grouping.
 - Skip comments for self-explanatory assignments, simple `inherit` blocks unless a subgroup needs a label, obvious enable flags, boilerplate module structure, and syntax boundaries like `let`, `in`, `{}`, `with`, or lambda heads.
