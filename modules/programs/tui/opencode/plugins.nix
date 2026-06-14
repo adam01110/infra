@@ -18,8 +18,8 @@
       };
 
       quota = {
-        enable = true;
-        sidebar.enable = true;
+        #enable = true;
+        #sidebar.enable = true;
 
         settings = {
           # keep-sorted start
