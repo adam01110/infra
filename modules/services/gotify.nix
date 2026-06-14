@@ -10,6 +10,13 @@
   }: let
     inherit (lib) mkForce;
 
+    inherit (pkgs.nur.repos.adam0) gotifyPlugins;
+
+    gotifyPluginsDrv = pkgs.symlinkJoin {
+      name = "gotify-plugins";
+      paths = [gotifyPlugins.authentik];
+    };
+
     templates = config.sops.templates;
     inherit (vars) groundDomain;
   in {
@@ -61,6 +68,7 @@
         "authentik.service"
         "postgresql.service"
         "sops-install-secrets.service"
+        "systemd-tmpfiles-setup.service"
         "traefik.service"
         # keep-sorted end
       ];
@@ -71,6 +79,7 @@
         "authentik.service"
         "postgresql.service"
         "sops-install-secrets.service"
+        "systemd-tmpfiles-setup.service"
         "traefik.service"
         # keep-sorted end
       ];
@@ -87,6 +96,8 @@
         RestartSec = "5s";
       };
     };
+
+    systemd.tmpfiles.rules = ["L+ /var/lib/gotify/data/plugins - - - - ${gotifyPluginsDrv}"];
 
     systemd.services.gotify-optimize-images = {
       description = "Optimize Gotify uploaded images";
