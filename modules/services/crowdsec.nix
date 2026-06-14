@@ -60,6 +60,7 @@
           "crowdsecurity/linux"
           "crowdsecurity/sshd"
           "crowdsecurity/traefik"
+          "crowdsecurity/whitelist-good-actors"
           "firix/authentik"
           # keep-sorted end
         ];
@@ -159,6 +160,7 @@
             type: http
             name: gotify
             log_level: info
+            group_threshold: 1
             url: ${gotifyUrl}
             method: POST
             headers:
@@ -167,6 +169,8 @@
             format: |
               {{ range . -}}
               {{ $alert := . -}}
+              {{ $scenario := $alert.GetScenario -}}
+              {{ $source := $alert.GetValue -}}
               {
                 "extras": {
                   "client::display": {
@@ -174,10 +178,8 @@
                   }
                 },
                 "priority": 3,
-                {{range .Decisions -}}
-                "title": "{{.Type }} {{ .Value }} for {{.Duration}}",
-                "message": "{{.Scenario}}\n\n[crowdsec cti](https://app.crowdsec.net/cti/{{.Value -}})\n\n[shodan](https://www.shodan.io/host/{{.Value -}})"
-                {{end -}}
+                "title": "CrowdSec Alert",
+                "message": {{ printf "**Scenario:** `%s`\n\n**IP:** `%s`\n\n**Machine:** `%s`" $scenario $source $alert.MachineID | toJson }}
               }
               {{ end -}}
           '';
@@ -201,7 +203,13 @@
         console.enrollKeyFile = secrets."crowdsec/console_enroll_key".path;
 
         profiles = [
-          # keep-sorted start block=yes newline_separated=yes
+          {
+            filters = [''Alert.GetScenario() != "" && !(Alert.GetScenario() contains "external/blocklist")''];
+            name = "all_scenario_notifications";
+            notifications = ["gotify"];
+            on_success = "continue";
+          }
+
           {
             decisions = [
               {
@@ -212,7 +220,6 @@
 
             filters = [''Alert.Remediation == true && Alert.GetScope() == "Ip"''];
             name = "default_ip_remediation";
-            notifications = ["gotify"];
             on_success = "break";
           }
 
@@ -226,10 +233,8 @@
 
             filters = [''Alert.Remediation == true && Alert.GetScope() == "Range"''];
             name = "default_ip_remediation";
-            notifications = ["gotify"];
             on_success = "break";
           }
-          # keep-sorted end
         ];
       };
 
