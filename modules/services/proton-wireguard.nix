@@ -18,6 +18,7 @@
 
     ip = getExe' pkgs.iproute2 "ip";
     secret = config.sops.placeholder;
+    secretPrefix = "wireguard/${config.networking.hostName}/proton";
 
     privateIPv4Subnets = [
       "10.0.0.0/8"
@@ -56,14 +57,14 @@
     sops = {
       secrets = {
         # keep-sorted start
-        "wireguard/proton/address" = {};
-        "wireguard/proton/allowed_ips" = {};
-        "wireguard/proton/dns" = {};
-        "wireguard/proton/endpoint" = {};
-        "wireguard/proton/private_key" = {};
-        "wireguard/proton/proxy/password" = {};
-        "wireguard/proton/proxy/user" = {};
-        "wireguard/proton/public_key" = {};
+        "${secretPrefix}/address" = {};
+        "${secretPrefix}/allowed_ips" = {};
+        "${secretPrefix}/dns" = {};
+        "${secretPrefix}/endpoint" = {};
+        "${secretPrefix}/private_key" = {};
+        "${secretPrefix}/proxy/password" = {};
+        "${secretPrefix}/proxy/user" = {};
+        "${secretPrefix}/public_key" = {};
         qbittorrent_proxy_path = {};
         # keep-sorted end
       };
@@ -72,16 +73,16 @@
         mode = "0400";
         content = ''
           [Interface]
-          PrivateKey = ${secret."wireguard/proton/private_key"}
-          Address = ${secret."wireguard/proton/address"}
-          DNS = ${secret."wireguard/proton/dns"}
+          PrivateKey = ${secret."${secretPrefix}/private_key"}
+          Address = ${secret."${secretPrefix}/address"}
+          DNS = ${secret."${secretPrefix}/dns"}
           MTU = 1420
           Table = ${routingTableString}
 
           [Peer]
-          PublicKey = ${secret."wireguard/proton/public_key"}
-          AllowedIPs = ${secret."wireguard/proton/allowed_ips"}
-          Endpoint = ${secret."wireguard/proton/endpoint"}
+          PublicKey = ${secret."${secretPrefix}/public_key"}
+          AllowedIPs = ${secret."${secretPrefix}/allowed_ips"}
+          Endpoint = ${secret."${secretPrefix}/endpoint"}
           PersistentKeepalive = 25
         '';
       };
@@ -174,8 +175,8 @@
           exec ${getExe pkgs.tinyproxy} -d -c "$config_file"
         '';
         LoadCredential = [
-          "proxy_password:${config.sops.secrets."wireguard/proton/proxy/password".path}"
-          "proxy_user:${config.sops.secrets."wireguard/proton/proxy/user".path}"
+          "proxy_password:${config.sops.secrets."${secretPrefix}/proxy/password".path}"
+          "proxy_user:${config.sops.secrets."${secretPrefix}/proxy/user".path}"
         ];
         Restart = "always";
         RestartSec = "5s";
