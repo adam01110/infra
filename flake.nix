@@ -44,7 +44,7 @@
         rust-overlay.follows = "tuigreet/rust-overlay";
       };
     };
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=master";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=release";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

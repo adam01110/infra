@@ -9,7 +9,7 @@
     inherit (lib) getExe';
     inherit (lib.self) mkHylixBindGroup;
 
-    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.programs.noctalia-shell.package}/share/noctalia-shell call";
+    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.xdg.configHome}/quickshell/noctalia call";
   in {
     config.programs.hylix.bindGroups = [
       (mkHylixBindGroup "Shell" [

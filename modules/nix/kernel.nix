@@ -5,7 +5,7 @@
   # keep-sorted end
   ...
 }: {
-  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=master";
+  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=release";
 
   flake.overlays.nix-cachyos-kernel = inputs.nix-cachyos-kernel.overlays.pinned;
 

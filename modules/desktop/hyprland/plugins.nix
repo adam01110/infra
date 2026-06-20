@@ -39,7 +39,7 @@
       index 900ff33..dc76942 100644
       --- a/main.cpp
       +++ b/main.cpp
-      @@ -119,15 +119,6 @@ static void onFocusChange(PHLWINDOW window) {
+      @@ -143,15 +143,6 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
        APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
            PHANDLE = handle;
 
@@ -52,9 +52,9 @@
       -        throw std::runtime_error("[hww] Version mismatch");
       -    }
       -
-           static auto P = Event::bus()->m_events.window.active.listen([&](PHLWINDOW w, Desktop::eFocusReason r) { onFocusChange(w); });
+           static auto P = Event::bus()->m_events.window.active.listen([&](PHLWINDOW w, Desktop::eFocusReason r) { onFocusChange(w, r); });
 
-           configValues.mode = makeShared<Config::Values::CStringValue>("plugin:hyprfocus:mode", "mode to use", "flash");
+           configValues.enable = makeShared<Config::Values::CBoolValue>("plugin:hyprfocus:enable", "enable or disable the plugin", true);
     '';
     upstream = inputs.hyprland-plugins.overlays.default final prev;
   in

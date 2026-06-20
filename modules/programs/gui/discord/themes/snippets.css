@@ -218,41 +218,41 @@ foreignObject {
 
 /* Theme vc buttons on servers. */
 .iconBadge__650eb:not(.isCurrentUserConnected__650eb) {
-    background-color: var(--accent-1) !important;
+  background-color: var(--accent-1) !important;
 }
 
 /* Group online rect fix. */
-.container__1ce5d:has(.status_a423bd[style='background-color: rgb(69, 163, 102);'])::after {
-    background: var(--online-2) !important;
+.container__1ce5d:has(.status_a423bd[style="background-color: rgb(69, 163, 102);"])::after {
+  background: var(--online-2) !important;
 }
 
 /* Review padding fix. */
 .bodySpacerBottom__8a031 {
-    display: none !important;
+  display: none !important;
 }
 .footer__8a031.section__8a031 {
-    padding-top: 0px !important;
+  padding-top: 0px !important;
 }
 
 /* Themed toast progress bar. */
 .vc-toast-notifications-notification-progressbar {
-    background-color: var(--accent-1);
+  background-color: var(--accent-1);
 }
 
 /* Fix for hover buttons. */
 .controlIcon_cf09d8:hover {
-    color: var(--interactive-text-default) !important;
+  color: var(--interactive-text-default) !important;
 }
 
 /* Character count color fix. */
 .vc-charCounter-selected {
-    color: var(--accent-1) !important;
+  color: var(--accent-1) !important;
 }
 
 /* Themed slate toolbar. */
 #slate-toolbar {
-    background-color: var(--background-base-low);
+  background-color: var(--background-base-low);
 }
 #slate-toolbar::before {
-    border-top: 8px solid var(--background-base-low);
+  border-top: 8px solid var(--background-base-low);
 }

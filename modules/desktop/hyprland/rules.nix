@@ -22,7 +22,6 @@
     equibop = getExe config.programs.nixcord.equibop.package;
     grim = getExe pkgs.grim;
     hyprctl = getExe' osConfig.programs.hyprland.package "hyprctl";
-    hyprfocus = "${pkgs.hyprlandPlugins.hyprfocus}/lib/libhyprfocus.so";
     hyprpicker = getExe pkgs.hyprpicker;
     noctalia-qs = getExe' inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.quickshell ".quickshell-wrapped";
     overzicht = getExe' config.programs.quickshell.package ".quickshell-wrapped";
@@ -38,7 +37,7 @@
         }
 
         {
-          binary = escapeRegex hyprfocus;
+          binary = ".*/libhyprfocus\\.so$";
           mode = "allow";
           type = "plugin";
         }

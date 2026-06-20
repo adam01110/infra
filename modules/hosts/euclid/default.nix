@@ -91,6 +91,8 @@
       wants = ["podman.socket"];
     };
 
+    networking.firewall.allowedUDPPorts = [7359];
+
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";
 
@@ -111,7 +113,7 @@
       };
     in {
       # keep-sorted start
-      "/mnt/immich" = mkBtrfsMount "/dev/disk/by-uuid/2262a52f-3110-462e-815a-7717886b8cc7" "root";
+      "/mnt/immich" = mkBtrfsMount "/dev/disk/by-uuid/2262a52f-3110-462e-815a-7717886b8cc7" "immich";
       "/mnt/media" = mkBtrfsMount "/dev/disk/by-uuid/7bf5484e-67c1-4c67-a20f-cd47b1d6fb21" "root";
       # keep-sorted end
     };

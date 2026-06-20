@@ -16,7 +16,7 @@
     inherit (lib.self) mkHylixBindGroup;
 
     # keep-sorted start
-    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.programs.noctalia-shell.package}/share/noctalia-shell call";
+    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.xdg.configHome}/quickshell/noctalia call";
     overzicht = "${getExe config.programs.overzicht.package} ipc call";
     # keep-sorted end
   in {

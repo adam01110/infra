@@ -10,6 +10,7 @@
     inherit
       (lib)
       # keep-sorted start
+      getExe
       mkForce
       mkOption
       optionals
@@ -28,6 +29,7 @@
 
     overrideArgs = removeAttrs cfg.packageOverrides ["package"];
     locationFileEnv = optionals (cfg.systemd.locationFile != null) ["NOCTALIA_LOCATION_FILE=${cfg.systemd.locationFile}"];
+    stableConfigPath = "${config.xdg.configHome}/quickshell/noctalia";
   in {
     options = {
       programs.noctalia-shell = {
@@ -103,12 +105,19 @@
         # keep-sorted end
       };
 
+      # Keep the Quickshell instance path stable across package rebuilds.
+      xdg.configFile."quickshell/noctalia".source = "${cfg.package}/share/noctalia-shell";
+
       # Pass through runtime settings paths and optional location override file.
-      systemd.user.services.noctalia-shell.Service.Environment = let
+      systemd.user.services.noctalia-shell.Service = let
         cfgEnv = config.programs.noctalia-shell.systemd;
-      in
-        optionals (cfgEnv.enable && cfgEnv.mutableRuntimeSettings) ["NOCTALIA_SETTINGS_FALLBACK=%h/.config/noctalia/gui-settings.json"]
-        ++ optionals cfgEnv.enable locationFileEnv;
+      in {
+        Environment =
+          optionals (cfgEnv.enable && cfgEnv.mutableRuntimeSettings) ["NOCTALIA_SETTINGS_FALLBACK=%h/.config/noctalia/gui-settings.json"]
+          ++ optionals cfgEnv.enable locationFileEnv;
+
+        ExecStart = mkForce "${getExe cfg.package} --path ${stableConfigPath}";
+      };
     };
   };
 }
