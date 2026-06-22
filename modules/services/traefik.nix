@@ -151,6 +151,13 @@
 
             routers = {
               # keep-sorted start block=yes newline_separated=yes
+              apprise = {
+                entryPoints = ["websecure"];
+                middlewares = ["authentik@file"];
+                rule = "Host(`apprise.${groundDomain}`)";
+                service = "apprise";
+              };
+
               authentik = {
                 entryPoints = ["websecure"];
                 rule = "Host(`authentik.${groundDomain}`)";
@@ -194,6 +201,10 @@
 
             services = {
               # keep-sorted start block=yes newline_separated=yes
+              apprise.loadBalancer.servers = [
+                {url = "http://127.0.0.1:8000";}
+              ];
+
               authentik-outpost.loadBalancer.servers = [
                 {url = "http://[::1]:9005/outpost.goauthentik.io";}
               ];

@@ -39,6 +39,8 @@
       volumes = ["/var/lib/dockhand:/app/data"];
     };
 
+    networking.firewall.interfaces.wg0.allowedTCPPorts = [3000];
+
     systemd = {
       tmpfiles.rules = ["d /var/lib/dockhand 0750 1001 1001 -"];
 

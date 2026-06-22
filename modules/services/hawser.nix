@@ -36,7 +36,9 @@
         image = "ghcr.io/finsys/hawser:latest";
 
         extraOptions = [
+          "--cgroupns=host"
           "--network=host"
+          "--pid=host"
 
           # Health check.
           "--health-cmd=wget -q --spider http://[::1]:2376/_hawser/health || exit 1"

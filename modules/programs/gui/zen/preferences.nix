@@ -17,7 +17,13 @@
       types
       # keep-sorted end
       ;
-    inherit (vars) countryCode;
+    inherit
+      (vars)
+      # keep-sorted start
+      countryCode
+      groundDomain
+      # keep-sorted end
+      ;
   in {
     options.programs.zen-browser.profiles = mkOption {
       type = types.attrsOf (types.submodule {
@@ -328,6 +334,8 @@
 
           # keep-sorted end
         };
+
+        identity.sync.tokenserver.uri = "https://firefox-sync.${groundDomain}/1.0/sync/1.5";
 
         image = {
           # keep-sorted start block=yes newline_separated=yes

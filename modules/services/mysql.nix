@@ -37,6 +37,15 @@
       compressionLevel = 3;
     };
 
+    networking.firewall = {
+      interfaces.wg0.allowedTCPPorts = [3306];
+
+      extraInputRules = ''
+        # Allow containers to reach host MariaDB.
+        iifname "podman*" tcp dport 3306 accept
+      '';
+    };
+
     systemd.services.mysql-admin = {
       # keep-sorted start block=yes newline_separated=yes
       after = [

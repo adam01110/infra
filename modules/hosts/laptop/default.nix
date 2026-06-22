@@ -16,7 +16,7 @@
 
       # Services
       # keep-sorted start
-      scx
+      scx-loader
       tlp
       wifi
       # keep-sorted end

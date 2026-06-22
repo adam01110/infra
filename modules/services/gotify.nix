@@ -43,6 +43,7 @@
 
         GOTIFY_OIDC_ENABLED = "true";
         GOTIFY_OIDC_ISSUER = "https://authentik.${groundDomain}/application/o/gotify/";
+        GOTIFY_OIDC_LINK_BY_USERNAME = "true";
         GOTIFY_OIDC_REDIRECTURL = "https://gotify.${groundDomain}/auth/oidc/callback";
 
         GOTIFY_DATABASE_DIALECT = "postgres";
@@ -60,6 +61,11 @@
         isSystemUser = true;
       };
     };
+
+    networking.firewall.extraInputRules = ''
+      # Allow containers to reach host Gotify.
+      iifname "podman*" tcp dport 44407 accept
+    '';
 
     systemd.services.gotify-server = {
       after = [

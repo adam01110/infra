@@ -1,7 +1,9 @@
 {self, ...}: {
   flake.modules.nixos.euclid = {
+    # keep-sorted start
     config,
     pkgs,
+    # keep-sorted end
     ...
   }: {
     imports = with self.modules.nixos; [
@@ -10,6 +12,7 @@
 
       # Services
       # keep-sorted start
+      apprise
       authentik
       cloudbeaver
       crowdsec-server
@@ -76,13 +79,6 @@
     networking.hosts = {
       "10.100.0.1" = ["euclid.wg"];
     };
-    networking.firewall.interfaces.wg0.allowedTCPPorts = [
-      # keep-sorted start numeric=yes
-      3000
-      3306
-      5432
-      # keep-sorted end
-    ];
 
     users.users.${config.services.crowdsec.user}.extraGroups = ["podman"];
 

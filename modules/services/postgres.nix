@@ -85,6 +85,8 @@
       compressionLevel = 3;
     };
 
+    networking.firewall.interfaces.wg0.allowedTCPPorts = [5432];
+
     systemd.services.postgres-admin = {
       # keep-sorted start block=yes newline_separated=yes
       after = [

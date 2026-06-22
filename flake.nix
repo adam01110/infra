@@ -38,7 +38,7 @@
     };
     import-tree.url = "github:vic/import-tree";
     lanzaboote = {
-      url = "github:nix-community/lanzaboote";
+      url = "github:nix-community/lanzaboote?ref=v1.1.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "tuigreet/rust-overlay";
