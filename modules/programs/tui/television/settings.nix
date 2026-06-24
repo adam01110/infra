@@ -15,9 +15,6 @@
           # keep-sorted end
         };
 
-        # Remove the ugly status bar.
-        status_bar.hidden = true;
-
         # keep-sorted start
         preview_panel.border_type = borderType;
         results_panel.border_type = borderType;

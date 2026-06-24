@@ -83,6 +83,7 @@
       # keep-sorted start block=yes
       bonsai
       cpond
+      diffnav
       direnv
       gitfetch
       onefetch

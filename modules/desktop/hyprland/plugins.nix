@@ -26,8 +26,9 @@
 
       settings.plugin.hyprfocus = {
         # keep-sorted start
-        bounce_strength = 0.995;
-        mode = "bounce";
+        keyboard_focus_animation = "shrink";
+        mouse_focus_animation = "shrink";
+        shrink_percentage = 0.995;
         # keep-sorted end
       };
     };

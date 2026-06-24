@@ -62,7 +62,6 @@
             --prefix PATH : ${makeBinPath ((with pkgs; [
               # keep-sorted start
               libnotify
-              nur.repos.adam0.modular-mcp
               wl-clipboard
               # keep-sorted end
             ])

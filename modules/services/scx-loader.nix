@@ -1,8 +1,8 @@
 {
-  flake.modules.nixos.scx = {pkgs, ...}: {
+  flake.modules.nixos.scx-loader = {pkgs, ...}: {
     services.scx-loader = {
       enable = true;
-      schedsPackages = pkgs.scx.rustscheds;
+      schedsPackages = [pkgs.scx.rustscheds];
 
       config = {
         default_sched = "scx_lavd";
