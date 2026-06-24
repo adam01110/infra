@@ -83,6 +83,7 @@
         bash
         coreutils
         hdparm
+        smartmontools
         # keep-sorted end
       ];
 

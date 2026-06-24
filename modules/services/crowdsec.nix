@@ -54,6 +54,9 @@
       hub = {
         collections = [
           # keep-sorted start
+          "LePresidente/jellyfin"
+          "LePresidente/jellyseerr"
+          "baudneo/gotify"
           "crowdsecurity/appsec-generic-rules"
           "crowdsecurity/appsec-virtual-patching"
           "crowdsecurity/http-cve"

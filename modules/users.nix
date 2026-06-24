@@ -36,6 +36,8 @@
         extraGroups = [
           # keep-sorted start
           "audio"
+          "render"
+          "video"
           "wheel"
           # keep-sorted end
         ];

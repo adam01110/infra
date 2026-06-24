@@ -49,6 +49,20 @@
       }
 
       {
+        container_name = ["jellyfin"];
+        docker_host = "unix:///run/podman/podman.sock";
+        labels.type = "jellyfin";
+        source = "docker";
+      }
+
+      {
+        container_name = ["seerr"];
+        docker_host = "unix:///run/podman/podman.sock";
+        labels.type = "jellyseerr";
+        source = "docker";
+      }
+
+      {
         filenames = ["/var/log/traefik/*.log"];
         labels.type = "traefik";
         source = "file";
@@ -60,6 +74,12 @@
           "_SYSTEMD_UNIT=authentik-worker.service"
         ];
         labels.type = "authentik";
+        source = "journalctl";
+      }
+
+      {
+        journalctl_filter = ["_SYSTEMD_UNIT=gotify-server.service"];
+        labels.type = "gotify";
         source = "journalctl";
       }
 
@@ -80,7 +100,7 @@
       "10.100.0.1" = ["euclid.wg"];
     };
 
-    users.users.${config.services.crowdsec.user}.extraGroups = ["podman"];
+    users.users.${config.services.crowdsec.user}.extraGroups = ["podman" "traefik"];
 
     systemd.services.crowdsec = {
       after = ["podman.socket"];
