@@ -20,11 +20,16 @@
         };
 
         "traefik/mail" = {};
+
+        "traefik/porkbun_api_key" = {};
+        "traefik/porkbun_secret_api_key" = {};
         # keep-sorted end
       };
 
       templates."traefik.env".content = ''
         TRAEFIK_ACME_EMAIL=${config.sops.placeholder."traefik/mail"}
+        PORKBUN_API_KEY=${config.sops.placeholder."traefik/porkbun_api_key"}
+        PORKBUN_SECRET_API_KEY=${config.sops.placeholder."traefik/porkbun_secret_api_key"}
       '';
     };
 
@@ -45,7 +50,7 @@
           };
 
           certificatesResolvers.myresolver.acme = {
-            tlsChallenge = true;
+            dnsChallenge.provider = "porkbun";
             email = "\${TRAEFIK_ACME_EMAIL}";
             storage = "/var/lib/traefik/acme.json";
           };

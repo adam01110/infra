@@ -8,8 +8,6 @@
 
       forceOwnerCrown.enable = true;
 
-      friendsSince.enable = true;
-
       friendshipRanks.enable = true;
 
       implicitRelationships.enable = true;

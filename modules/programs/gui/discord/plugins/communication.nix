@@ -12,6 +12,11 @@
 
       betterCommands.enable = true;
 
+      betterForwards = {
+        enable = true;
+        selfForward = true;
+      };
+
       betterGifAltText.enable = true;
 
       cleanChannelName.enable = true;
@@ -47,8 +52,6 @@
       fixSpotifyEmbeds.enable = true;
 
       fixYoutubeEmbeds.enable = true;
-
-      forwardAnywhere.enable = true;
 
       gifPaste.enable = true;
 
@@ -94,8 +97,6 @@
       replyTimestamp.enable = true;
 
       searchFix.enable = true;
-
-      selfForward.enable = true;
 
       sendTimestamps.enable = true;
 

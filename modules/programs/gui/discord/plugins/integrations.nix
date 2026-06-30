@@ -11,8 +11,8 @@
       };
 
       replaceGoogleSearch = {
-        customEngineName = "Brave";
-        customEngineUrl = "https://search.brave.com/search?q=";
+        customEngineName = "Kagi";
+        customEngineUrl = "https://kagi.com/search?q=";
         enable = true;
         replacementEngine = "custom";
       };

@@ -117,7 +117,6 @@
       seahorse
       showtime
       spotify
-      upscayl
       zaread
       zathura
       zen

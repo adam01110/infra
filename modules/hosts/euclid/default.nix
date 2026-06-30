@@ -36,6 +36,9 @@
     # Use x86-64-v3 CachyOS LTO kernel.
     boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
 
+    # Disable UAS for the Samsung T7 to avoid USB transport aborts.
+    boot.kernelParams = ["usb-storage.quirks=04e8:4001:u"];
+
     # Same-host connection: hawser reaches dockhand directly without public TLS.
     services.hawser.dockhandServerUrl = "ws://127.0.0.1:3000/api/hawser/connect";
 
@@ -129,6 +132,7 @@
       };
     in {
       # keep-sorted start
+      "/mnt/copyparty" = mkBtrfsMount "/dev/disk/by-uuid/2262a52f-3110-462e-815a-7717886b8cc7" "copyparty";
       "/mnt/immich" = mkBtrfsMount "/dev/disk/by-uuid/2262a52f-3110-462e-815a-7717886b8cc7" "immich";
       "/mnt/media" = mkBtrfsMount "/dev/disk/by-uuid/7bf5484e-67c1-4c67-a20f-cd47b1d6fb21" "root";
       # keep-sorted end

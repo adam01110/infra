@@ -3,15 +3,15 @@
     programs.zen-browser.profiles.default = {
       search = {
         force = true;
-        default = "brave";
+        default = "kagi";
         engines = let
           nixIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         in {
           # General search engines.
-          brave = {
+          kagi = {
             urls = [
               {
-                template = "https://search.brave.com/search";
+                template = "https://kagi.com/search";
                 params = [
                   {
                     name = "q";
@@ -20,8 +20,8 @@
                 ];
               }
             ];
-            iconMapObj."16" = "https://brave.com/favicon.ico";
-            definedAliases = ["@b"];
+            iconMapObj."16" = "https://kagi.com/favicon.ico";
+            definedAliases = ["@k"];
           };
           google.metaData.alias = "@g";
 
