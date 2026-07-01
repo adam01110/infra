@@ -76,7 +76,17 @@
               address = ":443";
 
               http = {
-                tls.certResolver = "myresolver";
+                tls = {
+                  certResolver = "myresolver";
+
+                  domains = [
+                    {
+                      main = "${groundDomain}";
+                      sans = ["*.${groundDomain}"];
+                    }
+                  ];
+                };
+
                 middlewares = ["crowdsec@file"];
               };
 
