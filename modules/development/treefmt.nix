@@ -47,6 +47,7 @@
         global.excludes = [
           # keep-sorted start
           ".direnv/*"
+          ".envrc"
           ".sops.yaml"
           "flake.nix"
           "secrets.yaml"

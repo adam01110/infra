@@ -3,8 +3,10 @@
     inherit (vars) groundDomain username;
   in {
     sops.secrets = {
+      # keep-sorted start
       "servers/euclid/private_ssh_key".path = "/home/${username}/.ssh/euclid";
       "servers/euclid/public_ssh_key".path = "/home/${username}/.ssh/euclid.pub";
+      # keep-sorted end
     };
 
     programs.ssh = {

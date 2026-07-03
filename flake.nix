@@ -51,7 +51,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-userstyles = {
-      url = "github:adam01110/nix-userstyles";
+      url = "git+https://tangled.org/adam0.dev/nix-userstyles";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";

@@ -1231,22 +1231,23 @@
           "nixpkgs"
         ],
         "systems": "systems_4",
+        "tangled-catppuccin": "tangled-catppuccin",
         "treefmt-nix": [
           "treefmt-nix"
         ]
       },
       "locked": {
-        "lastModified": 1781880690,
-        "narHash": "sha256-kd14Sz9ymzOg+OarvHLY1I2V8L34iPYdDg0BbdYmVLs=",
-        "owner": "adam01110",
-        "repo": "nix-userstyles",
-        "rev": "a0a2faac9f6df36a1f1c000dc4ef78aa7b65ec37",
-        "type": "github"
+        "lastModified": 1783101455,
+        "narHash": "sha256-4E+DNHGPLuLU0gq4fiFNqj0p+IdIrCzL1tH5F12iFpc=",
+        "ref": "refs/heads/main",
+        "rev": "a3c2693d9f5244f6ecd32e74602a2363bb76f01c",
+        "revCount": 80,
+        "type": "git",
+        "url": "https://tangled.org/adam0.dev/nix-userstyles"
       },
       "original": {
-        "owner": "adam01110",
-        "repo": "nix-userstyles",
-        "type": "github"
+        "type": "git",
+        "url": "https://tangled.org/adam0.dev/nix-userstyles"
       }
     },
     "nixcord": {
@@ -1960,6 +1961,22 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "tangled-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783094318,
+        "narHash": "sha256-B7kn9bplozrpusIn6RM75Wk41XTBKINy8xeTv9acI8M=",
+        "ref": "refs/heads/main",
+        "rev": "16892445aad8938903cdf63e24000d046dd041c0",
+        "revCount": 21,
+        "type": "git",
+        "url": "https://tangled.org/csw.im/tangled-catppuccin"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://tangled.org/csw.im/tangled-catppuccin"
       }
     },
     "tinted-kitty": {

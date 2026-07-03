@@ -1,7 +1,7 @@
 {
   flake-file.inputs = {
     nix-userstyles = {
-      url = "github:adam01110/nix-userstyles";
+      url = "git+https://tangled.org/adam0.dev/nix-userstyles";
       inputs = {
         # keep-sorted start
         flake-parts.follows = "flake-parts";
