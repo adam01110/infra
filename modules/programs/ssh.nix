@@ -20,6 +20,13 @@
           IdentityFile = "~/.ssh/git";
         };
 
+        knot = {
+          HostName = "knot.${groundDomain}";
+          IdentityFile = "~/.ssh/git";
+          Port = 2223;
+          User = "git";
+        };
+
         euclid = {
           HostKeyAlias = "euclid.${groundDomain}";
           HostName = "127.0.0.1";

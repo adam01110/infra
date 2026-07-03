@@ -27,6 +27,7 @@
         modrinthify
         pronoundb
         return-youtube-dislikes
+        terms-of-service-didnt-read
         translate-web-pages
         violentmonkey
         wikiwand-wikipedia-modernized
@@ -46,9 +47,12 @@
       );
     in
       (mkExtensionSettings {
+        # keep-sorted start
+        "@crw-extension-firefox" = "consumer-rights-wiki";
+        "helloyanis@ageverif-bypass" = "age-verification-bypass";
         "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}" = "ttv-lol-pro";
         "{microslop@4o4}" = "microslop";
-        "@crw-extension-firefox" = "consumer-rights-wiki";
+        # keep-sorted end
       })
       // {
         "magnolia@12.34" = {

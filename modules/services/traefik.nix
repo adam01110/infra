@@ -22,6 +22,7 @@
         "traefik/mail" = {};
 
         "traefik/porkbun_api_key" = {};
+
         "traefik/porkbun_secret_api_key" = {};
         # keep-sorted end
       };

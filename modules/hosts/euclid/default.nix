@@ -110,6 +110,8 @@
       wants = ["podman.socket"];
     };
 
+    # Public Git SSH port for the Tangled knot container.
+    networking.firewall.allowedTCPPorts = [2223];
     networking.firewall.allowedUDPPorts = [7359];
 
     # Primary nvme disk for disko partitioning.

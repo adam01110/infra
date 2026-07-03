@@ -19,6 +19,7 @@
     inputs,
     lib,
     pkgs,
+    vars,
     # keep-sorted end
     ...
   }: let
@@ -27,6 +28,8 @@
     inherit (lib.self) stylixPalette;
 
     inherit (pkgs.stdenv.hostPlatform) system;
+
+    inherit (vars) groundDomain;
 
     # Convert the stylix base16 scheme into a format accepted by nix-userstyles.
     palette = stylixPalette config;
@@ -94,6 +97,7 @@
             "searchix"
             "spotify-web"
             "stack-overflow"
+            "tangled"
             "twitch"
             "web.dev"
             "wiki.nixos.org"
@@ -105,7 +109,7 @@
 
             {
               name = "anonymous-overflow";
-              sites = [''domain("anonymous-overflow.zezura.xyz")''];
+              sites = [''domain("anonymous-overflow.${groundDomain}")''];
             }
           ];
 

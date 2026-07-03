@@ -202,3 +202,77 @@ time[datetime]:hover::after {
 #slate-toolbar::before {
   border-top: 8px solid var(--background-base-low);
 }
+
+/* Fix vc text being cut off. */
+.callContainer_cb9592::after {
+  display: none !important;
+}
+.wrapper_cb9592::after {
+  content: "vc";
+  display: block;
+  color: var(--label-color);
+  font-weight: var(--label-font-weight);
+  position: absolute;
+  top: -10px;
+  left: 8px;
+  background-color: var(--background-base-low);
+  padding: 0 4px;
+  z-index: 100;
+  font-size: 16px;
+  transition: color var(--border-hover-transition);
+}
+.wrapper_cb9592:hover.wrapper_cb9592::after {
+  color: var(--label-hover-color);
+}
+
+/* Fix background blur. */
+[class="layers__960e4 layers__160d8"] {
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Fix menus background. */
+.menu_c1e9c4::before {
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+}
+.submenu_c1e9c4.menu_c1e9c4::before {
+  width: calc(100% - 18px) !important;
+}
+
+/* Report popup hover effect fix. */
+.root__49fc1.small__49fc1.fullscreenOnMobile__49fc1.rootWithShadow__49fc1 {
+  border: var(--border-thickness) solid var(--border-subtle) !important;
+  transition: border-color var(--border-hover-transition) !important;
+
+  &:hover {
+    border-color: var(--border-hover) !important;
+  }
+}
+
+/* Fix panel labels colors */
+.wrapper_cb9592,
+.guilds__5e434,
+.panels__5e434,
+.sidebarList__5e434,
+.subtitleContainer_f75fb0,
+.messagesWrapper__36d07,
+.channelTextArea_f75fb0,
+.content_f75fb0 > .membersWrap_c8ffbb,
+.container_c8ffbb,
+.container__133bf > .container__9293f,
+.peopleColumn__133bf,
+.nowPlayingColumn__133bf,
+.container__01ae2 > .container__9293f,
+.callContainer_cb9592 {
+  &::after {
+    background: hsl(from var(--bg-4) h s l / 1);
+  }
+}
+.divider__908e2 .content__908e2 {
+  background: var(--border-subtle);
+}
+
+/* Fix vc top border thickness. */
+.callContainer_cb9592 {
+  border-top-width: 2px !important;
+}

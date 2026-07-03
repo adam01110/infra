@@ -26,6 +26,8 @@
 
     disko.devices = (self.diskoConfigurations.btrfs config.disko.selectedDisk).disko.devices;
 
+    boot.kernel.sysctl."vm.overcommit_memory" = 1;
+
     powerManagement.cpuFreqGovernor = "performance";
 
     # Shell config exists before TTY/SSH login.
