@@ -11,4 +11,4 @@ steps:
   - name: "Run checks"
     command: |
       set -euo pipefail
-      nix flake check
+      nix --extra-experimental-features pipe-operators flake check

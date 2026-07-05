@@ -60,42 +60,15 @@
           };
 
           # Disabled (hidden).
+          # keep-sorted start
           bing.metaData.hidden = true;
           ddg.metaData.hidden = true;
-          qwant.metaData.hidden = true;
           ecosia.metaData.hidden = true;
+          qwant.metaData.hidden = true;
+          # keep-sorted end
 
           # Nix related search engines.
-          nix = {
-            urls = [
-              {
-                template = "https://searchix.ovh/";
-                params = [
-                  {
-                    name = "query";
-                    value = "{searchTerms}";
-                  }
-                ];
-              }
-            ];
-            icon = nixIcon;
-            definedAliases = ["@n"];
-          };
-          nixos = {
-            urls = [
-              {
-                template = "https://searchix.ovh/options/nixos/search";
-                params = [
-                  {
-                    name = "query";
-                    value = "{searchTerms}";
-                  }
-                ];
-              }
-            ];
-            icon = nixIcon;
-            definedAliases = ["@no"];
-          };
+          # keep-sorted start block=yes
           "home-manager" = {
             urls = [
               {
@@ -126,6 +99,36 @@
             icon = nixIcon;
             definedAliases = ["@np"];
           };
+          nix = {
+            urls = [
+              {
+                template = "https://searchix.ovh/";
+                params = [
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = nixIcon;
+            definedAliases = ["@n"];
+          };
+          nixos = {
+            urls = [
+              {
+                template = "https://searchix.ovh/options/nixos/search";
+                params = [
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = nixIcon;
+            definedAliases = ["@no"];
+          };
           nur = {
             urls = [
               {
@@ -141,23 +144,10 @@
             icon = nixIcon;
             definedAliases = ["@nu"];
           };
+          # keep-sorted end
 
           # Wiki.
-          "nixos-wiki" = {
-            urls = [
-              {
-                template = "https://wiki.nixos.org/w/index.php";
-                params = [
-                  {
-                    name = "search";
-                    value = "{searchTerms}";
-                  }
-                ];
-              }
-            ];
-            icon = nixIcon;
-            definedAliases = ["@nw"];
-          };
+          # keep-sorted start block=yes
           "arch-wiki" = {
             urls = [
               {
@@ -188,8 +178,25 @@
             iconMapObj."16" = "https://minecraft.wiki/favicon.ico";
             definedAliases = ["@mw"];
           };
+          "nixos-wiki" = {
+            urls = [
+              {
+                template = "https://wiki.nixos.org/w/index.php";
+                params = [
+                  {
+                    name = "search";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = nixIcon;
+            definedAliases = ["@nw"];
+          };
+          # keep-sorted end
 
           # Development resources.
+          # keep-sorted start block=yes
           crates = {
             urls = [
               {
@@ -239,6 +246,7 @@
             iconMapObj."16" = "https://github.com/favicon.ico";
             definedAliases = ["@gh"];
           };
+          # keep-sorted end
         };
       };
     };

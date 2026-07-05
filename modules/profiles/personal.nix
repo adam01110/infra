@@ -85,6 +85,7 @@
       cpond
       diffnav
       direnv
+      gen-license
       gitfetch
       onefetch
       pipes
@@ -117,13 +118,17 @@
       seahorse
       showtime
       spotify
+      tangled
       zaread
       zathura
       zen
       # keep-sorted end
 
       # Services
+      # keep-sorted start
       flatpak
+      rclone
+      # keep-sorted end
     ];
   };
 }

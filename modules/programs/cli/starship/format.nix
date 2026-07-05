@@ -28,14 +28,7 @@
       "$jobs"
 
       "$fossil_branch"
-      "[ ](#00000000)"
-      "[ ](bg:base01)"
-      "$git_branch"
-      "[ ](bg:base01)"
-      "$git_commit"
-      "$git_state"
-      "$git_status"
-      "[ ](bg:base01)"
+      "\${custom.jj}"
 
       "$package"
 

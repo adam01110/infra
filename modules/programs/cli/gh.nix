@@ -14,8 +14,17 @@
 
     ghWrapper = writeShellApplication {
       name = "gh";
-      runtimeInputs = [pkgs.coreutils];
+      runtimeInputs = with pkgs; [
+        # keep-sorted start
+        coreutils
+        jujutsu
+        # keep-sorted end
+      ];
       text = ''
+        if [ -z "''${GIT_DIR:-}" ] && git_dir="$(jj git root 2>/dev/null)"; then
+          export GIT_DIR="$git_dir"
+        fi
+
         GH_TOKEN="$(cat "${config.sops.secrets.github_token.path}")"
         export GH_TOKEN
         exec "${getExe pkgs.gh}" "$@"

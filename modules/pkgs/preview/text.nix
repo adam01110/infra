@@ -3,8 +3,10 @@
     packages.text-preview = pkgs.writeShellApplication {
       name = "text-preview";
       runtimeInputs = with pkgs; [
-        file
+        # keep-sorted start
         bat
+        file
+        # keep-sorted end
       ];
       text = ''
         path="''${1-}"

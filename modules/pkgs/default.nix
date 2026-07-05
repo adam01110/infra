@@ -16,6 +16,7 @@
       performant-mode
       pptx2md-adapter
       proton-port-forward
+      rclone-bisync-runner
       systemd-status-preview
       telescope-all-recent-nvim
       text-preview

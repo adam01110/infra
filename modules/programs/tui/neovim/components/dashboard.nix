@@ -317,16 +317,22 @@
           {
             pane = 2;
             icon = "";
-            title = "Git Status";
+            title = "VCS Status";
             section = "terminal";
             cmd = getExe (pkgs.writeShellApplication {
-              name = "dashboard-git-status";
+              name = "dashboard-vcs-status";
               runtimeInputs = with pkgs; [
+                # keep-sorted start
                 gawk
                 git
+                jujutsu
+                # keep-sorted end
               ];
               text = ''
-                if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+                if jj root >/dev/null 2>&1; then
+                  jj --color always status \
+                    | awk 'NR <= 6 { print; seen = 1 } END { if (!seen) print "No jj changes" }'
+                elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
                   git -c color.status=always status --short --branch --renames \
                     | awk 'NR <= 6 { print; seen = 1 } END { if (!seen) print "No git changes" }'
                 else

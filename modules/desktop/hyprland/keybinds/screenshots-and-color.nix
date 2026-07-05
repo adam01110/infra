@@ -13,7 +13,7 @@
     # keep-sorted start
     hyprpicker = getExe pkgs.hyprpicker;
     hyprshot = getExe config.programs.hyprshot.package;
-    screenshotDir = "${config.xdg.userDirs.pictures}/Screenshots";
+    screenshotDir = "${config.xdg.userDirs.pictures}/screenshots";
     # keep-sorted end
   in {
     config.programs.hylix.bindGroups = [

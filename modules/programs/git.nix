@@ -2,14 +2,11 @@
   flake.modules.homeManager.git = {
     # keep-sorted start
     config,
-    lib,
-    osConfig,
     pkgs,
     vars,
     # keep-sorted end
     ...
   }: let
-    inherit (lib.self) blendHex;
     inherit
       (vars)
       # keep-sorted start
@@ -19,8 +16,6 @@
       username
       # keep-sorted end
       ;
-
-    colors = osConfig.lib.stylix.colors.withHashtag;
   in {
     sops = {
       secrets = {
@@ -43,14 +38,8 @@
     home.file.".ssh/git.pub".text = gitPublicSshkey;
 
     programs = {
-      git = let
-        # Use git full so the libsecret credential helper is available.
-        gitPackage = pkgs.gitFull;
-      in {
+      git = {
         enable = true;
-        lfs.enable = true;
-
-        package = gitPackage;
 
         settings = {
           user = {
@@ -66,49 +55,11 @@
           # keep-sorted end
 
           # Store https credentials via the desktop keyring (libsecret).
-          credential.helper = "${gitPackage}/libexec/git-core/git-credential-libsecret";
+          credential.helper = "${pkgs.git}/libexec/git-core/git-credential-libsecret";
         };
 
         # Include the sops-generated snippet to set the email.
         includes = [{inherit (config.sops.templates."git-config") path;}];
-      };
-
-      delta = {
-        enable = true;
-        enableGitIntegration = true;
-
-        options = with colors; {
-          true-color = "always";
-          line-numbers = true;
-          side-by-side = true;
-          syntax-theme = "base16-stylix";
-
-          # Let the desktop MIME handler open linked files.
-          hyperlinks = true;
-          hyperlinks-file-link-format = "file://{path}#{line}";
-
-          # keep-sorted start
-          blame-palette = "${base00} ${base01} ${base02}";
-          file-style = "${base0D} bold";
-          hunk-header-decoration-style = "${base0D} ul";
-          hunk-header-file-style = "${base0D} ul bold";
-          hunk-header-line-number-style = "${base0A} box bold";
-          line-numbers-left-style = base0D;
-          line-numbers-minus-style = base08;
-          line-numbers-plus-style = base0B;
-          line-numbers-right-style = base0D;
-          line-numbers-zero-style = base03;
-          merge-conflict-ours-diff-header-decoration-style = "${base0D} box";
-          merge-conflict-ours-diff-header-style = "${base0A} bold";
-          merge-conflict-theirs-diff-header-decoration-style = "${base0D} box";
-          merge-conflict-theirs-diff-header-style = "${base0A} bold";
-          minus-emph-style = "${base00} ${blendHex 34 base00 base08}";
-          minus-style = "syntax ${blendHex 22 base00 base08}";
-          plus-emph-style = "${base00} ${blendHex 34 base00 base0B}";
-          plus-style = "syntax ${blendHex 22 base00 base0B}";
-          whitespace-error-style = "${base00} bold";
-          # keep-sorted end
-        };
       };
     };
     # keep-sorted end

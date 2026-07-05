@@ -70,10 +70,14 @@
         # keep-sorted end
 
         # Programs
+        # keep-sorted start
+        delta
         git
+        jujutsu
         nur
         sops
         shellAbbreviations
+        # keep-sorted end
 
         # CLI
         # keep-sorted start

@@ -5,33 +5,43 @@
       font-feature = "-calt, -liga, -dlig";
 
       # Cursor settings.
+      # keep-sorted start
       cursor-style = "block";
       cursor-style-blink = true;
       shell-integration-features = "no-cursor,ssh-terminfo,ssh-env";
+      # keep-sorted end
 
       # Appearance settings.
-      window-theme = "system";
-      window-decoration = "none";
+      # keep-sorted start
       gtk-titlebar = false;
+      resize-overlay = "never";
+      window-decoration = "none";
       window-padding-x = 2;
       window-padding-y = 2;
-      resize-overlay = "never";
+      window-theme = "system";
+      # keep-sorted end
 
       # Misc settings.
-      copy-on-select = false;
+      # keep-sorted start
       auto-update = "off";
       confirm-close-surface = false;
+      copy-on-select = false;
       right-click-action = "ignore";
+      # keep-sorted end
 
       # Improve startup time.
-      quit-after-last-window-closed = false;
+      # keep-sorted start
       gtk-single-instance = true;
+      quit-after-last-window-closed = false;
+      # keep-sorted end
 
       # Disable directory inherit.
-      working-directory = "home";
-      window-inherit-working-directory = false;
-      tab-inherit-working-directory = false;
+      # keep-sorted start
       split-inherit-working-directory = false;
+      tab-inherit-working-directory = false;
+      window-inherit-working-directory = false;
+      working-directory = "home";
+      # keep-sorted end
     };
   };
 }
