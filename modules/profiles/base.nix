@@ -75,8 +75,8 @@
         git
         jujutsu
         nur
-        sops
         shellAbbreviations
+        sops
         # keep-sorted end
 
         # CLI

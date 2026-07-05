@@ -9,13 +9,21 @@
   }: let
     inherit (lib) getExe;
     inherit (lib.self) starshipJjTrueColor;
+    stylixColors = config.lib.stylix.colors.withHashtag;
+
+    ansiColor = value: let
+      color = starshipJjTrueColor value;
+    in "${toString color.TrueColor.r};${toString color.TrueColor.g};${toString color.TrueColor.b}";
+
+    changeUniqueStyle = "1;48;2;${ansiColor stylixColors.base01};38;2;${ansiColor stylixColors.base0E}";
+    changeRestStyle = "1;48;2;${ansiColor stylixColors.base01};38;2;${ansiColor stylixColors.base04}";
+
     inherit
-      (builtins.mapAttrs (_: starshipJjTrueColor) config.lib.stylix.colors.withHashtag)
+      (builtins.mapAttrs (_: starshipJjTrueColor) stylixColors)
       # keep-sorted start
       base01
       base08
       base0A
-      base0B
       base0E
       # keep-sorted end
       ;
@@ -31,14 +39,6 @@
 
       module = [
         {
-          type = "Symbol";
-          symbol = " ";
-          color = base0E;
-          bg_color = base01;
-          bold = true;
-        }
-
-        {
           type = "Bookmarks";
           separator = " ";
           color = base0E;
@@ -47,31 +47,6 @@
           behind_symbol = "⇡";
           ignore_empty_commits = "None";
           max_bookmarks = 1;
-          surround_with_quotes = false;
-        }
-
-        {
-          type = "Commit";
-          color = base0B;
-          bg_color = base01;
-          bold = true;
-
-          change = {
-            color = base0B;
-            bg_color = base01;
-            bold = true;
-          };
-
-          commit = {
-            color = base0B;
-            bg_color = base01;
-            bold = true;
-          };
-
-          empty_text = "(no description set)";
-          max_length = 24;
-          previous_message_symbol = "⇣";
-          show_previous_if_empty = false;
           surround_with_quotes = false;
         }
 
@@ -94,6 +69,7 @@
           };
 
           empty = {
+            disabled = true;
             text = "empty";
             color = base0A;
             bg_color = base01;
@@ -101,6 +77,7 @@
           };
 
           hidden = {
+            disabled = true;
             text = "hidden";
             color = base0A;
             bg_color = base01;
@@ -108,6 +85,7 @@
           };
 
           immutable = {
+            disabled = true;
             text = "immutable";
             color = base0A;
             bg_color = base01;
@@ -145,13 +123,34 @@
         }
       ];
     };
+
+    starshipJjPrompt = pkgs.writeShellApplication {
+      name = "starship-jj-prompt";
+      runtimeInputs = [
+        pkgs.jujutsu
+        pkgs.starship-jj
+      ];
+      text = ''
+        unique="$(jj log --ignore-working-copy --no-graph -r @ -T 'change_id.shortest()' 2>/dev/null)"
+        display="$(jj log --ignore-working-copy --no-graph -r @ -T 'change_id.shortest(8)' 2>/dev/null)"
+        rest="''${display#"$unique"}"
+
+        printf '\033[${changeUniqueStyle}m%s' "$unique"
+        printf '\033[${changeRestStyle}m%s ' "$rest"
+        exec starship-jj --ignore-working-copy starship prompt --starship-config ${starshipJjConfig}
+      '';
+    };
   in {
     programs.starship.settings = {
       # keep-sorted start block=yes newline_separated=yes
       custom.jj = {
-        command = "${getExe pkgs.starship-jj} --ignore-working-copy starship prompt --starship-config ${starshipJjConfig}";
+        command = getExe starshipJjPrompt;
         format = "[ ](#00000000)[ ](bg:base01)[$output]($style)[ ](bg:base01)";
         ignore_timeout = true;
+        shell = [
+          "${getExe pkgs.fish}"
+          "-c"
+        ];
         style = "bg:base01 fg:base0E bold";
         use_stdin = false;
         when = "${getExe pkgs.starship-jj} root --quiet";
