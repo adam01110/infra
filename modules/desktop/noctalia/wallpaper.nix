@@ -5,7 +5,7 @@
     programs.noctalia-shell.settings.wallpaper = {
       # keep-sorted start block=yes
       automationEnabled = true;
-      directory = "${picturesDir}/Wallpapers";
+      directory = "${picturesDir}/wallpapers";
       hideWallpaperFilenames = true;
       overviewEnabled = true;
       panelPosition = "center";

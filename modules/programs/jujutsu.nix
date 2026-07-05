@@ -42,10 +42,14 @@
     programs.jujutsu = {
       enable = true;
 
-      settings.signing = {
-        backend = "gpg";
-        behavior = "own";
-        key = gitSigningKey;
+      settings = {
+        signing = {
+          backend = "gpg";
+          behavior = "own";
+          key = gitSigningKey;
+        };
+
+        ui.default-command = "log";
       };
     };
     # keep-sorted end

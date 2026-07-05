@@ -10,8 +10,8 @@
       crowdsec-blocklist-import
       djvutorga-adapter
       gotify-optimize-images
+      jj-conflict-nvim
       man-preview
-      nocheatsheet-nvim
       os-age
       performant-mode
       pptx2md-adapter

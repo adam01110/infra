@@ -1,6 +1,6 @@
 {inputs, ...}: {
   flake-file.inputs.overzicht = {
-    url = "github:adam01110/overzicht";
+    url = "git+https://tangled.org/adam0.dev/overzicht";
     inputs = {
       # keep-sorted start
       flake-parts.follows = "flake-parts";
@@ -28,6 +28,19 @@
         panelOpacity = 0.93;
         windowOverlayOpacity = 0.06;
         workspaceOpacity = 1;
+        # keep-sorted end
+      };
+
+      settings.appearance.rounding = {
+        # keep-sorted start
+        full = 0;
+        large = 0;
+        normal = 0;
+        screenRounding = 0;
+        small = 0;
+        unsharpen = 0;
+        verysmall = 0;
+        windowRounding = 0;
         # keep-sorted end
       };
     };
