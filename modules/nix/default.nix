@@ -1,8 +1,24 @@
 {lib, ...}: {
-  flake.modules.nixos.nix = {config, ...}: {
+  flake.modules.nixos.nix = {
+    # keep-sorted start
+    config,
+    vars,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (vars) username;
+  in {
     sops = {
       secrets."nix_access_tokens/github" = {};
-      templates.access_tokens.content = ''access-tokens = github.com=${config.sops.placeholder."nix_access_tokens/github"}'';
+      secrets."nix_access_tokens/ncps" = {};
+      templates.access_tokens = {
+        content = let
+          ncpsHost = "ncps.${vars.groundDomain}";
+        in ''
+          access-tokens = github.com=${config.sops.placeholder."nix_access_tokens/github"} ${ncpsHost}=${config.sops.placeholder."nix_access_tokens/ncps"}
+        '';
+        owner = username;
+      };
     };
 
     nix = {

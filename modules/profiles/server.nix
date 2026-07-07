@@ -19,7 +19,6 @@
       # keep-sorted start
       btrfs-autoscrub
       hawser
-      podman
       ssh
       # keep-sorted end
     ];

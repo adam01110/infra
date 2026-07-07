@@ -32,6 +32,7 @@
         firewall
         locate
         network
+        podman
         timesyncd
         tmp
         udisks2

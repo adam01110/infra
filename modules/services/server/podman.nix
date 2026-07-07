@@ -14,8 +14,8 @@
     virtualisation = {
       podman = {
         enable = true;
-        # Expose docker-compatible socket for tooling that expects dockerd.
         dockerSocket.enable = true;
+        dockerCompat = true;
       };
 
       # Disable the podman compose warning about external command execution.

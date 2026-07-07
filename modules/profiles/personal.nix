@@ -4,6 +4,7 @@
       # Profiles
       # keep-sorted start
       base
+      ncps
       stylixPersonal
       # keep-sorted end
 

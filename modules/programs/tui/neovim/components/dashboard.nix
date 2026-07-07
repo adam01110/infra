@@ -12,8 +12,8 @@
     inherit
       (pkgs)
       #keep-sorted start
-      writeText
       writeShellApplication
+      writeText
       #keep-sorted end
       ;
 
@@ -411,6 +411,7 @@
           }
         ];
       };
+
     };
     # keep-sorted end
   };
