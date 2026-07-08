@@ -10,14 +10,27 @@
   in {
     sops = {
       secrets."nix_access_tokens/github" = {};
-      secrets."nix_access_tokens/ncps" = {};
-      templates.access_tokens = {
-        content = let
-          ncpsHost = "ncps.${vars.groundDomain}";
-        in ''
-          access-tokens = github.com=${config.sops.placeholder."nix_access_tokens/github"} ${ncpsHost}=${config.sops.placeholder."nix_access_tokens/ncps"}
-        '';
-        owner = username;
+
+      templates = {
+        access_tokens = {
+          content = ''
+            access-tokens = github.com=${config.sops.placeholder."nix_access_tokens/github"}
+          '';
+          owner = username;
+        };
+
+        nix-netrc = {
+          content = let
+            ncpsHost = "ncps.${vars.groundDomain}";
+          in ''
+            machine ${ncpsHost}
+              login nix
+              password ${config.sops.placeholder."nix_access_tokens/ncps"}
+          '';
+          group = "root";
+          mode = "0400";
+          owner = "root";
+        };
       };
     };
 
@@ -33,10 +46,8 @@
           # keep-sorted end
         ];
       in {
-        # Add binary caches.
         inherit substituters;
 
-        # Allow trusted users to opt into the same caches from per-user config.
         trusted-substituters = substituters;
 
         trusted-public-keys = [
@@ -49,6 +60,8 @@
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           # keep-sorted end
         ];
+
+        netrc-file = config.sops.templates.nix-netrc.path;
 
         experimental-features = [
           # keep-sorted start
@@ -66,7 +79,7 @@
       };
 
       # Load access tokens from the generated sops template.
-      extraOptions = "!include ${config.sops.templates."access_tokens".path}";
+      extraOptions = "!include ${config.sops.templates.access_tokens.path}";
     };
 
     nixpkgs.config = {
