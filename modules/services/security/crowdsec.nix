@@ -1,7 +1,7 @@
 {inputs, ...}: {
   flake-file = {
     inputs.nixpkgs-crowdsec = {
-      url = "github:TornaxO7/nixpkgs/crowdsec";
+      url = "github:TornaxO7/nixpkgs/saltsprint";
     };
 
     inputs.nixpkgs-crowdsec-blocklist-import = {
@@ -49,7 +49,6 @@
     services.crowdsec = {
       enable = true;
       autoUpdateService = true;
-      openFirewall = false;
 
       hub = {
         collections = [
@@ -110,6 +109,7 @@
       # keep-sorted start
       getExe
       mkForce
+      mkMerge
       # keep-sorted end
       ;
 
@@ -122,8 +122,10 @@
     proxyPort = "12346";
 
     setupDeps = [
+      # keep-sorted start
       "postgresql.service"
       "sops-install-secrets.service"
+      # keep-sorted end
     ];
 
     setupUnit = {
@@ -262,6 +264,7 @@
           # keep-sorted start
           "crowdsec-blocklist-gotify-proxy.service"
           "crowdsec-firewall-bouncer-register.service"
+          "gotify-server.service"
           "sops-install-secrets.service"
           # keep-sorted end
         ];
@@ -269,11 +272,22 @@
           # keep-sorted start
           "crowdsec-blocklist-gotify-proxy.service"
           "crowdsec-firewall-bouncer-register.service"
+          "gotify-server.service"
           "sops-install-secrets.service"
           # keep-sorted end
         ];
 
-        serviceConfig.EnvironmentFile = templates."crowdsec-blocklist-import-env".path;
+        serviceConfig = {
+          EnvironmentFile = templates."crowdsec-blocklist-import-env".path;
+          StateDirectory = mkForce [];
+
+          ReadWritePaths = [
+            # keep-sorted start
+            "/var/lib/crowdsec"
+            "/var/lib/crowdsec-firewall-bouncer-register"
+            # keep-sorted end
+          ];
+        };
       };
 
       crowdsec-blocklist-import-limited = {
@@ -281,6 +295,7 @@
           # keep-sorted start
           "crowdsec-blocklist-gotify-proxy.service"
           "crowdsec-firewall-bouncer-register.service"
+          "gotify-server.service"
           "sops-install-secrets.service"
           # keep-sorted end
         ];
@@ -288,21 +303,47 @@
           # keep-sorted start
           "crowdsec-blocklist-gotify-proxy.service"
           "crowdsec-firewall-bouncer-register.service"
+          "gotify-server.service"
           "sops-install-secrets.service"
           # keep-sorted end
         ];
 
-        serviceConfig.EnvironmentFile = templates."crowdsec-blocklist-import-env".path;
+        serviceConfig = {
+          EnvironmentFile = templates."crowdsec-blocklist-import-env".path;
+          StateDirectory = mkForce [];
+
+          ReadWritePaths = [
+            # keep-sorted start
+            "/var/lib/crowdsec"
+            "/var/lib/crowdsec-firewall-bouncer-register"
+            # keep-sorted end
+          ];
+        };
       };
 
       crowdsec-blocklist-gotify-proxy = {
         description = "Transform blocklist-import webhook payload for Gotify";
 
-        after = ["sops-install-secrets.service"];
+        after = [
+          # keep-sorted start
+          "gotify-server.service"
+          "sops-install-secrets.service"
+          # keep-sorted end
+        ];
         stopIfChanged = false;
-        wants = ["sops-install-secrets.service"];
+        wants = [
+          # keep-sorted start
+          "gotify-server.service"
+          "sops-install-secrets.service"
+          # keep-sorted end
+        ];
 
-        wantedBy = ["crowdsec-blocklist-import-frequent.service" "crowdsec-blocklist-import-limited.service"];
+        wantedBy = [
+          # keep-sorted start
+          "crowdsec-blocklist-import-frequent.service"
+          "crowdsec-blocklist-import-limited.service"
+          # keep-sorted end
+        ];
 
         serviceConfig = {
           # keep-sorted start
@@ -310,8 +351,6 @@
           ExecStart = "${getExe pkgs.socat} TCP-LISTEN:${proxyPort},bind=127.0.0.1,fork,reuseaddr SYSTEM:${getExe pkgs.crowdsec-blocklist-gotify-proxy}";
           LoadCredential = ["gotify_api_key:${secrets."crowdsec/gotify_api_key".path}"];
           Restart = "on-failure";
-          StateDirectory = "crowdsec";
-          StateDirectoryMode = "0750";
           SuccessExitStatus = [143];
           Type = "simple";
           # keep-sorted end
@@ -365,21 +404,32 @@
           exit 1
         '';
 
-        serviceConfig = {
-          # keep-sorted start
-          DynamicUser = true;
-          Group = config.services.crowdsec.group;
-          StateDirectory = "crowdsec";
-          StateDirectoryMode = "0750";
-          User = config.services.crowdsec.user;
-          # keep-sorted end
+        serviceConfig = mkMerge [
+          {
+            StateDirectory = mkForce [];
 
-          # keep-sorted start
-          LoadCredential = ["traefik_bouncer_key:${secrets."traefik/crowdsec_bouncer_key".path}"];
-          RemainAfterExit = true;
-          Type = "oneshot";
-          # keep-sorted end
-        };
+            ReadWritePaths = [
+              # keep-sorted start
+              "/var/lib/crowdsec"
+              "/var/lib/crowdsec/data"
+              # keep-sorted end
+            ];
+          }
+
+          {
+            # keep-sorted start
+            DynamicUser = true;
+            Group = config.services.crowdsec.group;
+            User = config.services.crowdsec.user;
+            # keep-sorted end
+
+            # keep-sorted start
+            LoadCredential = ["traefik_bouncer_key:${secrets."traefik/crowdsec_bouncer_key".path}"];
+            RemainAfterExit = true;
+            Type = "oneshot";
+            # keep-sorted end
+          }
+        ];
       };
     };
   };

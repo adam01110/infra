@@ -141,6 +141,17 @@
             match = {
               # keep-sorted start
               class = "com.mitchellh.ghostty";
+              title = "Termfilechooser";
+              # keep-sorted end
+            };
+
+            float = true;
+          }
+
+          {
+            match = {
+              # keep-sorted start
+              class = "com.mitchellh.ghostty";
               title = "Wiremix";
               # keep-sorted end
             };

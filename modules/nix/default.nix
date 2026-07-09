@@ -10,6 +10,7 @@
   in {
     sops = {
       secrets."nix_access_tokens/github" = {};
+      secrets."nix_access_tokens/ncps" = {};
 
       templates = {
         access_tokens = {

@@ -64,7 +64,7 @@
       inputs.flake-parts.follows = "flake-parts";
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
-    nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/crowdsec";
+    nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/saltsprint";
     nixpkgs-crowdsec-blocklist-import.url = "github:gaelj/nixpkgs/init-crowdsec-blocklist-import";
     noctalia = {
       url = "github:noctalia-dev/noctalia?ref=legacy-v4";
@@ -92,7 +92,7 @@
       };
     };
     overzicht = {
-      url = "github:adam01110/overzicht";
+      url = "git+https://tangled.org/adam0.dev/overzicht";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
