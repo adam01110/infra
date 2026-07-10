@@ -9,7 +9,7 @@
   }: let
     inherit (vars) username;
   in {
-    sops.secrets."mysql/admin_password" = {};
+    sops.secrets.mysql_admin_password = {};
 
     services.mysql = {
       enable = true;
@@ -81,7 +81,7 @@
         # keep-sorted end
 
         # keep-sorted start
-        LoadCredential = ["admin_password:${config.sops.secrets."mysql/admin_password".path}"];
+        LoadCredential = ["admin_password:${config.sops.secrets.mysql_admin_password.path}"];
         RemainAfterExit = true;
         # keep-sorted end
       };

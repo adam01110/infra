@@ -12,7 +12,7 @@
 
     inherit (vars) username;
   in {
-    sops.secrets."postgres/admin_password" = {};
+    sops.secrets.postgres_admin_password = {};
 
     services.postgresql = {
       enable = true;
@@ -116,7 +116,7 @@
         # keep-sorted end
 
         # keep-sorted start
-        LoadCredential = ["admin_password:${config.sops.secrets."postgres/admin_password".path}"];
+        LoadCredential = ["admin_password:${config.sops.secrets.postgres_admin_password.path}"];
         RemainAfterExit = true;
         # keep-sorted end
       };

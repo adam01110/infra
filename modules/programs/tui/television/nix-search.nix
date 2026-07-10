@@ -120,8 +120,10 @@
       nix-index-database = {
         rawDoc = mkHomeManagerDoc inputs.nix-index-database.homeModules.nix-index;
         prefixes = [
-          "programs.nix-index-database"
+          # keep-sorted start
           "programs.nix-index"
+          "programs.nix-index-database"
+          # keep-sorted end
         ];
       };
 
@@ -171,11 +173,13 @@
       authentik-nix = {
         rawDoc = mkNixosDoc inputs.authentik-nix.nixosModules.default;
         prefixes = [
+          # keep-sorted start
           "services.authentik"
           "services.authentik-ldap"
           "services.authentik-proxy"
           "services.authentik-rac"
           "services.authentik-radius"
+          # keep-sorted end
         ];
       };
 

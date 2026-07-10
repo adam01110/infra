@@ -10,7 +10,7 @@
 
     cacheHost = "ncps.${vars.groundDomain}";
     cacheUrl = "https://${cacheHost}";
-    uploadKeySecret = "nix_secret_keys/ncps-upload-1";
+    uploadKeySecret = "nix_ncps_upload_secret_key";
 
     ncpsPublicKey = "${cacheHost}:jhlVJBu6bD3n1MCG153qnMFXLNfzqh7aBDK/gRULvdc=";
   in {

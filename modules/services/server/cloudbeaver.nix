@@ -16,11 +16,11 @@
     inherit (vars) groundDomain;
   in {
     sops = {
-      secrets."cloudbeaver/database_password" = {};
+      secrets.cloudbeaver_database_password = {};
 
       templates."cloudbeaver.env".content = ''
-        CLOUDBEAVER_DB_PASSWORD=${config.sops.placeholder."cloudbeaver/database_password"}
-        CLOUDBEAVER_QM_DB_PASSWORD=${config.sops.placeholder."cloudbeaver/database_password"}
+        CLOUDBEAVER_DB_PASSWORD=${config.sops.placeholder.cloudbeaver_database_password}
+        CLOUDBEAVER_QM_DB_PASSWORD=${config.sops.placeholder.cloudbeaver_database_password}
       '';
     };
 
@@ -93,7 +93,7 @@
             # keep-sorted end
 
             # keep-sorted start
-            LoadCredential = ["database_password:${secrets."cloudbeaver/database_password".path}"];
+            LoadCredential = ["database_password:${secrets.cloudbeaver_database_password.path}"];
             RemainAfterExit = true;
             # keep-sorted end
           };

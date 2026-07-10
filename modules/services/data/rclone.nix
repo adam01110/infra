@@ -71,8 +71,8 @@
   in {
     sops.secrets = {
       # keep-sorted start
-      "rclone/copyparty/basic_auth_header" = {};
-      "rclone/google/token" = {};
+      "rclone/copyparty_basic_auth_header" = {};
+      "rclone/google_token" = {};
       # keep-sorted end
     };
 
@@ -93,7 +93,7 @@
             options.vfs-cache-mode = "writes";
           };
 
-          secrets.headers = config.sops.secrets."rclone/copyparty/basic_auth_header".path;
+          secrets.headers = config.sops.secrets."rclone/copyparty_basic_auth_header".path;
         };
 
         google = {
@@ -108,12 +108,19 @@
             options.vfs-cache-mode = "writes";
           };
 
-          secrets.token = config.sops.secrets."rclone/google/token".path;
+          secrets.token = config.sops.secrets."rclone/google_token".path;
         };
       };
     };
 
     systemd.user = {
+      tmpfiles.rules = [
+        # keep-sorted start
+        "d ${config.home.homeDirectory}/Remote/copyparty 0755 - - -"
+        "d ${config.home.homeDirectory}/Remote/google 0755 - - -"
+        # keep-sorted end
+      ];
+
       services =
         mapAttrs' (
           name: sync: nameValuePair "copyparty-${name}-bisync" (mkBisyncService name sync)
