@@ -10,7 +10,6 @@
       (vars)
       # keep-sorted start
       fullName
-      gitPublicSshkey
       gitSigningKey
       username
       # keep-sorted end
@@ -35,10 +34,6 @@
       };
     };
 
-    # keep-sorted start block=yes newline_separated=yes
-    # Publish the public key alongside the private key path.
-    home.file.".ssh/git.pub".text = gitPublicSshkey;
-
     programs.jujutsu = {
       enable = true;
 
@@ -52,6 +47,5 @@
         ui.default-command = "log";
       };
     };
-    # keep-sorted end
   };
 }
