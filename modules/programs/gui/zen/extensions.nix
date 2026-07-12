@@ -32,8 +32,6 @@
         violentmonkey
         wikiwand-wikipedia-modernized
         # keep-sorted end
-
-        kagi-search
       ];
     };
 
@@ -50,6 +48,7 @@
         # keep-sorted start
         "@crw-extension-firefox" = "consumer-rights-wiki";
         "helloyanis@ageverif-bypass" = "age-verification-bypass";
+        "knockoff@knockoff.shopping" = "knockoff";
         "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}" = "ttv-lol-pro";
         "{microslop@4o4}" = "microslop";
         # keep-sorted end

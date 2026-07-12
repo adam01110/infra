@@ -112,7 +112,6 @@
       mkMerge
       # keep-sorted end
       ;
-
     secrets = config.sops.secrets;
     templates = config.sops.templates;
 
@@ -258,6 +257,9 @@
     systemd.services = {
       crowdsec = setupUnit;
       crowdsec-setup = setupUnit;
+
+      # Reloading leaves AppSec acquisition stopped on CrowdSec 1.7.8.
+      crowdsec-update-hub.serviceConfig.ExecStartPost = mkForce ["+systemctl restart crowdsec.service"];
 
       crowdsec-blocklist-import-frequent = {
         after = [

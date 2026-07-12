@@ -4,6 +4,13 @@
       keymaps = [
         # keep-sorted start block=yes newline_separated=yes
         {
+          key = "<leader>Q";
+          mode = "n";
+          action = "<cmd>q!<cr>";
+          desc = "Force quit window";
+        }
+
+        {
           key = "<leader>q";
           mode = "n";
           action = "<cmd>q<cr>";

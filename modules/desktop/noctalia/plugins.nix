@@ -117,7 +117,7 @@
         web-search = {
           # keep-sorted start
           max_results = 5;
-          search_engine = "Kagi";
+          search_engine = "Brave Search";
           show_suggestions = false;
           # keep-sorted end
         };

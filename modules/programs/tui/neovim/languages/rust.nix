@@ -5,7 +5,10 @@
 
       extensions.crates-nvim = {
         enable = true;
-        setupOpts = {
+
+        setupOpts.popup = {
+          autofocus = true;
+          show_version_date = true;
         };
       };
     };
