@@ -70,8 +70,12 @@
         + ''
           substituteInPlace main.cpp \
             --replace-fail '#include <hyprland/src/animation/AnimationManager.hpp>' '#include <hyprland/src/managers/animation/AnimationManager.hpp>' \
+            --replace-fail '#include <hyprland/src/managers/fullscreen/FullscreenController.hpp>' "" \
             --replace-fail '#include <hyprland/src/desktop/state/WindowState.hpp>' "" \
-            --replace-fail 'Desktop::windowState()->windows()' 'g_pCompositor->m_windows'
+            --replace-fail 'Desktop::windowState()->windows()' 'g_pCompositor->m_windows' \
+            --replace-fail 'Fullscreen::controller()->isFullscreen(w.lock())' 'w->isFullscreen()' \
+            --replace-fail 'positionAnimation()' 'm_realPosition' \
+            --replace-fail 'sizeAnimation()' 'm_realSize'
         '';
     });
   in {

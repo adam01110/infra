@@ -197,11 +197,11 @@
     "catppuccin-userstyles": {
       "flake": false,
       "locked": {
-        "lastModified": 1781454464,
-        "narHash": "sha256-EerDaMwPCNjkVLZdcJkU2UGFn1FDKEBMAycEsw8ImsU=",
+        "lastModified": 1783836885,
+        "narHash": "sha256-8RSb6ud3jTRMN44fH2EAxOuRT4hxdAjIFwoTU5YxhXM=",
         "owner": "catppuccin",
         "repo": "userstyles",
-        "rev": "cef1f1429e459a8f76db2a1a2f2ccc9bd37e00b4",
+        "rev": "6afe54b76b4ad15db94ad5c8114ad748e4a4a96b",
         "type": "github"
       },
       "original": {
@@ -695,11 +695,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783119574,
-        "narHash": "sha256-jV2wdadHsBH4wNRSmxj0/KIXsmOhWzB6n+aVMRDjLeU=",
+        "lastModified": 1784143685,
+        "narHash": "sha256-Ei51FlJJxMupL2eSGfXxvqUCFlzWkoLUhzySH8+pFPo=",
         "ref": "refs/heads/main",
-        "rev": "ba06fe85d5708340d5bbbc6eeaca5da50f7e64e2",
-        "revCount": 14,
+        "rev": "3c45c8039c8a62cd528525f919c78472b70185cd",
+        "revCount": 15,
         "type": "git",
         "url": "https://tangled.org/adam0.dev/hylix"
       },
@@ -1237,11 +1237,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783109830,
-        "narHash": "sha256-eAMJWngshgYl9PKfJus6R/HsKH8dVMgXUgUEuKqPoDA=",
+        "lastModified": 1784143574,
+        "narHash": "sha256-Dq3i3MCs4AahykUaFl5vXxVoK9gQVjIzgn08f+YWhiE=",
         "ref": "refs/heads/main",
-        "rev": "9981ffb572c82154e244003cbf5766bbb3f17b06",
-        "revCount": 86,
+        "rev": "77b5e212760212bbbf852b63006d8ebe7d3833cf",
+        "revCount": 87,
         "type": "git",
         "url": "https://tangled.org/adam0.dev/nix-userstyles"
       },
@@ -1260,11 +1260,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1784134907,
-        "narHash": "sha256-gOhKspbHJGTz3VQ0wgfwk2PBJaq6Qhy5HFcnc3wsYeU=",
+        "lastModified": 1784137280,
+        "narHash": "sha256-hZeXaYv8enaEtc+8/hhPx8g+ul22xRJMOYwwWkBWquE=",
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "d3b4dc6c60d700f499333489f6d1777a21a58859",
+        "rev": "e6bab6344dc9f48a0b3764760ff53bbc2b9e34c3",
         "type": "github"
       },
       "original": {
@@ -1529,11 +1529,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784135397,
-        "narHash": "sha256-WA4PncTfkvOwCjP0LozKXjvvJ4sIOq2Cgh/f4Ucr0cE=",
+        "lastModified": 1784143765,
+        "narHash": "sha256-dBMNMSuB2pCGFY2AOCcUEKxcxR6ADyCEl1wkDx/nQ7E=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "28bd816a4e946d4cbfeb095af5fa9b986df74c75",
+        "rev": "f5fafa2e4263c03cb8641a574866a945329b88d3",
         "type": "github"
       },
       "original": {
@@ -1970,17 +1970,13 @@
     "tangled-catppuccin": {
       "flake": false,
       "locked": {
-        "lastModified": 1783094318,
-        "narHash": "sha256-B7kn9bplozrpusIn6RM75Wk41XTBKINy8xeTv9acI8M=",
-        "ref": "refs/heads/main",
-        "rev": "16892445aad8938903cdf63e24000d046dd041c0",
-        "revCount": 21,
-        "type": "git",
-        "url": "https://tangled.org/csw.im/tangled-catppuccin"
+        "narHash": "sha256-rSIl9hEnShlFMf5PjQ331s0iQHsqnkqwx+cd7eLQXvI=",
+        "type": "file",
+        "url": "https://tangled.org/csw.im/tangled-catppuccin/archive/main?format=tar.gz"
       },
       "original": {
-        "type": "git",
-        "url": "https://tangled.org/csw.im/tangled-catppuccin"
+        "type": "file",
+        "url": "https://tangled.org/csw.im/tangled-catppuccin/archive/main?format=tar.gz"
       }
     },
     "tinted-kitty": {
@@ -2186,11 +2182,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784113456,
-        "narHash": "sha256-dvOjuJ8p4k5sRlicRh+j8bnxI5uE+vKbfZ8KfEUqyQY=",
+        "lastModified": 1784140961,
+        "narHash": "sha256-jG6ZDco1zQTxIUAVw7Gc+m71pX4q/It7fiso1ozLFlI=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "0633aae2e5b3a813ae222fc7456a44c50efc5aeb",
+        "rev": "8f3cc4017a7bf96eb2e143597d474112433b4878",
         "type": "github"
       },
       "original": {

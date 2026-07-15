@@ -19,18 +19,22 @@
 
         # Annoyances.
         # keep-sorted start
-        bitwarden
         darkreader
         dearrow
         indie-wiki-buddy
         libredirect
         modrinthify
-        pronoundb
         return-youtube-dislikes
         terms-of-service-didnt-read
         translate-web-pages
-        violentmonkey
         wikiwand-wikipedia-modernized
+        # keep-sorted end
+
+        # Additions.
+        # keep-sorted start
+        bitwarden
+        pronoundb
+        violentmonkey
         # keep-sorted end
       ];
     };
@@ -47,6 +51,7 @@
       (mkExtensionSettings {
         # keep-sorted start
         "@crw-extension-firefox" = "consumer-rights-wiki";
+        "aturi@dame.is" = "aturi";
         "helloyanis@ageverif-bypass" = "age-verification-bypass";
         "knockoff@knockoff.shopping" = "knockoff";
         "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}" = "ttv-lol-pro";

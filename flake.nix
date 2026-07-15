@@ -86,10 +86,7 @@
     };
     nvf = {
       url = "github:adam01110/nvf?ref=personal";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     overzicht = {
       url = "git+https://tangled.org/adam0.dev/overzicht";
