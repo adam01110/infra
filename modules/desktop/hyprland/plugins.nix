@@ -13,13 +13,40 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) concatStringsSep;
-    inherit (lib) mkOrder;
-  in {
-    wayland.windowManager.hyprland.plugins = with pkgs; [
+    inherit
+      (lib)
       # keep-sorted start
-      hyprlandPlugins.hyprfocus
-      nur.repos.adam0.hyprlandPlugins.hypr-kinetic-scroll
+      concatMapStringsSep
+      mkOrder
+      # keep-sorted end
+      ;
+
+    kineticScroll = pkgs.nur.repos.adam0.hyprlandPlugins.hypr-kinetic-scroll;
+    kineticScrollDisabledClasses = [
+      # keep-sorted start
+      "Beeper"
+      "Bitwarden"
+      "com.github.tchx84.Flatseal"
+      "equibop"
+      "gimp"
+      "io.github.dp0sk.Crosspipe"
+      "org.bleachbit.BleachBit"
+      "org.gnome.Decibels"
+      "org.gnome.Loupe"
+      "org.gnome.Showtime"
+      "org.gnome.seahorse.Application"
+      "org.pwmt.zathura"
+      "proton.vpn.app.gtk"
+      "steam"
+      "zen-beta"
+      # keep-sorted end
+    ];
+    kineticScrollDisableRules = concatMapStringsSep "\n" (class: "    hl.plugin.kinetic_scroll.disable(\"${class}\")") kineticScrollDisabledClasses;
+  in {
+    wayland.windowManager.hyprland.plugins = [
+      # keep-sorted start
+      pkgs.hyprlandPlugins.hyprfocus
+      kineticScroll
       # keep-sorted end
     ];
 
@@ -28,6 +55,8 @@
         -- Expose hyprsplit for keybind dispatchers.
         hyprsplit = dofile("${pkgs.nur.repos.adam0.hyprsplit}/init.lua")
         hyprsplit.config({ num_workspaces = 8 })
+
+        ${kineticScrollDisableRules}
       '';
 
       settings.plugin.hyprfocus = {
@@ -37,27 +66,6 @@
         shrink_percentage = 0.995;
         # keep-sorted end
       };
-
-      settings.plugin.kinetic-scroll.disabled_classes = concatStringsSep ", " [
-        # keep-sorted start
-        ".protonvpn-app-wrapped"
-        "BeeperTexts"
-        "bitwarden"
-        "bleachbit"
-        "com.github.tchx84.Flatseal"
-        "equibop"
-        "gimp"
-        "io.github.dp0sk.Crosspipe"
-        "org.gnome.Decibels"
-        "org.gnome.Loupe"
-        "org.gnome.Showtime"
-        "org.gnome.seahorse.Application"
-        "org.pwmt.zathura"
-        "steam"
-        "zen"
-        "zen-beta"
-        # keep-sorted end
-      ];
     };
   };
 

@@ -9,9 +9,9 @@
   }: let
     inherit (lib.generators) mkLuaInline;
 
-    blinkGitTokenPath = config.sops.secrets."neovim/blink_cmp_git_token".path;
+    blinkGitTokenPath = config.sops.secrets.github_token.path;
   in {
-    sops.secrets."neovim/blink_cmp_git_token" = {};
+    sops.secrets.github_token = {};
 
     programs.nvf.settings.vim = {
       snippets.luasnip.enable = true;
@@ -58,7 +58,6 @@
           fuzzy.implementation = "prefer_rust_with_warning";
           # keep-sorted end
 
-          # keep-sorted start block=yes newline_separated=yes
           completion = {
             # keep-sorted start
             documentation.auto_show = true;
@@ -107,8 +106,8 @@
                   lockIcon = "";
                 in {
                   # keep-sorted start
-                  lockedPR = lockIcon;
                   lockedIssue = lockIcon;
+                  lockedPR = lockIcon;
                   # keep-sorted end
                 };
               };
@@ -144,7 +143,6 @@
               };
             };
           };
-          # keep-sorted end
         };
       };
     };

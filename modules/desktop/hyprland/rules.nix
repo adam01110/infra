@@ -23,6 +23,7 @@
     grim = getExe pkgs.grim;
     hyprctl = getExe' osConfig.programs.hyprland.package "hyprctl";
     hyprpicker = getExe pkgs.hyprpicker;
+    kineticScroll = "${pkgs.nur.repos.adam0.hyprlandPlugins.hypr-kinetic-scroll}/lib/libhypr-kinetic-scroll.so";
     noctalia-qs = getExe' inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.quickshell ".quickshell-wrapped";
     overzicht = getExe' config.programs.quickshell.package ".quickshell-wrapped";
     xdg-desktop-portal-hyprland = getExe' osConfig.programs.hyprland.portalPackage ".xdg-desktop-portal-hyprland-wrapped";
@@ -30,8 +31,10 @@
   in {
     programs.hylix = {
       permissions = [
+        # Plugnis.
+        # keep-sorted start block=yes newline_separated=yes
         {
-          binary = escapeRegex hyprctl;
+          binary = escapeRegex kineticScroll;
           mode = "allow";
           type = "plugin";
         }
@@ -42,6 +45,14 @@
           type = "plugin";
         }
 
+        {
+          binary = escapeRegex hyprctl;
+          mode = "allow";
+          type = "plugin";
+        }
+        # keep-sorted end
+
+        # Screenscopy.
         # keep-sorted start block=yes newline_separated=yes
         {
           binary = escapeRegex equibop;
@@ -223,7 +234,7 @@
           {
             match = {
               # keep-sorted start
-              class = "zen(-beta)?";
+              class = "zen-beta";
               title = "Bitwarden";
               # keep-sorted end
             };
