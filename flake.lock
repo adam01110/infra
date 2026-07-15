@@ -697,15 +697,12 @@
       "locked": {
         "lastModified": 1784143685,
         "narHash": "sha256-Ei51FlJJxMupL2eSGfXxvqUCFlzWkoLUhzySH8+pFPo=",
-        "ref": "refs/heads/main",
-        "rev": "3c45c8039c8a62cd528525f919c78472b70185cd",
-        "revCount": 15,
-        "type": "git",
-        "url": "https://tangled.org/adam0.dev/hylix"
+        "type": "tarball",
+        "url": "https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu/archive/3c45c8039c8a62cd528525f919c78472b70185cd.tar.gz"
       },
       "original": {
-        "type": "git",
-        "url": "https://tangled.org/adam0.dev/hylix"
+        "type": "tarball",
+        "url": "https://tangled.org/adam0.dev/hylix/archive/main?format=tar.gz"
       }
     },
     "hyprcursor": {
@@ -1239,15 +1236,12 @@
       "locked": {
         "lastModified": 1784143574,
         "narHash": "sha256-Dq3i3MCs4AahykUaFl5vXxVoK9gQVjIzgn08f+YWhiE=",
-        "ref": "refs/heads/main",
-        "rev": "77b5e212760212bbbf852b63006d8ebe7d3833cf",
-        "revCount": 87,
-        "type": "git",
-        "url": "https://tangled.org/adam0.dev/nix-userstyles"
+        "type": "tarball",
+        "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio/archive/77b5e212760212bbbf852b63006d8ebe7d3833cf.tar.gz"
       },
       "original": {
-        "type": "git",
-        "url": "https://tangled.org/adam0.dev/nix-userstyles"
+        "type": "tarball",
+        "url": "https://tangled.org/adam0.dev/nix-userstyles/archive/main?format=tar.gz"
       }
     },
     "nixcord": {
@@ -1585,15 +1579,12 @@
       "locked": {
         "lastModified": 1783290833,
         "narHash": "sha256-HuMtTlFHuldcZceIuiZbFvbYjZngjUksmof3G2ZKinc=",
-        "ref": "refs/heads/main",
-        "rev": "8bacdfe85abe309f31455377f9e15e7e13b2896a",
-        "revCount": 55,
-        "type": "git",
-        "url": "https://tangled.org/adam0.dev/overzicht"
+        "type": "tarball",
+        "url": "https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx/archive/8bacdfe85abe309f31455377f9e15e7e13b2896a.tar.gz"
       },
       "original": {
-        "type": "git",
-        "url": "https://tangled.org/adam0.dev/overzicht"
+        "type": "tarball",
+        "url": "https://tangled.org/adam0.dev/overzicht/archive/main?format=tar.gz"
       }
     },
     "pre-commit": {
