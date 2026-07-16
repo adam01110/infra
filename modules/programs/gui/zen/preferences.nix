@@ -215,6 +215,11 @@
             };
           };
 
+          startup = {
+            homepage = "https://${groundDomain}";
+            page = 1;
+          };
+
           tabs = {
             # keep-sorted start
             min_inactive_duration_before_unload = 300000;
