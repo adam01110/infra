@@ -1234,10 +1234,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1784143574,
-        "narHash": "sha256-Dq3i3MCs4AahykUaFl5vXxVoK9gQVjIzgn08f+YWhiE=",
+        "lastModified": 1784165267,
+        "narHash": "sha256-FH8f1iJkr9YUNQJFDdtM+WskAs6st4PNRCsOml25v6o=",
         "type": "tarball",
-        "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio/archive/77b5e212760212bbbf852b63006d8ebe7d3833cf.tar.gz"
+        "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio/archive/59b1cb2b5a1ed8355765531594987205326eff00.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -1961,12 +1961,13 @@
     "tangled-catppuccin": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-rSIl9hEnShlFMf5PjQ331s0iQHsqnkqwx+cd7eLQXvI=",
-        "type": "file",
-        "url": "https://tangled.org/csw.im/tangled-catppuccin/archive/main?format=tar.gz"
+        "lastModified": 1783198809,
+        "narHash": "sha256-pcMyCO0r9ZC6Nbx8xSI4QexZ3/eoeXQbJSlaEUAkm9k=",
+        "type": "tarball",
+        "url": "https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr/archive/eefa60c601ff382e70386f737e3d5c8ca13b8375.tar.gz"
       },
       "original": {
-        "type": "file",
+        "type": "tarball",
         "url": "https://tangled.org/csw.im/tangled-catppuccin/archive/main?format=tar.gz"
       }
     },
