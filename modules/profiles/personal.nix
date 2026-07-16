@@ -77,6 +77,12 @@
       xdgTerminal
       # keep-sorted end
 
+      # Hyprland plugins
+      # keep-sorted start
+      hyprlandHyprfocusPlugin
+      hyprlandHyprsplitPlugin
+      # keep-sorted end
+
       # Programs
       gtk
 

@@ -6,58 +6,23 @@
     };
   };
 
-  flake.modules.homeManager.hyprland = {
-    # keep-sorted start
+  flake.modules.homeManager.hyprlandHyprfocusPlugin = {
     lib,
     pkgs,
-    # keep-sorted end
     ...
   }: let
-    inherit
-      (lib)
-      # keep-sorted start
-      concatMapStringsSep
-      mkOrder
-      # keep-sorted end
-      ;
-
-    kineticScroll = pkgs.nur.repos.adam0.hyprlandPlugins.hypr-kinetic-scroll;
-    kineticScrollDisabledClasses = [
-      # keep-sorted start
-      "Beeper"
-      "Bitwarden"
-      "com.github.tchx84.Flatseal"
-      "equibop"
-      "gimp"
-      "io.github.dp0sk.Crosspipe"
-      "org.bleachbit.BleachBit"
-      "org.gnome.Decibels"
-      "org.gnome.Loupe"
-      "org.gnome.Showtime"
-      "org.gnome.seahorse.Application"
-      "org.pwmt.zathura"
-      "proton.vpn.app.gtk"
-      "steam"
-      "zen-beta"
-      # keep-sorted end
-    ];
-    kineticScrollDisableRules = concatMapStringsSep "\n" (class: "    hl.plugin.kinetic_scroll.disable(\"${class}\")") kineticScrollDisabledClasses;
+    hyprfocus = pkgs.hyprlandPlugins.hyprfocus;
   in {
-    wayland.windowManager.hyprland.plugins = [
-      # keep-sorted start
-      kineticScroll
-      pkgs.hyprlandPlugins.hyprfocus
-      # keep-sorted end
-    ];
+    wayland.windowManager.hyprland.plugins = [hyprfocus];
 
     programs.hylix = {
-      _generatedConfig = mkOrder 899 ''
-        -- Expose hyprsplit for keybind dispatchers.
-        hyprsplit = dofile("${pkgs.nur.repos.adam0.hyprsplit}/init.lua")
-        hyprsplit.config({ num_workspaces = 8 })
-
-        ${kineticScrollDisableRules}
-      '';
+      permissions = [
+        {
+          binary = lib.escapeRegex "${hyprfocus}/lib/libhyprfocus.so";
+          mode = "allow";
+          type = "plugin";
+        }
+      ];
 
       settings.plugin.hyprfocus = {
         # keep-sorted start

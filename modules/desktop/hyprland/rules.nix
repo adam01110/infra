@@ -23,7 +23,6 @@
     grim = getExe pkgs.grim;
     hyprctl = getExe' osConfig.programs.hyprland.package "hyprctl";
     hyprpicker = getExe pkgs.hyprpicker;
-    kineticScroll = "${pkgs.nur.repos.adam0.hyprlandPlugins.hypr-kinetic-scroll}/lib/libhypr-kinetic-scroll.so";
     noctalia-qs = getExe' inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.quickshell ".quickshell-wrapped";
     overzicht = getExe' config.programs.quickshell.package ".quickshell-wrapped";
     xdg-desktop-portal-hyprland = getExe' osConfig.programs.hyprland.portalPackage ".xdg-desktop-portal-hyprland-wrapped";
@@ -32,25 +31,11 @@
     programs.hylix = {
       permissions = [
         # Plugins
-        # keep-sorted start block=yes newline_separated=yes
-        {
-          binary = ".*/libhyprfocus\\.so$";
-          mode = "allow";
-          type = "plugin";
-        }
-
         {
           binary = escapeRegex hyprctl;
           mode = "allow";
           type = "plugin";
         }
-
-        {
-          binary = escapeRegex kineticScroll;
-          mode = "allow";
-          type = "plugin";
-        }
-        # keep-sorted end
 
         # Screencopy
         # keep-sorted start block=yes newline_separated=yes

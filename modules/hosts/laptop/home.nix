@@ -16,6 +16,9 @@
         personal
         # keep-sorted end
 
+        # Hyprland plugins
+        HyprlandKineticPlugin
+
         # TUI
         # keep-sorted start
         bluetui
