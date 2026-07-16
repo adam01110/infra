@@ -10,7 +10,13 @@
 
         GH_TOKEN="$(cat "$GH_TOKEN_FILE")"
         export GH_TOKEN
-        exec "${pkgs.lib.getExe pkgs.gh-notify}" "$@"
+
+        if ! output="$("${pkgs.lib.getExe pkgs.gh-notify}" "$@" 2>&1)"; then
+          printf 'Notifications unavailable\n'
+          exit 0
+        fi
+
+        printf '%s\n' "$output"
       '';
     };
   };

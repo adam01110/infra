@@ -7,8 +7,8 @@
 
         cmd = [
           # keep-sorted start
+          "JjConflictChooseBase"
           "JjConflictChooseBoth"
-          "JjConflictChooseNone"
           "JjConflictChooseOurs"
           "JjConflictChooseTheirs"
           "JjConflictDiff"
@@ -31,9 +31,15 @@
         cmd = [
           # keep-sorted start
           "J"
+          "Jbrowse"
           "Jdiff"
+          "Jedit"
           "Jhdiff"
+          "Jread"
+          "Jsplit"
+          "Jtabedit"
           "Jvdiff"
+          "Jvsplit"
           # keep-sorted end
         ];
       };
