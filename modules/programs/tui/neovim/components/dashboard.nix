@@ -156,11 +156,11 @@
         '';
 
         preset = {
-          # Route dashboard pick actions through Telescope to keep the normal layout.
+          # Route dashboard pickers through the shared Telescope entry point.
           pick = mkLuaInline ''
             function(cmd, opts)
               cmd = cmd == "files" and "find_files" or cmd
-              return require("telescope.builtin")[cmd](opts or {})
+              return _G.telescope_pick(cmd, opts)
             end
           '';
 
@@ -171,7 +171,7 @@
               icon = " ";
               key = "f";
               desc = "Find File";
-              action = ":Telescope find_files";
+              action = ":lua Snacks.dashboard.pick('files')";
               text = mkLuaInline ''
                 {
                   { " ", hl = "SnacksDashboardIcon" },

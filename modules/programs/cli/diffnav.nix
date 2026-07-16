@@ -30,10 +30,19 @@
     programs = {
       git.iniContent.pager.diff = getExe diffnavPager;
 
-      jujutsu.settings.ui = {
-        diff-formatter = ":git";
-        pager = getExe diffnavPager;
-      };
+      jujutsu.settings."--scope" = [
+        {
+          "--when".commands = [
+            "diff"
+            "show"
+          ];
+
+          ui = {
+            diff-formatter = ":git";
+            pager = getExe diffnavPager;
+          };
+        }
+      ];
     };
   };
 }

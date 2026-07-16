@@ -9,6 +9,15 @@
     colors = config.lib.stylix.colors.withHashtag;
   in {
     programs.nvf.settings.vim.luaConfigPreSnippets = [
+      # Keep every Telescope entry point on the same initialized path.
+      ''
+        function _G.telescope_pick(cmd, opts)
+          require("lz.n").trigger_load("telescope")
+          require("lz.n").trigger_load("telescope-all-recent.nvim")
+          return require("telescope.builtin")[cmd](opts or {})
+        end
+      ''
+
       # Install Telescope as the global vim.ui.select provider after UI startup.
       ''
         vim.api.nvim_create_autocmd("User", {
@@ -44,6 +53,12 @@
 
       keymaps = [
         {
+          key = "<leader>ff";
+          mode = "n";
+          action = "<cmd>lua _G.telescope_pick('find_files')<cr>";
+          desc = "Find files [Telescope]";
+        }
+        {
           key = "<leader>fn";
           mode = "n";
           action = "<cmd>Telescope notify<cr>";
@@ -64,6 +79,8 @@
       # Keep Telescope borders in explicit single-line style.
       telescope = {
         enable = true;
+
+        mappings.findFiles = null;
 
         extensions = [
           # keep-sorted start block=yes newline_separated=yes
