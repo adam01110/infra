@@ -1,7 +1,10 @@
 {
   flake.modules.homeManager.neovim = {
     programs.nvf.settings.vim = {
+      # keep-sorted start
+      mini.cursorword.enable = true;
       utility.snacks-nvim.setupOpts.words.enabled = true;
+      # keep-sorted end
 
       ui.colorizer = {
         enable = true;

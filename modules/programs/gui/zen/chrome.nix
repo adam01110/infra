@@ -54,6 +54,7 @@
             "advent-of-code"
             "alternativeto"
             "arch-wiki"
+            "brave-search"
             "bsky"
             "bstats"
             "chatgpt"
