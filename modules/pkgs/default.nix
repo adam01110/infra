@@ -8,6 +8,8 @@
       # keep-sorted start
       crowdsec-blocklist-gotify-proxy
       crowdsec-blocklist-import
+      dashboard-gh-notify
+      dashboard-vcs-status
       djvutorga-adapter
       gotify-optimize-images
       jj-conflict-nvim

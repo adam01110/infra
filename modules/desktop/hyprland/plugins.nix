@@ -45,8 +45,8 @@
   in {
     wayland.windowManager.hyprland.plugins = [
       # keep-sorted start
-      pkgs.hyprlandPlugins.hyprfocus
       kineticScroll
+      pkgs.hyprlandPlugins.hyprfocus
       # keep-sorted end
     ];
 

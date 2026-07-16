@@ -7,97 +7,10 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) getExe;
+    inherit (lib) escapeShellArg getExe;
     inherit (lib.generators) mkLuaInline;
-    inherit
-      (pkgs)
-      #keep-sorted start
-      writeShellApplication
-      writeText
-      #keep-sorted end
-      ;
 
     colors = config.lib.stylix.colors.withHashtag;
-
-    dashboardStatusFilter = writeText "dashboard-status-filter.lua" ''
-      local function truncate_ansi(line, max)
-        local out = {}
-        local visible = 0
-        local i = 1
-
-        while i <= #line do
-          local char = line:sub(i, i)
-
-          if char == "\27" then
-            local finish = line:find("m", i, true)
-            if not finish then
-              break
-            end
-
-            out[#out + 1] = line:sub(i, finish)
-            i = finish + 1
-          else
-            if visible >= max then
-              out[#out + 1] = "...\27[0m"
-              break
-            end
-
-            out[#out + 1] = char
-            visible = visible + 1
-            i = i + 1
-          end
-        end
-
-        return table.concat(out)
-      end
-
-      local seen = 0
-      for line in io.lines() do
-        if seen == 6 then
-          break
-        end
-
-        local plain = line:gsub("\27%[[0-9;]*m", "")
-        print(#plain > 48 and truncate_ansi(line, 45) or line)
-        seen = seen + 1
-      end
-
-      if seen == 0 then
-        print("No jj changes")
-      end
-    '';
-
-    dashboardGhNotify = writeShellApplication {
-      name = "dashboard-gh-notify";
-      runtimeInputs = [pkgs.coreutils];
-      text = ''
-        GH_TOKEN="$(cat "${config.sops.secrets.github_token.path}")"
-        export GH_TOKEN
-        exec "${getExe pkgs.gh-notify}" "$@"
-      '';
-    };
-
-    dashboardVcsStatus = writeShellApplication {
-      name = "dashboard-vcs-status";
-      runtimeInputs = with pkgs; [
-        # keep-sorted start
-        gawk
-        git
-        jujutsu
-        lua
-        # keep-sorted end
-      ];
-      text = ''
-        if jj root >/dev/null 2>&1; then
-          jj --color always status | lua ${dashboardStatusFilter}
-        elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-          git -c color.status=always status --short --branch --renames \
-            | awk 'NR <= 6 { print; seen = 1 } END { if (!seen) print "No git changes" }'
-        else
-          printf '\n\n\n\n\n\n'
-        fi
-      '';
-    };
   in {
     # keep-sorted start block=yes newline_separated=yes
     # Capture dashboard metrics once so the footer can read cached values.
@@ -212,7 +125,7 @@
       # Provide CLI tools consumed by dashboard terminal sections.
       extraPackages = with pkgs; [
         # keep-sorted start
-        dashboardGhNotify
+        dashboard-gh-notify
         dwt1-shell-color-scripts
         # keep-sorted end
       ];
@@ -258,7 +171,7 @@
               icon = " ";
               key = "f";
               desc = "Find File";
-              action = ":lua Snacks.dashboard.pick('files')";
+              action = ":Telescope find_files";
               text = mkLuaInline ''
                 {
                   { " ", hl = "SnacksDashboardIcon" },
@@ -385,7 +298,7 @@
             icon = "";
             title = "Notifications";
             section = "terminal";
-            cmd = "${getExe dashboardGhNotify} -s -a -n4";
+            cmd = "GH_TOKEN_FILE=${escapeShellArg config.sops.secrets.github_token.path} ${getExe pkgs.dashboard-gh-notify} -s -a -n4";
             height = 4;
             padding = 1;
             indent = 3;
@@ -396,7 +309,7 @@
             icon = "";
             title = "VCS Status";
             section = "terminal";
-            cmd = getExe dashboardVcsStatus;
+            cmd = getExe pkgs.dashboard-vcs-status;
             height = 6;
             padding = 1;
             indent = 3;

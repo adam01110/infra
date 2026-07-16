@@ -121,7 +121,7 @@
 
             words.enabled = mkLuaInline ''
               function()
-                return vim.bo.filetype == "markdown"
+                return vim.tbl_contains({ "gitcommit", "jjdescription", "markdown" }, vim.bo.filetype)
               end
             '';
           };

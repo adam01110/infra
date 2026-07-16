@@ -31,14 +31,8 @@
   in {
     programs.hylix = {
       permissions = [
-        # Plugnis.
+        # Plugins
         # keep-sorted start block=yes newline_separated=yes
-        {
-          binary = escapeRegex kineticScroll;
-          mode = "allow";
-          type = "plugin";
-        }
-
         {
           binary = ".*/libhyprfocus\\.so$";
           mode = "allow";
@@ -50,9 +44,15 @@
           mode = "allow";
           type = "plugin";
         }
+
+        {
+          binary = escapeRegex kineticScroll;
+          mode = "allow";
+          type = "plugin";
+        }
         # keep-sorted end
 
-        # Screenscopy.
+        # Screencopy
         # keep-sorted start block=yes newline_separated=yes
         {
           binary = escapeRegex equibop;

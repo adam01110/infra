@@ -23,7 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hylix = {
-      url = "https://tangled.org/adam0.dev/hylix/archive/main?format=tar.gz";
+      url = "tarball+https://tangled.org/adam0.dev/hylix/archive/main?format=tar.gz";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
@@ -51,7 +51,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-userstyles = {
-      url = "https://tangled.org/adam0.dev/nix-userstyles/archive/main?format=tar.gz";
+      url = "tarball+https://tangled.org/adam0.dev/nix-userstyles/archive/main?format=tar.gz";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
@@ -89,7 +89,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     overzicht = {
-      url = "https://tangled.org/adam0.dev/overzicht/archive/main?format=tar.gz";
+      url = "tarball+https://tangled.org/adam0.dev/overzicht/archive/main?format=tar.gz";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";

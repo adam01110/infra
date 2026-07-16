@@ -6,13 +6,7 @@
     # keep-sorted end
     ...
   }: let
-    inherit
-      (lib)
-      # keep-sorted start
-      getExe
-      mkForce
-      # keep-sorted end
-      ;
+    inherit (lib) getExe;
     inherit (pkgs) writeShellApplication;
 
     diffnavPager = writeShellApplication {
@@ -33,6 +27,13 @@
   in {
     home.packages = [pkgs.diffnav];
 
-    programs.git.iniContent.pager.diff = mkForce (getExe diffnavPager);
+    programs = {
+      git.iniContent.pager.diff = getExe diffnavPager;
+
+      jujutsu.settings.ui = {
+        diff-formatter = ":git";
+        pager = getExe diffnavPager;
+      };
+    };
   };
 }

@@ -1,7 +1,7 @@
 {
   flake-file.inputs = {
     nix-userstyles = {
-      url = "https://tangled.org/adam0.dev/nix-userstyles/archive/main?format=tar.gz";
+      url = "tarball+https://tangled.org/adam0.dev/nix-userstyles/archive/main?format=tar.gz";
       inputs = {
         # keep-sorted start
         flake-parts.follows = "flake-parts";

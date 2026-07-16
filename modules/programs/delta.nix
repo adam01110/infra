@@ -12,8 +12,6 @@
   in {
     programs.delta = {
       enable = true;
-      enableGitIntegration = true;
-      enableJujutsuIntegration = true;
 
       options = with colors; {
         true-color = "always";
