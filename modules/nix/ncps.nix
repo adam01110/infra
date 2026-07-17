@@ -6,10 +6,10 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkForce;
+    inherit (lib) mkBefore;
 
     cacheHost = "ncps.${vars.groundDomain}";
-    cacheUrl = "https://${cacheHost}";
+    cacheUrl = "https://${cacheHost}?priority=-10";
     uploadKeySecret = "nix_ncps_upload_secret_key";
 
     ncpsPublicKey = "${cacheHost}:jhlVJBu6bD3n1MCG153qnMFXLNfzqh7aBDK/gRULvdc=";
@@ -18,9 +18,9 @@
 
     nix.settings = {
       secret-key-files = [config.sops.secrets.${uploadKeySecret}.path];
-      substituters = mkForce [cacheUrl];
-      trusted-public-keys = mkForce [ncpsPublicKey];
-      trusted-substituters = mkForce [cacheUrl];
+      substituters = mkBefore [cacheUrl];
+      trusted-public-keys = mkBefore [ncpsPublicKey];
+      trusted-substituters = mkBefore [cacheUrl];
     };
   };
 }

@@ -95,6 +95,7 @@
       gen-license
       gitfetch
       onefetch
+      pi
       pipes
       ripgrep-all
       rumdl
@@ -103,7 +104,6 @@
       # TUI
       # keep-sorted start block=yes
       cava
-      opencode
       wiremix
       # keep-sorted end
 

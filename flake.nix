@@ -97,6 +97,10 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
+    pi-nix = {
+      url = "github:lukasl-dev/pi.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -112,6 +116,10 @@
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
       };
+    };
+    tg = {
+      url = "git+https://tangled.org/aly.codes/tg";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";

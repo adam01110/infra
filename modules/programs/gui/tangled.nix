@@ -1,4 +1,9 @@
-{
+{inputs, ...}: {
+  flake-file.inputs.tg = {
+    url = "git+https://tangled.org/aly.codes/tg";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   flake.modules.homeManager.tangled = {pkgs, ...}: let
     inherit
       (pkgs)
@@ -8,26 +13,26 @@
       # keep-sorted end
       ;
 
-    tang = pkgs.nur.repos.adam0.tang;
-    tang-completions = runCommand "tang-completions" {nativeBuildInputs = [installShellFiles tang];} ''
-      installShellCompletion --cmd tang \
-        --bash <(tang completion bash) \
-        --fish <(tang completion fish) \
-        --zsh <(tang completion zsh)
+    tg = inputs.tg.packages.${pkgs.stdenv.hostPlatform.system}.tg;
+    tg-completions = runCommand "tg-completions" {nativeBuildInputs = [installShellFiles tg];} ''
+      installShellCompletion --cmd tg \
+        --bash <(tg completion bash) \
+        --fish <(tg completion fish) \
+        --zsh <(tg completion zsh)
     '';
   in {
-    home.packages = [tang];
+    home.packages = [tg];
 
     programs.bash.initExtra = ''
-      source ${tang-completions}/share/bash-completion/completions/tang
+      source ${tg-completions}/share/bash-completion/completions/tg
     '';
 
     programs.fish.interactiveShellInit = ''
-      source ${tang-completions}/share/fish/vendor_completions.d/tang.fish
+      source ${tg-completions}/share/fish/vendor_completions.d/tg.fish
     '';
 
     programs.zsh.initContent = ''
-      source ${tang-completions}/share/zsh/site-functions/_tang
+      source ${tg-completions}/share/zsh/site-functions/_tg
     '';
   };
 }

@@ -1,6 +1,7 @@
 rec {
   # Identity shared across modules.
   # keep-sorted start
+  atprotoHandle = "adam0.dev";
   fullName = "Adam0";
   username = "adam0";
   # keep-sorted end

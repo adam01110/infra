@@ -27,7 +27,6 @@
 
         # keep-sorted start
         keep-sorted.enable = true;
-        oxfmt.enable = true;
         rumdl-format.enable = true;
         stylua.enable = true;
         yamllint.enable = true;
@@ -38,12 +37,6 @@
 
       settings = {
         # keep-sorted start block=yes newline_separated=yes
-        # Keep markdown on rumdl-format.
-        formatter.oxfmt.excludes = [
-          "*.md"
-          "*.mdx"
-        ];
-
         global.excludes = [
           # keep-sorted start
           ".direnv/*"

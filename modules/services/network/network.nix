@@ -58,6 +58,9 @@
       settings.Resolve = {
         DNSOverTLS = "opportunistic";
 
+        # Prefer the global servers over per-link DNS from DHCP.
+        Domains = ["~."];
+
         FallbackDNS = [
           # keep-sorted start
           "1.0.0.1#cloudflare-dns.com"
