@@ -41,7 +41,6 @@
       printing
       ssh-stunnel
       upower
-      virtManager
       # keep-sorted end
     ];
 

@@ -1,12 +1,20 @@
 {
   flake.modules.homeManager.pi = {pkgs, ...}: let
+    inherit
+      (pkgs)
+      # keep-sorted start
+      buildNpmPackage
+      fetchurl
+      # keep-sorted end
+      ;
+
     jsonFormat = pkgs.formats.json {};
 
-    webAccess = pkgs.buildNpmPackage {
+    webAccess = buildNpmPackage {
       pname = "pi-web-access";
       version = "0.13.0";
 
-      src = pkgs.fetchurl {
+      src = fetchurl {
         url = "https://registry.npmjs.org/pi-web-access/-/pi-web-access-0.13.0.tgz";
         hash = "sha256-GmPsueJdqj4Ny+fxlwMWRVnehe4bv1GeiBo0i5uAQAA=";
       };

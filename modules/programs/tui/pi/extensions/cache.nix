@@ -1,6 +1,8 @@
 {
   flake.modules.homeManager.pi = {pkgs, ...}: let
-    cacheStatusColor = pkgs.writeText "cache-status-color.ts" ''
+    inherit (pkgs) writeText;
+
+    cacheStatusColor = writeText "cache-status-color.ts" ''
       import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
       export default function (pi: ExtensionAPI): void {

@@ -13,8 +13,11 @@
       getExe'
       # keep-sorted end
       ;
+    inherit (pkgs) writeText;
+
     jsonFormat = pkgs.formats.json {};
-    autoformatRenderer = pkgs.writeText "pi-autoformat-renderer.ts" ''
+
+    autoformatRenderer = writeText "pi-autoformat-renderer.ts" ''
       import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
       import { Text } from "@earendil-works/pi-tui";
 

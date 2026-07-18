@@ -1,10 +1,13 @@
 {
   flake.modules.homeManager.pi = {pkgs, ...}: let
-    piRewind = pkgs.stdenvNoCC.mkDerivation {
+    inherit (pkgs) fetchFromGitHub;
+    inherit (pkgs.stdenvNoCC) mkDerivation;
+
+    piRewind = mkDerivation {
       pname = "pi-rewind";
       version = "0.5.0";
 
-      src = pkgs.fetchFromGitHub {
+      src = fetchFromGitHub {
         owner = "arpagon";
         repo = "pi-rewind";
         rev = "v0.5.0";

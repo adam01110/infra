@@ -7,12 +7,14 @@
     ...
   }: let
     inherit (lib) mkAfter;
+    inherit (pkgs) fetchurl;
+    inherit (pkgs.stdenvNoCC) mkDerivation;
 
-    toolRenderer = pkgs.stdenvNoCC.mkDerivation {
+    toolRenderer = mkDerivation {
       pname = "pi-tool-renderer";
       version = "1.6.3";
 
-      src = pkgs.fetchurl {
+      src = fetchurl {
         url = "https://registry.npmjs.org/@vanillagreen/pi-tool-renderer/-/pi-tool-renderer-1.6.3.tgz";
         hash = "sha256-WzZGoBZ9bh0F/gm/kh+F6UH+r2eGVbW01JVIwqAcfJo=";
       };
@@ -42,7 +44,7 @@
 
       settings.vstack.extensionManager.config."@vanillagreen/pi-tool-renderer" = {
         # keep-sorted start
-        compactUserMessages = true;
+        compactUserMessages = false;
         pendingStatusAnimation = true;
         renderBashDiffs = true;
         renderGitDiffCommandDiffs = true;
