@@ -27,6 +27,7 @@ The module opens UDP `51820` for WireGuard. Euclid allows these internal TCP por
 3000  Dockhand agent endpoint
 3306  MariaDB/MySQL
 5432  PostgreSQL
+6379  Valkey for shared Anubis state
 ```
 
 ## Generate Keys

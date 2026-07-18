@@ -12,6 +12,7 @@
 
       # Services
       # keep-sorted start
+      anubis
       apprise
       authentik
       cloudbeaver
@@ -24,6 +25,7 @@
       postgres
       protonWireguard
       traefik
+      valkey
       wireguard
       # keep-sorted end
     ];

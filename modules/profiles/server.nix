@@ -6,7 +6,13 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkForce;
+    inherit
+      (lib)
+      # keep-sorted start
+      mkDefault
+      mkForce
+      # keep-sorted end
+      ;
   in {
     imports = with self.modules.nixos; [
       # Profiles
@@ -25,7 +31,7 @@
 
     disko.devices = (self.diskoConfigurations.btrfs config.disko.selectedDisk).disko.devices;
 
-    boot.kernel.sysctl."vm.overcommit_memory" = 1;
+    boot.kernel.sysctl."vm.overcommit_memory" = mkDefault 1;
 
     powerManagement.cpuFreqGovernor = "performance";
 

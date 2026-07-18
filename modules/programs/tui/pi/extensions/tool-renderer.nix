@@ -48,7 +48,6 @@
         renderGitDiffCommandDiffs = true;
         renderGrepFindTools = false;
         renderMutationTools = true;
-        workingIndicator = "default";
         # keep-sorted end
       };
     };
