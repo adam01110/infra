@@ -24,6 +24,7 @@
       mysql
       postgres
       protonWireguard
+      spindleMicrovm
       traefik
       valkey
       wireguard
