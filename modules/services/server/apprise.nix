@@ -12,7 +12,8 @@
       };
 
       extraOptions = [
-        "--network=host"
+        # Publish on WireGuard only; containers route via wg0.
+        "--publish=10.100.0.1:8000:8000"
         "--tmpfs=/tmp"
         "--user=1000:1000"
 
@@ -46,5 +47,11 @@
       "d /var/lib/apprise/plugin 0750 1000 1000 -"
       # keep-sorted end
     ];
+
+    # Published address exists only after wg0 is up.
+    systemd.services.podman-apprise = {
+      after = ["wireguard-wg0.service"];
+      wants = ["wireguard-wg0.service"];
+    };
   };
 }

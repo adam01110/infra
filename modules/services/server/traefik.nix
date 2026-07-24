@@ -246,7 +246,7 @@
               ];
 
               apprise.loadBalancer.servers = [
-                {url = "http://127.0.0.1:8000";}
+                {url = "http://10.100.0.1:8000";}
               ];
 
               authentik-outpost.loadBalancer.servers = [
@@ -254,7 +254,7 @@
               ];
 
               authentik.loadBalancer.servers = [
-                {url = "http://[::1]:9000";}
+                {url = "http://127.0.0.1:9000";}
               ];
 
               cloudbeaver.loadBalancer.servers = [

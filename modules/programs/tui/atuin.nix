@@ -8,7 +8,11 @@
   }: let
     inherit (vars) groundDomain;
     inherit (config.xdg) cacheHome;
+
+    aiAuthTokenPath = config.sops.secrets."atuin/ai_auth_token".path;
   in {
+    sops.secrets."atuin/ai_auth_token" = {};
+
     programs.atuin = let
       logLevel = "error";
     in {
@@ -22,6 +26,13 @@
       };
 
       settings = {
+        ai = {
+          enabled = true;
+          endpoint = "https://atuin.${groundDomain}";
+          endpoint_protocol = "oss";
+          model = "deepseek-v4-flash";
+        };
+
         # keep-sorted start
         search-mode = "daemon-fuzzy";
         update_check = false;
@@ -61,6 +72,11 @@
     };
 
     programs.fish.interactiveShellInitSnippets = [
+      # Load endpoint authentication outside the Nix store.
+      ''
+        set -gx ATUIN_AI__API_TOKEN (string trim < ${aiAuthTokenPath})
+      ''
+
       # Disable fish history in favor of atuin.
       ''
         set -gx fish_history ""

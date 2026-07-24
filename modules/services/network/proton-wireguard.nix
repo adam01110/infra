@@ -76,7 +76,7 @@
           PrivateKey = ${secret."${secretPrefix}/private_key"}
           Address = ${secret."${secretPrefix}/address"}
           DNS = ${secret."${secretPrefix}/dns"}
-          MTU = 1420
+          MTU = 1280
           Table = ${routingTableString}
 
           [Peer]

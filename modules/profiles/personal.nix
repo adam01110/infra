@@ -30,6 +30,7 @@
 
       # Services
       # keep-sorted start
+      avahi
       evolution-data-server
       flatpak
       geoclue

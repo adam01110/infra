@@ -27,7 +27,6 @@
         # Services
         # keep-sorted start
         ananicy
-        avahi
         bpftune
         firewall
         locate

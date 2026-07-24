@@ -54,6 +54,9 @@
         settings = {
           avatars = "gravatar";
 
+          # Bind only to loopback; external access goes through Traefik.
+          listen.listen_http = "127.0.0.1:9000";
+
           # Disable unrequired features.
           disable_startup_analytics = true;
           disable_update_check = true;

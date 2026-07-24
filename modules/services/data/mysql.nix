@@ -17,8 +17,8 @@
 
       settings = {
         mysqld = {
-          # Firewall limits remote access to WireGuard.
-          bind-address = "0.0.0.0";
+          # Bind only to loopback and WireGuard; containers route via wg0.
+          bind-address = "127.0.0.1,10.100.0.1";
           innodb_buffer_pool_size = "512M";
           max_connections = 100;
           slow_query_log = true;
