@@ -174,7 +174,7 @@
 
       timezones = {
         enable = true;
-        _24hTime = true;
+        twentyFourHourFormat = true;
       };
 
       translate.enable = true;
