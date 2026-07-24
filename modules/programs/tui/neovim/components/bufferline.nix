@@ -12,7 +12,7 @@
     # keep-sorted start block=yes newline_separated=yes
     programs.nvf.settings.vim.luaConfigPreSnippets = [
       ''
-        function _G.LCB(bufnr, clicks, button, modifiers)
+        function _G.close_lualine_buffer(bufnr, clicks, button, modifiers)
           if button ~= "l" then
             return
           end
@@ -58,7 +58,7 @@
 
         fmt = mkLuaInline ''
           function(name, context)
-            return string.format('%s%%%d@v:lua.LCB@ %%T', name, context.bufnr)
+            return string.format('%s%%%d@v:lua.close_lualine_buffer@ %%T', name, context.bufnr)
           end
         '';
       }

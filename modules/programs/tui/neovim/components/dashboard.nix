@@ -122,22 +122,11 @@
 
     programs.nvf.settings.vim = {
       # keep-sorted start block=yes newline_separated=yes
-      # Provide CLI tools consumed by dashboard terminal sections.
       extraPackages = with pkgs; [
         # keep-sorted start
         dashboard-gh-notify
         dwt1-shell-color-scripts
         # keep-sorted end
-      ];
-
-      # Global shortcut to reopen the startup dashboard at any time.
-      keymaps = [
-        {
-          key = "<leader>d";
-          mode = "n";
-          action = "<cmd>lua _G.open_snacks_dashboard()<cr>";
-          desc = "Open dashboard";
-        }
       ];
 
       utility.snacks-nvim.setupOpts.dashboard = {
@@ -156,7 +145,6 @@
         '';
 
         preset = {
-          # Route dashboard pickers through the shared Telescope entry point.
           pick = mkLuaInline ''
             function(cmd, opts)
               cmd = cmd == "files" and "find_files" or cmd
@@ -165,7 +153,6 @@
           '';
 
           # keep-sorted start block=yes newline_separated=yes
-          # Define dashboard shortcuts explicitly and omit the default Config entry.
           keys = [
             {
               icon = " ";
@@ -256,7 +243,6 @@
             gap = 1;
             padding = 1;
           }
-          # Render startup metrics based on loaded runtime plugins.
           (mkLuaInline ''
             function()
               local metrics = vim.g.snacks_dashboard_metrics or {}
@@ -325,6 +311,14 @@
         ];
       };
 
+      keymaps = [
+        {
+          key = "<leader>d";
+          mode = "n";
+          action = "<cmd>lua _G.open_snacks_dashboard()<cr>";
+          desc = "Open dashboard";
+        }
+      ];
     };
     # keep-sorted end
   };

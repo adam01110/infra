@@ -1,6 +1,11 @@
 {
   flake.modules.homeManager.neovim = {
     programs.nvf.settings.vim = {
+      utility.snacks-nvim.setupOpts.dim = {
+        enable = true;
+        scope.min_size = 8;
+      };
+
       keymaps = [
         {
           key = "<leader>td";
@@ -9,11 +14,6 @@
           desc = "Dim Toggle";
         }
       ];
-
-      utility.snacks-nvim.setupOpts.dim = {
-        enable = true;
-        scope.min_size = 8;
-      };
     };
   };
 }

@@ -26,6 +26,7 @@
       lsp = {
         enable = true;
         formatOnSave = true;
+        inlayHints.enable = true;
 
         # Support embedded code blocks in mixed-language buffers.
         otter-nvim = {

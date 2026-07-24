@@ -14,6 +14,7 @@
     sops.secrets.github_token = {};
 
     programs.nvf.settings.vim = {
+      autopairs.nvim-autopairs.enable = true;
       snippets.luasnip.enable = true;
 
       autocomplete.blink-cmp = {
@@ -118,6 +119,8 @@
                 return vim.fs.basename(vim.api.nvim_buf_get_name(0)) == "package.json"
               end
             '';
+
+            ripgrep.score_offset = -5;
 
             words.enabled = mkLuaInline ''
               function()

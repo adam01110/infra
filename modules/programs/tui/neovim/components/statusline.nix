@@ -1,6 +1,14 @@
 {
-  flake.modules.homeManager.neovim = {lib, ...}: let
+  flake.modules.homeManager.neovim = {
+    # keep-sorted start
+    config,
+    lib,
+    # keep-sorted end
+    ...
+  }: let
     inherit (lib.generators) mkLuaInline;
+
+    colors = config.lib.stylix.colors.withHashtag;
   in {
     programs.nvf.settings.vim.statusline.lualine.setupOpts = {
       # keep-sorted start block=yes newline_separated=yes
@@ -132,14 +140,15 @@
 
           {
             "@1" = "diagnostics";
-            always_visible = false;
+            always_visible = true;
 
             # keep-sorted start block=yes newline_separated=yes
             diagnostics_color = {
               # keep-sorted start
-              error.fg = "red";
-              info.fg = "cyan";
-              warn.fg = "yellow";
+              error.fg = colors.base08;
+              hint.fg = colors.base0B;
+              info.fg = colors.base0C;
+              warn.fg = colors.base0A;
               # keep-sorted end
             };
 
