@@ -11,6 +11,7 @@
       dashboard-gh-notify
       dashboard-vcs-status
       djvutorga-adapter
+      dyninput-nvim
       gotify-optimize-images
       jj-conflict-nvim
       man-preview

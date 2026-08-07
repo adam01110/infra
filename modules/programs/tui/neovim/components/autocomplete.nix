@@ -17,6 +17,12 @@
       autopairs.nvim-autopairs.enable = true;
       snippets.luasnip.enable = true;
 
+      lazy.plugins."dyninput.nvim" = {
+        package = pkgs.dyninput-nvim;
+        setupModule = "dyninput";
+        lazy = false;
+      };
+
       autocomplete.blink-cmp = {
         enable = true;
         friendly-snippets.enable = true;
