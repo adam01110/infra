@@ -187,36 +187,36 @@
         springMenu = {
           type = "spring";
           mass = 1;
-          stiffness = 90;
-          dampening = 18;
+          stiffness = 300;
+          dampening = 33;
         };
 
         springOpen = {
           type = "spring";
           mass = 1;
-          stiffness = 45;
-          dampening = 12;
+          stiffness = 150;
+          dampening = 22;
         };
 
         springSpecial = {
           type = "spring";
           mass = 1;
-          stiffness = 45;
-          dampening = 12;
+          stiffness = 150;
+          dampening = 22;
         };
 
         springWindow = {
           type = "spring";
           mass = 1;
-          stiffness = 45;
-          dampening = 12;
+          stiffness = 150;
+          dampening = 22;
         };
 
         springWorkspace = {
           type = "spring";
           mass = 1.1;
-          stiffness = 45;
-          dampening = 14;
+          stiffness = 150;
+          dampening = 26;
         };
         # keep-sorted end
       };
