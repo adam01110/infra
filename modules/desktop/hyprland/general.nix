@@ -38,9 +38,6 @@
         mouse_refocus = false;
         # keep-sorted end
 
-        # Swap caps lock and escape.
-        kb_options = "caps:swapescape";
-
         touchdevice.enable = false;
       };
 

@@ -11,6 +11,7 @@
       # Desktop
       # keep-sorted start block=yes
       hyprland
+      keyd
       noctalia
       polkit
       tablet
