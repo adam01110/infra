@@ -3,16 +3,13 @@
     # keep-sorted start
     config,
     lib,
-    pkgs,
     # keep-sorted end
     ...
   }: let
     inherit (lib) getExe;
-
-    pkg = pkgs.wiremix;
   in {
     # keep-sorted start block=yes newline_separated=yes
-    home.packages = [pkg];
+    programs.wiremix.enable = true;
 
     # Create desktop entry to allow launching via launcher.
     xdg.desktopEntries.wiremix = {
@@ -23,7 +20,7 @@
       exec = let
         # keep-sorted start
         terminalCommand = getExe config.xdg.terminal-exec.package;
-        wiremix = getExe pkg;
+        wiremix = getExe config.programs.wiremix.package;
         # keep-sorted end
       in "${terminalCommand} --title=Wiremix ${wiremix}";
 
