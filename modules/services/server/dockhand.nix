@@ -22,7 +22,8 @@
 
     virtualisation.oci-containers.containers.dockhand = {
       hostname = "dockhand";
-      image = "fnsys/dockhand:latest";
+      image = "docker.io/fnsys/dockhand:latest";
+      labels."io.containers.autoupdate" = "registry";
 
       extraOptions = [
         "--network=host"

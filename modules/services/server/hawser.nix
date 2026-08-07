@@ -34,6 +34,7 @@
       virtualisation.oci-containers.containers.hawser = {
         hostname = "hawser";
         image = "ghcr.io/finsys/hawser:latest";
+        labels."io.containers.autoupdate" = "registry";
 
         extraOptions = [
           "--cgroupns=host"

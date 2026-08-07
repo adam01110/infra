@@ -26,7 +26,8 @@
 
     virtualisation.oci-containers.containers.cloudbeaver = {
       hostname = "cloudbeaver";
-      image = "dbeaver/cloudbeaver:latest";
+      image = "docker.io/dbeaver/cloudbeaver:latest";
+      labels."io.containers.autoupdate" = "registry";
 
       extraOptions = [
         "--network=host"

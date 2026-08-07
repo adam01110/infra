@@ -2,7 +2,8 @@
   flake.modules.nixos.apprise = {
     virtualisation.oci-containers.containers.apprise = {
       hostname = "apprise";
-      image = "caronc/apprise:latest";
+      image = "docker.io/caronc/apprise:latest";
+      labels."io.containers.autoupdate" = "registry";
 
       environment = {
         APPRISE_ADMIN = "y";

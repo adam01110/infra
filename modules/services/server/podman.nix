@@ -33,22 +33,38 @@
 
     services.resolved.settings.Resolve.DNSStubListenerExtra = resolvedAddress;
 
-    systemd.services = {
-      podman-dns-address = {
-        description = "Configure the container DNS listener address";
-        before = ["systemd-resolved.service"];
-        unitConfig.DefaultDependencies = false;
+    systemd = {
+      services = {
+        podman-dns-address = {
+          description = "Configure the container DNS listener address";
+          before = ["systemd-resolved.service"];
+          unitConfig.DefaultDependencies = false;
 
-        serviceConfig = {
-          ExecStart = "${getExe' pkgs.iproute2 "ip"} address replace ${resolvedAddress}/32 dev lo";
-          RemainAfterExit = true;
-          Type = "oneshot";
+          serviceConfig = {
+            ExecStart = "${getExe' pkgs.iproute2 "ip"} address replace ${resolvedAddress}/32 dev lo";
+            RemainAfterExit = true;
+            Type = "oneshot";
+          };
+        };
+
+        systemd-resolved = {
+          after = ["podman-dns-address.service"];
+          requires = ["podman-dns-address.service"];
         };
       };
 
-      systemd-resolved = {
-        after = ["podman-dns-address.service"];
-        requires = ["podman-dns-address.service"];
+      timers.podman-auto-update = {
+        description = "Update Podman containers";
+        wantedBy = ["timers.target"];
+
+        timerConfig = {
+          OnCalendar = [
+            ""
+            "*-*-* 06:00:00"
+          ];
+          Persistent = true;
+          RandomizedDelaySec = 0;
+        };
       };
     };
 
