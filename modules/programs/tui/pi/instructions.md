@@ -30,6 +30,11 @@
 - If comma cannot resolve it, use `nix run nixpkgs#package -- args...`.
 - Do not permanently install packages unless explicitly requested.
 
+## Archive handling
+
+- Use `ouch` for all archive compression and decompression instead of
+  format-specific tools such as `zip` and `unzip`.
+
 ## Tools
 
 ### Use skills aggressively
