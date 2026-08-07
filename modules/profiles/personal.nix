@@ -99,6 +99,7 @@
       pi
       pipes
       ripgrep-all
+      rocksky
       rumdl
       # keep-sorted end
 
