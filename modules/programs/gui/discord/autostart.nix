@@ -7,9 +7,10 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) getExe;
+    inherit (lib) getExe getExe';
     inherit (pkgs) makeDesktopItem;
 
+    env = getExe' pkgs.coreutils "env";
     pkg = config.programs.nixcord.equibop.package;
 
     equibopAutostart = makeDesktopItem {
@@ -18,7 +19,8 @@
       icon = "equibop";
       startupWMClass = "Equibop";
 
-      exec = "${getExe pkg} --start-minimized";
+      # Avoid Electron's crashing Speech Dispatcher helper.
+      exec = "${env} -u NIXOS_SPEECH ${getExe pkg} --start-minimized";
 
       categories = [
         # keep-sorted start
