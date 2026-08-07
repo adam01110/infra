@@ -41,7 +41,7 @@
 
       expressionCloner.enable = true;
 
-      favoriteGifSearch.enable = true;
+      betterGifPicker.enable = true;
 
       fixCodeblockGap.enable = true;
 
