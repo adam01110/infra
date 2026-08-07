@@ -19,6 +19,8 @@
 
       betterGifAltText.enable = true;
 
+      betterGifPicker.enable = true;
+
       cleanChannelName.enable = true;
 
       clearUrls.enable = true;
@@ -40,8 +42,6 @@
       dontRoundMyTimestamps.enable = true;
 
       expressionCloner.enable = true;
-
-      betterGifPicker.enable = true;
 
       fixCodeblockGap.enable = true;
 
