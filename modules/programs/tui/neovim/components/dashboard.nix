@@ -129,6 +129,15 @@
         # keep-sorted end
       ];
 
+      keymaps = [
+        {
+          key = "<leader>d";
+          mode = "n";
+          action = "<cmd>lua _G.open_snacks_dashboard()<cr>";
+          desc = "Open dashboard";
+        }
+      ];
+
       utility.snacks-nvim.setupOpts.dashboard = {
         enable = true;
 
@@ -311,14 +320,6 @@
         ];
       };
 
-      keymaps = [
-        {
-          key = "<leader>d";
-          mode = "n";
-          action = "<cmd>lua _G.open_snacks_dashboard()<cr>";
-          desc = "Open dashboard";
-        }
-      ];
     };
     # keep-sorted end
   };
