@@ -7,10 +7,14 @@
   };
 
   flake.modules.homeManager.hyprlandHyprfocusPlugin = {
+    # keep-sorted start
     lib,
     pkgs,
+    # keep-sorted end
     ...
   }: let
+    inherit (lib) escapeRegex;
+
     hyprfocus = pkgs.hyprlandPlugins.hyprfocus;
   in {
     wayland.windowManager.hyprland.plugins = [hyprfocus];
@@ -18,7 +22,7 @@
     programs.hylix = {
       permissions = [
         {
-          binary = lib.escapeRegex "${hyprfocus}/lib/libhyprfocus.so";
+          binary = escapeRegex "${hyprfocus}/lib/libhyprfocus.so";
           mode = "allow";
           type = "plugin";
         }
@@ -34,26 +38,9 @@
     };
   };
 
-  flake.overlays.hyprland-plugins = final: prev: let
-    inherit (final.stdenv.hostPlatform) system;
-
-    hyprfocus = inputs.hyprland-plugins.packages.${system}.hyprfocus.overrideAttrs (old: {
-      postPatch =
-        (old.postPatch or "")
-        + ''
-          substituteInPlace main.cpp \
-            --replace-fail '#include <hyprland/src/animation/AnimationManager.hpp>' '#include <hyprland/src/managers/animation/AnimationManager.hpp>' \
-            --replace-fail '#include <hyprland/src/managers/fullscreen/FullscreenController.hpp>' "" \
-            --replace-fail '#include <hyprland/src/desktop/state/WindowState.hpp>' "" \
-            --replace-fail 'Desktop::windowState()->windows()' 'g_pCompositor->m_windows' \
-            --replace-fail 'Fullscreen::controller()->isFullscreen(w.lock())' 'w->isFullscreen()' \
-            --replace-fail 'positionAnimation()' 'm_realPosition' \
-            --replace-fail 'sizeAnimation()' 'm_realSize'
-        '';
-    });
-  in {
+  flake.overlays.hyprland-plugins = final: prev: {
     hyprlandPlugins =
       prev.hyprlandPlugins
-      // {inherit hyprfocus;};
+      // {hyprfocus = final.callPackage "${inputs.hyprland-plugins}/hyprfocus" {};};
   };
 }

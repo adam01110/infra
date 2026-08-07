@@ -1,6 +1,6 @@
 {self, ...}: {
   flake-file.inputs = {
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.55.4";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.56.2";
 
     hylix = {
       url = "tarball+https://tangled.org/adam0.dev/hylix/archive/main?format=tar.gz";
@@ -53,6 +53,9 @@
     config = {
       wayland.windowManager.hyprland = {
         enable = true;
+
+        # UWSM manages the graphical session target.
+        systemd.enable = false;
 
         # Packages are null because its installed sytem wide.
         package = null;
