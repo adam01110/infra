@@ -112,8 +112,10 @@
       systemd.user.services.noctalia-shell.Service = let
         cfgEnv = config.programs.noctalia-shell.systemd;
       in {
+        # Use dot decimals for plugin shell scripts.
         Environment =
-          optionals (cfgEnv.enable && cfgEnv.mutableRuntimeSettings) ["NOCTALIA_SETTINGS_FALLBACK=%h/.config/noctalia/gui-settings.json"]
+          ["LC_NUMERIC=C"]
+          ++ optionals (cfgEnv.enable && cfgEnv.mutableRuntimeSettings) ["NOCTALIA_SETTINGS_FALLBACK=%h/.config/noctalia/gui-settings.json"]
           ++ optionals cfgEnv.enable locationFileEnv;
 
         ExecStart = mkForce "${getExe cfg.package} --path ${stableConfigPath}";
