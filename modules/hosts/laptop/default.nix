@@ -37,13 +37,14 @@
     # Use x86-64-v4 CachyOS LTO kernel.
     boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4;
 
-    powerManagement.powertop.enable = true;
-
     # Advanced power management for laptop battery optimization.
     services = {
       thermald.enable = true;
 
       tlp.settings = {
+        # Disable USB power saving.
+        USB_AUTOSUSPEND = 0;
+
         # Cpu performance profiles: maximize performance on ac, conserve battery on bat.
         # keep-sorted start
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
