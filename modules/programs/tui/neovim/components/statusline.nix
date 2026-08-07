@@ -163,10 +163,10 @@
 
             symbols = {
               # keep-sorted start
-              error = "󰅙  ";
+              error = "󰅙 ";
               hint = "󰌵 ";
-              info = "  ";
-              warn = "  ";
+              info = " ";
+              warn = " ";
               # keep-sorted end
             };
             # keep-sorted end

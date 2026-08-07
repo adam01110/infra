@@ -11,11 +11,11 @@
       (lib)
       # keep-sorted start
       fromHexString
+      optionalString
+      removePrefix
+      stringLength
       substring
       toHexString
-      optionalString
-      stringLength
-      removePrefix
       # keep-sorted end
       ;
     inherit (lib.generators) mkLuaInline;
@@ -73,24 +73,36 @@
 
       highlight = {
         # keep-sorted start block=yes newline_separated=yes
+        DiagnosticSignWarn.fg = colors.base0A;
+
+        DiagnosticUnderlineWarn = {
+          # keep-sorted start
+          sp = colors.base0A;
+          undercurl = true;
+          # keep-sorted end
+        };
+
         DiagnosticVirtualTextError = {
           # keep-sorted start
           bg = tintBackground colors.base08;
           fg = colors.base08;
           # keep-sorted end
         };
+
         DiagnosticVirtualTextHint = {
           # keep-sorted start
-          bg = tintBackground colors.base0B;
-          fg = colors.base0B;
+          bg = tintBackground colors.base0C;
+          fg = colors.base0C;
           # keep-sorted end
         };
+
         DiagnosticVirtualTextInfo = {
           # keep-sorted start
           bg = tintBackground colors.base0C;
           fg = colors.base0C;
           # keep-sorted end
         };
+
         DiagnosticVirtualTextWarn = {
           # keep-sorted start
           bg = tintBackground colors.base0A;
