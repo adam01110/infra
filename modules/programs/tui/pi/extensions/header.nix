@@ -1,7 +1,7 @@
 {
   flake.modules.homeManager.pi = {
     programs.pi.coding-agent = {
-      extensions = ["npm:pi-cc-header@0.8.5"];
+      extensions = ["npm:pi-cc-header@1.0.2"];
 
       settings = {
         quietStartup = true;

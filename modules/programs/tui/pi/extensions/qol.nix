@@ -29,11 +29,11 @@
 
     piQol = mkDerivation {
       pname = "pi-qol";
-      version = "1.7.3";
+      version = "1.7.4";
 
       src = fetchurl {
-        url = "https://registry.npmjs.org/@vanillagreen/pi-qol/-/pi-qol-1.7.3.tgz";
-        hash = "sha256-6RMLDVk68LGQitELBcvDVAwUNob9eYyy+h8sdPjli+s=";
+        url = "https://registry.npmjs.org/@vanillagreen/pi-qol/-/pi-qol-1.7.4.tgz";
+        hash = "sha256-L5UCGqbcJLmiHF/ImFNQ57GEbvodPXqunAtMjHRVDM8=";
       };
 
       postPatch = ''

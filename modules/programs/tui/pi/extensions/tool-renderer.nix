@@ -12,11 +12,11 @@
 
     toolRenderer = mkDerivation {
       pname = "pi-tool-renderer";
-      version = "1.6.3";
+      version = "1.7.1";
 
       src = fetchurl {
-        url = "https://registry.npmjs.org/@vanillagreen/pi-tool-renderer/-/pi-tool-renderer-1.6.3.tgz";
-        hash = "sha256-WzZGoBZ9bh0F/gm/kh+F6UH+r2eGVbW01JVIwqAcfJo=";
+        url = "https://registry.npmjs.org/@vanillagreen/pi-tool-renderer/-/pi-tool-renderer-1.7.1.tgz";
+        hash = "sha256-hmss/FFMOiBomeq8B5gxQIw1GwXUUVIuwEiAZdj8co8=";
       };
 
       postPatch = ''

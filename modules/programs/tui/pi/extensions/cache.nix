@@ -34,7 +34,7 @@
   in {
     programs.pi.coding-agent.extensions = [
       cacheStatusColor
-      "npm:pi-cache-optimizer@2.6.17"
+      "npm:pi-cache-optimizer@2.8.1"
     ];
   };
 }

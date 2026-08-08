@@ -2,7 +2,7 @@
   flake.modules.homeManager.pi = {pkgs, ...}: let
     jsonFormat = pkgs.formats.json {};
   in {
-    programs.pi.coding-agent.extensions = ["npm:pi-footer@0.4.2"];
+    programs.pi.coding-agent.extensions = ["npm:pi-footer@0.5.1"];
 
     home.file.".pi/agent/extensions/pi-footer.json".source = jsonFormat.generate "pi-footer.json" {
       iconMode = "nerd";

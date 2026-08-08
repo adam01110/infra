@@ -10,6 +10,87 @@
 
     colors = config.lib.stylix.colors.withHashtag;
   in {
+    programs.nvf.settings.vim.luaConfigPreSnippets = [
+      ''
+        _G.jj_diff_cache = {}
+
+        local function jj_root(bufnr)
+          if vim.bo[bufnr].buftype ~= "" then
+            return nil
+          end
+
+          local path = vim.api.nvim_buf_get_name(bufnr)
+          if path == "" then
+            return nil
+          end
+
+          return vim.fs.root(path, ".jj")
+        end
+
+        local function parse_jj_diff(output)
+          local status = { added = 0, modified = 0, removed = 0 }
+          local additions = 0
+          local deletions = 0
+          local in_hunk = false
+
+          local function flush_changes()
+            local modified = math.min(additions, deletions)
+            status.added = status.added + additions - modified
+            status.modified = status.modified + modified
+            status.removed = status.removed + deletions - modified
+            additions = 0
+            deletions = 0
+          end
+
+          for line in (output .. "\n"):gmatch("(.-)\n") do
+            if line:sub(1, 10) == "diff --git" then
+              flush_changes()
+              in_hunk = false
+            elseif line:sub(1, 2) == "@@" then
+              flush_changes()
+              in_hunk = true
+            elseif in_hunk and line:sub(1, 1) == "+" then
+              additions = additions + 1
+            elseif in_hunk and line:sub(1, 1) == "-" then
+              deletions = deletions + 1
+            elseif in_hunk then
+              flush_changes()
+            end
+          end
+
+          flush_changes()
+          return status
+        end
+
+        local function update_jj_diff()
+          local root = jj_root(vim.api.nvim_get_current_buf())
+          if not root or vim.fn.executable("jj") ~= 1 then
+            return
+          end
+
+          vim.system(
+            { "jj", "--no-pager", "--color", "never", "diff", "--git" },
+            { cwd = root, text = true },
+            function(result)
+              if result.code ~= 0 then
+                return
+              end
+
+              local status = parse_jj_diff(result.stdout or "")
+              vim.schedule(function()
+                _G.jj_diff_cache[root] = status
+                pcall(require("lualine").refresh, { place = { "statusline" } })
+              end)
+            end
+          )
+        end
+
+        vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "FocusGained" }, {
+          callback = update_jj_diff,
+        })
+      ''
+    ];
+
     programs.nvf.settings.vim.statusline.lualine.setupOpts = {
       # keep-sorted start block=yes newline_separated=yes
       inactive_sections = {
@@ -45,14 +126,11 @@
 
             source = mkLuaInline ''
               function()
-                local gitsigns = vim.b.gitsigns_status_dict
-                if gitsigns then
-                  return {
-                    added = gitsigns.added,
-                    modified = gitsigns.changed,
-                    removed = gitsigns.removed,
-                  }
-                end
+                local bufnr = vim.api.nvim_get_current_buf()
+                local path = vim.api.nvim_buf_get_name(bufnr)
+                local root = path ~= "" and vim.fs.root(path, ".jj") or nil
+
+                return root and _G.jj_diff_cache[root] or nil
               end
             '';
           }
@@ -140,7 +218,6 @@
 
           {
             "@1" = "diagnostics";
-            always_visible = true;
 
             # keep-sorted start block=yes newline_separated=yes
             diagnostics_color = {

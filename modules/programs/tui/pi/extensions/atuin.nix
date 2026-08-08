@@ -12,11 +12,11 @@
 
     piAtuin = mkDerivation {
       pname = "pi-atuin";
-      version = "0.1.8";
+      version = "0.1.9";
 
       src = fetchurl {
-        url = "https://registry.npmjs.org/pi-atuin/-/pi-atuin-0.1.8.tgz";
-        hash = "sha256-I5dKQATGcVn+O+2RUOCiJGx40V5lzZ1I0ljjdUYjMtw=";
+        url = "https://registry.npmjs.org/pi-atuin/-/pi-atuin-0.1.9.tgz";
+        hash = "sha256-bVo83sni1EM5TEmfH0VLkjmBqD80TQ76MB/VzQEM+II=";
       };
 
       postPatch = ''

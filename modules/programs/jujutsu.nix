@@ -38,6 +38,20 @@
       enable = true;
 
       settings = {
+        aliases = {
+          # keep-sorted start block=yes newline_separated=yes
+          pull = {
+            definition = ["util" "exec" "--" "sh" "-c" "jj git fetch && jj rebase -d 'trunk()'"];
+            doc = "Fetch and rebase onto the remote trunk";
+          };
+
+          push = {
+            definition = ["git" "push"];
+            doc = "Push to a Git remote";
+          };
+          # keep-sorted end
+        };
+
         signing = {
           backend = "gpg";
           behavior = "own";

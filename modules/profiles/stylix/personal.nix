@@ -61,8 +61,6 @@ in {
   flake.modules.homeManager.stylixPersonal = {
     imports = [self.modules.homeManager.stylixBase];
 
-    home.pointerCursor.enable = true;
-
     stylix = {
       # keep-sorted start block=yes newline_separated=yes
       fonts.sizes = {

@@ -53,7 +53,7 @@
     '';
   in {
     programs.pi.coding-agent.extensions = [
-      "npm:@gotgenes/pi-autoformat@5.1.6"
+      "npm:@gotgenes/pi-autoformat@5.1.8"
       autoformatRenderer
     ];
 

@@ -72,7 +72,7 @@
       };
 
       programs.pi = {
-        coding-agent.extensions = ["npm:pi-mcp-adapter@2.11.0"];
+        coding-agent.extensions = ["npm:pi-mcp-adapter@2.21.1"];
 
         mcpServers = {
           inherit

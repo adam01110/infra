@@ -96,6 +96,14 @@
         RADEON_DPM_PERF_LEVEL_ON_BAT = "";
         # keep-sorted end
       };
+
+      udev.extraRules = ''
+        # Allow the internal keyboard to wake the laptop.
+        ACTION=="add", SUBSYSTEM=="serio", KERNEL=="serio0", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
+
+        # Allow the Roccat mouse to wake the laptop.
+        ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="1e7d", ATTR{idProduct}=="2d00", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
+      '';
     };
   };
 }
