@@ -21,6 +21,36 @@
 
     jsonFormat = pkgs.formats.json {};
 
+    mcpConfig = jsonFormat.generate "pi-mcp.json" {
+      settings = {
+        directTools = false;
+        idleTimeout = 1;
+      };
+
+      mcpServers = {
+        context7 = {
+          command = "context7-mcp-wrapper";
+          directTools = false;
+          exposeResources = false;
+          lifecycle = "lazy";
+        };
+
+        github = {
+          command = "github-mcp-server-wrapper";
+          directTools = false;
+          exposeResources = false;
+          lifecycle = "lazy";
+        };
+
+        tangled = {
+          command = "tangled-mcp-wrapper";
+          directTools = false;
+          exposeResources = false;
+          lifecycle = "lazy";
+        };
+      };
+    };
+
     # keep-sorted start block=yes newline_separated=yes
     context7McpWrapper = writeShellApplication {
       name = "context7-mcp-wrapper";
@@ -85,35 +115,10 @@
         };
       };
 
-      home.file.".pi/agent/mcp.json".source = jsonFormat.generate "pi-mcp.json" {
-        settings = {
-          directTools = false;
-          idleTimeout = 1;
-        };
-
-        mcpServers = {
-          context7 = {
-            command = "context7-mcp-wrapper";
-            directTools = false;
-            exposeResources = false;
-            lifecycle = "lazy";
-          };
-
-          github = {
-            command = "github-mcp-server-wrapper";
-            directTools = false;
-            exposeResources = false;
-            lifecycle = "lazy";
-          };
-
-          tangled = {
-            command = "tangled-mcp-wrapper";
-            directTools = false;
-            exposeResources = false;
-            lifecycle = "lazy";
-          };
-        };
-      };
+      # Keep the declarative baseline writable for extensions that register servers.
+      home.activation.writePiMcpConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        ${pkgs.coreutils}/bin/install -Dm600 ${mcpConfig} "$HOME/.pi/agent/mcp.json"
+      '';
     };
   };
 }

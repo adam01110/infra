@@ -10,14 +10,13 @@
       (lib)
       # keep-sorted start
       getExe
-      getExe'
       mkEnableOption
       mkIf
       # keep-sorted end
       ;
 
     # keep-sorted start
-    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.xdg.configHome}/quickshell/noctalia call";
+    noctalia = "${getExe config.programs.noctalia.package} msg";
     overzicht = getExe config.programs.overzicht.package;
     # keep-sorted end
 
@@ -39,14 +38,14 @@
             direction = "down";
             fingers = 3;
             action = "exec";
-            exec = "${noctalia} launcher close";
+            exec = "${noctalia} panel-close launcher";
           }
 
           {
             direction = "up";
             fingers = 3;
             action = "exec";
-            exec = "${noctalia} launcher open";
+            exec = "${noctalia} panel-open launcher";
           }
           # keep-sorted end
 

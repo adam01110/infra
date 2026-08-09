@@ -1,10 +1,10 @@
 {
-  flake.modules.homeManager.noctalia = {
-    programs.noctalia-shell.settings.brightness = {
-      # keep-sorted start
-      enableDdcSupport = true;
-      enforceMinimum = false;
-      # keep-sorted end
+  flake.modules.homeManager.noctalia = {pkgs, ...}: {
+    home.packages = [pkgs.ddcutil];
+
+    programs.noctalia.settings = {
+      audio.enable_overdrive = true;
+      brightness.enable_ddcutil = true;
     };
   };
 }

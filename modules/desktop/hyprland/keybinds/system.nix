@@ -6,17 +6,11 @@
     # keep-sorted end
     ...
   }: let
-    inherit
-      (lib)
-      # keep-sorted start
-      getExe
-      getExe'
-      # keep-sorted end
-      ;
+    inherit (lib) getExe;
     inherit (lib.self) mkHylixBindGroup;
 
     # keep-sorted start
-    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.xdg.configHome}/quickshell/noctalia call";
+    noctalia = "${getExe config.programs.noctalia.package} msg";
     overzicht = "${getExe config.programs.overzicht.package} ipc call";
     # keep-sorted end
   in {
@@ -27,7 +21,7 @@
           description = "Keybind cheatsheet";
 
           keys = ["SUPER" "Space"];
-          exec = "${noctalia} plugin togglePanel keybind-cheatsheet";
+          exec = "${noctalia} panel-toggle kenn/keybind-cheatsheet:cheatsheet";
         }
 
         {
@@ -38,10 +32,10 @@
         }
 
         {
-          description = "Performance profile";
+          description = "Performance mode";
 
           keys = ["SUPER" "F1"];
-          exec = "${noctalia} powerProfile toggleNoctaliaPerformance";
+          exec = "${noctalia} plugin adam0/performance:toggle focused:main toggle";
         }
         # keep-sorted end
       ])

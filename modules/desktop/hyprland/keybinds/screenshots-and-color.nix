@@ -12,8 +12,7 @@
 
     # keep-sorted start
     hyprpicker = getExe pkgs.hyprpicker;
-    hyprshot = getExe config.programs.hyprshot.package;
-    screenshotDir = "${config.xdg.userDirs.pictures}/screenshots";
+    noctalia = getExe config.programs.noctalia.package;
     # keep-sorted end
   in {
     config.programs.hylix.bindGroups = [
@@ -30,14 +29,14 @@
           description = "Screenshot output";
 
           keys = ["SUPER" "Print"];
-          exec = "${hyprshot} -m output -o ${screenshotDir}";
+          exec = "${noctalia} msg screenshot-fullscreen";
         }
 
         {
           description = "Screenshot region";
 
           keys = ["SUPER" "SHIFT" "S"];
-          exec = "${hyprshot} -m region -o ${screenshotDir}";
+          exec = "${noctalia} msg screenshot-region";
         }
         # keep-sorted end
       ])

@@ -47,7 +47,7 @@
         nixcord.equibop.camera.enable = true;
 
         # Laptop battery and idle controls.
-        noctalia-shell = {
+        noctalia = {
           battery.enable = true;
           idle = {
             # keep-sorted start

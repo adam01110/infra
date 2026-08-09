@@ -7,56 +7,67 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) toJSON;
-    inherit
-      (lib)
-      # keep-sorted start
-      getExe
-      mkEnableOption
-      mkIf
-      optionalAttrs
-      # keep-sorted end
-      ;
+    inherit (lib) getExe mkEnableOption optional;
 
-    cfg = config.programs.noctalia-shell.idle;
+    cfg = config.programs.noctalia.idle;
     brightnessctl = getExe pkgs.brightnessctl;
   in {
-    options.programs.noctalia-shell.idle = {
+    options.programs.noctalia.idle = {
       # keep-sorted start
-      brightness.enable = mkEnableOption "Enable noctalia idle brightness dimming actions.";
-      suspend.enable = mkEnableOption "Enable noctalia idle suspend timeout.";
+      brightness.enable = mkEnableOption "Noctalia idle brightness dimming actions";
+      suspend.enable = mkEnableOption "Noctalia idle suspend timeout";
       # keep-sorted end
     };
 
-    config.programs.noctalia-shell.settings.idle =
-      {
-        enabled = true;
+    config.programs.noctalia.settings.idle = {
+      behavior_order =
+        [
+          "dim-screen"
+          "dim-keyboard"
+          "lock"
+          "screen-off"
+        ]
+        ++ optional cfg.suspend.enable "lock-and-suspend";
 
-        # keep-sorted start
-        lockTimeout = 300;
-        screenOffTimeout = 330;
+      pre_action_fade_seconds = 5.0;
+
+      behavior = {
+        # keep-sorted start block=yes newline_separated=yes
+        "dim-keyboard" = {
+          action = "command";
+          command = "${brightnessctl} -sd rgb:kbd:backlight set 0";
+          enabled = cfg.brightness.enable;
+          resume_command = "${brightnessctl} -rd rgb:kbd:backlight";
+          timeout = 150.0;
+        };
+
+        "dim-screen" = {
+          action = "command";
+          command = "${brightnessctl} -s set 10";
+          enabled = cfg.brightness.enable;
+          resume_command = "${brightnessctl} -r";
+          timeout = 150.0;
+        };
+
+        "lock-and-suspend" = {
+          action = "lock_and_suspend";
+          enabled = cfg.suspend.enable;
+          timeout = 480.0;
+        };
+
+        "screen-off" = {
+          action = "screen_off";
+          enabled = true;
+          timeout = 330.0;
+        };
+
+        lock = {
+          action = "lock";
+          enabled = true;
+          timeout = 300.0;
+        };
         # keep-sorted end
-
-        customCommands = mkIf cfg.brightness.enable (toJSON [
-          # keep-sorted start block=yes newline_separated=yes
-          {
-            name = "Dim screen brightness";
-            timeout = 150;
-            command = "${brightnessctl} -s set 10";
-            resumeCommand = "${brightnessctl} -r";
-          }
-
-          {
-            name = "Turn off keyboard backlight brightness";
-            timeout = 150;
-            command = "${brightnessctl} -sd rgb:kbd:backlight set 0";
-            resumeCommand = "${brightnessctl} -rd rgb:kbd:backlight";
-          }
-          # keep-sorted end
-        ]);
-      }
-      // optionalAttrs cfg.suspend.enable {
-        suspendTimeout = 480;
       };
+    };
   };
 }

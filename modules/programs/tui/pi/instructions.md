@@ -22,6 +22,13 @@
 - Do not mirror the user's tone unless explicitly required.
 - Stay strictly aligned with the requested task.
 
+## Repository configuration
+
+- Pi configuration lives in
+  `/home/adam0/Infra/modules/programs/tui/pi/`, regardless of the current
+  working directory. Update it there rather than writing directly to `~/.pi`.
+- Treat this config as Nix-first.
+
 ## NixOS command availability
 
 - Do not assume development tools are installed globally.

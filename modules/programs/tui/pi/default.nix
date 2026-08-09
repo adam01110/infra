@@ -30,6 +30,24 @@
 
     piPackage = inputs.pi-nix.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent-bun;
 
+    bunRuntime = symlinkJoin {
+      name = "bun-runtime";
+      meta.mainProgram = "bun";
+
+      paths = [
+        (pkgs.writeShellScriptBin "bun" ''
+          if [[ "''${1-}" == install ]]; then
+            exec ${getExe pkgs.bun} "$@" --trust
+          fi
+          exec ${getExe pkgs.bun} "$@"
+        '')
+      ];
+
+      postBuild = ''
+        ln -s ${getExe pkgs.bun} $out/bin/node
+      '';
+    };
+
     runtimePackages =
       (with pkgs; [
         # keep-sorted start
@@ -37,6 +55,7 @@
         wl-clipboard
         # keep-sorted end
       ])
+      ++ [bunRuntime]
       ++ attrValues config.programs.pi.mcpServers;
   in {
     imports = [inputs.pi-nix.homeModules.default];
@@ -47,14 +66,15 @@
       # Provide runtime commands used by Pi and its extensions.
       package = symlinkJoin {
         name = "pi-coding-agent-wrapped";
+        meta.mainProgram = "pi";
         paths = [piPackage];
         nativeBuildInputs = [makeWrapper];
         postBuild = ''
           wrapProgram $out/bin/pi \
             --prefix PATH : ${makeBinPath runtimePackages}
         '';
-        meta.mainProgram = "pi";
       };
+      settings.npmCommand = [(getExe bunRuntime)];
 
       rules = ./instructions.md;
     };

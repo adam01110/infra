@@ -6,10 +6,10 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) getExe';
+    inherit (lib) getExe;
     inherit (lib.self) mkHylixBindGroup;
 
-    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.xdg.configHome}/quickshell/noctalia call";
+    noctalia = "${getExe config.programs.noctalia.package} msg";
   in {
     config.programs.hylix.bindGroups = [
       (mkHylixBindGroup "Media" [
@@ -18,7 +18,7 @@
           description = "Mute";
 
           keys = ["XF86AudioMute"];
-          exec = "${noctalia} volume muteOutput";
+          exec = "${noctalia} volume-mute";
 
           options.locked = true;
         }
@@ -27,7 +27,7 @@
           description = "Volume down";
 
           keys = ["XF86AudioLowerVolume"];
-          exec = "${noctalia} volume decrease";
+          exec = "${noctalia} volume-down";
 
           options = {
             # keep-sorted start
@@ -41,7 +41,7 @@
           description = "Volume up";
 
           keys = ["XF86AudioRaiseVolume"];
-          exec = "${noctalia} volume increase";
+          exec = "${noctalia} volume-up";
 
           options = {
             # keep-sorted start

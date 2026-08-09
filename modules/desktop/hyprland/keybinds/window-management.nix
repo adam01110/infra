@@ -44,9 +44,15 @@
           description = "Toggle floating";
 
           keys = ["SUPER" "V"];
-          action = "window.float";
-
-          args.action = "toggle";
+          lua = ''
+            function()
+              local window = hl.get_active_window()
+              if window == nil or window.class == "dev.noctalia.Noctalia" then
+                return
+              end
+              hl.dispatch(hl.dsp.window.float({action = "toggle", window = window}))
+            end
+          '';
         }
 
         {

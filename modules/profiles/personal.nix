@@ -13,7 +13,6 @@
       hyprland
       keyd
       noctalia
-      polkit
       tablet
       tuigreet
       uwsm
@@ -71,7 +70,6 @@
       hyprland
       noctalia
       overzicht
-      polkit
       stylixPersonal
       uwsm
       xdgApplications

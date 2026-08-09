@@ -4,156 +4,257 @@
     config,
     lib,
     osConfig,
+    pkgs,
     # keep-sorted end
     ...
   }: let
-    inherit (lib) optional;
+    inherit (lib) getExe optional;
 
     # keep-sorted start
-    cfgBattery = config.programs.noctalia-shell.battery.enable;
+    btop = getExe config.programs.btop.package;
+    cfgBattery = config.programs.noctalia.battery.enable;
     cfgBluetooth = osConfig.capabilities.bluetooth;
-    cfgGpu = config.programs.noctalia-shell.systemMonitor.enableGpu;
+    terminal = getExe config.xdg.terminal-exec.package;
+    wiremix = config.xdg.desktopEntries.wiremix.exec;
     # keep-sorted end
-  in {
-    programs.noctalia-shell.settings.bar = {
+
+    mkStat = stat: {
+      inherit stat;
+      type = "sysmon";
+
       # keep-sorted start
-      backgroundOpacity = 1;
-      density = "compact";
-      floating = false;
-      outerCorners = false;
-      position = "top";
-      showCapsule = true;
-      useSeparateOpacity = true;
+      actions.middle = "exec ${terminal} --title=Btop ${btop}";
+      color = "primary";
+      show_glyph = true;
+      show_value = false;
+      visualization = "gauge";
       # keep-sorted end
+    };
+  in {
+    programs.noctalia.settings = {
+      bar = {
+        order = ["main"];
 
-      widgets = {
-        left = [
-          {
-            id = "SystemMonitor";
-            showCpuFreq = true;
-            showCpuTemp = true;
-            showCpuUsage = true;
-            showGpuTemp = cfgGpu;
-            showMemoryAsPercent = false;
-            showMemoryUsage = true;
-            showNetworkStats = false;
-            showSwapUsage = true;
-          }
+        main = {
+          # Layout
+          # keep-sorted start
+          margin_ends = 0;
+          padding = 4;
+          position = "top";
+          scale = 0.85;
+          thickness = 24;
+          widget_spacing = 4;
+          # keep-sorted end
 
-          {id = "plugin:privacy-indicator";}
+          # Shape
+          # keep-sorted start
+          border_width = 1.0;
+          concave_edge_corners = false;
+          radius = 0;
+          # keep-sorted end
 
-          {
-            id = "LockKeys";
-            capsLockIcon = "circle-dashed-letter-c";
-            numLockIcon = "circle-dashed-letter-n";
-            scrollLockIcon = "circle-dashed-letter-s";
-            showCapsLock = true;
-            showNumLock = false;
-            showScrollLock = false;
-          }
+          # Capsule
+          # keep-sorted start
+          capsule = true;
+          capsule_border = "outline";
+          capsule_padding = 4.0;
+          capsule_radius = 0.0;
+          # keep-sorted end
 
-          {
-            id = "ActiveWindow";
-            colorizeIcons = false;
-            hideMode = "hidden";
-            maxWidth = 145;
-            scrollingMode = "hover";
-            showIcon = true;
-            useFixedWidth = false;
-          }
+          # Content
+          # keep-sorted start
+          color = "on_surface_variant";
+          font_weight = 600;
+          icon_color = "on_surface";
+          # keep-sorted end
 
-          {
-            id = "MediaMini";
-            hideMode = "hidden";
-            hideWhenIdle = false;
-            maxWidth = 145;
-            scrollingMode = "hover";
-            showAlbumArt = true;
-            showVisualizer = false;
-            useFixedWidth = false;
-            visualizerType = "linear";
-          }
-        ];
+          start = [
+            "group:system-monitor"
+            "privacy"
+            "lock_keys"
+            "active_window"
+            "media"
+          ];
 
-        center = [
-          {
-            id = "Workspace";
-            hideUnoccupied = true;
-            labelMode = "none";
-            followFocusedScreen = true;
-          }
-        ];
+          center = ["workspaces"];
 
-        right = let
-          wiremix = config.xdg.desktopEntries.wiremix.exec;
-        in
-          [
+          end =
+            [
+              "tray"
+              "performance"
+              "volume"
+              "microphone"
+            ]
+            ++ optional cfgBluetooth "bluetooth"
+            ++ [
+              "network"
+              "brightness"
+            ]
+            ++ optional cfgBattery "battery"
+            ++ [
+              "caffeine"
+              "notifications"
+              "clock"
+              "control-center"
+            ];
+
+          dead_zone.actions.right = "none";
+
+          capsule_group = [
             {
-              id = "Tray";
-              colorizeIcons = false;
-              drawerEnabled = true;
-              pinned = [
-                "Equibop"
-                "Beeper"
-                "spotify-client"
-                "steam"
+              accordion = false;
+              accordion_direction = "end";
+              enabled = true;
+              fill = "surface_variant";
+              id = "system-monitor";
+              members = [
+                "cpu-usage"
+                "cpu-temperature"
+                "gpu-usage"
+                "gpu-temperature"
+                "ram"
+                "swap"
               ];
-            }
-
-            {
-              id = "VPN";
-              displayMode = "onhover";
-            }
-
-            {id = "NoctaliaPerformance";}
-
-            {
-              id = "Volume";
-              displayMode = "onhover";
-              middleClickCommand = wiremix;
-            }
-
-            {
-              id = "Microphone";
-              displayMode = "onhover";
-              middleClickCommand = wiremix;
-            }
-          ]
-          ++ (optional cfgBluetooth {id = "Bluetooth";})
-          ++ [
-            {id = "Network";}
-
-            {
-              id = "Brightness";
-              displayMode = "onhover";
-            }
-          ]
-          ++ [{id = "KeepAwake";}]
-          ++ (optional cfgBattery {id = "plugin:battery-monitor-plus";})
-          ++ [
-            {id = "plugin:github-feed";}
-
-            {
-              id = "NotificationHistory";
-              showUnreadBadge = true;
-            }
-
-            {
-              id = "Clock";
-              formatHorizontal = "yyyy-MM-dd HH:mm";
-              formatVertical = "HH mm - dd MM";
-              tooltipFormat = "ddd, MMM dd HH:mm";
-              useCustomFont = false;
-              clockColor = "primary";
-            }
-
-            {
-              id = "ControlCenter";
-              colorizeSystemIcon = "tertiary";
-              enableColorization = true;
-              useDistroLogo = true;
+              opacity = 1.0;
+              padding = 6.0;
             }
           ];
+        };
+      };
+
+      widget = {
+        # keep-sorted start block=yes newline_separated=yes
+        "control-center" = {
+          # keep-sorted start
+          custom_image = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          custom_image_colorize = true;
+          icon_color = "tertiary";
+          scale = 1.05;
+          # keep-sorted end
+        };
+
+        "cpu-temperature" = mkStat "cpu_temp";
+
+        "cpu-usage" = mkStat "cpu_usage";
+
+        "gpu-temperature" = mkStat "gpu_temp";
+
+        "gpu-usage" = mkStat "gpu_usage";
+
+        active_window = {
+          # keep-sorted start
+          color = "on_surface_variant";
+          display = "icon_and_text";
+          inactive_opacity = 1.0;
+          max_length = 145.0;
+          min_length = 0.0;
+          show_empty_label = true;
+          title_scroll = "on_hover";
+          # keep-sorted end
+        };
+
+        battery = {
+          color = "on_surface_variant";
+          display_mode = "glyph";
+          icon_color = "on_surface";
+          show_label = true;
+        };
+
+        brightness = {
+          color = "on_surface_variant";
+          icon_color = "on_surface";
+          show_label = true;
+        };
+
+        clock = {
+          # keep-sorted start
+          color = "primary";
+          format = "{:%Y-%m-%d %H:%M}";
+          tooltip_format = "{:%a, %b %d %H:%M}";
+          vertical_format = "{:%H\n%M - %d\n%m}";
+          # keep-sorted end
+        };
+
+        lock_keys = {
+          # keep-sorted start
+          display = "short";
+          show_caps_lock = true;
+          show_num_lock = true;
+          show_scroll_lock = true;
+          # keep-sorted end
+        };
+
+        media = {
+          # keep-sorted start
+          color = "on_surface_variant";
+          hide_album_art = false;
+          hide_when_no_media = false;
+          max_length = 145.0;
+          min_length = 0.0;
+          title_scroll = "on_hover";
+          # keep-sorted end
+        };
+
+        microphone = {
+          # keep-sorted start
+          color = "on_surface_variant";
+          device = "input";
+          show_label = true;
+          type = "volume";
+          # keep-sorted end
+
+          actions.middle = "exec ${wiremix}";
+        };
+
+        network = {
+          # keep-sorted start
+          color = "on_surface_variant";
+          show_label = true;
+          show_vpn_label = false;
+          vpn_status = "both";
+          # keep-sorted end
+        };
+
+        performance = {
+          color = "on_surface";
+          type = "adam0/performance:toggle";
+        };
+
+        ram = mkStat "ram_used";
+
+        swap = mkStat "swap_pct";
+
+        tray = {
+          # keep-sorted start
+          detached_panel = true;
+          drawer = true;
+          drawer_columns = 4;
+          # keep-sorted end
+
+          pinned = [
+            "Equibop"
+            "spotify-client"
+            "steam"
+            "Beeper"
+          ];
+        };
+
+        volume = {
+          color = "on_surface_variant";
+          icon_color = "on_surface";
+          show_label = true;
+          actions.middle = "exec ${wiremix}";
+        };
+
+        workspaces = {
+          # keep-sorted start
+          focused_output_only = true;
+          occupied_color = "outline";
+          pill_scale = 0.8;
+          show_labels = true;
+          # keep-sorted end
+        };
+        # keep-sorted end
       };
     };
   };

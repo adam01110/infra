@@ -67,14 +67,7 @@
     nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/saltsprint";
     nixpkgs-crowdsec-blocklist-import.url = "github:gaelj/nixpkgs/init-crowdsec-blocklist-import";
     noctalia = {
-      url = "github:noctalia-dev/noctalia?ref=legacy-v4";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        noctalia-qs.follows = "noctalia-qs";
-      };
-    };
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur = {
@@ -116,10 +109,6 @@
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
       };
-    };
-    tg = {
-      url = "git+https://tangled.org/aly.codes/tg";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";

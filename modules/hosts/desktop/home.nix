@@ -1,14 +1,11 @@
 {
   flake.modules.nixos.desktop = {
     # keep-sorted start
-    lib,
     self,
     vars,
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkForce;
-
     inherit (vars) username;
   in {
     home-manager.users.${username} = {
@@ -43,18 +40,8 @@
           }
         ];
 
-        noctalia-shell = {
-          # keep-sorted start newline_separated=yes
-          # Keep the desktop weather location in sops.
-          location.source = "sops";
-
-          # Avoid desktop suspend after idle blanking.
-          settings.idle.suspendTimeout = mkForce 0;
-
-          # Enable gpu acceleration for noctalia.
-          systemMonitor.enableGpu = true;
-          # keep-sorted end
-        };
+        # Keeps the desktop weather location in sops.
+        noctalia.location.source = "sops";
 
         # Gpu monitoring support for multi-gpu desktop.
         nvtop.types = [

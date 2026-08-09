@@ -7,17 +7,7 @@
 }: {
   flake-file.inputs = {
     noctalia = {
-      url = "github:noctalia-dev/noctalia?ref=legacy-v4";
-      inputs = {
-        # keep-sorted start
-        nixpkgs.follows = "nixpkgs";
-        noctalia-qs.follows = "noctalia-qs";
-        # keep-sorted end
-      };
-    };
-
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -39,17 +29,11 @@
   in {
     imports = [inputs.noctalia.homeModules.default];
 
-    options.programs.noctalia-shell.battery.enable = mkEnableOption "Enable the battery service & widgets.";
+    options.programs.noctalia.battery.enable = mkEnableOption "battery widgets";
 
-    config.programs.noctalia-shell = {
+    config.programs.noctalia = {
       enable = true;
       systemd.enable = true;
-
-      # keep-sorted start block=yes newline_separated=yes
-      packageOverrides.calendarSupport = true;
-
-      settings.templates.enableUserTheming = false;
-      # keep-sorted end
     };
   };
 }

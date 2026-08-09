@@ -16,7 +16,7 @@
       jj-conflict-nvim
       man-preview
       os-age
-      performant-mode
+      performance-mode
       pptx2md-adapter
       proton-port-forward
       rclone-bisync-runner

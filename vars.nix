@@ -17,7 +17,6 @@ rec {
   # keep-sorted start
   countryCode = "NL";
   defaultLocale = "en_US.UTF-8";
-  noctaliaFirstDayOfWeek = 1;
   regionalLocale = "nl_${countryCode}.UTF-8";
   # keep-sorted end
 

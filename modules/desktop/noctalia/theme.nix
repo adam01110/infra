@@ -9,7 +9,7 @@
     inherit (lib) mkForce;
     colors = config.lib.stylix.colors.withHashtag;
   in {
-    stylix.targets.noctalia-shell.colors.override.withHashtag = with colors; {
+    stylix.targets.noctalia.colors.override.withHashtag = with colors; {
       # keep-sorted start
       base05 = base06;
       base0C = base0D;
@@ -18,34 +18,31 @@
       # keep-sorted end
     };
 
-    programs.noctalia-shell = {
-      # keep-sorted start block=yes newline_separated=yes
-      settings = {
-        # keep-sorted start block=yes newline_separated=yes
-        bar = {
+    programs.noctalia.settings = {
+      theme = {
+        custom_palette = "stylix";
+
+        templates = {
           # keep-sorted start
-          backgroundOpacity = mkForce 1.0;
-          capsuleOpacity = mkForce 1.0;
+          enable_builtin_templates = false;
+          enable_community_templates = false;
           # keep-sorted end
         };
+      };
 
-        systemMonitor = with colors; {
-          # keep-sorted start
-          criticalColor = base08;
-          useCustomColors = true;
-          warningColor = base0A;
-          # keep-sorted end
-        };
-        # keep-sorted end
-
+      bar.main = {
         # keep-sorted start
-        dock.backgroundOpacity = mkForce 1.0;
-        notifications.backgroundOpacity = mkForce 1.0;
-        osd.backgroundOpacity = mkForce 1.0;
-        ui.panelBackgroundOpacity = mkForce 1.0;
+        background_opacity = mkForce 0.95;
+        capsule_opacity = mkForce 1.0;
         # keep-sorted end
       };
-      # keep-sorted end
+
+      notification = {
+        background_opacity = mkForce 0.95;
+        layer = "overlay";
+      };
+
+      osd.background_opacity = mkForce 0.95;
     };
   };
 }

@@ -4,7 +4,6 @@
     config,
     lib,
     osConfig,
-    vars,
     # keep-sorted end
     ...
   }: let
@@ -18,12 +17,11 @@
       types
       # keep-sorted end
       ;
-    inherit (vars) noctaliaFirstDayOfWeek;
+    inherit (config.lib.file) mkOutOfStoreSymlink;
 
-    cfgLocation = config.programs.noctalia-shell.location.source;
+    cfgLocation = config.programs.noctalia.location.source;
   in {
-    # Control whether Noctalia reads weather data from autolocation or sops.
-    options.programs.noctalia-shell.location.source = mkOption {
+    options.programs.noctalia.location.source = mkOption {
       description = ''
         Configure the Noctalia location source.
         Set to "autolocate" to use automatic location detection, or to "sops"
@@ -41,29 +39,38 @@
 
     config = mkMerge [
       {
-        programs.noctalia-shell.settings.location = {
-          # keep-sorted start
-          analogClockInCalendar = true;
-          autoLocate = true;
-          firstDayOfWeek = noctaliaFirstDayOfWeek;
-          showCalendarWeather = false;
-          showWeekNumberInCalendar = true;
-          # keep-sorted end
+        programs.noctalia.settings = {
+          location.auto_locate = true;
+
+          weather = {
+            # keep-sorted start
+            effects = true;
+            enabled = true;
+            unit = "metric";
+            # keep-sorted end
+          };
         };
       }
 
-      # Read the desktop weather location from sops at runtime.
+      # Loads the private location as a later merged config fragment.
       (let
         hostname = osConfig.networking.hostName;
+        secretName = "noctalia/location/${hostname}";
+        templateName = "noctalia-location";
       in
         mkIf (cfgLocation == "sops") {
-          sops.secrets."noctalia/location/${hostname}" = {};
-          programs.noctalia-shell = {
-            # keep-sorted start
-            settings.location.autoLocate = mkForce false;
-            systemd.locationFile = config.sops.secrets."noctalia/location/${hostname}".path;
-            # keep-sorted end
+          programs.noctalia.settings.location.auto_locate = mkForce false;
+
+          sops = {
+            secrets.${secretName} = {};
+            templates.${templateName}.content = ''
+              [location]
+              address = "${config.sops.placeholder.${secretName}}"
+              auto_locate = false
+            '';
           };
+
+          xdg.configFile."noctalia/location.toml".source = mkOutOfStoreSymlink config.sops.templates.${templateName}.path;
         })
     ];
   };

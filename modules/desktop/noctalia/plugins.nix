@@ -4,148 +4,73 @@
     config,
     lib,
     pkgs,
-    vars,
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) toJSON;
-    inherit
-      (lib)
-      # keep-sorted start
-      genAttrs
-      optional
-      # keep-sorted end
-      ;
-    inherit (config.lib.file) mkOutOfStoreSymlink;
-    inherit (vars) gitUsername;
+    inherit (lib) getExe;
 
-    inherit (config.xdg) stateHome;
-    cfgBattery = config.programs.noctalia-shell.battery.enable;
     videosDir = config.xdg.userDirs.videos;
 
-    colors = config.lib.stylix.colors.withHashtag;
+    performancePlugin = pkgs.runCommandLocal "noctalia-performance-plugin" {} ''
+      mkdir -p "$out"
+      cp -r ${./plugins/performance} "$out/performance"
+      substituteInPlace "$out/performance/toggle.luau" \
+        --replace-fail '@performanceMode@' '${getExe pkgs.performance-mode}'
+    '';
   in {
-    # keep-sorted start block=yes newline_separated=yes
-    programs.noctalia-shell = {
-      plugins = let
-        noctaliaPluginsUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-      in {
-        version = 2;
+    home.packages = [pkgs.gpu-screen-recorder];
 
-        sources = [
-          {
-            enabled = true;
-            name = "Noctalia Plugins";
-            url = noctaliaPluginsUrl;
-          }
+    programs.noctalia.settings = {
+      plugin_settings = {
+        "kenn/keybind-cheatsheet" = {
+          # keep-sorted start
+          columns = 4;
+          compositor = "hyprland";
+          hyprland_parser = "lua";
+          # keep-sorted end
+        };
+
+        "noctalia/screen_recorder" = {
+          # keep-sorted start
+          copy_to_clipboard = true;
+          directory = "${videosDir}/Recordings";
+          video_codec = "hevc";
+          # keep-sorted end
+        };
+      };
+
+      plugins = {
+        auto_update = true;
+        enabled = [
+          # keep-sorted start
+          "adam0/performance"
+          "kenn/keybind-cheatsheet"
+          "noctalia/kaomoji"
+          "noctalia/screen_recorder"
+          # keep-sorted end
         ];
 
-        states = let
-          mkPlugin = _name: {
-            enabled = true;
-            sourceUrl = noctaliaPluginsUrl;
-          };
-        in
-          genAttrs ([
-              # keep-sorted start
-              "github-feed"
-              "kaomoji-provider"
-              "keybind-cheatsheet"
-              "nvim-session-provider"
-              "privacy-indicator"
-              "screen-recorder"
-              "unicode-picker"
-              "web-search"
-              # keep-sorted end
-            ]
-            ++ optional cfgBattery "battery-monitor-plus")
-          mkPlugin;
+        # Keeps the local source after upstream plugin sources.
+        source = [
+          {
+            kind = "git";
+            location = "https://github.com/noctalia-dev/official-plugins";
+            name = "official";
+          }
+
+          {
+            kind = "git";
+            location = "https://github.com/noctalia-dev/community-plugins";
+            name = "community";
+          }
+
+          {
+            kind = "path";
+            location = "${performancePlugin}";
+            name = "local";
+          }
+        ];
       };
-
-      # keep-sorted start block=yes newline_separated=yes
-      # Provide runtime tools used by bundled plugins.
-      packageOverrides.extraPackages = [pkgs.gpu-screen-recorder];
-
-      pluginSettings = {
-        # keep-sorted start block=yes newline_separated=yes
-        battery-monitor-plus = {
-          # keep-sorted start
-          hideIfNotDetected = false;
-          showPowerInBar = false;
-          showPowerProfiles = true;
-          showTimeInBar = false;
-          # keep-sorted end
-        };
-
-        github-feed = mkOutOfStoreSymlink config.sops.templates."noctalia-github-config".path;
-
-        keybind-cheatsheet = with colors; {
-          # keep-sorted start
-          hyprlandParserMode = "lua";
-          windowWidth = 1600;
-          # keep-sorted end
-
-          # keep-sorted start
-          descriptionTextColor = base05;
-          keyColorAlt = base08;
-          keyColorMouse = base0E;
-          keyColorNumeric = base0D;
-          keyColorPrint = base0D;
-          keyColorXF86 = base0D;
-          keyTextAlt = base00;
-          keyTextCtrl = base00;
-          keyTextDefault = base00;
-          keyTextMouse = base00;
-          keyTextNumeric = base00;
-          keyTextPrint = base00;
-          keyTextShift = base00;
-          keyTextSuper = base00;
-          keyTextXF86 = base00;
-          # keep-sorted end
-        };
-
-        nvim-session-provider.sessionDir = "${stateHome}/nvf/sessions";
-
-        screen-recorder = {
-          # keep-sorted start
-          copyToClipboard = true;
-          directory = "${videosDir}/Recordings";
-          videoCodec = "hevc";
-          # keep-sorted end
-        };
-
-        web-search = {
-          # keep-sorted start
-          max_results = 5;
-          search_engine = "Brave Search";
-          show_suggestions = false;
-          # keep-sorted end
-        };
-        # keep-sorted end
-      };
-
-      settings.plugins.autoUpdate = true;
-      # keep-sorted end
     };
-
-    # Render github-feed settings from sops.
-    sops = {
-      secrets."noctalia/github_token" = {};
-
-      templates."noctalia-github-config".content = let
-        sopsVal = config.sops.placeholder;
-      in
-        toJSON {
-          # keep-sorted start
-          defaultTab = 1;
-          enableSystemNotifications = true;
-          maxEvents = 64;
-          refreshInterval = 2000;
-          token = sopsVal."noctalia/github_token";
-          username = gitUsername;
-          # keep-sorted end
-        };
-    };
-    # keep-sorted end
   };
 }

@@ -134,7 +134,7 @@
 
       noctalia = {
         rawDoc = mkHomeManagerDoc inputs.noctalia.homeModules.default;
-        prefixes = ["programs.noctalia-shell"];
+        prefixes = ["programs.noctalia"];
       };
 
       nvf = {

@@ -6,10 +6,10 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) getExe';
+    inherit (lib) getExe;
     inherit (lib.self) mkHylixBindGroup;
 
-    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.xdg.configHome}/quickshell/noctalia call";
+    noctalia = "${getExe config.programs.noctalia.package} msg";
   in {
     config.programs.hylix.bindGroups = [
       (mkHylixBindGroup "Shell" [
@@ -18,56 +18,56 @@
           description = "Clipboard";
 
           keys = ["SUPER" "SHIFT" "V"];
-          exec = "${noctalia} launcher clipboard";
+          exec = "${noctalia} panel-toggle clipboard";
         }
 
         {
           description = "Control center";
 
           keys = ["SUPER" "U"];
-          exec = "${noctalia} controlCenter toggle";
+          exec = "${noctalia} panel-toggle control-center";
         }
 
         {
           description = "Emoji picker";
 
           keys = ["SUPER" "G"];
-          exec = "${noctalia} launcher emoji";
+          exec = "${noctalia} panel-toggle launcher /emo";
         }
 
         {
           description = "Idle inhibitor";
 
           keys = ["SUPER" "Y"];
-          exec = "${noctalia} idleInhibitor toggle";
+          exec = "${noctalia} caffeine-toggle";
         }
 
         {
           description = "Launcher";
 
           keys = ["SUPER" "Tab"];
-          exec = "${noctalia} launcher toggle";
+          exec = "${noctalia} panel-toggle launcher";
         }
 
         {
           description = "Notifications";
 
           keys = ["SUPER" "O"];
-          exec = "${noctalia} notifications toggleHistory";
+          exec = "${noctalia} panel-toggle control-center notifications";
         }
 
         {
           description = "Session menu";
 
           keys = ["SUPER" "Escape"];
-          exec = "${noctalia} sessionMenu toggle";
+          exec = "${noctalia} panel-toggle session";
         }
 
         {
           description = "Wallpaper picker";
 
           keys = ["SUPER" "C"];
-          exec = "${noctalia} wallpaper toggle";
+          exec = "${noctalia} panel-toggle wallpaper";
         }
         # keep-sorted end
       ])

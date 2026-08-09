@@ -9,7 +9,7 @@
     inherit
       (lib)
       # keep-sorted start
-      getExe'
+      getExe
       mkEnableOption
       optionals
       # keep-sorted end
@@ -18,7 +18,7 @@
 
     cfg = config.hyprland.brightness;
 
-    noctalia = "${getExe' config.programs.noctalia-shell.package "noctalia-shell"} ipc --path ${config.xdg.configHome}/quickshell/noctalia call";
+    noctalia = "${getExe config.programs.noctalia.package} msg";
   in {
     options.hyprland.brightness.enable = mkEnableOption "function-row brightness keybindings";
 
@@ -29,7 +29,7 @@
           description = "Brightness down";
 
           keys = ["XF86MonBrightnessDown"];
-          exec = "${noctalia} brightness decrease";
+          exec = "${noctalia} brightness-down";
 
           options = {
             # keep-sorted start
@@ -43,7 +43,7 @@
           description = "Brightness up";
 
           keys = ["XF86MonBrightnessUp"];
-          exec = "${noctalia} brightness increase";
+          exec = "${noctalia} brightness-up";
 
           options = {
             # keep-sorted start

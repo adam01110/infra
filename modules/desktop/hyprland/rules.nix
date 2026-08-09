@@ -2,7 +2,6 @@
   flake.modules.homeManager.hyprland = {
     # keep-sorted start
     config,
-    inputs,
     lib,
     osConfig,
     pkgs,
@@ -23,7 +22,7 @@
     grim = getExe pkgs.grim;
     hyprctl = getExe' osConfig.programs.hyprland.package "hyprctl";
     hyprpicker = getExe pkgs.hyprpicker;
-    noctalia-qs = getExe' inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.quickshell ".quickshell-wrapped";
+    noctalia = getExe' config.programs.noctalia.package ".noctalia-wrapped";
     overzicht = getExe' config.programs.quickshell.package ".quickshell-wrapped";
     xdg-desktop-portal-hyprland = getExe' osConfig.programs.hyprland.portalPackage ".xdg-desktop-portal-hyprland-wrapped";
     # keep-sorted end
@@ -58,7 +57,7 @@
         }
 
         {
-          binary = escapeRegex noctalia-qs;
+          binary = escapeRegex noctalia;
           mode = "allow";
           type = "screencopy";
         }
@@ -84,16 +83,6 @@
             match.namespace = "hyprpicker";
 
             no_anim = true;
-          }
-
-          {
-            match.namespace = "noctalia-background-.*$";
-
-            # keep-sorted start
-            blur = true;
-            blur_popups = true;
-            ignore_alpha = 0.94;
-            # keep-sorted end
           }
 
           {
@@ -258,6 +247,17 @@
             match.class = "com.mitchellh.ghostty";
 
             opacity = "1 override 1 override";
+          }
+
+          {
+            match.class = "dev.noctalia.Noctalia";
+
+            # keep-sorted start
+            center = true;
+            float = true;
+            opacity = "0.95 override 0.95 override";
+            size = [1200 850];
+            # keep-sorted end
           }
 
           {

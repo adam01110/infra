@@ -20,7 +20,7 @@ nix-search-tv preview --indexes nixos boot.loader.systemd-boot.enable
 nix-search-tv preview --indexes zen-browser enable
 nix-search-tv preview --indexes nixpkgs --json firefox
 nix-search-tv source --indexes authentik-nix services.authentik
-nix-search-tv source --indexes noctalia programs.noctalia-shell.settings.bar
+nix-search-tv source --indexes noctalia programs.noctalia.settings.bar
 nix-search-tv homepage --indexes nixpkgs firefox
 ```
 

@@ -1,5 +1,5 @@
 ---
-name: ce-simplify-code
+name: simplify
 description: "Simplify settled, recently changed code for clarity, reuse, quality, and efficiency while preserving behavior. Use after implementation and before review; use ce-debug for bugs."
 argument-hint: "[blank to simplify current branch changes, or describe what to simplify]"
 ---
