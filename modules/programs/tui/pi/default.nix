@@ -28,6 +28,8 @@
       # keep-sorted end
       ;
 
+    piPackage = inputs.pi-nix.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent-bun;
+
     runtimePackages =
       (with pkgs; [
         # keep-sorted start
@@ -45,7 +47,7 @@
       # Provide runtime commands used by Pi and its extensions.
       package = symlinkJoin {
         name = "pi-coding-agent-wrapped";
-        paths = [inputs.pi-nix.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent];
+        paths = [piPackage];
         nativeBuildInputs = [makeWrapper];
         postBuild = ''
           wrapProgram $out/bin/pi \
