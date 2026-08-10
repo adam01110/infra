@@ -70,6 +70,8 @@
 
           start = [
             "group:system-monitor"
+            "nix-monitor"
+            "group:g4"
             "privacy"
             "lock_keys"
             "active_window"
@@ -82,19 +84,15 @@
             [
               "tray"
               "performance"
-              "volume"
-              "microphone"
-            ]
-            ++ optional cfgBluetooth "bluetooth"
-            ++ [
-              "network"
+              "group:g2"
+              "group:g3"
               "brightness"
             ]
             ++ optional cfgBattery "battery"
             ++ [
               "caffeine"
               "notifications"
-              "clock"
+              "group:g1"
               "control-center"
             ];
 
@@ -117,6 +115,58 @@
               ];
               opacity = 1.0;
               padding = 6.0;
+            }
+
+            {
+              accordion = true;
+              accordion_direction = "end";
+              border = "outline";
+              enabled = true;
+              fill = "surface_variant";
+              id = "g1";
+              members = ["clock" "bar"];
+              opacity = 1.0;
+              padding = 4.0;
+              radius = 0.0;
+            }
+
+            {
+              accordion = false;
+              accordion_direction = "end";
+              border = "outline";
+              enabled = true;
+              fill = "surface_variant";
+              id = "g2";
+              members = ["volume" "microphone"];
+              opacity = 1.0;
+              padding = 4.0;
+              radius = 0.0;
+            }
+
+            {
+              accordion = false;
+              accordion_direction = "end";
+              border = "outline";
+              enabled = true;
+              fill = "surface_variant";
+              id = "g3";
+              members = ["network"] ++ optional cfgBluetooth "bluetooth";
+              opacity = 1.0;
+              padding = 4.0;
+              radius = 0.0;
+            }
+
+            {
+              accordion = true;
+              accordion_direction = "end";
+              border = "outline";
+              enabled = true;
+              fill = "surface_variant";
+              id = "g4";
+              members = ["bar_2" "widget_2" "status"];
+              opacity = 1.0;
+              padding = 4.0;
+              radius = 0.0;
             }
           ];
         };
@@ -148,9 +198,19 @@
           inactive_opacity = 1.0;
           max_length = 145.0;
           min_length = 0.0;
-          show_empty_label = true;
+          show_empty_label = false;
           title_scroll = "on_hover";
           # keep-sorted end
+        };
+
+        bar = {
+          enable_scroll = false;
+          type = "noctalia/world_clock:bar";
+        };
+
+        bar_2 = {
+          enable_scroll = false;
+          type = "salemsayed/codexbar-meter:bar";
         };
 
         battery = {
@@ -177,7 +237,8 @@
 
         lock_keys = {
           # keep-sorted start
-          display = "short";
+          display = "full";
+          hide_when_off = true;
           show_caps_lock = true;
           show_num_lock = true;
           show_scroll_lock = true;
@@ -188,7 +249,7 @@
           # keep-sorted start
           color = "on_surface_variant";
           hide_album_art = false;
-          hide_when_no_media = false;
+          hide_when_no_media = true;
           max_length = 145.0;
           min_length = 0.0;
           title_scroll = "on_hover";
@@ -215,12 +276,30 @@
           # keep-sorted end
         };
 
+        nix-monitor = {
+          # keep-sorted start
+          checking_color = "secondary";
+          enable_scroll = false;
+          show_text = false;
+          type = "avivbintangaringga/nix-monitor:nix-monitor";
+          up_to_date_color = "primary";
+          update_available_color = "error";
+          # keep-sorted end
+        };
+
         performance = {
           color = "on_surface";
           type = "adam0/performance:toggle";
         };
 
+        privacy.hide_inactive = true;
+
         ram = mkStat "ram_used";
+
+        status = {
+          color = "on_surface";
+          type = "aristides/udiskie:status";
+        };
 
         swap = mkStat "swap_pct";
 
@@ -232,10 +311,13 @@
           # keep-sorted end
 
           pinned = [
+            # keep-sorted start
+            "Beeper [1]"
+            "Beeper"
             "Equibop"
             "spotify-client"
             "steam"
-            "Beeper"
+            # keep-sorted end
           ];
         };
 
@@ -246,9 +328,17 @@
           actions.middle = "exec ${wiremix}";
         };
 
+        widget_2 = {
+          color = "on_surface";
+          enable_scroll = false;
+          type = "oldirtty/color_picker:widget";
+        };
+
         workspaces = {
           # keep-sorted start
           focused_output_only = true;
+          label_source = "name";
+          max_label_chars = 4;
           occupied_color = "outline";
           pill_scale = 0.8;
           show_labels = true;

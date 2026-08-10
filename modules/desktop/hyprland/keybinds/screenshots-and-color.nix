@@ -3,17 +3,13 @@
     # keep-sorted start
     config,
     lib,
-    pkgs,
     # keep-sorted end
     ...
   }: let
     inherit (lib) getExe;
     inherit (lib.self) mkHylixBindGroup;
 
-    # keep-sorted start
-    hyprpicker = getExe pkgs.hyprpicker;
     noctalia = getExe config.programs.noctalia.package;
-    # keep-sorted end
   in {
     config.programs.hylix.bindGroups = [
       (mkHylixBindGroup "Screenshots And Color" [
@@ -22,7 +18,7 @@
           description = "Color picker";
 
           keys = ["SUPER" "SHIFT" "X"];
-          exec = "${hyprpicker} -a";
+          exec = "${noctalia} msg plugin oldirtty/color_picker:service all pick";
         }
 
         {

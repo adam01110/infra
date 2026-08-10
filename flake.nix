@@ -8,6 +8,10 @@
       url = "github:nix-community/authentik-nix";
       inputs.flake-parts.follows = "flake-parts";
     };
+    codexbar = {
+      url = "github:0xferrous/CodexBar-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     disko = {
       url = "github:nix-community/disko?ref=latest";

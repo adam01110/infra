@@ -28,7 +28,6 @@
           ++ optional cfgBluetooth {type = "bluetooth";}
           ++ [
             {type = "noctalia/screen_recorder:toggle";}
-            {type = "wallpaper";}
             {type = "notification";}
             {type = "power_profile";}
             {type = "nightlight";}

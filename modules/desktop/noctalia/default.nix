@@ -5,11 +5,9 @@
   # keep-sorted end
   ...
 }: {
-  flake-file.inputs = {
-    noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  flake-file.inputs.noctalia = {
+    url = "github:noctalia-dev/noctalia";
+    inputs.nixpkgs.follows = "nixpkgs";
   };
 
   flake.modules.nixos.noctalia = {
@@ -34,6 +32,8 @@
     config.programs.noctalia = {
       enable = true;
       systemd.enable = true;
+
+      settings.audio.enable_overdrive = true;
     };
   };
 }
