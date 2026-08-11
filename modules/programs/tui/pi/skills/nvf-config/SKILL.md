@@ -1,64 +1,49 @@
 ---
 name: nvf-config
-description: Generate, edit, or review Neovim configuration in NVF and Nix form using verified docs instead of guessed APIs. Use for `programs.nvf.settings.*`, `setupOpts`, `keymaps`, language modules, plugin options, `mkLuaInline`, `luaConfigPre` snippets, and translating upstream plugin docs into NVF modules.
+description: Generate, edit, or review Neovim configuration in NVF and Nix from verified option and plugin documentation.
 ---
 
-# NVF Config
+# nvf config
 
-Work NVF-first. Treat Neovim config as Nix/NVF, not plain Lua.
+NVF-first. config is Nix/NVF, not generic Lua. option or API unknown? inspect. never guess.
 
-Core rule: do not guess NVF options, Neovim APIs, or plugin setup keys. Prefer a small verified Nix snippet over plausible Lua.
+## lookup order
 
-Lookup order before editing:
+1. existing repo config.
+2. local NVF option docs/search.
+3. NVF manual/options.
+4. exact NVF module source.
+5. installed Neovim help for built-ins.
+6. exact plugin docs/source.
+7. Context7 when available.
+8. web/GitHub fallback.
+9. inference only when marked uncertain.
 
-1. Existing repo config.
-2. Local NVF option docs/search tools.
-3. NVF manual/options reference.
-4. NVF module source for the exact option path.
-5. Installed Neovim help for built-ins.
-6. Plugin docs/source for plugin APIs.
-7. Context7, if available.
-8. Web or GitHub fallback.
-9. Inference only if clearly marked uncertain.
+memory conflicts with local docs? local wins.
 
-Do not skip directly to writing code from memory.
-
-Repo patterns to preserve:
+## preserve repo shape
 
 - `programs.nvf.settings.vim = { ... };`
 - modules under `modules/home/tui/neovim/`
 - `keymaps = [ { key = ...; mode = ...; action = ...; } ];`
 - plugin tables in `setupOpts`
-- `lib.generators.mkLuaInline` for Lua functions inside Nix attrs
-- `neovim.luaConfigPreSnippets` for early startup logic, autocmds, globals, or larger raw Lua
-- nearby helper imports, grouping, list-vs-attrset style, and `keep-sorted` comments
-- before adding config, inspect nearby autocmd conventions, language module layout, custom Nix helpers, and existing helper functions
-- comments short, local, and only for non-obvious intent
+- `lib.generators.mkLuaInline` for Lua functions in Nix attrs
+- `neovim.luaConfigPreSnippets` for early logic, autocmds, globals, larger raw Lua
+- nearby imports, helpers, grouping, list/attrset style, `keep-sorted` controls
+- nearby autocmd conventions, language layout, helper functions: inspect before adding
+- comments short, local, non-obvious intent only
 
-NVF rules:
+## decisions
 
-- Prefer exact `programs.nvf.settings.*` options over raw Lua.
-- Confirm option path, type, shape, and whether an NVF wrapper exists.
-- Read module source when docs are unclear.
-- Keep plugin configuration in `setupOpts` when the NVF module exposes a plugin block.
-- Keep Lua valid inside Nix strings and escape `${...}` correctly.
-- Use raw Lua only when NVF lacks the feature, cannot express needed callbacks/functions, or the repo already handles that category through `luaConfigPreSnippets`.
-- Static keymaps should use NVF keymaps, not `vim.keymap.set()`.
-- Do not assume lazy.nvim examples map directly onto NVF options.
-- For built-ins, useful help pages include `:help lua`, `api`, `deprecated`, `autocmd-events`, `vim.keymap.set()`, `vim.diagnostic`, `lsp`, and `treesitter`.
-- If local docs disagree with memory or upstream examples, local docs win.
-- Preserve attribute naming style; prefer explicit nested attrs when matching nearby code; use `let` only when it simplifies the module.
+exact NVF option exists? use it. confirm path, type, shape, wrapper. docs unclear? read module source.
 
-Plugin/API rules:
+plugin block exposes `setupOpts`? configure there. static mapping? NVF keymaps, not `vim.keymap.set()`. lazy.nvim example? no direct mapping assumption. attribute shape? match nearby style; prefer explicit nested attrs when nearby. `let` only when module gets simpler.
 
-- Identify the exact plugin repo and version when relevant.
-- Check NVF exposure before upstream Lua examples.
-- Prefer plugin `doc/*.txt`, README setup docs, examples, `setup()` defaults, then source.
-- Use plugin issues/discussions only when official docs and source are missing.
-- Do not use fields missing from docs/defaults/source.
-- Translate confirmed Lua config into NVF/Nix instead of copying wholesale Lua.
+raw Lua allowed only when NVF cannot express feature/callback, or repo already owns category through `luaConfigPreSnippets`. Lua inside Nix must remain valid; escape `${...}`.
 
-Common shapes:
+plugin API? identify repo and relevant version. inspect in order: NVF exposure, `doc/*.txt`, README setup, examples, `setup()` defaults, source. issues/discussions last. field absent from docs/defaults/source? do not use. translate verified Lua into Nix; do not copy wholesale.
+
+built-in docs useful: `:help lua`, `api`, `deprecated`, `autocmd-events`, `vim.keymap.set()`, `vim.diagnostic`, `lsp`, `treesitter`.
 
 ```nix
 _: {
@@ -106,9 +91,9 @@ _: {
 }
 ```
 
-Stop and state uncertainty if the NVF path, option shape, plugin API/version, installed plugin, required unrelated restructure, old-dotfile-only field, or docs/source absence is unclear.
+unclear path, shape, API/version, installed plugin, unrelated restructure, old-dotfile field, or missing evidence? stop; state uncertainty.
 
-When returning a snippet, include assumptions, target file, code, sources checked, validation command, and uncertainties. Use repo targets when known:
+return snippet with assumptions, target file, code, sources checked, validation command, uncertainties. known repo target? use exact name:
 
 ```sh
 nix flake check
@@ -116,4 +101,4 @@ home-manager build --flake .#<target>
 nixos-rebuild build --flake .#<host>
 ```
 
-Use the repo's actual target names when known. Accuracy is more important than completeness.
+accuracy beats completeness.

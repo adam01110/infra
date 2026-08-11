@@ -1,81 +1,58 @@
-# Co-located jj + git Repositories
+# co-located jj + git
 
-A **co-located** repo has both `.jj/` and `.git/` at the same root. jj manages local operations; git stays in sync underneath so remote-side tooling (CI, GitHub, hooks, IDE plugins, `gh` CLI) continues to work normally.
-
-This is the **strongly recommended** setup for working with an existing git project.
-
-## Why co-located
-
-- **Local: jj's superior model.** Mutable commits, no staging area, the op log as a safety net.
-- **Remote: still git.** GitHub sees ordinary commits and refs. Collaborators don't need to know you use jj.
-- **Tooling parity.** IDE git integrations, pre-commit hooks, `gh`/`git` CLI for read-only inspection all continue to work.
-
-## Creating a co-located repo
+co-located root has `.jj/` and `.git/`. jj owns local state; git compatibility supports GitHub, CI, hooks, IDE, `gh`. existing git project? strongly prefer this shape.
 
 ```bash
-# From scratch
 jj git init --colocate
-
-# From a remote
 jj git clone <url> --colocate
-
-# Adopt an existing git repo (run from inside it)
 cd existing-git-repo
 jj git init --colocate
 ```
 
-After this, both `.jj/` and `.git/` exist and stay synchronized automatically. **Never run `jj git init` without `--colocate`** on a project you already have git history for — non-colocated init creates a separate git store inside `.jj/repo/store/git` which is harder to work with.
+existing git history? never omit `--colocate`; otherwise separate store appears under `.jj/repo/store/git`.
 
-## The mutation rule
+## mutation rule
 
-> **Never use `git` for mutations in a co-located jj repo.** Read-only `git` is fine.
+git may inspect only:
 
-| git command | Allowed in jj repo? |
+| command | decision |
 |---|---|
-| `git log`, `git show`, `git diff`, `git blame`, `git grep` | ✅ Allowed (jj equivalents preferred) |
-| `git status` | ✅ Allowed (shows git's view; may differ from `jj st`) |
-| `git commit`, `git add`, `git stash`, `git reset` | ❌ Forbidden — corrupts jj state |
-| `git checkout <branch>`, `git switch` | ❌ Forbidden — use `jj edit` instead |
-| `git rebase`, `git merge`, `git cherry-pick` | ❌ Forbidden — use `jj rebase`, `jj new <a> <b>`, `jj duplicate` |
-| `git fetch` | ⚠️ Use `jj git fetch` — it keeps jj in sync |
-| `git pull` | ❌ Forbidden — `git pull` does fetch+merge; use `jj git fetch` + `jj rebase` |
-| `git push` | ❌ Forbidden — use `jj git push -b <bookmark>` |
+| `git log`, `git show`, `git diff`, `git blame`, `git grep`, `git status` | safe read-only; jj equivalent preferred |
+| `git commit`, `git add`, `git stash`, `git reset` | forbidden |
+| `git checkout <branch>`, `git switch` | forbidden; `jj edit` |
+| `git rebase`, `git merge`, `git cherry-pick` | forbidden; `jj rebase`, `jj new <a> <b>`, `jj duplicate` |
+| `git fetch` | use `jj git fetch` |
+| `git pull` | forbidden; `jj git fetch` then `jj rebase` |
+| `git push` | forbidden; `jj git push -b <bookmark>` |
 
-The reason: jj snapshots the working copy on every jj command. If git mutates state behind jj's back, jj's next snapshot will be confused about what changed when, and the op log can get out of sync.
+why? jj snapshots working copy. hidden git mutation breaks jj's state/op-log model.
 
-## Switching to git mode (rare; usually a smell)
+## forced git-only operation
 
-If you genuinely need to use a git workflow for one operation (e.g., an external tool insists), do it carefully:
+external tool truly requires mutation? last resort:
 
 ```bash
-# 1. Ensure jj working copy is committed and clean
 jj st
-# (resolve anything pending — describe, refine, etc.)
-
-# 2. Now run the git operation
+# resolve and finish pending jj state
 git <something>
-
-# 3. Return to jj — jj will re-sync on the next command
-jj st                   # Triggers re-sync
-jj edit <change-id>     # Resume work
+jj st
+jj edit <change-id>
 ```
 
-**Almost every git operation has a jj equivalent that's safer.** Reach for git mode only as a last resort.
+almost always safer jj equivalent exists.
 
-## Common gotchas
+## surprises
 
-- **Git complains about uncommitted changes**: jj's working copy is always a commit; git sees that as "uncommitted." Use `jj st` (not `git status`) to assess state.
-- **HEAD detachment**: jj manages `HEAD` per change. `git checkout` will detach HEAD in confusing ways — use `jj edit` instead.
-- **`.gitignore` is respected by jj** automatically. `.jjignore` is only needed if you want jj-only ignore patterns the outer git doesn't see.
-- **Branches vs bookmarks**: git branches become jj bookmarks on fetch. Bookmarks don't auto-advance like git branches — you must `jj bookmark move` before pushing.
+- git says uncommitted? normal view of jj working-copy commit. trust `jj st`.
+- detached `HEAD`? jj manages it. never `git checkout`; use `jj edit`.
+- `.gitignore` automatically respected. `.jjignore` only for jj-only patterns.
+- fetched git branches become bookmarks. bookmarks do not auto-advance.
 
-## Pushing from a co-located repo
-
-Use `jj git push`, not `git push`:
+push:
 
 ```bash
-jj bookmark move main --to @         # Move bookmark to your latest change
-jj git push -b main                  # Push to remote
+jj bookmark move main --to @
+jj git push -b main
 ```
 
-See `references/PUSH.md` for the full push workflow.
+full push gate: [`PUSH.md`](PUSH.md).

@@ -1,84 +1,59 @@
-# Token-Reducing Templates
+# compact templates
 
-Use inline `-T` templates for compact, agent-friendly jj output. Prefer inline `-T` use over editing repo or global jj config so the skill stays explicit and portable.
+assume/tested jj 0.41.0. use commands as written. top-level `--no-pager` intentional. inline `-T` keeps repo/global config untouched. parse failure means version drift; inspect `jj <command> --help` and `jj help -k templates`.
 
-Assumptions:
-
-- Assume `jj 0.41.0` or later.
-- Each template was tested with `jj 0.41.0`.
-- If a template fails to parse, treat that as jj version drift and verify with `jj <command> --help` plus `jj help -k templates`.
-- Use the commands below as written. They intentionally put `--no-pager` at the top-level `jj` invocation so agent output does not depend on pager configuration.
-
-## `jj log`
-
-Tested with: `jj 0.41.0`
+## log
 
 ```bash
 jj --no-pager log --no-graph -n 20 -T 'change_id.shortest(8) ++ if(bookmarks, " " ++ bookmarks, "") ++ if(current_working_copy, " @", "") ++ if(empty, " (empty)", "") ++ if(conflict, " (conflict)", "") ++ " " ++ if(description, description.first_line(), "(no description)") ++ "\n"'
 ```
 
-This keeps the change ID, bookmark or `@`, empty/conflict markers, and the first description line. Use `shortest(8)` instead of bare `shortest()` so IDs do not collapse to one character on `jj 0.41.0`.
+keeps stable 8-char change ID, bookmarks/`@`, empty/conflict, first description. bare `shortest()` may collapse to one char.
 
-## `jj show`
-
-Tested with: `jj 0.41.0`
+## show
 
 ```bash
 jj --no-pager show <change-id> --stat -T 'change_id.shortest(8) ++ if(bookmarks, " " ++ bookmarks, "") ++ if(current_working_copy, " @", "") ++ if(empty, " (empty)", "") ++ if(conflict, " (conflict)", "") ++ " " ++ if(description, description.first_line(), "(no description)") ++ "\n"'
 ```
 
-Prefer `--stat` for a compact file summary. Swap `--stat` for `--no-patch` if you want the commit summary without any file-level diff summary.
+need no file summary? replace `--stat` with `--no-patch`.
 
-## `jj diff`
-
-Tested with: `jj 0.41.0`
+## diff
 
 ```bash
 jj --no-pager diff -T 'self.status_char() ++ " " ++ self.display_diff_path() ++ "\n"'
 ```
 
-Add `-r <rev>` if you want a diff for a specific revision instead of the working copy.
+specific revision? add `-r <rev>`.
 
-## `jj bookmark list`
-
-Tested with: `jj 0.41.0`
+## bookmark list
 
 ```bash
 jj --no-pager bookmark list -T 'if(self.normal_target(), self.name() ++ ": " ++ self.normal_target().change_id().shortest(8) ++ " " ++ if(self.normal_target().description(), self.normal_target().description().first_line(), "(no description)") ++ "\n", self.name() ++ ": (conflicted)\n")'
 ```
 
-Use this for ordinary bookmark inspection. If you are explicitly debugging conflicted bookmarks and need every old/new target, fall back to jj's default output.
+conflicted bookmark target details needed? default output.
 
-## `jj workspace list`
-
-Tested with: `jj 0.41.0`
+## workspace list
 
 ```bash
 jj --no-pager workspace list -T 'self.name() ++ ": " ++ self.target().change_id().shortest(8) ++ " " ++ if(self.target().description(), self.target().description().first_line(), "(no description)") ++ if(self.target().empty(), " (empty)", "") ++ "\n"'
 ```
 
-This shows workspace name, working-copy change ID, description, and whether that working copy is empty.
-
-## `jj op log`
-
-Tested with: `jj 0.41.0`
+## operation log
 
 ```bash
 jj --no-pager op log --no-graph -n 20 -T 'id.short(8) ++ " " ++ time.start().ago() ++ " " ++ description.first_line() ++ "\n"'
 ```
 
-Use this first when you need recovery context but do not yet need full diffs. Add `-p` only after you have narrowed down the interesting op IDs.
+recovery context first. `-p` only after relevant IDs narrowed.
 
-## `jj evolog`
-
-Tested with: `jj 0.41.0`
+## evolution log
 
 ```bash
 jj --no-pager evolog -r <change-id> --no-graph -n 20 -T 'commit.change_id().shortest(8) ++ " " ++ if(commit.description(), commit.description().first_line(), "(no description)") ++ " | " ++ operation.id().short(8) ++ " " ++ operation.description().first_line() ++ "\n"'
 ```
 
-This keeps the evolving change summary on the left and the rewriting operation on the right.
+change summary left; rewriting operation right.
 
-## Not Templated
-
-`jj st` and `jj status` do not expose a template flag in `jj 0.41.0`, so leave status output untemplated. The same applies to commands like `jj undo`, `jj op restore`, and `jj resolve` where the value is in the side effect, not in custom rendering.
+`jj st`/`status` expose no template in 0.41.0. side-effect commands such as undo, op restore, resolve need no template.

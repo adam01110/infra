@@ -1,15 +1,17 @@
 ---
 name: nix-search
-description: Use this skill to search NixOS packages and options with `nix-search-tv`. Query package details, source locations, and configured NixOS, Home Manager, and flake option indexes.
+description: Search packages and configured NixOS, Home Manager, flake, and custom options with nix-search-tv.
 ---
 
-# Nix Search
+# nix search
 
-Use `nix-search-tv` for packages/options. Builtin indexes: `home-manager`, `nixos`, `nixpkgs`, `noogle`, `nur`. Custom option indexes: `authentik-nix`, `determinate`, `disko`, `home-manager-nixos`, `hylix`, `lanzaboote`, `nix-flatpak`, `nix-index-database`, `nixcord`, `noctalia`, `nvf`, `overzicht`, `sops-nix`, `sops-nix-home-manager`, `spicetify-nix`, `stylix`, `stylix-home-manager`, `zen-browser`.
+package or option unknown? use `nix-search-tv`.
 
-This repo wires builtin indexes through `settings.indexes` and custom option sources through `settings.experimental.options_file`; both use `--indexes <name>`.
+builtin indexes: `home-manager`, `nixos`, `nixpkgs`, `noogle`, `nur`.
 
-Commands:
+custom options: `authentik-nix`, `determinate`, `disko`, `home-manager-nixos`, `hylix`, `lanzaboote`, `nix-flatpak`, `nix-index-database`, `nixcord`, `noctalia`, `nvf`, `overzicht`, `sops-nix`, `sops-nix-home-manager`, `spicetify-nix`, `stylix`, `stylix-home-manager`, `zen-browser`.
+
+repo wiring: builtin via `settings.indexes`; custom via `settings.experimental.options_file`. both queried with `--indexes <name>`.
 
 ```bash
 nix-search-tv print --indexes nixpkgs
@@ -24,17 +26,9 @@ nix-search-tv source --indexes noctalia programs.noctalia.settings.bar
 nix-search-tv homepage --indexes nixpkgs firefox
 ```
 
-Notes:
+first run builds index data; later uses cache. `cache.txt` missing? run `print --indexes <source>` once. stale? remove `~/.cache/nix-search-tv/<source-name>` then rerun.
 
-- First run indexes data; later runs use cache.
-- `print` prefixes source names, e.g. `stylix/ stylix.image`.
-- Use explicit `--indexes` to avoid ambiguity across custom sources.
-- Use `NO_COLOR=1` for parseable output.
-- Use `--json` with `preview` for automation; selected key appears in `_key`.
-- If `cache.txt` is missing, run `print --indexes <source>` once.
-- If stale, remove `~/.cache/nix-search-tv/<source-name>` and rerun.
-
-Patterns:
+ambiguity possible? explicit `--indexes`. parse output? `NO_COLOR=1`; automation? `preview --json`, selected key in `_key`. `print` prefixes source, e.g. `stylix/ stylix.image`.
 
 ```bash
 nix-search-tv print --indexes nixpkgs | rg -i firefox

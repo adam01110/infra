@@ -1,91 +1,51 @@
-# Query Languages
+# query languages
 
-Use jj's query languages when you need to select revisions, paths, or render compact output without falling back to the default verbose UI.
+assume jj 0.41.0. need narrow revisions, paths, output? use queries; avoid verbose default.
 
-**Tested with jj 0.41.0**
+## revsets
 
-## Revsets
-
-Use revsets to select commits and workspaces.
-
-Common selectors:
-
-- `@`: current working-copy change
-- `@-`: parent of the current working-copy change
-- `trunk()`: configured mainline; use this instead of guessing `main` vs `master`
-- `::@`: all ancestors of `@`
-- `trunk()..@`: work reachable from `@` that is not on `trunk()`
-- `working_copies()`: all workspace working-copy commits
-- `<workspace>@`: another workspace's working-copy commit
-- `<change-id>`: a stable change ID such as `wqzktpqm`
-
-Agent patterns:
+- `@`: current working-copy change.
+- `@-`: parent.
+- `trunk()`: configured mainline; no `main`/`master` guess.
+- `::@`: ancestors of `@`.
+- `trunk()..@`: current reachable work off trunk.
+- `working_copies()`: all workspace tips.
+- `<workspace>@`: named workspace tip.
+- `<change-id>`: stable ID.
 
 ```bash
-# Current work relative to trunk
 jj --no-pager log -r 'trunk()..@'
-
-# All active workspace tips
 jj --no-pager log -r 'working_copies()'
-
-# One specific workspace tip
 jj --no-pager log -r '<workspace>@'
 ```
 
-Quote revsets that contain punctuation or function calls.
+punctuation/function present? shell-quote.
 
-## Filesets
+## filesets
 
-Use filesets when a command should operate on only part of the tree.
-
-Common patterns:
-
-- `path` or `"path"`: cwd-relative path prefix
-- `file:"path"`: exact cwd-relative file path
-- `glob:"pattern"`: cwd-relative glob
-- `root:"path"`: workspace-relative path prefix
-- `~x`: everything except `x`
-- `x & y`: intersection
-- `x | y`: union
-- `x ~ y`: subtract `y` from `x`
-
-Examples:
+- `path` / `"path"`: cwd-relative prefix.
+- `file:"path"`: exact cwd-relative file.
+- `glob:"pattern"`: cwd-relative glob.
+- `root:"path"`: workspace-relative prefix.
+- `~x`: except x.
+- `x & y`: intersection.
+- `x | y`: union.
+- `x ~ y`: subtraction.
 
 ```bash
-# Only markdown files in the current directory
 jj diff 'glob:"*.md"'
-
-# Everything in src except snapshots
 jj diff 'src ~ glob:"src/**/*.snap"'
-
-# Exact file path
 jj diff 'file:"README.md"'
 ```
 
-## Templates
+## templates
 
-Use templates when default output is too large or too decorative for agent work.
-
-Common building blocks:
-
-- `++`: concatenate output pieces
-- `if(cond, a, b)`: conditional formatting
-- `description.first_line()`: one-line summary
-- `change_id.shortest(8)`: stable short ID
-- `bookmarks`: bookmark names for a commit
-- `current_working_copy`, `empty`, `conflict`: useful booleans in `jj log`
-
-Example:
+common: `++`, `if(cond, a, b)`, `description.first_line()`, `change_id.shortest(8)`, `bookmarks`, `current_working_copy`, `empty`, `conflict`.
 
 ```bash
 jj --no-pager log --no-graph -n 5 -T 'change_id.shortest(8) ++ " " ++ if(description, description.first_line(), "(no description)") ++ "\n"'
 ```
 
-Start from `references/TEMPLATES.md` instead of inventing new templates unless you need something substantially different.
+start with [`TEMPLATES.md`](TEMPLATES.md); invent only when need differs.
 
-## Rules
-
-- Prefer `trunk()` over hardcoding `main` or `master`.
-- Quote revsets and filesets in shell commands when punctuation could be interpreted by the shell.
-- Prefer compact `jj --no-pager` inspection commands before widening the query.
-- If a query fails to parse, check `jj <command> --help`, `jj help -k revsets`, `jj help -k filesets`, or `jj help -k templates`.
+parse fails? inspect `jj <command> --help`, `jj help -k revsets`, `jj help -k filesets`, or `jj help -k templates`.
