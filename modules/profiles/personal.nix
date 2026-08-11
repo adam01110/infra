@@ -65,7 +65,6 @@
 
       # Desktop
       # keep-sorted start block=yes
-      cliphist
       ghostty
       hyprland
       noctalia

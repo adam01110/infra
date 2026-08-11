@@ -47,6 +47,7 @@
         # Clipboard
         # keep-sorted start
         clipboard_confirm_clear_history = false;
+        clipboard_enabled = true;
         clipboard_history_max_entries = 64;
         # keep-sorted end
 
