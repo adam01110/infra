@@ -116,8 +116,8 @@
     templates = config.sops.templates;
 
     dataDir = "/var/lib/crowdsec/data";
-    gotifyUrl = "http://127.0.0.1:44407/message";
-
+    lapiPort = 8080;
+    metricsPort = 6060;
     proxyPort = "12346";
 
     setupDeps = [
@@ -137,64 +137,40 @@
     sops = {
       secrets = {
         # keep-sorted start
-        "crowdsec/console_enroll_key" = {};
         "crowdsec/gotify_api_key" = {};
         "traefik/crowdsec_bouncer_key" = {};
         # keep-sorted end
       };
 
-      templates = {
-        "crowdsec-blocklist-import-env" = {
-          mode = "0640";
-          owner = config.services.crowdsec.user;
-          group = config.services.crowdsec.group;
-          path = "/etc/crowdsec/blocklist-import.env";
-          content = ''
-            WEBHOOK_TYPE: "generic"
-            WEBHOOK_URL=http://127.0.0.1:${proxyPort}
-          '';
-        };
-
-        "crowdsec-gotify-notification" = {
-          mode = "0640";
-          owner = config.services.crowdsec.user;
-          group = config.services.crowdsec.group;
-          path = "/etc/crowdsec/notifications/gotify-alerts.yaml";
-          content = ''
-            type: http
-            name: gotify
-            log_level: info
-            group_threshold: 1
-            url: ${gotifyUrl}
-            method: POST
-            headers:
-              X-Gotify-Key: ${config.sops.placeholder."crowdsec/gotify_api_key"}
-              Content-Type: application/json
-            format: |
-              {{ range . -}}
-              {{ $alert := . -}}
-              {{ $scenario := $alert.GetScenario -}}
-              {{ $source := $alert.GetValue -}}
-              {
-                "extras": {
-                  "client::display": {
-                    "contentType": "text/markdown"
-                  }
-                },
-                "priority": 3,
-                "title": "CrowdSec Alert",
-                "message": {{ printf "**Scenario:** `%s`\n\n**IP:** `%s`\n\n**Machine:** `%s`" $scenario $source $alert.MachineID | toJson }}
-              }
-              {{ end -}}
-          '';
-        };
+      templates."crowdsec-blocklist-import-env" = {
+        mode = "0640";
+        owner = config.services.crowdsec.user;
+        group = config.services.crowdsec.group;
+        path = "/etc/crowdsec/blocklist-import.env";
+        content = ''
+          WEBHOOK_TYPE: "generic"
+          WEBHOOK_URL=http://127.0.0.1:${proxyPort}
+        '';
       };
+    };
+
+    networking.firewall.interfaces = {
+      ${config.services.homelabWireguard.interface}.allowedTCPPorts = [lapiPort];
+      br-crowdsec.allowedTCPPorts = [
+        metricsPort
+        lapiPort
+      ];
     };
 
     services = {
       crowdsec.settings = {
         config = {
-          api.server.online_client.credentials_path = "${dataDir}/online_api_credentials.yaml";
+          api.server = {
+            # Accepts remote clients only through the WireGuard firewall rule.
+            listen_uri = "0.0.0.0:${toString lapiPort}";
+
+            online_client.credentials_path = "${dataDir}/online_api_credentials.yaml";
+          };
 
           db_config = {
             db_name = "crowdsec";
@@ -202,18 +178,16 @@
             type = "pgx";
             user = "crowdsec";
           };
+
+          prometheus = {
+            enabled = true;
+            level = "full";
+            listen_addr = "0.0.0.0";
+            listen_port = metricsPort;
+          };
         };
 
-        console.enrollKeyFile = secrets."crowdsec/console_enroll_key".path;
-
         profiles = [
-          {
-            filters = [''Alert.GetScenario() != "" && !(Alert.GetScenario() contains "external/blocklist")''];
-            name = "all_scenario_notifications";
-            notifications = ["gotify"];
-            on_success = "continue";
-          }
-
           {
             decisions = [
               {
@@ -413,7 +387,7 @@
             ReadWritePaths = [
               # keep-sorted start
               "/var/lib/crowdsec"
-              "/var/lib/crowdsec/data"
+              dataDir
               # keep-sorted end
             ];
           }

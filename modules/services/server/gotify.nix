@@ -64,6 +64,7 @@
 
     networking.firewall.extraInputRules = ''
       # Allow containers to reach host Gotify.
+      iifname "br-crowdsec" tcp dport 44407 accept
       iifname "podman*" tcp dport 44407 accept
     '';
 
