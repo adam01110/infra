@@ -733,12 +733,15 @@
       "locked": {
         "lastModified": 1784422857,
         "narHash": "sha256-Ei51FlJJxMupL2eSGfXxvqUCFlzWkoLUhzySH8+pFPo=",
-        "type": "tarball",
-        "url": "https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu/archive/7ba04a7203c75f66c1a8b126e77da49896ff3675.tar.gz?prefix=hylix-main"
+        "ref": "refs/heads/main",
+        "rev": "7ba04a7203c75f66c1a8b126e77da49896ff3675",
+        "revCount": 16,
+        "type": "git",
+        "url": "https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://tangled.org/adam0.dev/hylix/archive/main?format=tar.gz"
+        "type": "git",
+        "url": "https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu"
       }
     },
     "hyprcursor": {
@@ -1277,7 +1280,9 @@
           "nixpkgs"
         ],
         "systems": "systems_5",
-        "tangled-catppuccin": "tangled-catppuccin",
+        "tangled-catppuccin": [
+          "tangled-catppuccin"
+        ],
         "treefmt-nix": [
           "treefmt-nix"
         ]
@@ -1285,12 +1290,15 @@
       "locked": {
         "lastModified": 1784422857,
         "narHash": "sha256-FH8f1iJkr9YUNQJFDdtM+WskAs6st4PNRCsOml25v6o=",
-        "type": "tarball",
-        "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio/archive/a9c17bed06697dc3f5d89802dc474e270dad40dc.tar.gz?prefix=nix-userstyles-main"
+        "ref": "refs/heads/main",
+        "rev": "a9c17bed06697dc3f5d89802dc474e270dad40dc",
+        "revCount": 89,
+        "type": "git",
+        "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://tangled.org/adam0.dev/nix-userstyles/archive/main?format=tar.gz"
+        "type": "git",
+        "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio"
       }
     },
     "nixcord": {
@@ -1602,12 +1610,15 @@
       "locked": {
         "lastModified": 1783290833,
         "narHash": "sha256-HuMtTlFHuldcZceIuiZbFvbYjZngjUksmof3G2ZKinc=",
-        "type": "tarball",
-        "url": "https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx/archive/8bacdfe85abe309f31455377f9e15e7e13b2896a.tar.gz?prefix=overzicht-main"
+        "ref": "refs/heads/main",
+        "rev": "8bacdfe85abe309f31455377f9e15e7e13b2896a",
+        "revCount": 55,
+        "type": "git",
+        "url": "https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://tangled.org/adam0.dev/overzicht/archive/main?format=tar.gz"
+        "type": "git",
+        "url": "https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx"
       }
     },
     "pi-nix": {
@@ -1780,6 +1791,7 @@
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
+        "tangled-catppuccin": "tangled-catppuccin",
         "treefmt-nix": "treefmt-nix_3",
         "tuigreet": "tuigreet",
         "zen-browser": "zen-browser"
@@ -2025,12 +2037,15 @@
       "locked": {
         "lastModified": 1783198809,
         "narHash": "sha256-pcMyCO0r9ZC6Nbx8xSI4QexZ3/eoeXQbJSlaEUAkm9k=",
-        "type": "tarball",
-        "url": "https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr/archive/eefa60c601ff382e70386f737e3d5c8ca13b8375.tar.gz"
+        "ref": "refs/heads/main",
+        "rev": "eefa60c601ff382e70386f737e3d5c8ca13b8375",
+        "revCount": 35,
+        "type": "git",
+        "url": "https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://tangled.org/csw.im/tangled-catppuccin/archive/main?format=tar.gz"
+        "type": "git",
+        "url": "https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr"
       }
     },
     "tinted-kitty": {

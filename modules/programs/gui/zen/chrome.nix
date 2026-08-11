@@ -1,15 +1,21 @@
 {
   flake-file.inputs = {
     nix-userstyles = {
-      url = "tarball+https://tangled.org/adam0.dev/nix-userstyles/archive/main?format=tar.gz";
+      url = "git+https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio";
       inputs = {
         # keep-sorted start
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
         nixpkgs.follows = "nixpkgs";
+        tangled-catppuccin.follows = "tangled-catppuccin";
         treefmt-nix.follows = "treefmt-nix";
         # keep-sorted end
       };
+    };
+
+    tangled-catppuccin = {
+      url = "git+https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr";
+      flake = false;
     };
   };
 

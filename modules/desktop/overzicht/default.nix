@@ -1,6 +1,6 @@
 {inputs, ...}: {
   flake-file.inputs.overzicht = {
-    url = "tarball+https://tangled.org/adam0.dev/overzicht/archive/main?format=tar.gz";
+    url = "git+https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx";
     inputs = {
       # keep-sorted start
       flake-parts.follows = "flake-parts";

@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hylix = {
-      url = "tarball+https://tangled.org/adam0.dev/hylix/archive/main?format=tar.gz";
+      url = "git+https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
@@ -55,11 +55,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-userstyles = {
-      url = "tarball+https://tangled.org/adam0.dev/nix-userstyles/archive/main?format=tar.gz";
+      url = "git+https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
         nixpkgs.follows = "nixpkgs";
+        tangled-catppuccin.follows = "tangled-catppuccin";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
@@ -86,7 +87,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     overzicht = {
-      url = "tarball+https://tangled.org/adam0.dev/overzicht/archive/main?format=tar.gz";
+      url = "git+https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
@@ -113,6 +114,10 @@
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
       };
+    };
+    tangled-catppuccin = {
+      url = "git+https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr";
+      flake = false;
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
