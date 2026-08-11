@@ -42,7 +42,13 @@
       };
 
       redis-anubis = {
-        after = ["sops-install-secrets.service"];
+        after = [
+          # keep-sorted start
+          "sops-install-secrets.service"
+          "wireguard-wg0.service"
+          # keep-sorted end
+        ];
+        requires = ["wireguard-wg0.service"];
         wants = ["sops-install-secrets.service"];
       };
     };
