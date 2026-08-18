@@ -48,7 +48,8 @@
           container="$1"
           network="$2"
 
-          podman inspect --type container --format json "$container" 2>/dev/null \
+          container_json="$(podman inspect --type container --format json "$container" 2>/dev/null)" || return 0
+          printf '%s\n' "$container_json" \
             | jq -r --arg network "$network" '.[0].NetworkSettings.Networks[$network].IPAddress // empty'
         }
 
