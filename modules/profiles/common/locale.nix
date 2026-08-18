@@ -22,7 +22,7 @@
         LC_NUMERIC = regionalLocale;
         LC_PAPER = regionalLocale;
         LC_TELEPHONE = regionalLocale;
-        LC_TIME = defaultLocale;
+        LC_TIME = "en_GB.UTF-8";
         # keep-sorted end
       };
     };
