@@ -14,9 +14,6 @@
   flake.modules.homeManager.overzicht = {
     imports = [inputs.overzicht.homeModules.default];
 
-    # Wait for UWSM to publish the Wayland session environment.
-    systemd.user.services.overzicht.Unit.After = ["graphical-session.target"];
-
     programs.overzicht = {
       enable = true;
       systemd.enable = true;
