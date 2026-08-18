@@ -23,6 +23,25 @@
             iconMapObj."16" = "https://search.brave.com/favicon.ico";
             definedAliases = ["@b"];
           };
+          chatgpt = {
+            urls = [
+              {
+                template = "https://chatgpt.com/";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                  {
+                    name = "hints";
+                    value = "search";
+                  }
+                ];
+              }
+            ];
+            iconMapObj."16" = "https://chatgpt.com/favicon.ico";
+            definedAliases = ["@cg"];
+          };
           google.metaData.alias = "@g";
 
           # Wiki search engines.
