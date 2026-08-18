@@ -40,6 +40,11 @@
       settings = {
         aliases = {
           # keep-sorted start block=yes newline_separated=yes
+          clone = {
+            definition = ["git" "clone"];
+            doc = "Clone a Git repository";
+          };
+
           pull = {
             definition = ["util" "exec" "--" "sh" "-c" "jj git fetch && jj rebase -d 'trunk()'"];
             doc = "Fetch and rebase onto the remote trunk";
