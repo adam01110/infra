@@ -10,29 +10,18 @@
       # keep-sorted start block=yes newline_separated=yes
       colors = with colors; {
         # keep-sorted start
-        background = base01;
-        inverseOnSurface = base06;
-        inverseSurface = base02;
-        onBackground = base05;
-        onPrimary = base00;
-        onPrimaryContainer = base06;
-        onSecondary = base00;
-        onSecondaryContainer = base06;
-        onSurface = base00;
-        onSurfaceVariant = base02;
+        accent = base0B;
+        border = base03;
         outline = base06;
-        outlineVariant = base03;
-        primary = base08;
-        primaryContainer = base01;
-        secondary = base0B;
-        secondaryContainer = base01;
+        panel = base01;
+        panelText = base05;
         shadow = base00;
-        surface = base00;
-        surfaceContainer = base0B;
-        surfaceContainerHigh = base01;
-        surfaceContainerHighest = base02;
-        surfaceContainerLow = base00;
-        surfaceVariant = base02;
+        tooltip = base02;
+        tooltipText = base06;
+        window = base0B;
+        windowText = base00;
+        workspace = base00;
+        workspaceText = base02;
         # keep-sorted end
       };
 
