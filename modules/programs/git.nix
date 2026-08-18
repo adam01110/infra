@@ -49,6 +49,9 @@
 
           init.defaultBranch = "main";
 
+          # Preserve compatibility with the previous SSH host alias.
+          url."tangled.org:".insteadOf = "knot:";
+
           # keep-sorted start
           commit.gpgsign = true;
           tag.gpgSign = true;

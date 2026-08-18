@@ -22,7 +22,7 @@
           IdentityFile = "~/.ssh/git";
         };
 
-        knot = {
+        "tangled.org" = {
           HostName = "knot.${groundDomain}";
           IdentityFile = "~/.ssh/git";
           Port = 2223;
