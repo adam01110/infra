@@ -44,13 +44,6 @@
           }
 
           {
-            description = "Steam";
-
-            keys = ["SUPER" "M"];
-            exec = app "steam";
-          }
-
-          {
             description = "Terminal";
 
             keys = ["SUPER" "Return"];
