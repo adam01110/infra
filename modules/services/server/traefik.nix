@@ -88,7 +88,10 @@
                   ];
                 };
 
-                middlewares = ["crowdsec@file"];
+                middlewares = [
+                  "crowdsec@file"
+                  "robots@file"
+                ];
               };
 
               transport.respondingTimeouts = {
@@ -167,6 +170,8 @@
                 scheme = "https";
                 permanent = true;
               };
+
+              robots.headers.customResponseHeaders.X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet, noimageindex";
               # keep-sorted end
             };
 
@@ -225,6 +230,13 @@
                 middlewares = ["anubis@file"];
                 rule = "Host(`gotify.${groundDomain}`)";
                 service = "gotify";
+              };
+
+              robots = {
+                entryPoints = ["websecure"];
+                priority = 100;
+                rule = "Path(`/robots.txt`)";
+                service = "anubis";
               };
 
               traefik-dashboard = {

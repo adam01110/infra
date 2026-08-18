@@ -62,8 +62,16 @@
           "crowdsecurity/linux"
           "crowdsecurity/sshd"
           "crowdsecurity/traefik"
-          "crowdsecurity/whitelist-good-actors"
           "firix/authentik"
+          # keep-sorted end
+        ];
+
+        parsers = ["crowdsecurity/public-dns-allowlist"];
+
+        postoverflows = [
+          # keep-sorted start
+          "crowdsecurity/cdn-whitelist"
+          "crowdsecurity/rdns"
           # keep-sorted end
         ];
       };
