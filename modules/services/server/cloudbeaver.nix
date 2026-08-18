@@ -31,6 +31,7 @@
 
       extraOptions = [
         "--network=host"
+        "--volume=${pkgs.pkgsStatic.curl}/bin/curl:/usr/bin/curl:ro"
 
         # Health check.
         "--health-cmd=curl -fsSo /dev/null http://127.0.0.1:8978/ || exit 1"
