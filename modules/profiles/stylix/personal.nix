@@ -19,7 +19,7 @@ in {
     stylix = {
       cursor = {
         name = "Bibata-Modern-Gruvbox-Dark";
-        package = pkgs.nur.repos.adam0.bibata-modern-cursors-gruvbox-dark;
+        package = pkgs.nur.repos.adam0.bibata.modern.cursors.gruvbox-dark;
         size = 24;
       };
 
