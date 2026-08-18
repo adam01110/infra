@@ -6,7 +6,7 @@
   ...
 }: {
   flake-file.inputs.tuigreet = {
-    url = "github:notashelf/tuigreet";
+    url = "github:tuigreet/tuigreet";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 

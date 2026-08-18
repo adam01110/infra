@@ -124,7 +124,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     tuigreet = {
-      url = "github:notashelf/tuigreet";
+      url = "github:tuigreet/tuigreet";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
