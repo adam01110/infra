@@ -16,6 +16,7 @@
 
       # Services
       # keep-sorted start
+      fwupd
       scx-loader
       tlp
       wifi
@@ -31,6 +32,9 @@
     disko.selectedDisk = "/dev/nvme0n1";
 
     services.timezone = "automatic-timezoned";
+
+    # Use the NV40 Dasharo capsule-on-disk update path.
+    services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = false;
 
     tweaks.rcuLazy.enable = true;
 
@@ -59,9 +63,6 @@
         CPU_MIN_PERF_ON_AC = 0;
         CPU_MIN_PERF_ON_BAT = 0;
         # keep-sorted end
-
-        # Disable cpu boost because it makes noise FOR SOME REASON ?!.
-        CPU_BOOST_ON_AC = 0;
 
         # Platform power profiles: balanced on ac, low power on battery.
         # keep-sorted start
