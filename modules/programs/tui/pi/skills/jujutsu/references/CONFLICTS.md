@@ -1,6 +1,9 @@
 # conflicts
 
-jj conflict is commit data. rebase/squash producing conflict succeeds; commit stays marked. further rebase allowed. push rejects conflicted history.
+jj conflict is commit data. rebase/squash producing conflict succeeds; commit
+stays marked. further rebase allowed. push rejects conflicted history by
+default.
+0.44 adds `jj git push --allow-conflicts`; agent never uses it.
 
 ## inspect
 
@@ -39,7 +42,9 @@ side 2 content here
 >>>>>>> Conflict 1 of 1 ends
 ```
 
-side #1 = ours/destination, usually current line. side #2 = theirs/source, usually incoming/rebased line. resolve manual by replacing whole marker block with final content.
+side #1 = ours/destination, usually current line. side #2 = theirs/source,
+usually incoming/rebased line. resolve manual by replacing whole marker block
+with final content.
 
 ## choose path
 
@@ -78,7 +83,8 @@ jj st
 jj edit <original-change-id>
 ```
 
-jj re-propagates fix. record original ID before moving; never assume `@-` returns prior location.
+jj re-propagates fix. record original ID before moving; never assume `@-`
+returns prior location.
 
 ## verify
 
@@ -90,11 +96,14 @@ git grep -E '^(<{7}|>{7}|\\%{7}|\\+{7})' || echo 'no residual conflict markers'
 # run project tests/linter
 ```
 
-co-located? read-only `git grep` safe. non-colocated? `rg` or `grep -rE`. tests catch markers valid inside language strings.
+co-located? read-only `git grep` safe. non-colocated? `rg` or `grep -rE`.
+tests catch markers valid inside language strings.
 
-push still refuses conflict; no force-conflicts option.
+normal push refuses conflict. `--allow-conflicts` bypass exists in 0.44 but is
+forbidden: remote conflict commits are hard to consume and hide unfinished work.
 
-avoid descendant-by-descendant fixes, `git checkout`, squash-to-hide, and bare resolve.
+avoid descendant-by-descendant fixes, `git checkout`, squash-to-hide, and bare
+resolve.
 
 | need | command |
 |---|---|

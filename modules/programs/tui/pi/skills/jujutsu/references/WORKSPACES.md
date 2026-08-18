@@ -1,6 +1,7 @@
 # parallel workspaces
 
-assume jj 0.41.0. multiple agents need same repo? separate `@` through `jj workspace`; store and op log shared.
+assume jj 0.44.0. multiple agents need same repo? separate `@` through
+`jj workspace`; store and op log shared.
 
 ## directory decision
 
@@ -19,7 +20,9 @@ before create, prevent workspace metadata entering git:
 grep -E '^\.?workspaces/?$' .gitignore 2>/dev/null
 ```
 
-missing entry? add chosen directory ignore through normal describe-first workflow from [`NEW_CHANGE.md`](NEW_CHANGE.md) before workspace creation. never skip.
+missing entry? add chosen directory ignore through normal describe-first
+workflow from [`NEW_CHANGE.md`](NEW_CHANGE.md) before workspace creation. never
+skip.
 
 name descriptive:
 
@@ -30,7 +33,8 @@ jj workspace add "$WORKSPACE_PATH"
 cd "$WORKSPACE_PATH"
 ```
 
-avoid `tmp`, `wip`, `new`. workspace gets own working-copy commit and `<workspace-name>@` marker; snapshots affect only its `@`.
+avoid `tmp`, `wip`, `new`. workspace gets own working-copy commit and
+`<workspace-name>@` marker; snapshots affect only its `@`.
 
 ## bootstrap
 
@@ -48,7 +52,9 @@ handoff only after required environment setup:
 
 ## handoff
 
-always provide absolute path, stable change ID, exact `cd`, exact `jj edit <change-id>`, scope boundaries, inline-message rule, status-after-mutation rule.
+always provide absolute path, stable change ID, exact `cd`, exact
+`jj edit <change-id>`, scope boundaries, inline-message rule,
+status-after-mutation rule.
 
 ```text
 Workspace: /absolute/path/to/.workspaces/myrepo-tests
@@ -70,11 +76,13 @@ use compact log from [`TEMPLATES.md`](TEMPLATES.md), changing revset:
 - all tips: `-r 'working_copies()'`
 - one: `-r '<workspace>@'`
 
+default `jj workspace list` now shows roots. compact template also keeps root.
 syntax: [`QUERY_LANGUAGES.md`](QUERY_LANGUAGES.md).
 
 ## integrate
 
-result ready? do not silently pick strategy. ask user: rebase into default workspace, explicit merge, or bookmark/PR.
+result ready? do not silently pick strategy. ask user: rebase into default
+workspace, explicit merge, or bookmark/PR.
 
 rebase ordinary commits:
 
@@ -97,7 +105,8 @@ jj bookmark create my-feature -r <workspace-change-id>
 jj git push -b my-feature
 ```
 
-solo parallel work usually rebase. review required means PR. meaningful dual lines means merge. bookmark shipping after rebase follows [`PUSH.md`](PUSH.md).
+solo parallel work usually rebase. review required means PR. meaningful dual
+lines means merge. bookmark shipping after rebase follows [`PUSH.md`](PUSH.md).
 
 ## cleanup and stale state
 
@@ -116,7 +125,8 @@ jj workspace update-stale
 jj st
 ```
 
-use before manual repair. old operation unavailable? jj may create recovery commit from current files rather than discard.
+use before manual repair. old operation unavailable? jj may create recovery
+commit from current files rather than discard.
 
 ## avoid collisions
 
@@ -125,4 +135,5 @@ use before manual repair. old operation unavailable? jj may create recovery comm
 - lockfile/dependencies: one task owns.
 - same source files: redesign boundary or serialize.
 
-absolute handoff, ignore check, descriptive name, bootstrap, integration question, forget-before-delete, and update-stale-first are mandatory.
+absolute handoff, ignore check, descriptive name, bootstrap, integration
+question, forget-before-delete, and update-stale-first are mandatory.

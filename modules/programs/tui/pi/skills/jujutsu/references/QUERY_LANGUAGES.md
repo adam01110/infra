@@ -1,6 +1,7 @@
 # query languages
 
-assume jj 0.41.0. need narrow revisions, paths, output? use queries; avoid verbose default.
+assume jj 0.44.0. need narrow revisions, paths, output? use queries; avoid
+verbose default.
 
 ## revsets
 
@@ -23,7 +24,8 @@ punctuation/function present? shell-quote.
 
 ## filesets
 
-- `path` / `"path"`: cwd-relative prefix.
+- `path` / `"path"`: cwd-relative `prefix-glob:` pattern.
+- `cwd:"path"`: literal cwd-relative prefix.
 - `file:"path"`: exact cwd-relative file.
 - `glob:"pattern"`: cwd-relative glob.
 - `root:"path"`: workspace-relative prefix.
@@ -40,12 +42,18 @@ jj diff 'file:"README.md"'
 
 ## templates
 
-common: `++`, `if(cond, a, b)`, `description.first_line()`, `change_id.shortest(8)`, `bookmarks`, `current_working_copy`, `empty`, `conflict`.
+common: `++`, `if(cond, a, b)`, `description.first_line()`,
+`change_id.shortest(8)`, `bookmarks`, `current_working_copy`, `empty`, `conflict`.
+
+<!-- rumdl-disable MD013 -->
 
 ```bash
 jj --no-pager log --no-graph -n 5 -T 'change_id.shortest(8) ++ " " ++ if(description, description.first_line(), "(no description)") ++ "\n"'
 ```
 
+<!-- rumdl-enable MD013 -->
+
 start with [`TEMPLATES.md`](TEMPLATES.md); invent only when need differs.
 
-parse fails? inspect `jj <command> --help`, `jj help -k revsets`, `jj help -k filesets`, or `jj help -k templates`.
+parse fails? inspect `jj <command> --help`, `jj help -k revsets`,
+`jj help -k filesets`, or `jj help -k templates`.

@@ -1,6 +1,8 @@
 # remotes
 
-single remote push? [`PUSH.md`](PUSH.md). multiple remotes need explicit target and tracking decisions. official guide: <https://docs.jj-vcs.dev/latest/guides/multiple-remotes/>.
+single remote push? [`PUSH.md`](PUSH.md). multiple remotes need explicit target
+and tracking decisions. official guide:
+<https://docs.jj-vcs.dev/latest/guides/multiple-remotes/>.
 
 ```bash
 jj git remote list
@@ -10,7 +12,9 @@ jj git remote set-url origin <new-url>
 jj git remote remove old-name
 ```
 
-no `--remote` on push? selection order: `git.push` config, then `origin` when multiple, then sole remote. one command cannot push several remotes; call once each.
+no `--remote` on push? selection order: `git.push` config, then `origin` when
+multiple, then sole remote. one command cannot push several remotes; call once
+each.
 
 ```bash
 jj bookmark move my-feature --to @
@@ -25,7 +29,8 @@ jj config set --repo git.push fork
 jj config set --user git.push origin
 ```
 
-remote bookmarks appear as `<name>@<remote>`. local should follow one?
+remote bookmarks and tags appear as `<name>@<remote>`. symbol ambiguous? tag wins.
+local bookmark should follow one?
 
 ```bash
 jj bookmark track main@upstream
@@ -40,15 +45,27 @@ jj git fetch --remote upstream
 jj git fetch --all-remotes
 ```
 
-push rejected because remote moved? fetch target, resolve bookmark conflict/rebase, retry. refusal acts like lease protection.
+0.44 fetches tags and auto-tracks same-name local tags. disable per remote only
+when intentional:
+
+```bash
+jj config set --repo remotes.upstream.fetch-tags '~*'
+```
+
+push rejected because remote moved? fetch target, resolve bookmark
+conflict/rebase, retry. refusal acts like lease protection.
 
 ## choose topology
 
-jj naming: `origin` writable push target; `upstream` canonical source. examples assume `main`.
+jj naming: `origin` writable push target; `upstream` canonical source. examples
+assume `main`.
 
 ### contributing fork
 
-features go from fork `origin` into canonical `upstream` via PR. fetch both; push fork; upstream main defines immutable trunk.
+features go from fork `origin` into canonical `upstream` via PR. fetch both;
+push fork; upstream main defines immutable trunk.
+
+<!-- rumdl-disable MD013 -->
 
 ```bash
 jj config set --repo git.fetch '["upstream", "origin"]'
@@ -57,11 +74,18 @@ jj bookmark track main
 jj config set --repo 'revset-aliases."trunk()"' main@upstream
 ```
 
-tracking `main` tracks both matching remote bookmarks. fetch updates local main; push keeps fork main synced. trunk boundary prevents rewrite of canonical commits.
+<!-- rumdl-enable MD013 -->
+
+tracking `main` tracks both matching remote bookmarks. fetch updates local
+main; push keeps fork main synced. trunk boundary prevents rewrite of canonical
+commits.
 
 ### independent divergent repo
 
-`origin` owns long-lived line. `upstream` only occasional source. track origin main only; origin defines trunk.
+`origin` owns long-lived line. `upstream` only occasional source. track origin
+main only; origin defines trunk.
+
+<!-- rumdl-disable MD013 -->
 
 ```bash
 jj config set --repo git.fetch '["origin"]'
@@ -73,6 +97,10 @@ jj bookmark untrack main --remote=upstream
 jj config set --repo 'revset-aliases."trunk()"' main@origin
 ```
 
+<!-- rumdl-enable MD013 -->
+
 upstream remains separate and integration stays explicit.
 
-which? contribute back and upstream fetch should move local main -> fork scenario. no contribution, origin intentionally diverges, upstream manually integrated -> independent scenario. unclear? ask before config mutation.
+which? contribute back and upstream fetch should move local main -> fork
+scenario. no contribution, origin intentionally diverges, upstream manually
+integrated -> independent scenario. unclear? ask before config mutation.

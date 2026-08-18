@@ -10,7 +10,8 @@ first choice:
 jj undo
 ```
 
-reverses latest operation atomically, including abandon, squash, rebase, restore, describe. never manually unwind first.
+reverses latest operation atomically, including abandon, squash, rebase,
+restore, describe. never manually unwind first.
 
 need older operation:
 
@@ -21,7 +22,9 @@ jj op log -p
 jj op restore <op-id>
 ```
 
-start compact command from [`TEMPLATES.md`](TEMPLATES.md). narrow op IDs; only then `-p`. `op restore` restores whole repo state and itself creates recoverable op. wrong restore? `jj undo`.
+start compact command from [`TEMPLATES.md`](TEMPLATES.md). narrow op IDs; only
+then `-p`. `op restore` restores whole repo state and itself creates recoverable
+op. wrong restore? `jj undo`.
 
 single change evolution:
 
@@ -35,11 +38,15 @@ compact first; patch only after narrowing. useful for pre-rewrite commit version
 
 ## scenarios
 
-wrong abandon just happened? `jj undo`. later? find preceding op, `jj op restore <op-id>`.
+wrong abandon just happened? `jj undo`. later? find preceding op,
+`jj op restore <op-id>`.
 
-squash into wrong parent or bad rebase? `jj undo`. more work followed? inspect op log and restore earlier op; understand later ops no longer active before choosing.
+squash into wrong parent or bad rebase? `jj undo`. more work followed? inspect op
+log and restore earlier op; understand later ops no longer active before
+choosing.
 
-lost work after sequence? `jj op log -p`; find last state containing work; restore it.
+lost work after sequence? `jj op log -p`; find last state containing work;
+restore it.
 
 need old file version:
 
@@ -48,7 +55,8 @@ jj evolog -r <change-id> -p
 jj restore --from <commit-id-from-evolog> <path>
 ```
 
-no stash/pop needed. each state already commit/op-log history. op log retained long enough for ordinary recovery; do not assume loss.
+no stash/pop needed. each state already commit/op-log history. op log retained
+long enough for ordinary recovery; do not assume loss.
 
 | need | command |
 |---|---|

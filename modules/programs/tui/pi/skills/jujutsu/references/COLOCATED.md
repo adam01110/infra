@@ -1,6 +1,8 @@
 # co-located jj + git
 
-co-located root has `.jj/` and `.git/`. jj owns local state; git compatibility supports GitHub, CI, hooks, IDE, `gh`. existing git project? strongly prefer this shape.
+co-located root has `.jj/` and `.git/`. jj owns local state; git compatibility
+supports GitHub, CI, hooks, IDE, `gh`. existing git project? strongly prefer
+this shape.
 
 ```bash
 jj git init --colocate
@@ -9,7 +11,8 @@ cd existing-git-repo
 jj git init --colocate
 ```
 
-existing git history? never omit `--colocate`; otherwise separate store appears under `.jj/repo/store/git`.
+existing git history? never omit `--colocate`; otherwise separate store
+appears under `.jj/repo/store/git`.
 
 ## mutation rule
 
@@ -24,6 +27,7 @@ git may inspect only:
 | `git fetch` | use `jj git fetch` |
 | `git pull` | forbidden; `jj git fetch` then `jj rebase` |
 | `git push` | forbidden; `jj git push -b <bookmark>` |
+| `git tag` | forbidden; `jj tag set`, `jj tag delete` |
 
 why? jj snapshots working copy. hidden git mutation breaks jj's state/op-log model.
 
@@ -56,3 +60,18 @@ jj git push -b main
 ```
 
 full push gate: [`PUSH.md`](PUSH.md).
+
+## native tags in 0.44
+
+no git mode needed:
+
+```bash
+jj tag set v1.2.3 -r <change-id>
+jj tag list
+jj tag track v1.2.3@origin
+jj git push -t v1.2.3 --remote origin
+```
+
+fetch now gets tags like bookmarks and tracks matching local tags. need no tags?
+set `remotes.<name>.fetch-tags = '~*'`. `jj git push --all` pushes bookmarks
+and tags; use narrow `-b` or `-t` by default.

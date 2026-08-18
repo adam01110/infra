@@ -6,7 +6,8 @@ rule: describe first, edit, refine. `@` already commit.
 jj st
 ```
 
-`@` empty and description absent/discardable? reuse. `@` contains work to preserve? run `jj new`; creates empty child.
+`@` empty and description absent/discardable? reuse. `@` contains work to
+preserve? run `jj new`; creates empty child.
 
 then, before file edit:
 
@@ -16,11 +17,15 @@ jj desc -m "Add login validation"
 jj st
 ```
 
-one description should name one logical change. inline `-m` mandatory for agent; editor prompt hangs. no `jj add`, no `jj commit`.
+one description should name one logical change. inline `-m` mandatory for
+agent; editor prompt hangs. no `jj add`, no `jj commit`.
 
-done? leave `@` there. do not `jj new` to close. next task performs same status decision.
+done? leave `@` there. do not `jj new` to close. next task performs same status
+decision.
 
-need split/squash/absorb/abandon? [`REFINE_COMMIT.md`](REFINE_COMMIT.md). unrelated sibling? [`NONLINEAR.md`](NONLINEAR.md).
+need split/squash/absorb/abandon?
+[`REFINE_COMMIT.md`](REFINE_COMMIT.md). unrelated sibling?
+[`NONLINEAR.md`](NONLINEAR.md).
 
 avoid:
 

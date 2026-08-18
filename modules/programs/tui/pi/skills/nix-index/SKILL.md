@@ -1,11 +1,22 @@
 ---
 name: nix-index
-description: Locate Nix packages providing commands or files with nix-locate and the existing local database; never manage that database.
+description: >-
+  Use when identifying which Nix package provides a command, executable,
+  library, desktop entry, module, or other file.
+license: AGPL-3.0-only
+compatibility: Requires nix-locate and an existing local nix-index database.
+metadata:
+  author: Adam0
+  version: "1.0.0"
+  short-description: Find Nix packages that provide files
+allowed-tools: bash
 ---
 
 # nix index
 
-need package owning command/file? use `nix-locate`. never run or manage `nix-index`; never suggest database build, refresh, deletion, or cache maintenance.
+need package owning command/file? use `nix-locate`. never run or manage
+`nix-index`; never suggest database build, refresh, deletion, or cache
+maintenance.
 
 ```bash
 nix-locate --top-level --whole-name --type x --type s '/bin/rg'
@@ -18,11 +29,14 @@ nix-locate --whole-name '/bin/hello'
 
 command missing:
 
-1. exact executable: `nix-locate --top-level --whole-name --type x --type s "/bin/foo"`.
+1. exact executable:
+   `nix-locate --top-level --whole-name --type x --type s "/bin/foo"`.
 2. empty? broaden: `nix-locate --top-level --type x 'bin/foo'` or regex.
 3. split output possible? retry without `--top-level`.
 4. still empty? fall back to `nix-search-tv`.
 
-need installable attrs? `--top-level`. known path? `--whole-name`. executable? `--type x --type s`. too broad? narrow path and type.
+need installable attrs? `--top-level`. known path? `--whole-name`. executable?
+`--type x --type s`. too broad? narrow path and type.
 
-multiple matches normal. likely package first; close alternatives after. metadata needed? `nix-search-tv preview --indexes nixpkgs <attr>`.
+multiple matches normal. likely package first; close alternatives after.
+metadata needed? `nix-search-tv preview --indexes nixpkgs <attr>`.
