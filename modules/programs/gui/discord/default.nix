@@ -20,7 +20,7 @@
     inherit (lib) mkForce;
     inherit (lib.hm) dag;
 
-    settingsPath = "${config.xdg.configHome}/equibop/settings/settings.json";
+    settingsPath = "${config.xdg.configHome}/equibop/settings.json";
     settingsSource = config.home.file.${settingsPath}.source;
   in {
     imports = [inputs.nixcord.homeModules.nixcord];
