@@ -19,10 +19,12 @@
 
     # keep-sorted start
     equibop = getExe config.programs.nixcord.equibop.package;
+    gpu-screen-recorder = getExe pkgs.gpu-screen-recorder;
     grim = getExe pkgs.grim;
     hyprctl = getExe' osConfig.programs.hyprland.package "hyprctl";
     hyprpicker = getExe pkgs.hyprpicker;
-    noctalia = getExe' config.programs.noctalia.package ".noctalia-wrapped";
+    noctalia = getExe config.programs.noctalia.package;
+    noctalia-wrapped = getExe' config.programs.noctalia.package ".noctalia-wrapped";
     overzicht = getExe' config.programs.quickshell.package ".quickshell-wrapped";
     xdg-desktop-portal-hyprland = getExe' osConfig.programs.hyprland.portalPackage ".xdg-desktop-portal-hyprland-wrapped";
     # keep-sorted end
@@ -45,6 +47,12 @@
         }
 
         {
+          binary = escapeRegex gpu-screen-recorder;
+          mode = "allow";
+          type = "screencopy";
+        }
+
+        {
           binary = escapeRegex grim;
           mode = "allow";
           type = "screencopy";
@@ -52,6 +60,12 @@
 
         {
           binary = escapeRegex hyprpicker;
+          mode = "allow";
+          type = "screencopy";
+        }
+
+        {
+          binary = escapeRegex noctalia-wrapped;
           mode = "allow";
           type = "screencopy";
         }

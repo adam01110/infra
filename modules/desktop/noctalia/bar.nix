@@ -210,7 +210,7 @@
 
         bar_2 = {
           enable_scroll = false;
-          type = "salemsayed/codexbar-meter:bar";
+          type = "felipeartur/ai-usagebar:bar";
         };
 
         battery = {
@@ -278,12 +278,9 @@
 
         nix-monitor = {
           # keep-sorted start
-          checking_color = "secondary";
           enable_scroll = false;
           show_text = false;
-          type = "avivbintangaringga/nix-monitor:nix-monitor";
-          up_to_date_color = "primary";
-          update_available_color = "error";
+          type = "adam0/nix-monitor:nix-monitor";
           # keep-sorted end
         };
 

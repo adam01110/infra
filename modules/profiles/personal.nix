@@ -87,8 +87,8 @@
 
       # CLI
       # keep-sorted start block=yes
+      ai-usagebar
       bonsai
-      codexbar
       cpond
       diffnav
       direnv

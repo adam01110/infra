@@ -14,11 +14,13 @@
     jsonFormat = pkgs.formats.json {};
     videosDir = config.xdg.userDirs.videos;
 
-    performancePlugin = pkgs.runCommandLocal "noctalia-performance-plugin" {} ''
+    localPlugins = pkgs.runCommandLocal "noctalia-local-plugins" {} ''
       mkdir -p "$out"
       cp -r ${./plugins/performance} "$out/performance"
       substituteInPlace "$out/performance/toggle.luau" \
         --replace-fail '@performanceMode@' '${getExe pkgs.performance-mode}'
+      cp -r ${./plugins/nix-monitor} "$out/nix-monitor"
+      cp -r ${./plugins/keybind-cheatsheet} "$out/keybind-cheatsheet"
     '';
   in {
     home.file.".local/state/noctalia/plugins/data/noctalia/world_clock/zones.json" = {
@@ -48,6 +50,15 @@
     programs.noctalia.settings = {
       plugin_settings = {
         # keep-sorted start block=yes newline_separated=yes
+        "adam0/nix-monitor" = {
+          # keep-sorted start
+          clean_command = "nh clean all";
+          generation_check_interval = 240;
+          optimize_command = "nix store optimise";
+          panel_placement = "floating";
+          # keep-sorted end
+        };
+
         "alexander/game-launcher".steampoacher_enabled = true;
 
         "aristides/udiskie" = {
@@ -55,23 +66,20 @@
           manager_open_near_click = true;
         };
 
-        "avivbintangaringga/nix-monitor" = {
+        "cleboost/ssh-launcher".max_results = 32;
+
+        "felipeartur/ai-usagebar" = {
           # keep-sorted start
-          clean_command = "nh clean all";
-          generation_check_interval = 240;
-          optimize_command = "nix store optimise";
+          panel_open_near_click = true;
           panel_placement = "floating";
-          show_update_check_notification = true;
-          update_check_interval = 240;
-          update_command = "nh os switch";
+          panel_position = "auto";
+          refresh_minutes = 8;
           # keep-sorted end
         };
 
-        "cleboost/ssh-launcher".max_results = 32;
-
         "kenn/keybind-cheatsheet" = {
           # keep-sorted start
-          columns = 4;
+          columns = 5;
           compositor = "hyprland";
           hyprland_parser = "lua";
           # keep-sorted end
@@ -110,26 +118,19 @@
           panel_position = "auto";
           # keep-sorted end
         };
-
-        "salemsayed/codexbar-meter" = {
-          # keep-sorted start
-          panel-compact_placement = "floating";
-          panel-tall_placement = "floating";
-          panel_placement = "floating";
-          # keep-sorted end
-        };
         # keep-sorted end
       };
 
       plugins = {
-        auto_update = true;
+        auto_update = "all";
         enabled = [
           # keep-sorted start
+          "adam0/nix-monitor"
           "adam0/performance"
           "alexander/game-launcher"
           "aristides/udiskie"
-          "avivbintangaringga/nix-monitor"
           "cleboost/ssh-launcher"
+          "felipeartur/ai-usagebar"
           "kenn/keybind-cheatsheet"
           "nightwatch75/file-search"
           "noctalia/bitwarden"
@@ -138,7 +139,6 @@
           "noctalia/translator"
           "noctalia/world_clock"
           "oldirtty/color_picker"
-          "salemsayed/codexbar-meter"
           "weinguyen/shell-command"
           # keep-sorted end
         ];
@@ -159,7 +159,7 @@
 
           {
             kind = "path";
-            location = "${performancePlugin}";
+            location = "${localPlugins}";
             name = "local";
           }
         ];
