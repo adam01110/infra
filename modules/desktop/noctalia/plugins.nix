@@ -21,6 +21,7 @@
         --replace-fail '@performanceMode@' '${getExe pkgs.performance-mode}'
       cp -r ${./plugins/nix-monitor} "$out/nix-monitor"
       cp -r ${./plugins/keybind-cheatsheet} "$out/keybind-cheatsheet"
+      cp -r ${./plugins/codexbar-meter} "$out/codexbar-meter"
     '';
   in {
     home.file.".local/state/noctalia/plugins/data/noctalia/world_clock/zones.json" = {
@@ -55,6 +56,7 @@
           clean_command = "nh clean all";
           generation_check_interval = 240;
           optimize_command = "nix store optimise";
+          panel_open_near_click = true;
           panel_placement = "floating";
           # keep-sorted end
         };
@@ -67,15 +69,6 @@
         };
 
         "cleboost/ssh-launcher".max_results = 32;
-
-        "felipeartur/ai-usagebar" = {
-          # keep-sorted start
-          panel_open_near_click = true;
-          panel_placement = "floating";
-          panel_position = "auto";
-          refresh_minutes = 8;
-          # keep-sorted end
-        };
 
         "kenn/keybind-cheatsheet" = {
           # keep-sorted start
@@ -118,6 +111,14 @@
           panel_position = "auto";
           # keep-sorted end
         };
+
+        "salemsayed/codexbar-meter" = {
+          # keep-sorted start
+          panel-compact_placement = "floating";
+          panel-tall_placement = "floating";
+          panel_placement = "floating";
+          # keep-sorted end
+        };
         # keep-sorted end
       };
 
@@ -130,7 +131,6 @@
           "alexander/game-launcher"
           "aristides/udiskie"
           "cleboost/ssh-launcher"
-          "felipeartur/ai-usagebar"
           "kenn/keybind-cheatsheet"
           "nightwatch75/file-search"
           "noctalia/bitwarden"
@@ -139,6 +139,7 @@
           "noctalia/translator"
           "noctalia/world_clock"
           "oldirtty/color_picker"
+          "salemsayed/codexbar-meter"
           "weinguyen/shell-command"
           # keep-sorted end
         ];

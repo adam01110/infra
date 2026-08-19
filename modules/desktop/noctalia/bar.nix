@@ -210,7 +210,7 @@
 
         bar_2 = {
           enable_scroll = false;
-          type = "felipeartur/ai-usagebar:bar";
+          type = "salemsayed/codexbar-meter:bar";
         };
 
         battery = {

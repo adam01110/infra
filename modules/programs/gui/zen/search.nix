@@ -265,6 +265,25 @@
             iconMapObj."16" = "https://github.com/favicon.ico";
             definedAliases = ["@gh"];
           };
+          tangled = {
+            urls = [
+              {
+                template = "https://tangled.org/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                  {
+                    name = "type";
+                    value = "repo";
+                  }
+                ];
+              }
+            ];
+            iconMapObj."16" = "https://tangled.org/favicon.ico";
+            definedAliases = ["@tg"];
+          };
           # keep-sorted end
         };
       };
