@@ -371,7 +371,7 @@ local function render()
     local header = ui.row({ align = "center", justify = "space_between" }, {
         ui.row({ align = "center", gap = 10 }, {
             ui.row({ align = "center", justify = "center", width = 36, height = 36, fill = "primary/0.15", radius = cornerRadius(11) }, {
-                ui.glyph({ name = "chart-donut-3", size = 19, color = "primary" }),
+                ui.glyph({ name = "chart-donut-3", size = 19, width = 36, height = 36, color = "primary" }),
             }),
             ui.column({ gap = 1 }, {
                 ui.label({ text = "CodexBar Meter", fontSize = 17, fontWeight = "bold", color = "on_surface" }),

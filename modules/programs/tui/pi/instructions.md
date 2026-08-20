@@ -23,6 +23,8 @@ tool missing globally? run `, command args...`. comma cannot resolve? run
 
 archive compress/extract? use `ouch`. no format tool such as `zip` or `unzip`.
 
+backslash line continuation? never. shell command one line. too long? script.
+
 ## skills
 
 substantive work starts? check for matching skill first. skill plausible? load

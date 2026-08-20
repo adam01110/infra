@@ -49,6 +49,7 @@
         # CLI
         # keep-sorted start
         bandwhich
+        fish
         man
         sudo
         # keep-sorted end

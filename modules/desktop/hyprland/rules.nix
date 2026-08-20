@@ -306,6 +306,15 @@
           }
 
           {
+            match.class = "org.eduvpn.client";
+
+            # keep-sorted start
+            float = true;
+            size = [400 600];
+            # keep-sorted end
+          }
+
+          {
             match.class = "org.gnome.Calculator";
 
             # keep-sorted start

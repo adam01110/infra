@@ -1,7 +1,21 @@
 {inputs, ...}: {
-  flake-file.inputs.pi-nix = {
-    url = "github:lukasl-dev/pi.nix";
-    inputs.nixpkgs.follows = "nixpkgs";
+  flake-file.inputs = {
+    pi-nix = {
+      url = "github:lukasl-dev/pi.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pi-suite = {
+      url = "git+file:///home/adam0/Projects/pi-suite?ref=main";
+      inputs = {
+        # keep-sorted start
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+        # keep-sorted end
+      };
+    };
   };
 
   flake.modules.homeManager.pi = {
@@ -13,6 +27,7 @@
     ...
   }: let
     inherit (builtins) attrValues;
+    inherit (pkgs.stdenv.hostPlatform) system;
     inherit
       (lib)
       # keep-sorted start
@@ -28,7 +43,8 @@
       # keep-sorted end
       ;
 
-    piPackage = inputs.pi-nix.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent-bun;
+    piPackage = inputs.pi-nix.packages.${system}.coding-agent-bun;
+    piSuite = inputs.pi-suite.packages.${system}.default;
 
     bunRuntime = symlinkJoin {
       name = "bun-runtime";
@@ -74,7 +90,10 @@
             --prefix PATH : ${makeBinPath runtimePackages}
         '';
       };
-      settings.npmCommand = [(getExe bunRuntime)];
+      settings = {
+        npmCommand = [(getExe bunRuntime)];
+        packages = ["${piSuite}"];
+      };
 
       rules = ./instructions.md;
     };

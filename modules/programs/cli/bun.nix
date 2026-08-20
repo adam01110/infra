@@ -13,7 +13,6 @@
       getExe'
       # keep-sorted end
       ;
-
     # keep-sorted start
     bun = getExe config.programs.bun.package;
     bunx = getExe' config.programs.bun.package "bunx";

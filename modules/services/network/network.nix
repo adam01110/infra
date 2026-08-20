@@ -3,6 +3,7 @@
     # keep-sorted start
     config,
     lib,
+    pkgs,
     vars,
     # keep-sorted end
     ...
@@ -48,6 +49,7 @@
       networkmanager = {
         enable = true;
         dns = "systemd-resolved";
+        plugins = [pkgs.networkmanager-openvpn];
       };
     };
 

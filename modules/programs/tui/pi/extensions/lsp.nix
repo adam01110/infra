@@ -40,8 +40,6 @@
       settings = {};
     };
   in {
-    programs.pi.coding-agent.extensions = ["npm:pi-lsp@0.1.7"];
-
     home.file.".pi/agent/lsp.json".source = jsonFormat.generate "pi-lsp.json" {
       version = 1;
       servers = [

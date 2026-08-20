@@ -1,7 +1,5 @@
 {
   flake.modules.homeManager.pi = {
-    programs.pi.coding-agent.extensions = ["npm:@tintinweb/pi-subagents@0.14.3"];
-
     home.file = {
       # keep-sorted start
       ".pi/agent/agents/Explore.md".source = ../agents/explore.md;

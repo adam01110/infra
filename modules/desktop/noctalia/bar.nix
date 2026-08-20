@@ -14,6 +14,7 @@
     btop = getExe config.programs.btop.package;
     cfgBattery = config.programs.noctalia.battery.enable;
     cfgBluetooth = osConfig.capabilities.bluetooth;
+    cfgGpuVram = osConfig.capabilities.gpuVram;
     terminal = getExe config.xdg.terminal-exec.package;
     wiremix = config.xdg.desktopEntries.wiremix.exec;
     # keep-sorted end
@@ -105,14 +106,18 @@
               enabled = true;
               fill = "surface_variant";
               id = "system-monitor";
-              members = [
-                "cpu-usage"
-                "cpu-temperature"
-                "gpu-usage"
-                "gpu-temperature"
-                "ram"
-                "swap"
-              ];
+              members =
+                [
+                  "cpu-usage"
+                  "cpu-temperature"
+                  "gpu-usage"
+                ]
+                ++ optional cfgGpuVram "gpu-vram"
+                ++ [
+                  "gpu-temperature"
+                  "ram"
+                  "swap"
+                ];
               opacity = 1.0;
               padding = 6.0;
             }
@@ -190,6 +195,8 @@
         "gpu-temperature" = mkStat "gpu_temp";
 
         "gpu-usage" = mkStat "gpu_usage";
+
+        "gpu-vram" = mkStat "gpu_vram_used";
 
         active_window = {
           # keep-sorted start

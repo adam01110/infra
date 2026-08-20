@@ -18,13 +18,29 @@
   flake.modules.nixos.hyprland = {
     # keep-sorted start
     inputs,
+    lib,
     pkgs,
     # keep-sorted end
     ...
   }: let
+    inherit (lib) getExe;
+    inherit (pkgs) writeShellApplication;
     inherit (pkgs.stdenv.hostPlatform) system;
 
     pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
+
+    resetTouchpad = writeShellApplication {
+      name = "reset-touchpad";
+      text = ''
+        device=i2c-FTCS1000:00
+        driver=/sys/bus/i2c/drivers/i2c_hid_acpi
+
+        test -L "$driver/$device"
+        printf %s "$device" >"$driver/unbind"
+        sleep 0.5
+        printf %s "$device" >"$driver/bind"
+      '';
+    };
   in {
     nixpkgs.overlays = with self.overlays; [
       # keep-sorted start
@@ -37,6 +53,15 @@
       enable = true;
       withUWSM = true;
       xwayland.enable = true;
+    };
+
+    systemd.services.touchpad-reset = {
+      description = "Reset the I2C touchpad driver";
+
+      serviceConfig = {
+        ExecStart = getExe resetTouchpad;
+        Type = "oneshot";
+      };
     };
 
     hardware.graphics = {
@@ -60,6 +85,8 @@
         # Packages are null because its installed sytem wide.
         package = null;
         portalPackage = null;
+
+        xdph.settings.screencopy.max_fps = 60;
       };
 
       programs.hylix.enable = true;

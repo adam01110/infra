@@ -13,50 +13,8 @@
       getExe'
       # keep-sorted end
       ;
-    inherit (pkgs) writeText;
-
     jsonFormat = pkgs.formats.json {};
-
-    autoformatRenderer = writeText "pi-autoformat-renderer.ts" ''
-      import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-      import { Text } from "@earendil-works/pi-tui";
-
-      export default function (pi: ExtensionAPI): void {
-        pi.registerMessageRenderer("autoformat-steering", (message, { expanded }, theme) => {
-          const content = message.content.replace(/^\[pi-autoformat\]\s*/, "");
-          const formatted = content.match(/^Formatted (\d+) file\(s\):\s*([^\n]+)/);
-          const failed = content.includes("Failures:");
-          const count = formatted?.[1];
-          const label = count === "1" ? "file" : "files";
-          const status = failed
-            ? theme.fg("warning", "formatter failures")
-            : theme.fg("success", `formatted ''${count ?? "0"} ''${label}`);
-          const hint = expanded ? "" : theme.fg("dim", " · ctrl+o to expand");
-          let text = theme.fg("accent", "● ") + theme.fg("text", theme.bold("Autoformat "));
-          text += theme.fg("dim", "· ") + status + hint;
-
-          if (expanded) {
-            const trailing = formatted ? content.slice(formatted[0].length).trim() : content;
-            const lines = [
-              ...(formatted?.[2].split(/,\s*/) ?? []),
-              ...trailing.split("\n"),
-            ].filter(Boolean);
-            for (const [index, line] of lines.entries()) {
-              const connector = index === lines.length - 1 ? "└─ " : "├─ ";
-              text += `\n''${theme.fg("muted", connector)}''${theme.fg(failed ? "warning" : "dim", line)}`;
-            }
-          }
-
-          return new Text(text, 0, 0);
-        });
-      }
-    '';
   in {
-    programs.pi.coding-agent.extensions = [
-      "npm:@gotgenes/pi-autoformat@5.1.8"
-      autoformatRenderer
-    ];
-
     home.file.".pi/agent/extensions/pi-autoformat/config.json".source = jsonFormat.generate "pi-autoformat.json" {
       formatterOutput.onFailure = "both";
       hideSummariesInTui = true;

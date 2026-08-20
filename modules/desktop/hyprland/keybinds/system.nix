@@ -37,6 +37,13 @@
           keys = ["SUPER" "F1"];
           exec = "${noctalia} plugin adam0/performance:toggle focused:main toggle";
         }
+
+        {
+          description = "Reset touchpad";
+
+          keys = ["XF86TouchpadToggle"];
+          exec = "systemctl start touchpad-reset.service";
+        }
         # keep-sorted end
       ])
     ];

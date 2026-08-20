@@ -17,8 +17,6 @@
 
     home.packages = [pkgs.ydotool];
 
-    programs.pi.coding-agent.extensions = ["npm:@agent-sh/computer-use-linux@0.4.7"];
-
     systemd.user.services.ydotoold = {
       Unit = {
         After = ["graphical-session.target"];

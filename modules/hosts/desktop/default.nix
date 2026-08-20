@@ -8,11 +8,16 @@
       # keep-sorted end
 
       # Hardware
+      # keep-sorted start
       roccat
+      tablet
+      # keep-sorted end
     ];
 
     # System version for state compatibility - do not modify.
     system.stateVersion = "26.05";
+
+    capabilities.gpuVram = true;
 
     networking.hostName = "desktop";
 

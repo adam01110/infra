@@ -45,6 +45,11 @@
             doc = "Clone a Git repository";
           };
 
+          init = {
+            definition = ["git" "init"];
+            doc = "Initialize a Git-backed repository";
+          };
+
           pull = {
             definition = ["util" "exec" "--" "sh" "-c" "jj git fetch && jj rebase -d 'trunk()'"];
             doc = "Fetch and rebase onto the remote trunk";

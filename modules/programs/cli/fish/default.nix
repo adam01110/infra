@@ -1,4 +1,6 @@
 {
+  flake.modules.nixos.fish.programs.fish.enable = true;
+
   flake.modules.homeManager.fish = {
     # keep-sorted start
     config,

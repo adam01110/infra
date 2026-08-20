@@ -9,8 +9,12 @@
     ...
   }: let
     inherit (lib) getExe;
-    inherit (pkgs) writeShellApplication;
+    inherit (pkgs) runCommand writeShellApplication;
     inherit (vars) gitUsername;
+
+    ghCompletions = runCommand "gh-fish-completions" {} ''
+      install -Dm644 ${pkgs.gh}/share/fish/vendor_completions.d/gh.fish $out/share/fish/vendor_completions.d/gh.fish
+    '';
 
     ghWrapper = writeShellApplication {
       name = "gh";
@@ -32,6 +36,8 @@
     };
   in {
     sops.secrets.github_token = {};
+
+    home.packages = [ghCompletions];
 
     programs.gh = {
       enable = true;

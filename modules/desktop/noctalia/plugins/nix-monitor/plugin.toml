@@ -1,7 +1,7 @@
 id = "adam0/nix-monitor"
 name = "Nix Monitor"
 version = "2.0.0"
-plugin_api = 26
+plugin_api = 28
 icon = "package"
 author = "adam0"
 description = "NixOS generations and store statistics monitor."

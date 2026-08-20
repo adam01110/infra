@@ -101,18 +101,14 @@
         # keep-sorted end
       };
 
-      programs.pi = {
-        coding-agent.extensions = ["npm:pi-mcp-adapter@2.21.1"];
-
-        mcpServers = {
-          inherit
-            # keep-sorted start
-            context7McpWrapper
-            githubMcpServerWrapper
-            tangledMcpWrapper
-            # keep-sorted end
-            ;
-        };
+      programs.pi.mcpServers = {
+        inherit
+          # keep-sorted start
+          context7McpWrapper
+          githubMcpServerWrapper
+          tangledMcpWrapper
+          # keep-sorted end
+          ;
       };
 
       # Keep the declarative baseline writable for extensions that register servers.

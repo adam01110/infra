@@ -2,8 +2,6 @@
   flake.modules.homeManager.pi = {pkgs, ...}: let
     tomlFormat = pkgs.formats.toml {};
   in {
-    programs.pi.coding-agent.extensions = ["${pkgs.rtk.src}/hooks/pi/rtk.ts"];
-
     xdg.configFile."rtk/config.toml".source = tomlFormat.generate "rtk-config.toml" {
       # keep-sorted start block=yes newline_separated=yes
       display.colors = false;

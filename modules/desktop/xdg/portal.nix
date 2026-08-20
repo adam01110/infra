@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{
   flake.modules.homeManager.xdgPortal = {
     # keep-sorted start
     config,
@@ -8,7 +8,6 @@
     ...
   }: let
     inherit (lib) getExe;
-    inherit ((import "${inputs.hyprland}/nix/lib.nix" lib)) toHyprlang;
   in {
     xdg.configFile = {
       "xdg-desktop-portal-termfilechooser/config".text = let
@@ -18,10 +17,6 @@
         cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
         env=TERMCMD=${terminalCommand} --title=Termfilechooser
       '';
-
-      "hypr/xdph.conf".text = toHyprlang {} {
-        max_fps = 60;
-      };
     };
   };
 

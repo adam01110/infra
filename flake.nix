@@ -1,16 +1,12 @@
 # DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
-  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
       inputs.flake-parts.follows = "flake-parts";
-    };
-    codexbar = {
-      url = "github:0xferrous/CodexBar-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     disko = {
@@ -98,6 +94,15 @@
     pi-nix = {
       url = "github:lukasl-dev/pi.nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pi-suite = {
+      url = "git+file:///home/adam0/Projects/pi-suite?ref=main";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";

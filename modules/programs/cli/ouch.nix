@@ -7,12 +7,16 @@
     ...
   }: let
     inherit (lib) getExe;
-    inherit (pkgs) writeShellApplication;
+    inherit (pkgs) runCommand writeShellApplication;
 
     # keep-sorted start
     ouch = getExe pkgs.ouch-rar;
     rar = getExe pkgs.rar;
     # keep-sorted end
+
+    ouchCompletions = runCommand "ouch-fish-completions" {} ''
+      install -Dm644 ${pkgs.ouch-rar}/share/fish/vendor_completions.d/ouch.fish $out/share/fish/vendor_completions.d/ouch.fish
+    '';
 
     ouchWrapper = writeShellApplication {
       name = "ouch";
@@ -29,6 +33,11 @@
       '';
     };
   in {
-    home.packages = [ouchWrapper];
+    home.packages = [
+      # keep-sorted start
+      ouchCompletions
+      ouchWrapper
+      # keep-sorted end
+    ];
   };
 }

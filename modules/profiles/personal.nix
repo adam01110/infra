@@ -13,7 +13,6 @@
       hyprland
       keyd
       noctalia
-      tablet
       tuigreet
       uwsm
       xdgPortal
@@ -117,6 +116,7 @@
       crosspipe
       decibels
       discord
+      eduvpn
       flatseal
       gimp
       gotify-desktop
