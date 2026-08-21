@@ -2,7 +2,7 @@
   flake.modules.homeManager.pi = {
     programs.pi.coding-agent.settings.vstack.extensionManager.config."@vanillagreen/pi-tool-renderer" = {
       # keep-sorted start
-      compactUserMessages = false;
+      compactUserMessages = true;
       pendingStatusAnimation = true;
       renderBashDiffs = true;
       renderGitDiffCommandDiffs = true;
