@@ -112,13 +112,7 @@
           # keep-sorted end
         };
 
-        "salemsayed/codexbar-meter" = {
-          # keep-sorted start
-          panel-compact_placement = "floating";
-          panel-tall_placement = "floating";
-          panel_placement = "floating";
-          # keep-sorted end
-        };
+        "salemsayed/codexbar-meter".panel_placement = "floating";
         # keep-sorted end
       };
 

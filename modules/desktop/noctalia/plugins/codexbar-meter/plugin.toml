@@ -39,30 +39,10 @@ id = "bar"
 entry = "bar_widget.luau"
 
 [[panel]]
-id = "panel-compact"
-entry = "panel.luau"
-width = 430
-height = 390
-placement = "attached"
-position = "auto"
-open_near_click = true
-dismiss_on_outside_click = true
-
-[[panel]]
 id = "panel"
 entry = "panel.luau"
 width = 430
-height = 560
-placement = "attached"
-position = "auto"
-open_near_click = true
-dismiss_on_outside_click = true
-
-[[panel]]
-id = "panel-tall"
-entry = "panel.luau"
-width = 430
-height = 720
+height = 404
 placement = "attached"
 position = "auto"
 open_near_click = true

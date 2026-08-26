@@ -413,9 +413,7 @@ local function render()
         end
     end
 
-    -- The root column and this scroll child both need flexGrow. This bounds
-    -- arbitrary provider counts instead of allowing the panel to clip.
-    children[#children + 1] = ui.scroll({ key = "usage-providers", flexGrow = 1, gap = 10 }, content)
+    children[#children + 1] = ui.column({ key = "usage-providers", flexGrow = 1, gap = 10 }, content)
     panel.render(ui.column({ flexGrow = 1, padding = 14, gap = 8 }, children))
 end
 
