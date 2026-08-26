@@ -41,10 +41,13 @@
       printing
       ssh-stunnel
       upower
+      vpn
       # keep-sorted end
     ];
 
     disko.devices = (self.diskoConfigurations.ext4 config.disko.selectedDisk).disko.devices;
+
+    services.wireguardVpns.netherlands = {};
   };
 
   flake.modules.homeManager.personal = {

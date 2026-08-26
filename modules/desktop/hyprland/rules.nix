@@ -258,6 +258,15 @@
           }
 
           {
+            match.class = "^(\\.eduvpn-gui-wrapped|org\\.eduvpn\\.client)$";
+
+            # keep-sorted start
+            float = true;
+            size = [400 600];
+            # keep-sorted end
+          }
+
+          {
             match.class = "com.mitchellh.ghostty";
 
             opacity = "1 override 1 override";
@@ -302,15 +311,6 @@
             center = true;
             float = true;
             size = [1130 750];
-            # keep-sorted end
-          }
-
-          {
-            match.class = "^(\\.eduvpn-gui-wrapped|org\\.eduvpn\\.client)$";
-
-            # keep-sorted start
-            float = true;
-            size = [400 600];
             # keep-sorted end
           }
 
