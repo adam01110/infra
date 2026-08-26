@@ -306,7 +306,7 @@
           }
 
           {
-            match.class = "org.eduvpn.client";
+            match.class = "^(\\.eduvpn-gui-wrapped|org\\.eduvpn\\.client)$";
 
             # keep-sorted start
             float = true;
