@@ -701,11 +701,11 @@
         "rev": "0c8f16730bdf279580958e408a3290d01d1c4ea9",
         "revCount": 18,
         "type": "git",
-        "url": "https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu"
+        "url": "ssh://git@knot.zezura.xyz/did:plc:r3tmbeocrgryca5nbgxns4yu"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu"
+        "url": "ssh://git@knot.zezura.xyz/did:plc:r3tmbeocrgryca5nbgxns4yu"
       }
     },
     "hyprcursor": {
@@ -1257,11 +1257,11 @@
         "rev": "5f281bb83730832428dcebd391a810f7fdf8db71",
         "revCount": 93,
         "type": "git",
-        "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio"
+        "url": "ssh://git@knot.zezura.xyz/did:plc:zkwqzie5qsn4tqfkt4mvxqio"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio"
+        "url": "ssh://git@knot.zezura.xyz/did:plc:zkwqzie5qsn4tqfkt4mvxqio"
       }
     },
     "nixcord": {
@@ -1576,11 +1576,11 @@
         "rev": "1ee4b1efb7c04648c859e67cc7da52869062158d",
         "revCount": 66,
         "type": "git",
-        "url": "https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx"
+        "url": "ssh://git@knot.zezura.xyz/did:plc:s2okz4xb2i7jtwk4sb35fofx"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx"
+        "url": "ssh://git@knot.zezura.xyz/did:plc:s2okz4xb2i7jtwk4sb35fofx"
       }
     },
     "pi-nix": {
@@ -1973,11 +1973,11 @@
         "rev": "eefa60c601ff382e70386f737e3d5c8ca13b8375",
         "revCount": 35,
         "type": "git",
-        "url": "https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr"
+        "url": "ssh://git@knot.zezura.xyz/did:plc:rdinf3cjt4zqifhqdtc5gfcr"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr"
+        "url": "ssh://git@knot.zezura.xyz/did:plc:rdinf3cjt4zqifhqdtc5gfcr"
       }
     },
     "tinted-kitty": {

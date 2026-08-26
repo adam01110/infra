@@ -1,7 +1,7 @@
 {
   flake-file.inputs = {
     nix-userstyles = {
-      url = "git+https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio";
+      url = "git+ssh://git@knot.zezura.xyz/did:plc:zkwqzie5qsn4tqfkt4mvxqio";
       inputs = {
         # keep-sorted start
         flake-parts.follows = "flake-parts";
@@ -14,7 +14,7 @@
     };
 
     tangled-catppuccin = {
-      url = "git+https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr";
+      url = "git+ssh://git@knot.zezura.xyz/did:plc:rdinf3cjt4zqifhqdtc5gfcr";
       flake = false;
     };
   };

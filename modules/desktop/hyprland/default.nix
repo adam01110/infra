@@ -3,7 +3,7 @@
     hyprland.url = "github:hyprwm/Hyprland?ref=v0.56.2";
 
     hylix = {
-      url = "git+https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu";
+      url = "git+ssh://git@knot.zezura.xyz/did:plc:r3tmbeocrgryca5nbgxns4yu";
       inputs = {
         # keep-sorted start
         flake-parts.follows = "flake-parts";

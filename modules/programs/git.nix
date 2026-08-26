@@ -49,8 +49,11 @@
 
           init.defaultBranch = "main";
 
-          # Preserve compatibility with the previous SSH host alias.
-          url."tangled.org:".insteadOf = "knot:";
+          # Preserve compatibility with Knot remote forms.
+          url."tangled.org:".insteadOf = [
+            "git@knot.zezura.xyz:"
+            "knot:"
+          ];
 
           # keep-sorted start
           commit.gpgsign = true;
