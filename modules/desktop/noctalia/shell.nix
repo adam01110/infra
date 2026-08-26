@@ -79,7 +79,7 @@
           # keep-sorted start
           directory = "${config.xdg.userDirs.pictures}/screenshots";
           filename_pattern = "screenshot_%Y-%m-%dT%H:%M:%S";
-          show_cursor = true;
+          show_cursor = false;
           # keep-sorted end
         };
 
@@ -93,41 +93,52 @@
             {
               action = "lock";
               countdown_seconds = 0.0;
+              enabled = true;
               shortcut = "1";
+              variant = "default";
             }
 
             {
               action = "lock_and_suspend";
               countdown_seconds = 8.0;
+              enabled = true;
               shortcut = "2";
+              variant = "default";
             }
 
             {
               action = "reboot";
               countdown_seconds = 8.0;
+              enabled = true;
               shortcut = "3";
+              variant = "default";
             }
 
             {
               action = "logout";
               countdown_seconds = 8.0;
+              enabled = true;
               shortcut = "4";
+              variant = "default";
             }
 
             {
               action = "shutdown";
               countdown_seconds = 8.0;
+              enabled = true;
               shortcut = "5";
-              variant = "destructive";
+              variant = "default";
             }
 
             {
               action = "reboot";
               command = "systemctl reboot --firmware-setup";
               countdown_seconds = 8.0;
+              enabled = true;
               glyph = "settings-automation";
               label = "UEFI";
               shortcut = "6";
+              variant = "default";
             }
           ];
         };
