@@ -46,6 +46,9 @@
       thermald.enable = true;
 
       tlp.settings = {
+        # Select power saver automatically on battery power.
+        TLP_PROFILE_BAT = "SAV";
+
         # Disable USB power saving.
         USB_AUTOSUSPEND = 0;
 

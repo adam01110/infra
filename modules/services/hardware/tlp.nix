@@ -1,8 +1,10 @@
 {
-  flake.modules.nixos.tlp = {lib, ...}: {
+  flake.modules.nixos.tlp = {lib, ...}: let
+    inherit (lib) mkForce;
+  in {
     services = {
       # Disable conflicting power management daemon.
-      power-profiles-daemon.enable = lib.mkForce false;
+      power-profiles-daemon.enable = mkForce false;
 
       tlp = {
         enable = true;
