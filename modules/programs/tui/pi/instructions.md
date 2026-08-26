@@ -36,6 +36,8 @@ not bonus.
 - task small? still load when workflow, tool choice, or quality bar changes.
 - programming task starts? always load `jj-vcs`. no remembered jj workflow or
   commit policy.
+- computer use? only when user explicitly invokes `/computer-use-linux` or
+  explicitly asks to use computer use. never use for ordinary desktop tasks.
 
 ## task tools
 
