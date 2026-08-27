@@ -57,9 +57,12 @@
             prefix = secretPrefix location;
           in {
             # keep-sorted start
-            "${prefix}/address" = {};
-            "${prefix}/allowed_ips" = {};
-            "${prefix}/dns" = {};
+            "${prefix}/address_ipv4" = {};
+            "${prefix}/address_ipv6" = {};
+            "${prefix}/allowed_ipv4" = {};
+            "${prefix}/allowed_ipv6" = {};
+            "${prefix}/dns_ipv4" = {};
+            "${prefix}/dns_ipv6" = {};
             "${prefix}/endpoint" = {};
             "${prefix}/private_key" = {};
             "${prefix}/public_key" = {};
@@ -87,16 +90,18 @@
 
               [wireguard-peer.${secret."${prefix}/public_key"}]
               endpoint=${secret."${prefix}/endpoint"}
-              allowed-ips=${secret."${prefix}/allowed_ips"}
+              allowed-ips=${secret."${prefix}/allowed_ipv4"};${secret."${prefix}/allowed_ipv6"};
               persistent-keepalive=${toString vpn.persistentKeepalive}
 
               [ipv4]
-              address1=${secret."${prefix}/address"}
-              dns=${secret."${prefix}/dns"}
+              address1=${secret."${prefix}/address_ipv4"}
+              dns=${secret."${prefix}/dns_ipv4"}
               method=manual
 
               [ipv6]
-              method=disabled
+              address1=${secret."${prefix}/address_ipv6"}
+              dns=${secret."${prefix}/dns_ipv6"}
+              method=manual
             '';
           })
         cfg;
