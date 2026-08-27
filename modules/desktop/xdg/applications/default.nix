@@ -5,6 +5,12 @@
 
       desktopEntries = {
         # keep-sorted start block=yes newline_separated=yes
+        "dev.noctalia.Noctalia" = {
+          name = "Noctalia";
+          exec = "noctalia --daemon";
+          noDisplay = true;
+        };
+
         kvantummanager = {
           name = "Kvantum Manager";
           exec = "kvantummanager";
@@ -16,6 +22,12 @@
             "Settings"
             "Utility"
           ];
+        };
+
+        "org.letsconnect-vpn.client" = {
+          name = "Let's Connect!";
+          exec = "letsconnect-gui";
+          noDisplay = true;
         };
 
         qt5ct = {
