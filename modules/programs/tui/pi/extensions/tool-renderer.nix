@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.pi = {
-    programs.pi.coding-agent.settings.vstack.extensionManager.config."@vanillagreen/pi-tool-renderer" = {
+    programs.pi.coding-agent.settings.kendex.extensionManager.config."@vanillagreen/pi-tool-renderer" = {
       # keep-sorted start
       compactUserMessages = true;
       pendingStatusAnimation = true;

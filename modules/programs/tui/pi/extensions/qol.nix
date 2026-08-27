@@ -19,7 +19,7 @@
         then flattenSettings key value
         else {${key} = value;});
   in {
-    programs.pi.coding-agent.settings.vstack.extensionManager.config."@vanillagreen/pi-qol" = flattenSettings "" {
+    programs.pi.coding-agent.settings.kendex.extensionManager.config."@vanillagreen/pi-qol" = flattenSettings "" {
       # keep-sorted start
       compactPrompt = false;
       enableHandoffCommand = false;
