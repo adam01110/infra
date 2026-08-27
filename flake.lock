@@ -1622,18 +1622,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1787273225,
-        "narHash": "sha256-ihwh3NRpVO6ZOvCf0iq15ELN0UBpIpcgzADf12BiTyg=",
-        "ref": "main",
-        "rev": "0655ef32e5b425da8ef55c669e5d2c5b7d8e3492",
-        "revCount": 1,
+        "lastModified": 1787781293,
+        "narHash": "sha256-Er/6DfMbGrlcbipDp10mNBnTZe7qck+SUwcV70Pu2CY=",
+        "ref": "refs/heads/main",
+        "rev": "aae5aafe9e234107ec6c64b0a4ebfa7211ab820d",
+        "revCount": 8,
         "type": "git",
-        "url": "file:///home/adam0/Projects/pi-suite"
+        "url": "https://tangled.org/did:plc:yyq2r4sag7vtnnd36rvsnnuq"
       },
       "original": {
-        "ref": "main",
         "type": "git",
-        "url": "file:///home/adam0/Projects/pi-suite"
+        "url": "https://tangled.org/did:plc:yyq2r4sag7vtnnd36rvsnnuq"
       }
     },
     "pre-commit": {

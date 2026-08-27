@@ -96,7 +96,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pi-suite = {
-      url = "git+file:///home/adam0/Projects/pi-suite?ref=main";
+      url = "git+https://tangled.org/did:plc:yyq2r4sag7vtnnd36rvsnnuq";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";

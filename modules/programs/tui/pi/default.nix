@@ -6,7 +6,7 @@
     };
 
     pi-suite = {
-      url = "git+file:///home/adam0/Projects/pi-suite?ref=main";
+      url = "git+https://tangled.org/did:plc:yyq2r4sag7vtnnd36rvsnnuq";
       inputs = {
         # keep-sorted start
         flake-parts.follows = "flake-parts";
