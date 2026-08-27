@@ -23,7 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hylix = {
-      url = "git+ssh://git@knot.zezura.xyz/did:plc:r3tmbeocrgryca5nbgxns4yu";
+      url = "git+https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
@@ -51,7 +51,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-userstyles = {
-      url = "git+ssh://git@knot.zezura.xyz/did:plc:zkwqzie5qsn4tqfkt4mvxqio";
+      url = "git+https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
@@ -83,7 +83,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     overzicht = {
-      url = "git+ssh://git@knot.zezura.xyz/did:plc:s2okz4xb2i7jtwk4sb35fofx";
+      url = "git+https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
@@ -121,7 +121,7 @@
       };
     };
     tangled-catppuccin = {
-      url = "git+ssh://git@knot.zezura.xyz/did:plc:rdinf3cjt4zqifhqdtc5gfcr";
+      url = "git+https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr";
       flake = false;
     };
     treefmt-nix = {

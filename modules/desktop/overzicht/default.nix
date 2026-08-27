@@ -1,6 +1,6 @@
 {inputs, ...}: {
   flake-file.inputs.overzicht = {
-    url = "git+ssh://git@knot.zezura.xyz/did:plc:s2okz4xb2i7jtwk4sb35fofx";
+    url = "git+https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx";
     inputs = {
       # keep-sorted start
       flake-parts.follows = "flake-parts";

@@ -45,7 +45,7 @@
             description = "Peer keepalive interval in seconds.";
             type = types.ints.positive;
           };
-          # kee start
+          # keep-sorted end
         };
       }));
     };
@@ -104,8 +104,8 @@
 
       systemd.services.NetworkManager = {
         # keep-sorted start
-        wants = ["sops-install-secrets.service"];
         after = ["sops-install-secrets.service"];
+        wants = ["sops-install-secrets.service"];
         # keep-sorted end
       };
     };
