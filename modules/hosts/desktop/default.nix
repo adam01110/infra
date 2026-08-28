@@ -21,6 +21,9 @@
 
     networking.hostName = "desktop";
 
+    # Skip login measurements when the TPM has no NV index capacity.
+    systemd.services."systemd-pcrlogin@".enable = false;
+
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";
 
