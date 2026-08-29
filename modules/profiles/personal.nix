@@ -22,6 +22,7 @@
       # keep-sorted start
       appimage
       java
+      winboat
       # keep-sorted end
 
       # GUI

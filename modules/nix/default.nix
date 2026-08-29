@@ -85,7 +85,14 @@
 
     nixpkgs.config = {
       allowInsecurePredicate = pkg:
-        (lib.getName pkg == "electron" && lib.getVersion pkg == "39.8.10")
+        (lib.getName pkg
+          == "electron"
+          && builtins.elem (lib.getVersion pkg) [
+            # keep-sorted start
+            "39.8.10"
+            "40.10.5"
+            # keep-sorted end
+          ])
         || (lib.getName pkg == "nodejs" && lib.hasPrefix "20." (lib.getVersion pkg));
       allowUnfree = true;
     };
