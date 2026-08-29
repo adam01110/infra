@@ -13,7 +13,10 @@
 
       # Appearance settings.
       # keep-sorted start
+      gtk-custom-css = "${./theme.css}";
+      gtk-tabs-location = "bottom";
       gtk-titlebar = false;
+      gtk-wide-tabs = false;
       resize-overlay = "never";
       window-decoration = "none";
       window-padding-x = 2;

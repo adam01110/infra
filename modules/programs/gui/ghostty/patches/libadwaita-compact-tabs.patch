@@ -1,0 +1,22 @@
+diff --git a/src/adw-tab-box.c b/src/adw-tab-box.c
+index 5833a944..206034a9 100644
+--- a/src/adw-tab-box.c
++++ b/src/adw-tab-box.c
+@@ -14,7 +14,7 @@
+ #include "adw-widget-utils-private.h"
+ #include <math.h>
+ 
+-#define SPACING 5
++#define SPACING 0
+ #define DND_THRESHOLD_MULTIPLIER 4
+ #define DROP_SWITCH_TIMEOUT 500
+ 
+@@ -26,7 +26,7 @@
+ #define RESIZE_ANIMATION_DURATION 200
+ #define REORDER_ANIMATION_DURATION 250
+ 
+-#define MAX_TAB_WIDTH_NON_EXPAND 220
++#define MAX_TAB_WIDTH_NON_EXPAND 80
+ 
+ #define FADE_OFFSET 6.0f
+ #define FADE_WIDTH 36.0f
