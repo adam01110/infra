@@ -49,12 +49,6 @@
 
           init.defaultBranch = "main";
 
-          # Preserve compatibility with Knot remote forms.
-          url."tangled.org:".insteadOf = [
-            "git@knot.zezura.xyz:"
-            "knot:"
-          ];
-
           # keep-sorted start
           commit.gpgsign = true;
           tag.gpgSign = true;

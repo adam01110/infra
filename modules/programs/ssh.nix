@@ -22,11 +22,16 @@
           IdentityFile = "~/.ssh/git";
         };
 
-        "tangled.org" = {
+        "knot.${groundDomain}" = {
           HostName = "knot.${groundDomain}";
           IdentityFile = "~/.ssh/git";
           Port = 2223;
           User = "git";
+        };
+
+        "tangled.org" = {
+          HostName = "tangled.org";
+          IdentityFile = "~/.ssh/git";
         };
 
         euclid = {
