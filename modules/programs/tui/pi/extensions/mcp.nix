@@ -1,5 +1,6 @@
 {
   flake.modules.homeManager.pi = {
+    inputs,
     # keep-sorted start
     config,
     lib,
@@ -21,6 +22,14 @@
 
     jsonFormat = pkgs.formats.json {};
 
+    computerUseNodeArch =
+      if pkgs.stdenv.hostPlatform.isx86_64
+      then "x64"
+      else if pkgs.stdenv.hostPlatform.isAarch64
+      then "arm64"
+      else throw "pi: unsupported computer-use-linux architecture";
+    piSuite = inputs.pi-suite.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
     mcpConfig = jsonFormat.generate "pi-mcp.json" {
       settings = {
         directTools = false;
@@ -28,6 +37,11 @@
       };
 
       mcpServers = {
+        computer-use-linux = {
+          args = ["mcp"];
+          command = "${piSuite}/node_modules/@agent-sh/computer-use-linux/npm/bin/computer-use-linux-linux-${computerUseNodeArch}";
+        };
+
         context7 = {
           command = "context7-mcp-wrapper";
           directTools = false;
