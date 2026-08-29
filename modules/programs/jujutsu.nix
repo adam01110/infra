@@ -51,7 +51,7 @@
           };
 
           pull = {
-            definition = ["util" "exec" "--" "sh" "-c" "jj git fetch && jj rebase -d 'trunk()'"];
+            definition = ["util" "exec" "--" "bash" "-c" "jj git fetch && jj rebase -d 'trunk()'"];
             doc = "Fetch and rebase onto the remote trunk";
           };
 
