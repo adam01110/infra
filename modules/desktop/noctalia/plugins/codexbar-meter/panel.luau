@@ -319,7 +319,7 @@ local function providerCard(provider, index)
         local paceAccent = paceColor(pace)
         children[#children + 1] = ui.row({ fill = paceAccent .. "/0.10", radius = cornerRadius(8), paddingH = 9, paddingV = 6, align = "center", gap = 7 }, {
             ui.glyph({ name = "activity", size = 13, color = paceAccent }),
-            ui.label({ text = tostring(pace.summary), fontSize = 11, color = paceAccent, maxLines = 2 }),
+            ui.label({ text = tostring(pace.summary), fontSize = 11, color = paceAccent, maxLines = 2, flexGrow = 1 }),
         })
     end
 
