@@ -51,6 +51,13 @@
     };
 
     config = {
+      services.wireguardVpns = {
+        # keep-sorted start
+        curacao = {};
+        netherlands = {};
+        # keep-sorted end
+      };
+
       sops = {
         secrets =
           concatMapAttrs (location: _: let
