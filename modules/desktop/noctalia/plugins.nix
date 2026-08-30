@@ -22,6 +22,7 @@
       cp -r ${./plugins/nix-monitor} "$out/nix-monitor"
       cp -r ${./plugins/keybind-cheatsheet} "$out/keybind-cheatsheet"
       cp -r ${./plugins/codexbar-meter} "$out/codexbar-meter"
+      cp -r ${./plugins/udiskie} "$out/udiskie"
     '';
   in {
     home.file.".local/state/noctalia/plugins/data/noctalia/world_clock/zones.json" = {
