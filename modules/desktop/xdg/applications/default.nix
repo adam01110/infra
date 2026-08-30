@@ -11,6 +11,12 @@
           noDisplay = true;
         };
 
+        "org.letsconnect-vpn.client" = {
+          name = "Let's Connect!";
+          exec = "letsconnect-gui";
+          noDisplay = true;
+        };
+
         kvantummanager = {
           name = "Kvantum Manager";
           exec = "kvantummanager";
@@ -22,12 +28,6 @@
             "Settings"
             "Utility"
           ];
-        };
-
-        "org.letsconnect-vpn.client" = {
-          name = "Let's Connect!";
-          exec = "letsconnect-gui";
-          noDisplay = true;
         };
 
         qt5ct = {
