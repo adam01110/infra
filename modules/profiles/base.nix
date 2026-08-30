@@ -97,6 +97,7 @@
         speedtest
         starship
         tlrc
+        vivid
         zoxide
         # keep-sorted end
 
