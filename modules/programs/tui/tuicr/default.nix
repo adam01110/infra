@@ -49,13 +49,13 @@
 
     xdg.configFile."tuicr/config.toml".source = tomlFormat.generate "tuicr-config.toml" {
       # keep-sorted start
-      theme = "stylix";
       no_update_check = true;
+      theme = "stylix";
       # keep-sorted end
 
       # keep-sorted start
-      show_pr_checks = true;
       relative_line_numbers = true;
+      show_pr_checks = true;
       # keep-sorted end
     };
   };
