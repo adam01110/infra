@@ -59,6 +59,11 @@
             definition = ["git" "push"];
             doc = "Push to a Git remote";
           };
+
+          remote = {
+            definition = ["git" "remote"];
+            doc = "Manage Git remotes";
+          };
           # keep-sorted end
         };
 
