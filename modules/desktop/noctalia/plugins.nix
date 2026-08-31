@@ -1,29 +1,27 @@
-{
+{inputs, ...}: {
+  flake-file.inputs.noctalia-plugins = {
+    url = "git+https://tangled.org/did:plc:b6k57yhdgjjytcqrstva6cbx";
+    inputs = {
+      # keep-sorted start
+      flake-parts.follows = "flake-parts";
+      nixpkgs.follows = "nixpkgs";
+      treefmt-nix.follows = "treefmt-nix";
+      # keep-sorted end
+    };
+  };
+
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
-    lib,
     pkgs,
     vars,
     # keep-sorted end
     ...
   }: let
-    inherit (lib) getExe;
     inherit (vars) groundDomain;
 
     jsonFormat = pkgs.formats.json {};
     videosDir = config.xdg.userDirs.videos;
-
-    localPlugins = pkgs.runCommandLocal "noctalia-local-plugins" {} ''
-      mkdir -p "$out"
-      cp -r ${./plugins/performance} "$out/performance"
-      substituteInPlace "$out/performance/toggle.luau" \
-        --replace-fail '@performanceMode@' '${getExe pkgs.performance-mode}'
-      cp -r ${./plugins/nix-monitor} "$out/nix-monitor"
-      cp -r ${./plugins/keybind-cheatsheet} "$out/keybind-cheatsheet"
-      cp -r ${./plugins/codexbar-meter} "$out/codexbar-meter"
-      cp -r ${./plugins/udiskie} "$out/udiskie"
-    '';
   in {
     home.file.".local/state/noctalia/plugins/data/noctalia/world_clock/zones.json" = {
       force = true;
@@ -43,6 +41,7 @@
       gcc
       gpu-screen-recorder
       hyprpicker
+      performance-mode
       udiskie
       udisks2
       xdg-utils
@@ -52,7 +51,14 @@
     programs.noctalia.settings = {
       plugin_settings = {
         # keep-sorted start block=yes newline_separated=yes
-        "adam0/nix-monitor" = {
+        "alexander/game-launcher".steampoacher_enabled = true;
+
+        "aristides/udiskie" = {
+          auto_open_filemanager = true;
+          manager_open_near_click = true;
+        };
+
+        "avivbintangaringga/nix-monitor" = {
           # keep-sorted start
           clean_command = "nh clean all";
           generation_check_interval = 240;
@@ -60,13 +66,6 @@
           panel_open_near_click = true;
           panel_placement = "floating";
           # keep-sorted end
-        };
-
-        "alexander/game-launcher".steampoacher_enabled = true;
-
-        "aristides/udiskie" = {
-          auto_open_filemanager = true;
-          manager_open_near_click = true;
         };
 
         "cleboost/ssh-launcher".max_results = 32;
@@ -121,10 +120,10 @@
         auto_update = "all";
         enabled = [
           # keep-sorted start
-          "adam0/nix-monitor"
           "adam0/performance"
           "alexander/game-launcher"
           "aristides/udiskie"
+          "avivbintangaringga/nix-monitor"
           "cleboost/ssh-launcher"
           "kenn/keybind-cheatsheet"
           "nightwatch75/file-search"
@@ -155,7 +154,7 @@
 
           {
             kind = "path";
-            location = "${localPlugins}";
+            location = "${inputs.noctalia-plugins.lib.source}";
             name = "local";
           }
         ];

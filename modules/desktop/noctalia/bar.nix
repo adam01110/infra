@@ -287,7 +287,7 @@
           # keep-sorted start
           enable_scroll = false;
           show_text = false;
-          type = "adam0/nix-monitor:nix-monitor";
+          type = "avivbintangaringga/nix-monitor:nix-monitor";
           # keep-sorted end
         };
 
