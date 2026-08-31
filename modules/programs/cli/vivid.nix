@@ -1,53 +1,17 @@
 {
-  flake.modules.homeManager.vivid = {lib, ...}: let
-    inherit
-      (lib)
-      # keep-sorted start
-      mapAttrsRecursive
-      mkForce
-      # keep-sorted end
-      ;
-    mkForcedAttrs = mapAttrsRecursive (_: mkForce);
+  flake.modules.homeManager.vivid = {config, ...}: let
+    colors = config.lib.stylix.colors;
   in {
-    programs.vivid = {
-      # keep-sorted start block=yes newline_separated=yes
-      enable = true;
+    programs.vivid.enable = true;
 
-      # Aligns file roles with the eza theme.
-      themes.stylix = mkForcedAttrs {
-        # keep-sorted start block=yes newline_separated=yes
-        archives.foreground = "base0E";
-
-        core = {
-          # keep-sorted start
-          executable_file.foreground = "base0B";
-          normal_text.foreground = "base05";
-          regular_file.foreground = "base05";
-          reset_to_normal.foreground = "base05";
-          # keep-sorted end
-
-          directory = {
-            # keep-sorted start
-            font-style = "regular";
-            foreground = "base0D";
-            # keep-sorted end
-          };
-        };
-
-        executable.foreground = "base0B";
-
-        office.foreground = "base05";
-
-        programming = {
-          # keep-sorted start
-          source.foreground = "base0D";
-          tooling.foreground = "base04";
-          # keep-sorted end
-        };
-
-        text.foreground = "base05";
-        # keep-sorted end
-      };
+    # Remaps Vivid's semantic slots to the eza file role colors.
+    stylix.targets.vivid.colors.override = {
+      # keep-sorted start
+      base04 = colors.base05;
+      base05 = colors.base0E;
+      base07 = colors.base0D;
+      base0B = colors.base05;
+      base0F = colors.base0D;
       # keep-sorted end
     };
   };
