@@ -52,6 +52,12 @@
         # Disable USB power saving.
         USB_AUTOSUSPEND = 0;
 
+        # Disable Wi-Fi power saving for consistent latency.
+        # keep-sorted start
+        WIFI_PWR_ON_AC = "off";
+        WIFI_PWR_ON_BAT = "off";
+        # keep-sorted end
+
         # Cpu performance profiles: maximize performance on ac, conserve battery on bat.
         # keep-sorted start
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";

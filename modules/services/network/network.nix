@@ -50,6 +50,9 @@
         enable = true;
         dns = "systemd-resolved";
         plugins = [pkgs.networkmanager-openvpn];
+
+        # Prefer temporary IPv6 addresses for outbound connections.
+        settings.connection."ipv6.ip6-privacy" = 2;
       };
     };
 

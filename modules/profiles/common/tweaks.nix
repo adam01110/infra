@@ -16,6 +16,13 @@
       optional
       # keep-sorted end
       ;
+
+    managerSettings = {
+      # keep-sorted start
+      DefaultTimeoutStartSec = "15s";
+      DefaultTimeoutStopSec = "10s";
+      # keep-sorted end
+    };
   in {
     options.tweaks.rcuLazy.enable = mkEnableOption "Enable RCU lazy mode.";
 
@@ -87,6 +94,15 @@
         # keep-sorted end
       ];
 
+      security.pam.loginLimits = [
+        {
+          domain = "@audio";
+          item = "nice";
+          type = "-";
+          value = "-11";
+        }
+      ];
+
       systemd = {
         coredump.settings.Coredump.Storage = "journal";
 
@@ -97,19 +113,21 @@
           "w! /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"
         ];
 
-        user.settings.Manager.DefaultLimitNOFILE = "1024:1048576";
+        user.settings.Manager =
+          managerSettings
+          // {
+            DefaultLimitNOFILE = "1024:1048576";
+          };
 
-        settings.Manager = {
-          # keep-sorted start
-          DefaultLimitNOFILE = "2048:2097152";
-          DefaultTimeoutStartSec = "15s";
-          DefaultTimeoutStopSec = "10s";
-          # keep-sorted end
-        };
+        settings.Manager =
+          managerSettings
+          // {
+            DefaultLimitNOFILE = "2048:2097152";
+          };
       };
       # keep-sorted end
 
-      # Udev rules for audio power saving and disk scheduler tuning.
+      # Udev rules for power and latency tuning.
       services.udev.extraRules = let
         # keep-sorted start
         bash = getExe pkgs.bash;
@@ -139,6 +157,10 @@
 
         ACTION=="change", KERNEL=="zram0", ATTR{initstate}=="1", SYSCTL{vm.swappiness}="150", \
           RUN+="${bash} -c '${echo} N > /sys/module/zswap/parameters/enabled'"
+
+        ACTION=="add", SUBSYSTEM=="usb", ATTR{bInterfaceClass}=="03", \
+            ATTRS{removable}=="removable", TEST=="../power/control", \
+            ATTR{../power/control}="on"
 
         KERNEL=="rtc0", GROUP="audio"
         KERNEL=="hpet", GROUP="audio"
