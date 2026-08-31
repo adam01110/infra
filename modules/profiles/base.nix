@@ -109,6 +109,7 @@
         neovim
         nvtop
         television
+        tuicr
         yazi
         # keep-sorted end
       ]);

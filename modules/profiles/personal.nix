@@ -91,7 +91,6 @@
       bonsai
       codexbar
       cpond
-      diffnav
       direnv
       gen-license
       gitfetch

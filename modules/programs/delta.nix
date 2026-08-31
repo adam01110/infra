@@ -11,7 +11,11 @@
     colors = osConfig.lib.stylix.colors.withHashtag;
   in {
     programs.delta = {
+      # keep-sorted start
       enable = true;
+      enableGitIntegration = true;
+      enableJujutsuIntegration = true;
+      # keep-sorted end
 
       options = with colors; {
         true-color = "always";
