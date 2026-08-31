@@ -132,11 +132,6 @@
         prefixes = ["programs.nixcord"];
       };
 
-      noctalia = {
-        rawDoc = mkHomeManagerDoc inputs.noctalia.homeModules.default;
-        prefixes = ["programs.noctalia"];
-      };
-
       nvf = {
         rawDoc = mkHomeManagerDoc inputs.nvf.homeManagerModules.default;
         prefixes = ["programs.nvf"];

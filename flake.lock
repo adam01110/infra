@@ -1483,26 +1483,6 @@
         "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1788182058,
-        "narHash": "sha256-4aWzbatPDmkVHTFsfRX/tv5AKtYA/DObUzoDHwfPc2E=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia",
-        "rev": "4365c87645f9c86905637d8c88f0c643994b5347",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia",
-        "type": "github"
-      }
-    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -1618,11 +1598,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787781293,
-        "narHash": "sha256-Er/6DfMbGrlcbipDp10mNBnTZe7qck+SUwcV70Pu2CY=",
+        "lastModified": 1788184853,
+        "narHash": "sha256-T96n/lKObp4pgYOyaHmya6dAvSNPpHfXNczpncPzAzM=",
         "ref": "refs/heads/main",
-        "rev": "aae5aafe9e234107ec6c64b0a4ebfa7211ab820d",
-        "revCount": 8,
+        "rev": "38e07b4802a7754c3808c09759cfc57cb70de4ab",
+        "revCount": 10,
         "type": "git",
         "url": "https://tangled.org/did:plc:yyq2r4sag7vtnnd36rvsnnuq"
       },
@@ -1769,7 +1749,6 @@
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-crowdsec": "nixpkgs-crowdsec",
         "nixpkgs-crowdsec-blocklist-import": "nixpkgs-crowdsec-blocklist-import",
-        "noctalia": "noctalia",
         "nur": "nur",
         "nvf": "nvf",
         "overzicht": "overzicht",

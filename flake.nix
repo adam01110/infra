@@ -67,10 +67,6 @@
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/saltsprint";
     nixpkgs-crowdsec-blocklist-import.url = "github:gaelj/nixpkgs/init-crowdsec-blocklist-import";
-    noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nur = {
       url = "github:nix-community/NUR";
       inputs = {
