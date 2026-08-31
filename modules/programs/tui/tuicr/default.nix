@@ -15,24 +15,14 @@
     gitReview = writeShellApplication {
       name = "git-review";
       text = ''
-        revision="''${1:-HEAD}"
-        if (( $# > 0 )); then
-          shift
-        fi
-
-        exec ${tuicr} --revisions "$revision" "$@"
+        exec ${tuicr} --revisions "''${1:-HEAD}" "''${@:2}"
       '';
     };
 
     jjReview = writeShellApplication {
       name = "jj-review";
       text = ''
-        revision="''${1:-@}"
-        if (( $# > 0 )); then
-          shift
-        fi
-
-        exec ${tuicr} --revisions "$revision" "$@"
+        exec ${tuicr} --revisions "''${1:-@}" "''${@:2}"
       '';
     };
   in {
