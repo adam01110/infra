@@ -1,7 +1,7 @@
 {inputs, ...}: {
   flake-file.inputs = {
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
+      url = "github:hyprwm/hyprland-plugins?ref=v0.56.0";
       inputs.hyprland.follows = "hyprland";
     };
   };

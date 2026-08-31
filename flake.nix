@@ -33,7 +33,7 @@
     };
     hyprland.url = "github:hyprwm/Hyprland?ref=v0.56.2";
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
+      url = "github:hyprwm/hyprland-plugins?ref=v0.56.0";
       inputs.hyprland.follows = "hyprland";
     };
     import-tree.url = "github:vic/import-tree";
