@@ -43,7 +43,9 @@
       # keep-sorted end
       ;
 
-    piPackage = inputs.pi-nix.packages.${system}.coding-agent-bun;
+    piPackage = inputs.pi-nix.packages.${system}.coding-agent-bun.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [./patches/disable-llama-extension.patch];
+    });
     piSuite = inputs.pi-suite.packages.${system}.default;
 
     bunRuntime = symlinkJoin {
