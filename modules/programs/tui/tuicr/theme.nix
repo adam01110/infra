@@ -12,6 +12,9 @@
     colors = config.lib.stylix.colors.withHashtag;
     tomlFormat = pkgs.formats.toml {};
   in {
+    xdg.configFile."tuicr/themes/stylix.tmTheme".source =
+      config.programs.bat.themes."base16-stylix".src;
+
     xdg.configFile."tuicr/themes/stylix.toml".source = with colors;
       tomlFormat.generate "tuicr-stylix-theme.toml" {
         # keep-sorted start
@@ -54,6 +57,7 @@
         status_bar_bg = base01;
         syntax_add_bg = blendHex 22 base00 base0B;
         syntax_del_bg = blendHex 22 base00 base08;
+        syntax_theme = "stylix.tmTheme";
         update_badge_bg = base0A;
         update_badge_fg = base00;
         # keep-sorted end
