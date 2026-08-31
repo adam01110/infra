@@ -1484,6 +1484,32 @@
         "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
       }
     },
+    "noctalia-plugins": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788208038,
+        "narHash": "sha256-xmJU3AHbvjTtCYj7ueZl9GsXlJNFS7c0IlwPw8Ggw3s=",
+        "ref": "refs/heads/main",
+        "rev": "1d554b2126ce2957dd3877cdd4cf27b30c533028",
+        "revCount": 3,
+        "type": "git",
+        "url": "https://tangled.org/did:plc:b6k57yhdgjjytcqrstva6cbx"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://tangled.org/did:plc:b6k57yhdgjjytcqrstva6cbx"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -1750,6 +1776,7 @@
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-crowdsec": "nixpkgs-crowdsec",
         "nixpkgs-crowdsec-blocklist-import": "nixpkgs-crowdsec-blocklist-import",
+        "noctalia-plugins": "noctalia-plugins",
         "nur": "nur",
         "nvf": "nvf",
         "overzicht": "overzicht",
