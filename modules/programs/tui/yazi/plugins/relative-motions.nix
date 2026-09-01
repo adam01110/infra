@@ -1,5 +1,20 @@
 {
-  flake.modules.homeManager.yazi = {pkgs, ...}: {
+  flake.modules.homeManager.yazi = {
+    # keep-sorted start
+    lib,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: let
+    inherit
+      (lib)
+      # keep-sorted start
+      concatMap
+      range
+      stringToCharacters
+      # keep-sorted end
+      ;
+  in {
     programs.yazi = {
       plugins.relative-motions = {
         package = pkgs.yaziPlugins.relative-motions;
@@ -7,64 +22,21 @@
         settings.show_numbers = "relative_absolute";
       };
 
-      # Bind number keys to relative-motions steps.
-      keymap.mgr.prepend_keymap = [
-        # keep-sorted start block=yes numeric=yes newline_separated=yes
+      # Avoid the plugin's blocking key reader on Yazi 26.
+      keymap.mgr.prepend_keymap = concatMap (step: let
+        keys = stringToCharacters (toString step);
+      in [
         {
-          on = ["1"];
-          run = "plugin relative-motions 1";
-          desc = "Move in relative steps";
+          on = keys ++ ["j"];
+          run = "arrow ${toString step}";
+          desc = "Move down ${toString step} entries";
         }
-
         {
-          on = ["2"];
-          run = "plugin relative-motions 2";
-          desc = "Move in relative steps";
+          on = keys ++ ["k"];
+          run = "arrow -${toString step}";
+          desc = "Move up ${toString step} entries";
         }
-
-        {
-          on = ["3"];
-          run = "plugin relative-motions 3";
-          desc = "Move in relative steps";
-        }
-
-        {
-          on = ["4"];
-          run = "plugin relative-motions 4";
-          desc = "Move in relative steps";
-        }
-
-        {
-          on = ["5"];
-          run = "plugin relative-motions 5";
-          desc = "Move in relative steps";
-        }
-
-        {
-          on = ["6"];
-          run = "plugin relative-motions 6";
-          desc = "Move in relative steps";
-        }
-
-        {
-          on = ["7"];
-          run = "plugin relative-motions 7";
-          desc = "Move in relative steps";
-        }
-
-        {
-          on = ["8"];
-          run = "plugin relative-motions 8";
-          desc = "Move in relative steps";
-        }
-
-        {
-          on = ["9"];
-          run = "plugin relative-motions 9";
-          desc = "Move in relative steps";
-        }
-        # keep-sorted end
-      ];
+      ]) (range 1 99);
     };
   };
 }
