@@ -89,6 +89,7 @@
         nativeBuildInputs = [makeWrapper];
         postBuild = ''
           wrapProgram $out/bin/pi \
+            --set PI_SUITE_BTW_MODEL "openai-codex gpt-5.6-terra openai-codex-responses" \
             --prefix PATH : ${makeBinPath runtimePackages}
         '';
       };
