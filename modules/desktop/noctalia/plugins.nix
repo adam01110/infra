@@ -14,12 +14,9 @@
     # keep-sorted start
     config,
     pkgs,
-    vars,
     # keep-sorted end
     ...
   }: let
-    inherit (vars) groundDomain;
-
     jsonFormat = pkgs.formats.json {};
     videosDir = config.xdg.userDirs.videos;
   in {
@@ -38,21 +35,17 @@
     home.packages = with pkgs; [
       # keep-sorted start
       fzf
-      gcc
       gpu-screen-recorder
       hyprpicker
       performance-mode
       udiskie
       udisks2
-      xdg-utils
       # keep-sorted end
     ];
 
     programs.noctalia.settings = {
       plugin_settings = {
         # keep-sorted start block=yes newline_separated=yes
-        "alexander/game-launcher".steampoacher_enabled = true;
-
         "aristides/udiskie" = {
           auto_open_filemanager = true;
           manager_open_near_click = true;
@@ -68,8 +61,6 @@
           # keep-sorted end
         };
 
-        "cleboost/ssh-launcher".max_results = 32;
-
         "kenn/keybind-cheatsheet" = {
           # keep-sorted start
           columns = 5;
@@ -82,15 +73,6 @@
           # keep-sorted start
           exclude_dirs = ".git, .direnv, .rumdl_cache, result*, target, .vscode, node_modules, .cache, .venv, __pycache__, dist, build";
           max_results = 64;
-          # keep-sorted end
-        };
-
-        "noctalia/bitwarden" = {
-          # keep-sorted start
-          gen_length = 128;
-          gen_passphrase_words = 20;
-          gen_special = true;
-          server_url = "https://vaultwarden.${groundDomain}";
           # keep-sorted end
         };
 
@@ -121,20 +103,15 @@
         enabled = [
           # keep-sorted start
           "adam0/performance"
-          "alexander/game-launcher"
           "aristides/udiskie"
           "avivbintangaringga/nix-monitor"
-          "cleboost/ssh-launcher"
           "kenn/keybind-cheatsheet"
           "nightwatch75/file-search"
-          "noctalia/bitwarden"
           "noctalia/kaomoji"
           "noctalia/screen_recorder"
-          "noctalia/translator"
           "noctalia/world_clock"
           "oldirtty/color_picker"
           "salemsayed/codexbar-meter"
-          "weinguyen/shell-command"
           # keep-sorted end
         ];
 
