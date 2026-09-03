@@ -6,37 +6,41 @@
     # keep-sorted end
     ...
   }: let
-    inherit
-      (lib)
-      # keep-sorted start
-      concatMap
-      range
-      stringToCharacters
-      # keep-sorted end
-      ;
+    inherit (builtins) readFile;
+    inherit (pkgs) writeTextDir;
+    inherit (lib) range;
   in {
     programs.yazi = {
-      plugins.relative-motions = {
-        package = pkgs.yaziPlugins.relative-motions;
-        setup = true;
-        settings.show_numbers = "relative_absolute";
+      plugins = {
+        relative-motions = {
+          package = pkgs.yaziPlugins.relative-motions;
+          setup = true;
+          settings.show_numbers = "relative_absolute";
+        };
+
+        relative-motions-input = writeTextDir "main.lua" (readFile ./relative-motions-input.lua);
       };
 
       # Avoid the plugin's blocking key reader on Yazi 26.
-      keymap.mgr.prepend_keymap = concatMap (step: let
-        keys = stringToCharacters (toString step);
-      in [
-        {
-          on = keys ++ ["j"];
-          run = "arrow ${toString step}";
-          desc = "Move down ${toString step} entries";
-        }
-        {
-          on = keys ++ ["k"];
-          run = "arrow -${toString step}";
-          desc = "Move up ${toString step} entries";
-        }
-      ]) (range 1 99);
+      keymap.mgr.prepend_keymap =
+        (map (digit: {
+            on = toString digit;
+            run = "plugin relative-motions-input append${toString digit}";
+            desc = "Append relative motion count";
+          })
+          (range 0 9))
+        ++ [
+          {
+            on = "j";
+            run = "plugin relative-motions-input down";
+            desc = "Move down by relative count";
+          }
+          {
+            on = "k";
+            run = "plugin relative-motions-input up";
+            desc = "Move up by relative count";
+          }
+        ];
     };
   };
 }
