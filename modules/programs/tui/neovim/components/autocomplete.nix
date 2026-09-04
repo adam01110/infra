@@ -25,13 +25,25 @@
       };
 
       highlight = {
+        # keep-sorted start block=yes newline_separated=yes
         BlinkCmpDoc.bg = colors.base02;
+
         BlinkCmpDocBorder = {
           # keep-sorted start
           bg = colors.base02;
           fg = colors.base04;
           # keep-sorted end
         };
+
+        BlinkCmpSignatureHelp.bg = colors.base02;
+
+        BlinkCmpSignatureHelpBorder = {
+          # keep-sorted start
+          bg = colors.base02;
+          fg = colors.base04;
+          # keep-sorted end
+        };
+        # keep-sorted end
       };
 
       autocomplete.blink-cmp = {
