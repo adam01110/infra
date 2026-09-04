@@ -10,6 +10,7 @@
     inherit (lib.generators) mkLuaInline;
 
     blinkGitTokenPath = config.sops.secrets.github_token.path;
+    colors = config.lib.stylix.colors.withHashtag;
   in {
     sops.secrets.github_token = {};
 
@@ -21,6 +22,16 @@
         package = pkgs.dyninput-nvim;
         setupModule = "dyninput";
         lazy = false;
+      };
+
+      highlight = {
+        BlinkCmpDoc.bg = colors.base02;
+        BlinkCmpDocBorder = {
+          # keep-sorted start
+          bg = colors.base02;
+          fg = colors.base04;
+          # keep-sorted end
+        };
       };
 
       autocomplete.blink-cmp = {
