@@ -18,6 +18,7 @@
       optiscaler
       prism
       sober
+      steam
       # keep-sorted end
     ];
   };
