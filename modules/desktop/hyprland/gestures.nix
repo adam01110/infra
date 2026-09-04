@@ -24,50 +24,48 @@
   in {
     options.programs.hylix.touch.enable = mkEnableOption "Enable touch-specific configuration";
 
-    config = mkIf cfg {
-      programs.hylix = {
-        gestures = [
-          {
-            direction = "horizontal";
-            fingers = 3;
-            action = "workspace";
-          }
+    config.programs.hylix = mkIf cfg {
+      gestures = [
+        {
+          direction = "horizontal";
+          fingers = 3;
+          action = "workspace";
+        }
 
-          # keep-sorted start block=yes newline_separated=yes
-          {
-            direction = "down";
-            fingers = 3;
-            action = "exec";
-            exec = "${noctalia} panel-close launcher";
-          }
+        # keep-sorted start block=yes newline_separated=yes
+        {
+          direction = "down";
+          fingers = 3;
+          action = "exec";
+          exec = "${noctalia} panel-close launcher";
+        }
 
-          {
-            direction = "up";
-            fingers = 3;
-            action = "exec";
-            exec = "${noctalia} panel-open launcher";
-          }
-          # keep-sorted end
+        {
+          direction = "up";
+          fingers = 3;
+          action = "exec";
+          exec = "${noctalia} panel-open launcher";
+        }
+        # keep-sorted end
 
-          # keep-sorted start block=yes newline_separated=yes
-          {
-            direction = "pinchin";
-            fingers = 3;
-            action = "exec";
-            exec = "${overzicht} ipc call overview open";
-          }
+        # keep-sorted start block=yes newline_separated=yes
+        {
+          direction = "pinchin";
+          fingers = 3;
+          action = "exec";
+          exec = "${overzicht} ipc call overview open";
+        }
 
-          {
-            direction = "pinchout";
-            fingers = 3;
-            action = "exec";
-            exec = "${overzicht} ipc call overview close";
-          }
-          # keep-sorted end
-        ];
+        {
+          direction = "pinchout";
+          fingers = 3;
+          action = "exec";
+          exec = "${overzicht} ipc call overview close";
+        }
+        # keep-sorted end
+      ];
 
-        settings.input.touchpad.natural_scroll = true;
-      };
+      settings.input.touchpad.natural_scroll = true;
     };
   };
 }

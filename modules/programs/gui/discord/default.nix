@@ -1,9 +1,4 @@
-{
-  # keep-sorted start
-  inputs,
-  # keep-sorted end
-  ...
-}: {
+{inputs, ...}: {
   flake-file.inputs.nixcord = {
     url = "github:kaylorben/nixcord";
     inputs.flake-parts.follows = "flake-parts";
@@ -25,7 +20,16 @@
   in {
     imports = [inputs.nixcord.homeModules.nixcord];
 
-    # keep-sorted start block=yes newline_separated=yes
+    programs.nixcord = {
+      enable = true;
+      discord.enable = false;
+
+      equibop = {
+        enable = true;
+        configDir = "${config.xdg.configHome}/equibop";
+      };
+    };
+
     # Let Equibop persist runtime changes to its generated settings.
     home = {
       file.${settingsPath}.enable = mkForce false;
@@ -38,16 +42,5 @@
         ${lib.getExe' pkgs.coreutils "install"} -Dm644 ${lib.escapeShellArg settingsSource} "$settings"
       '';
     };
-
-    programs.nixcord = {
-      enable = true;
-      discord.enable = false;
-
-      equibop = {
-        enable = true;
-        configDir = "${config.xdg.configHome}/equibop";
-      };
-    };
-    # keep-sorted end
   };
 }

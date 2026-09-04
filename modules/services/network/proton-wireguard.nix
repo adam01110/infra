@@ -13,17 +13,21 @@
     gateway = "10.2.0.1";
     routingTable = 51820;
 
-    containerIPv4Subnet = "10.89.50.0/24";
+    # keep-sorted start
     containerIPv4Gateway = "10.89.50.1";
+    containerIPv4Subnet = "10.89.50.0/24";
+    # keep-sorted end
 
     ip = getExe' pkgs.iproute2 "ip";
     secret = config.sops.placeholder;
     secretPrefix = "wireguard/${config.networking.hostName}/proton";
 
     privateIPv4Subnets = [
+      # keep-sorted start
       "10.0.0.0/8"
       "172.16.0.0/12"
       "192.168.0.0/16"
+      # keep-sorted end
     ];
 
     routingTableString = toString routingTable;
@@ -88,108 +92,115 @@
       };
     };
 
-    systemd.services."wg-quick-${interface}" = {
-      wants = ["sops-install-secrets.service"];
-      after = ["sops-install-secrets.service"];
-    };
-
-    systemd.services.proton-port-forward = {
-      description = "Maintain Proton VPN port forwarding";
-
-      after = [
-        "nftables.service"
-        "sops-install-secrets.service"
-        "wg-quick-${interface}.service"
-      ];
-      wantedBy = ["multi-user.target"];
-      wants = [
-        "sops-install-secrets.service"
-        "wg-quick-${interface}.service"
-      ];
-
-      environment = {
+    systemd.services = {
+      "wg-quick-${interface}" = {
         # keep-sorted start
-        CONTAINER_IPV4_SUBNET = containerIPv4Subnet;
-        PRIVATE_IPV4_SUBNETS = builtins.concatStringsSep " " privateIPv4Subnets;
-        PROTON_GATEWAY = gateway;
-        QBITTORRENT_CONTAINER = "qbittorrent";
-        QBITTORRENT_NETWORK = "vpn";
-        QUI_CONTAINER = "qui";
-        QUI_NETWORK = "torrent";
-        QUI_PORT = "7476";
-        ROUTING_TABLE = routingTableString;
-        WIREGUARD_INTERFACE = interface;
+        after = ["sops-install-secrets.service"];
+        wants = ["sops-install-secrets.service"];
         # keep-sorted end
       };
 
-      serviceConfig = {
-        ExecStart = getExe pkgs.proton-port-forward;
-        LoadCredential = [
-          "qui_qbittorrent_proxy_path:${config.sops.secrets.qbittorrent_proxy_path.path}"
+      proton-port-forward = {
+        description = "Maintain Proton VPN port forwarding";
+
+        # keep-sorted start block=yes newline_separated=yes
+        after = [
+          # keep-sorted start
+          "nftables.service"
+          "sops-install-secrets.service"
+          "wg-quick-${interface}.service"
+          # keep-sorted end
         ];
-        Restart = "always";
-        RestartSec = "5s";
+
+        wantedBy = ["multi-user.target"];
+
+        wants = [
+          # keep-sorted start
+          "sops-install-secrets.service"
+          "wg-quick-${interface}.service"
+
+          # keep-sorted end
+        ];
+        # keep-sorted end
+
+        environment = {
+          # keep-sorted start
+          CONTAINER_IPV4_SUBNET = containerIPv4Subnet;
+          PRIVATE_IPV4_SUBNETS = builtins.concatStringsSep " " privateIPv4Subnets;
+          PROTON_GATEWAY = gateway;
+          QBITTORRENT_CONTAINER = "qbittorrent";
+          QBITTORRENT_NETWORK = "vpn";
+          QUI_CONTAINER = "qui";
+          QUI_NETWORK = "torrent";
+          QUI_PORT = "7476";
+          ROUTING_TABLE = routingTableString;
+          WIREGUARD_INTERFACE = interface;
+          # keep-sorted end
+        };
+
+        serviceConfig = {
+          ExecStart = getExe pkgs.proton-port-forward;
+          LoadCredential = ["qui_qbittorrent_proxy_path:${config.sops.secrets.qbittorrent_proxy_path.path}"];
+
+          # keep-sorted start
+          Restart = "always";
+          RestartSec = "5s";
+          # keep-sorted end
+        };
       };
-    };
 
-    systemd.services.proton-indexer-proxy = {
-      description = "HTTP proxy for selected Prowlarr indexers over Proton VPN";
+      proton-indexer-proxy = {
+        description = "HTTP proxy for selected Prowlarr indexers over Proton VPN";
 
-      after = [
-        "nftables.service"
-        "sops-install-secrets.service"
-        "wg-quick-${interface}.service"
-      ];
-      wantedBy = ["multi-user.target"];
-      wants = [
-        "sops-install-secrets.service"
-        "wg-quick-${interface}.service"
-      ];
-
-      serviceConfig = {
-        DynamicUser = true;
-        ExecStart = pkgs.writeShellScript "proton-indexer-proxy" ''
-          set -eu
-
-          config_file="$RUNTIME_DIRECTORY/tinyproxy.conf"
-          password_file="$CREDENTIALS_DIRECTORY/proxy_password"
-          user_file="$CREDENTIALS_DIRECTORY/proxy_user"
-
-          cat > "$config_file" <<EOF
-          Port 8888
-          Listen ${containerIPv4Gateway}
-          Bind ${containerIPv4Gateway}
-          Timeout 600
-          DisableViaHeader Yes
-          Allow 10.0.0.0/8
-          ConnectPort 443
-          ConnectPort 563
-          EOF
-
-          if [ -s "$user_file" ] && [ -s "$password_file" ]; then
-            username="$(tr -d '\r\n' < "$user_file")"
-            password="$(tr -d '\r\n' < "$password_file")"
-            printf 'BasicAuth %s %s\n' "$username" "$password" >> "$config_file"
-          fi
-
-          exec ${getExe pkgs.tinyproxy} -d -c "$config_file"
-        '';
-        LoadCredential = [
-          "proxy_password:${config.sops.secrets."${secretPrefix}/proxy/password".path}"
-          "proxy_user:${config.sops.secrets."${secretPrefix}/proxy/user".path}"
+        # keep-sorted start block=yes newline_separated=yes
+        after = [
+          # keep-sorted start
+          "nftables.service"
+          "sops-install-secrets.service"
+          "wg-quick-${interface}.service"
+          # keep-sorted end
         ];
-        Restart = "always";
-        RestartSec = "5s";
-        RuntimeDirectory = "proton-indexer-proxy";
+
+        wantedBy = ["multi-user.target"];
+
+        wants = [
+          # keep-sorted start
+          "sops-install-secrets.service"
+          "wg-quick-${interface}.service"
+          # keep-sorted end
+        ];
+        # keep-sorted end
+
+        environment.PROXY_LISTEN_ADDRESS = containerIPv4Gateway;
+
+        serviceConfig = {
+          DynamicUser = true;
+          ExecStart = getExe pkgs.proton-indexer-proxy;
+          RuntimeDirectory = "proton-indexer-proxy";
+
+          LoadCredential = [
+            # keep-sorted start
+            "proxy_password:${config.sops.secrets."${secretPrefix}/proxy/password".path}"
+            "proxy_user:${config.sops.secrets."${secretPrefix}/proxy/user".path}"
+            # keep-sorted end
+          ];
+
+          # keep-sorted start
+          Restart = "always";
+          RestartSec = "5s";
+          # keep-sorted end
+        };
       };
     };
 
     networking = {
-      firewall.checkReversePath = "loose";
+      firewall = {
+        checkReversePath = "loose";
 
-      firewall.extraInputRules = ''
-        iifname "podman*" tcp dport 8888 accept
-      '';
+        extraInputRules = ''
+          iifname "podman*" tcp dport 8888 accept
+        '';
+      };
 
       nftables = {
         enable = true;
@@ -216,7 +227,13 @@
       wg-quick.interfaces.${interface} = {
         autostart = true;
         configFile = config.sops.templates."${interface}.conf".path;
-        inherit postUp preDown;
+
+        inherit
+          # keep-sorted start
+          postUp
+          preDown
+          # keep-sorted end
+          ;
       };
     };
   };

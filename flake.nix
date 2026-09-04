@@ -60,7 +60,6 @@
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
         nixpkgs.follows = "nixpkgs";
-        tangled-catppuccin.follows = "tangled-catppuccin";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
@@ -127,10 +126,6 @@
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
       };
-    };
-    tangled-catppuccin = {
-      url = "git+https://tangled.org/did:plc:rdinf3cjt4zqifhqdtc5gfcr";
-      flake = false;
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";

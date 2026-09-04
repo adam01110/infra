@@ -18,6 +18,7 @@
       os-age
       performance-mode
       pptx2md-adapter
+      proton-indexer-proxy
       proton-port-forward
       rclone-bisync-runner
       systemd-status-preview

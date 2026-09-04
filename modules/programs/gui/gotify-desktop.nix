@@ -21,8 +21,10 @@
     # keep-sorted start block=yes newline_separated=yes
     systemd.user.services.gotify-desktop = {
       Unit = {
+        # keep-sorted start
         After = ["graphical-session.target"];
         PartOf = ["graphical-session.target"];
+        # keep-sorted end
       };
 
       Service = {

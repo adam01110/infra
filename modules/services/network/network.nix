@@ -9,6 +9,7 @@
     ...
   }: let
     inherit (lib) concatStringsSep;
+
     inherit (vars) username;
   in {
     sops = let

@@ -17,6 +17,8 @@
 
     xdg.configFile."tuicr/themes/stylix.toml".source = with colors;
       tomlFormat.generate "tuicr-stylix-theme.toml" {
+        syntax_theme = "stylix.tmTheme";
+
         # keep-sorted start
         bg_highlight = base01;
         border_focused = base0D;
@@ -57,7 +59,6 @@
         status_bar_bg = base01;
         syntax_add_bg = blendHex 22 base00 base0B;
         syntax_del_bg = blendHex 22 base00 base08;
-        syntax_theme = "stylix.tmTheme";
         update_badge_bg = base0A;
         update_badge_fg = base00;
         # keep-sorted end

@@ -15,8 +15,8 @@
 
       # Match the hyprcursor package suffix.
       sessionVariables.HYPRCURSOR_THEME = mkForce "${config.stylix.cursor.name}-hyprcursor";
-    };
 
-    home.pointerCursor.hyprcursor.enable = true;
+      pointerCursor.hyprcursor.enable = true;
+    };
   };
 }

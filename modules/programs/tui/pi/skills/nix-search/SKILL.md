@@ -19,9 +19,10 @@ package or option unknown? use `nix-search-tv`.
 builtin indexes: `home-manager`, `nixos`, `nixpkgs`, `noogle`, `nur`.
 
 custom options: `authentik-nix`, `determinate`, `disko`, `home-manager-nixos`,
-`hylix`, `lanzaboote`, `nix-flatpak`, `nix-index-database`, `nixcord`,
-`noctalia`, `nvf`, `overzicht`, `sops-nix`, `sops-nix-home-manager`,
-`spicetify-nix`, `stylix`, `stylix-home-manager`, `zen-browser`.
+`hylix`, `lanzaboote`, `nix-flatpak`, `nix-index-database`, `nixcord`, `nvf`,
+`overzicht`, `pi-nix`, `pi-nix-home-manager`, `sops-nix`,
+`sops-nix-home-manager`, `spicetify-nix`, `stylix`, `stylix-home-manager`,
+`zen-browser`.
 
 repo wiring: builtin via `settings.indexes`; custom via
 `settings.experimental.options_file`. both queried with `--indexes <name>`.
@@ -35,7 +36,7 @@ nix-search-tv preview --indexes nixos boot.loader.systemd-boot.enable
 nix-search-tv preview --indexes zen-browser enable
 nix-search-tv preview --indexes nixpkgs --json firefox
 nix-search-tv source --indexes authentik-nix services.authentik
-nix-search-tv source --indexes noctalia programs.noctalia.settings.bar
+nix-search-tv source --indexes home-manager programs.noctalia.settings
 nix-search-tv homepage --indexes nixpkgs firefox
 ```
 

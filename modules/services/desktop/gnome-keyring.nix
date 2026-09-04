@@ -2,8 +2,10 @@
   flake.modules.nixos.gnome-keyring = {
     # keep-sorted start block=yes newline_separated=yes
     security.pam.services = {
+      # keep-sorted start
       greetd.enableGnomeKeyring = true;
       login.enableGnomeKeyring = true;
+      # keep-sorted end
     };
 
     services.gnome = {

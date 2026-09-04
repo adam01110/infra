@@ -1,8 +1,10 @@
 {inputs, ...}: {
   flake-file.inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    # keep-sorted start
     flake-file.url = "github:vic/flake-file";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
+    # keep-sorted end
   };
 
   imports = [

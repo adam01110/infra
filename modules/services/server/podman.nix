@@ -48,8 +48,10 @@
         };
 
         systemd-resolved = {
+          # keep-sorted start
           after = ["podman-dns-address.service"];
           requires = ["podman-dns-address.service"];
+          # keep-sorted end
         };
       };
 

@@ -13,12 +13,17 @@
     ...
   }: let
     inherit (builtins) toJSON;
-    inherit (lib) mapAttrs;
+    inherit
+      (lib)
+      # keep-sorted start
+      getName
+      mapAttrs
+      # keep-sorted end
+      ;
+    inherit (pkgs) nixosOptionsDoc;
+
     hmLib = import "${inputs.home-manager}/modules/lib/stdlib-extended.nix" lib;
-    allowDocUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "vscode-extension-ms-dotnettools-csharp"
-      ];
+    allowDocUnfreePredicate = pkg: builtins.elem (getName pkg) ["vscode-extension-ms-dotnettools-csharp"];
 
     hmBaseModules = import "${inputs.home-manager}/modules/modules.nix" {
       lib = hmLib;
@@ -45,7 +50,7 @@
         }).options;
     in
       (
-        pkgs.nixosOptionsDoc {
+        nixosOptionsDoc {
           options = removeAttrs homeManagerOptions ["_module"];
           warningsAreErrors = false;
         }
@@ -53,7 +58,7 @@
 
     mkNixosDoc = module:
       (
-        pkgs.nixosOptionsDoc {
+        nixosOptionsDoc {
           inherit
             ((
               lib.nixosSystem {

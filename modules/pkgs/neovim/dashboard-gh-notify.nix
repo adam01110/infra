@@ -1,5 +1,12 @@
 {
-  perSystem = {pkgs, ...}: let
+  perSystem = {
+    # keep-sorted start
+    lib,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (lib) getExe;
     inherit (pkgs) writeShellApplication;
   in {
     packages.dashboard-gh-notify = writeShellApplication {
@@ -11,7 +18,7 @@
         GH_TOKEN="$(cat "$GH_TOKEN_FILE")"
         export GH_TOKEN
 
-        if ! output="$("${pkgs.lib.getExe pkgs.gh-notify}" "$@" 2>&1)"; then
+        if ! output="$("${getExe pkgs.gh-notify}" "$@" 2>&1)"; then
           printf 'Notifications unavailable\n'
           exit 0
         fi

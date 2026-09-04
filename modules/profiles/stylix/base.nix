@@ -36,6 +36,7 @@
 in {
   flake-file.inputs.stylix = {
     url = "github:danth/stylix";
+
     inputs = {
       # keep-sorted start
       flake-parts.follows = "flake-parts";
@@ -45,29 +46,31 @@ in {
     };
   };
 
-  flake.modules.nixos.stylixBase = {
-    imports = [inputs.stylix.nixosModules.stylix];
+  flake.modules = {
+    nixos.stylixBase = {
+      imports = [inputs.stylix.nixosModules.stylix];
 
-    stylix =
-      stylixConfig
-      // {
-        targets.kmscon.enable = false;
-      };
-  };
+      stylix =
+        stylixConfig
+        // {
+          targets.kmscon.enable = false;
+        };
+    };
 
-  flake.modules.homeManager.stylixBase = {
-    # keep-sorted start
-    lib,
-    osConfig ? null,
-    # keep-sorted end
-    ...
-  }: {
-    imports = lib.optional (osConfig == null) inputs.stylix.homeModules.stylix;
+    homeManager.stylixBase = {
+      # keep-sorted start
+      lib,
+      osConfig ? null,
+      # keep-sorted end
+      ...
+    }: {
+      imports = lib.optional (osConfig == null) inputs.stylix.homeModules.stylix;
 
-    stylix =
-      stylixConfig
-      // {
-        targets.btop.opacity.override.terminal = 0.0;
-      };
+      stylix =
+        stylixConfig
+        // {
+          targets.btop.opacity.override.terminal = 0.0;
+        };
+    };
   };
 }

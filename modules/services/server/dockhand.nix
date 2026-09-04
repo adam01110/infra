@@ -49,8 +49,10 @@
         dockhand-postgres-password = {
           # keep-sorted start block=yes newline_separated=yes
           after = [
+            # keep-sorted start
             "postgresql.service"
             "sops-install-secrets.service"
+            # keep-sorted end
           ];
 
           before = ["podman-dockhand.service"];
@@ -58,8 +60,10 @@
           wantedBy = ["podman-dockhand.service"];
 
           wants = [
+            # keep-sorted start
             "postgresql.service"
             "sops-install-secrets.service"
+            # keep-sorted end
           ];
           # keep-sorted end
 
@@ -84,9 +88,12 @@
         };
 
         podman-dockhand = {
-          after = ["dockhand-postgres-password.service"];
           stopIfChanged = false;
+
+          # keep-sorted start
+          after = ["dockhand-postgres-password.service"];
           wants = ["dockhand-postgres-password.service"];
+          # keep-sorted end
 
           serviceConfig = {
             SuccessExitStatus = [143];

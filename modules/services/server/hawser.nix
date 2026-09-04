@@ -55,9 +55,10 @@
         };
 
         environmentFiles = [config.sops.templates."hawser.env".path];
+
         volumes = [
-          "/run/podman/podman.sock:/var/run/docker.sock"
           "/var/lib/hawser:/data/stacks"
+          "/run/podman/podman.sock:/var/run/docker.sock"
         ];
       };
 

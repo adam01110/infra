@@ -2,12 +2,13 @@
   flake.modules.homeManager.yazi = {
     # keep-sorted start
     config,
+    lib,
     osConfig,
     pkgs,
     # keep-sorted end
     ...
   }: let
-    inherit (pkgs.lib.generators) mkLuaInline;
+    inherit (lib.generators) mkLuaInline;
   in {
     programs.yazi = {
       package = pkgs.yazi.override {

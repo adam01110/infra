@@ -1,14 +1,12 @@
 {
-  flake.modules.homeManager.pi = {
-    programs.pi.coding-agent.settings.kendex.extensionManager.config."@vanillagreen/pi-tool-renderer" = {
-      # keep-sorted start
-      compactUserMessages = true;
-      pendingStatusAnimation = true;
-      renderBashDiffs = true;
-      renderGitDiffCommandDiffs = true;
-      renderGrepFindTools = false;
-      renderMutationTools = true;
-      # keep-sorted end
-    };
+  flake.modules.homeManager.pi.programs.pi.coding-agent.settings.kendex.extensionManager.config."@vanillagreen/pi-tool-renderer" = {
+    # keep-sorted start
+    compactUserMessages = true;
+    pendingStatusAnimation = true;
+    renderBashDiffs = true;
+    renderGitDiffCommandDiffs = true;
+    renderGrepFindTools = false;
+    renderMutationTools = true;
+    # keep-sorted end
   };
 }

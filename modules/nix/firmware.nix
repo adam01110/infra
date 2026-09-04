@@ -1,5 +1,3 @@
 {
-  flake.modules.nixos.firmware = {
-    hardware.enableAllFirmware = true;
-  };
+  flake.modules.nixos.firmware.hardware.enableAllFirmware = true;
 }

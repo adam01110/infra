@@ -49,15 +49,19 @@
     systemd.services.mysql-admin = {
       # keep-sorted start block=yes newline_separated=yes
       after = [
+        # keep-sorted start
         "mysql.service"
         "sops-install-secrets.service"
+        # keep-sorted end
       ];
 
       wantedBy = ["multi-user.target"];
 
       wants = [
+        # keep-sorted start
         "mysql.service"
         "sops-install-secrets.service"
+        # keep-sorted end
       ];
       # keep-sorted end
 

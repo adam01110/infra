@@ -9,8 +9,12 @@
     inherit (vars) username;
   in {
     sops = {
-      secrets."nix_access_tokens/github" = {};
-      secrets."nix_access_tokens/ncps" = {};
+      secrets = {
+        # keep-sorted start
+        "nix_access_tokens/github" = {};
+        "nix_access_tokens/ncps" = {};
+        # keep-sorted end
+      };
 
       templates = {
         access_tokens = {

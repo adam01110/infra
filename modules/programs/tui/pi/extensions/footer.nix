@@ -41,6 +41,7 @@
           {
             id = "context";
             type = "context-bar";
+
             options = {
               contextBarMode = "medium";
               fg = "blue";

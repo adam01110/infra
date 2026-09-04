@@ -51,8 +51,10 @@
 
     # Published address exists only after wg0 is up.
     systemd.services.podman-apprise = {
+      # keep-sorted start
       after = ["wireguard-wg0.service"];
       wants = ["wireguard-wg0.service"];
+      # keep-sorted end
     };
   };
 }

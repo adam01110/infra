@@ -18,7 +18,7 @@
           settings.show_numbers = "relative_absolute";
         };
 
-        relative-motions-input = writeTextDir "main.lua" (readFile ./relative-motions-input.lua);
+        relative-motions-input = writeTextDir "main.lua" (readFile ./input.lua);
       };
 
       # Avoid the plugin's blocking key reader on Yazi 26.

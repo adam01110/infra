@@ -1,9 +1,7 @@
 {
-  flake.modules.homeManager.xdgTerminal = {
-    xdg.terminal-exec = {
-      enable = true;
+  flake.modules.homeManager.xdgTerminal.xdg.terminal-exec = {
+    enable = true;
 
-      settings.default = ["com.mitchellh.ghostty.desktop"];
-    };
+    settings.default = ["com.mitchellh.ghostty.desktop"];
   };
 }

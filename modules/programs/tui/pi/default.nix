@@ -27,7 +27,6 @@
     ...
   }: let
     inherit (builtins) attrValues;
-    inherit (pkgs.stdenv.hostPlatform) system;
     inherit
       (lib)
       # keep-sorted start
@@ -40,8 +39,11 @@
       # keep-sorted start
       makeWrapper
       symlinkJoin
+      writeShellScriptBin
       # keep-sorted end
       ;
+
+    inherit (pkgs.stdenv.hostPlatform) system;
 
     piPackage = inputs.pi-nix.packages.${system}.coding-agent-bun.overrideAttrs (old: {
       patches = (old.patches or []) ++ [./patches/disable-llama-extension.patch];
@@ -53,7 +55,7 @@
       meta.mainProgram = "bun";
 
       paths = [
-        (pkgs.writeShellScriptBin "bun" ''
+        (writeShellScriptBin "bun" ''
           if [[ "''${1-}" == install ]]; then
             exec ${getExe pkgs.bun} "$@" --trust
           fi
@@ -99,23 +101,6 @@
       };
 
       rules = ./instructions.md;
-    };
-
-    xdg.desktopEntries.pi = {
-      name = "Pi";
-      genericName = "AI Coding Assistant";
-
-      exec = let
-        pi = getExe config.programs.pi.coding-agent.finalPackage;
-        terminalCommand = getExe config.xdg.terminal-exec.package;
-      in "${terminalCommand} --title=Pi ${pi}";
-
-      categories = [
-        # keep-sorted start
-        "ConsoleOnly"
-        "Development"
-        # keep-sorted end
-      ];
     };
   };
 }

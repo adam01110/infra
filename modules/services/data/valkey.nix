@@ -37,19 +37,25 @@
 
     systemd.services = {
       anubis-traefik = {
+        # keep-sorted start
         after = ["redis-anubis.service"];
         wants = ["redis-anubis.service"];
+        # keep-sorted end
       };
 
       redis-anubis = {
+        # keep-sorted start block=yes newline_separated=yes
         after = [
           # keep-sorted start
           "sops-install-secrets.service"
           "wireguard-wg0.service"
           # keep-sorted end
         ];
+
         requires = ["wireguard-wg0.service"];
+
         wants = ["sops-install-secrets.service"];
+        # keep-sorted end
       };
     };
   };

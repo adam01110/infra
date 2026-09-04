@@ -1,5 +1,11 @@
 {inputs, ...}: {
-  perSystem = {pkgs, ...}: let
+  perSystem = {
+    # keep-sorted start
+    lib,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: let
     inherit (pkgs.stdenv.hostPlatform) system;
     src = inputs.nixpkgs-crowdsec-blocklist-import.legacyPackages.${system}.crowdsec-blocklist-import.src;
   in {
@@ -35,7 +41,7 @@
       meta = {
         description = "Import threat intelligence from 30+ public blocklists into CrowdSec";
         homepage = "https://github.com/wolffcatskyy/crowdsec-blocklist-import";
-        license = pkgs.lib.licenses.mit;
+        license = lib.licenses.mit;
         mainProgram = "crowdsec-blocklist-import";
       };
     };

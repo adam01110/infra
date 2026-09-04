@@ -34,91 +34,102 @@
     # System version for state compatibility - do not modify.
     system.stateVersion = "26.05";
 
-    networking.hostName = "euclid";
+    networking = {
+      hostName = "euclid";
 
-    # Use x86-64-v3 CachyOS LTO kernel.
-    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+      hosts = {
+        "10.100.0.1" = ["euclid.wg"];
+      };
 
-    # Disable UAS for the Samsung T7 to avoid USB transport aborts.
-    boot.kernelParams = ["usb-storage.quirks=04e8:4001:u"];
-
-    # Same-host connection: hawser reaches dockhand directly without public TLS.
-    services.hawser.dockhandServerUrl = "ws://127.0.0.1:3000/api/hawser/connect";
-
-    services.crowdsec.settings.acquisitions = [
-      # keep-sorted start block=yes newline_separated=yes
-      {
-        appsec_configs = ["crowdsecurity/appsec-default"];
-        labels.type = "appsec";
-        listen_addr = "127.0.0.1:7424";
-        source = "appsec";
-      }
-
-      {
-        container_name = ["jellyfin"];
-        docker_host = "unix:///run/podman/podman.sock";
-        labels.type = "jellyfin";
-        source = "docker";
-      }
-
-      {
-        container_name = ["seerr"];
-        docker_host = "unix:///run/podman/podman.sock";
-        labels.type = "jellyseerr";
-        source = "docker";
-      }
-
-      {
-        filenames = ["/var/log/traefik/*.log"];
-        labels.type = "traefik";
-        source = "file";
-      }
-
-      {
-        journalctl_filter = [
-          "_SYSTEMD_UNIT=authentik.service"
-          "_SYSTEMD_UNIT=authentik-worker.service"
-        ];
-        labels.type = "authentik";
-        source = "journalctl";
-      }
-
-      {
-        journalctl_filter = ["_SYSTEMD_UNIT=gotify-server.service"];
-        labels.type = "gotify";
-        source = "journalctl";
-      }
-
-      {
-        journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
-        labels.type = "syslog";
-        source = "journalctl";
-      }
-      # keep-sorted end
-    ];
-
-    services.homelabWireguard = {
-      enable = true;
-      address = "10.100.0.1/24";
-      privateKeySecret = "wireguard/euclid/private_key";
+      # Public Git SSH port for the Tangled knot container.
+      firewall = {
+        allowedTCPPorts = [2223];
+        allowedUDPPorts = [7359];
+      };
     };
-    networking.hosts = {
-      "10.100.0.1" = ["euclid.wg"];
+
+    boot = {
+      # Use x86-64-v3 CachyOS LTO kernel.
+      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+
+      # Disable UAS for the Samsung T7 to avoid USB transport aborts.
+      kernelParams = ["usb-storage.quirks=04e8:4001:u"];
+    };
+
+    services = {
+      # Same-host connection: hawser reaches dockhand directly without public TLS.
+      hawser.dockhandServerUrl = "ws://127.0.0.1:3000/api/hawser/connect";
+
+      crowdsec.settings.acquisitions = [
+        # keep-sorted start block=yes newline_separated=yes
+        {
+          appsec_configs = ["crowdsecurity/appsec-default"];
+          labels.type = "appsec";
+          listen_addr = "127.0.0.1:7424";
+          source = "appsec";
+        }
+
+        {
+          container_name = ["jellyfin"];
+          docker_host = "unix:///run/podman/podman.sock";
+          labels.type = "jellyfin";
+          source = "docker";
+        }
+
+        {
+          container_name = ["seerr"];
+          docker_host = "unix:///run/podman/podman.sock";
+          labels.type = "jellyseerr";
+          source = "docker";
+        }
+
+        {
+          filenames = ["/var/log/traefik/*.log"];
+          labels.type = "traefik";
+          source = "file";
+        }
+
+        {
+          journalctl_filter = [
+            "_SYSTEMD_UNIT=authentik.service"
+            "_SYSTEMD_UNIT=authentik-worker.service"
+          ];
+          labels.type = "authentik";
+          source = "journalctl";
+        }
+
+        {
+          journalctl_filter = ["_SYSTEMD_UNIT=gotify-server.service"];
+          labels.type = "gotify";
+          source = "journalctl";
+        }
+
+        {
+          journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
+          labels.type = "syslog";
+          source = "journalctl";
+        }
+        # keep-sorted end
+      ];
+
+      homelabWireguard = {
+        enable = true;
+        address = "10.100.0.1/24";
+        privateKeySecret = "wireguard/euclid/private_key";
+      };
     };
 
     users.users.${config.services.crowdsec.user}.extraGroups = ["podman" "traefik"];
 
-    # Keeps remote activation alive while applying NetworkManager changes on reboot.
-    systemd.services.NetworkManager.restartIfChanged = false;
+    systemd.services = {
+      # Keeps remote activation alive while applying NetworkManager changes on reboot.
+      NetworkManager.restartIfChanged = false;
 
-    systemd.services.crowdsec = {
-      after = ["podman.socket"];
-      wants = ["podman.socket"];
+      crowdsec = {
+        after = ["podman.socket"];
+        wants = ["podman.socket"];
+      };
     };
-
-    # Public Git SSH port for the Tangled knot container.
-    networking.firewall.allowedTCPPorts = [2223];
-    networking.firewall.allowedUDPPorts = [7359];
 
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";

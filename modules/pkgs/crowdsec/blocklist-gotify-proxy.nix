@@ -1,53 +1,60 @@
-_: {
+{
   perSystem = {pkgs, ...}: let
     inherit (pkgs) writeShellApplication;
   in {
     packages.crowdsec-blocklist-gotify-proxy = writeShellApplication {
       name = "crowdsec-blocklist-gotify-proxy";
-      excludeShellChecks = ["SC2001"];
       runtimeInputs = with pkgs; [
         # keep-sorted start
         coreutils
         curl
-        gnused
         jq
         # keep-sorted end
       ];
       text = ''
-                set -eu
+        set -eu
 
-                GOTIFY_URL="http://127.0.0.1:44407/message"
-                GOTIFY_KEY=$(cat "$CREDENTIALS_DIRECTORY/gotify_api_key")
+        gotify_url="http://127.0.0.1:44407/message"
+        gotify_key=$(cat "$CREDENTIALS_DIRECTORY/gotify_api_key")
 
-                read -r _ _ _
+        read -r _ _ _
 
-                content_length=0
-                while IFS= read -r line; do
-                  line=$(echo "$line" | tr -d '\r')
-                  [ -z "$line" ] && break
-                  case "$line" in
-                    [Cc]ontent-[Ll]ength:*) content_length=$(echo "$line" | sed 's/.*: *//');;
-                  esac
-                done
+        content_length=0
+        while IFS= read -r line; do
+          line=$(printf '%s' "$line" | tr -d '\r')
+          [ -z "$line" ] && break
 
-                body=$(dd bs=1 count="$content_length" 2>/dev/null)
+          case "$line" in
+            [Cc]ontent-[Ll]ength:*)
+              content_length=''${line#*:}
+              content_length=''${content_length## }
+              ;;
+          esac
+        done
 
-                new_ips=$(echo "$body" | jq -r '.new_ips // 0')
-                sources_ok=$(echo "$body" | jq -r '.sources_ok // 0')
-                sources_failed=$(echo "$body" | jq -r '.sources_failed // 0')
-                duration=$(echo "$body" | jq -r '.duration_seconds // 0')
+        body=$(dd bs=1 count="$content_length" status=none)
 
-                title="CrowdSec Blocklist Import"
-                message="$new_ips IPs imported
-        $sources_ok sources ok, $sources_failed failed, $duration s"
+        new_ips=$(jq -r '.new_ips // 0' <<<"$body")
+        sources_ok=$(jq -r '.sources_ok // 0' <<<"$body")
+        sources_failed=$(jq -r '.sources_failed // 0' <<<"$body")
+        duration=$(jq -r '.duration_seconds // 0' <<<"$body")
 
-                curl -s -X POST \
-                  -H "Content-Type: application/json" \
-                  -H "X-Gotify-Key: $GOTIFY_KEY" \
-                  -d "$(echo '{}' | jq --arg t "$title" --arg m "$message" '{title: $t, message: $m, priority: 3}')" \
-                  "$GOTIFY_URL" >/dev/null
+        title="CrowdSec Blocklist Import"
+        printf -v message '%s IPs imported\n%s sources ok, %s failed, %s s' \
+          "$new_ips" "$sources_ok" "$sources_failed" "$duration"
 
-                printf 'HTTP/1.1 200 OK\r\nContent-Length: 2\r\nConnection: close\r\n\r\nOK'
+        payload=$(jq -n \
+          --arg title "$title" \
+          --arg message "$message" \
+          '{title: $title, message: $message, priority: 3}')
+
+        curl --fail --silent --show-error \
+          --header "Content-Type: application/json" \
+          --header "X-Gotify-Key: $gotify_key" \
+          --data "$payload" \
+          "$gotify_url" >/dev/null
+
+        printf 'HTTP/1.1 200 OK\r\nContent-Length: 2\r\nConnection: close\r\n\r\nOK'
       '';
     };
   };

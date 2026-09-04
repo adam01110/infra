@@ -109,8 +109,10 @@
     systemd.services.gotify-optimize-images = {
       description = "Optimize Gotify uploaded images";
 
+      # keep-sorted start
       after = ["gotify-server.service"];
       requires = ["gotify-server.service"];
+      # keep-sorted end
 
       serviceConfig = {
         Type = "oneshot";

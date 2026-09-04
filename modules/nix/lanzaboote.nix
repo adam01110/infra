@@ -1,9 +1,12 @@
 {
   flake-file.inputs.lanzaboote = {
     url = "github:nix-community/lanzaboote?ref=v1.1.0";
+
     inputs = {
+      # keep-sorted start
       nixpkgs.follows = "nixpkgs";
       rust-overlay.follows = "tuigreet/rust-overlay";
+      # keep-sorted end
     };
   };
 

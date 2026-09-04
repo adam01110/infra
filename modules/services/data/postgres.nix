@@ -24,11 +24,13 @@
         # Listen only on local and WireGuard addresses.
         listen_addresses = mkForce "127.0.0.1,::1,10.100.0.1";
 
-        shared_buffers = "256MB";
-        maintenance_work_mem = "128MB";
+        # keep-sorted start
         log_connections = true;
         log_disconnections = true;
         log_min_duration_statement = 1000;
+        maintenance_work_mem = "128MB";
+        shared_buffers = "256MB";
+        # keep-sorted end
       };
 
       ensureDatabases = [
@@ -90,15 +92,19 @@
     systemd.services.postgres-admin = {
       # keep-sorted start block=yes newline_separated=yes
       after = [
+        # keep-sorted start
         "postgresql.service"
         "sops-install-secrets.service"
+        # keep-sorted end
       ];
 
       wantedBy = ["multi-user.target"];
 
       wants = [
+        # keep-sorted start
         "postgresql.service"
         "sops-install-secrets.service"
+        # keep-sorted end
       ];
       # keep-sorted end
 

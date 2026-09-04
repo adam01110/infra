@@ -76,8 +76,10 @@
           wantedBy = ["podman-cloudbeaver.service"];
 
           wants = [
+            # keep-sorted start
             "postgresql.service"
             "sops-install-secrets.service"
+            # keep-sorted end
           ];
           # keep-sorted end
 
@@ -102,9 +104,12 @@
         };
 
         podman-cloudbeaver = {
-          after = ["cloudbeaver-postgres-password.service"];
           stopIfChanged = false;
+
+          # keep-sorted start
+          after = ["cloudbeaver-postgres-password.service"];
           wants = ["cloudbeaver-postgres-password.service"];
+          # keep-sorted end
 
           serviceConfig = {
             SuccessExitStatus = [143];

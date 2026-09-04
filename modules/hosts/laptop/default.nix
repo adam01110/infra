@@ -31,18 +31,18 @@
     # Primary nvme disk for disko partitioning.
     disko.selectedDisk = "/dev/nvme0n1";
 
-    services.timezone = "automatic-timezoned";
-
-    # Use the NV40 Dasharo capsule-on-disk update path.
-    services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = false;
-
     tweaks.rcuLazy.enable = true;
 
     # Use x86-64-v4 CachyOS LTO kernel.
     boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4;
 
-    # Advanced power management for laptop battery optimization.
     services = {
+      timezone = "automatic-timezoned";
+
+      # Use the NV40 Dasharo capsule-on-disk update path.
+      fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = false;
+
+      # Power management for laptop battery optimization.
       thermald.enable = true;
 
       tlp.settings = {

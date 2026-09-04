@@ -1,0 +1,192 @@
+*,
+*::before,
+*::after {
+  border-radius: 0px !important;
+}
+
+:root {
+  color-scheme: dark;
+
+  --color-bg: __base00__;
+  --color-bg-rgb: __base00Rgb__;
+  --color-fg: __base05__;
+  --color-fg-rgb: __base05Rgb__;
+  --color-primary: __base0D__;
+  --color-primary-rgb: __base0DRgb__;
+  --color-gray-rgb: __base03Rgb__;
+
+  --color-base-black: __base01__;
+  --color-base-black-rgb: __base01Rgb__;
+  --color-base-white: __base05__;
+  --color-base-white-rgb: __base05Rgb__;
+
+  --color-base-gray-10: __base01__;
+  --color-base-gray-10-rgb: __base01Rgb__;
+  --color-base-gray-20: __base01__;
+  --color-base-gray-20-rgb: __base01Rgb__;
+  --color-base-gray-30: __base02__;
+  --color-base-gray-30-rgb: __base02Rgb__;
+  --color-base-gray-40: __base02__;
+  --color-base-gray-40-rgb: __base02Rgb__;
+  --color-base-gray-50: __base02__;
+  --color-base-gray-50-rgb: __base02Rgb__;
+  --color-base-gray-60: __base03__;
+  --color-base-gray-60-rgb: __base03Rgb__;
+  --color-base-gray-70: __base04__;
+  --color-base-gray-70-rgb: __base04Rgb__;
+  --color-base-gray-80: __base04__;
+  --color-base-gray-80-rgb: __base04Rgb__;
+  --color-base-gray-85: __base0D__;
+  --color-base-gray-85-rgb: __base0DRgb__;
+  --color-base-gray-90: __base06__;
+  --color-base-gray-90-rgb: __base06Rgb__;
+  --color-base-gray-100: __base05__;
+  --color-base-gray-100-rgb: __base05Rgb__;
+  --color-base-gray-110: __base04__;
+  --color-base-gray-110-rgb: __base04Rgb__;
+  --color-base-gray-120: __base07__;
+  --color-base-gray-120-rgb: __base07Rgb__;
+
+  --color-dracula-red: __base08__;
+  --color-dracula-orange: __base09__;
+  --color-dracula-yellow: __base0A__;
+  --color-dracula-green: __base0B__;
+  --color-dracula-cyan: __base0C__;
+  --color-dracula-purple: __base0D__;
+  --color-dracula-pink: __base0E__;
+  --color-dracula-comment: __base03__;
+
+  --color-background-app: var(--color-bg);
+  --color-background-app-weak: var(--color-base-gray-20);
+  --color-background-elevated: var(--color-base-gray-30);
+  --color-background-elevated-hover: var(--color-base-gray-50);
+  --color-background-grouped: var(--color-base-gray-20);
+  --color-background-grouped-weak: var(--color-base-gray-10);
+  --color-background-object: var(--color-base-gray-30);
+
+  --color-background-button-primary: var(--color-primary);
+  --color-background-button-primary-active: var(--color-base-gray-85);
+  --color-background-button-primary-disabled: var(--color-base-gray-60);
+  --color-background-button-secondary: var(--color-base-gray-40);
+  --color-background-button-secondary-active: var(--color-base-gray-50);
+  --color-background-button-secondary-disabled: var(--color-base-gray-30);
+  --color-background-button-translucent: rgba(var(--color-base-white-rgb), 0.1);
+  --color-background-button-translucent-active: rgba(var(--color-base-white-rgb), 0.15);
+  --color-background-button-translucent-disabled: rgba(var(--color-base-white-rgb), 0.05);
+
+  --color-background-sidebar: rgba(var(--color-base-gray-30-rgb), 0.6);
+  --color-background-sidebar-opaque: var(--color-base-gray-30);
+  --color-background-sidebar-thread-focus: rgba(var(--color-base-white-rgb), 0.1);
+  --color-background-sidebar-thread-selected: var(--color-background-selected-primary);
+  --color-background-sidebar-thread-selected-unfocused: rgba(var(--color-base-white-rgb), 0.15);
+
+  --color-background-message-active: var(--color-base-gray-20);
+  --color-background-message-bubble-received: var(--color-base-gray-50);
+  --color-background-message-bubble-sent: var(--color-primary);
+  --color-background-message-bubble-linked: var(--color-base-gray-20);
+
+  --color-background-selected-primary: var(--color-primary);
+  --color-background-selected-secondary: rgba(var(--color-base-white-rgb), 0.1);
+
+  --color-background-input: var(--color-base-gray-20);
+  --color-background-kbd: rgba(var(--color-base-white-rgb), 0.15);
+  --color-background-header-right: rgba(var(--color-base-gray-30-rgb), 0.9);
+  --color-background-header-right-opaque: var(--color-base-gray-30);
+  --color-background-menu: rgba(var(--color-base-gray-30-rgb), 0.9);
+  --color-background-menu-opaque: var(--color-base-gray-30);
+  --color-background-menu-option-hover: __base0C__;
+
+  --color-border-neutrals: var(--color-base-gray-40);
+  --color-border-neutrals-strong: var(--color-base-gray-50);
+  --color-border-neutrals-weak: var(--color-base-gray-20);
+  --color-border-input: var(--color-base-gray-40);
+  --color-border-input-active: var(--color-base-gray-50);
+  --color-border-translucent: rgba(var(--color-base-white-rgb), 0.1);
+  --color-border-translucent-strong: rgba(var(--color-base-white-rgb), 0.15);
+  --color-border-translucent-strongest: rgba(var(--color-base-white-rgb), 0.5);
+  --color-border-translucent-weak: rgba(var(--color-base-white-rgb), 0.05);
+
+  --color-text-neutrals: var(--color-fg);
+  --color-text-neutrals-subtle: var(--color-base-gray-90);
+  --color-text-neutrals-weak: var(--color-base-gray-110);
+  --color-text-on-accent: __base00__;
+  --color-text-on-accent-weak: rgba(__base00Rgb__, 0.8);
+  --color-text-translucent: rgba(var(--color-base-white-rgb), 0.9);
+  --color-text-translucent-subtle: rgba(var(--color-base-white-rgb), 0.6);
+  --color-text-translucent-weak: rgba(var(--color-base-white-rgb), 0.75);
+
+  --color-icon-neutrals: var(--color-base-gray-90);
+  --color-icon-neutrals-strong: var(--color-fg);
+  --color-icon-neutrals-subtle: var(--color-base-gray-110);
+  --color-icon-neutrals-weak: var(--color-base-gray-80);
+  --color-icon-on-accent: rgba(__base00Rgb__, 0.85);
+  --color-icon-on-accent-strong: rgba(__base00Rgb__, 0.95);
+  --color-icon-on-accent-weak: rgba(__base00Rgb__, 0.6);
+  --color-icon-translucent: rgba(var(--color-base-white-rgb), 0.6);
+  --color-icon-translucent-strong: rgba(var(--color-base-white-rgb), 0.9);
+  --color-icon-translucent-subtle: rgba(var(--color-base-white-rgb), 0.3);
+  --color-icon-translucent-weak: rgba(var(--color-base-white-rgb), 0.4);
+
+  --color-background-scrollbar: rgba(var(--color-base-white-rgb), 0.3);
+  --color-background-scrollbar-hover: rgba(var(--color-base-white-rgb), 0.5);
+  --color-background-tag: rgba(var(--color-base-white-rgb), 0.1);
+  --color-overlay-modal: rgba(0, 0, 0, 0.4);
+  --color-transparent: rgba(0, 0, 0, 0);
+
+  --left-pane-bg: transparent;
+  --right-pane-bg: rgba(var(--color-bg-rgb), 1);
+  --mark-bg: var(--color-base-gray-50);
+  --error-color: __base08__;
+  --warning-color: __base09__;
+  --snoozed-indicator-bg: __base09__;
+  --error-indicator-bg: var(--error-color);
+  --message-snoozed-border: __base09__;
+  --message-errored-beacon: var(--error-color);
+  --sms-sent-bg: __base0B__;
+
+  --compose-message-accent: var(--color-base-gray-90);
+  --audio-bar-button: var(--color-base-gray-90);
+  --audio-bar-preview-progress: var(--color-base-gray-120);
+  --audio-bar-bg: var(--color-base-gray-20);
+  --audio-bar-border: var(--color-base-gray-60);
+
+  --key-border: var(--color-base-gray-40);
+  --key-bg: linear-gradient(to bottom, var(--color-base-gray-40), var(--color-base-gray-20));
+  --color-key-bottom-bg: var(--color-base-gray-20);
+  --prefs-well: var(--color-base-gray-10);
+
+  --ansi-black: __base01__;
+  --ansi-red: __base08__;
+  --ansi-green: __base0B__;
+  --ansi-yellow: __base0A__;
+  --ansi-blue: __base0D__;
+  --ansi-magenta: __base0E__;
+  --ansi-cyan: __base0C__;
+  --ansi-white: __base05__;
+  --ansi-bright-black: __base03__;
+  --ansi-bright-red: __base08__;
+  --ansi-bright-green: __base0B__;
+  --ansi-bright-yellow: __base0A__;
+  --ansi-bright-blue: __base0D__;
+  --ansi-bright-magenta: __base0E__;
+  --ansi-bright-cyan: __base0C__;
+  --ansi-bright-white: __base07__;
+
+  --functional-red: __base08__;
+  --functional-orange: __base09__;
+  --functional-green: __base0B__;
+  --functional-cyan: __base0C__;
+  --functional-purple: __base0D__;
+  --focus-ring: var(--functional-purple);
+  --link-color: var(--functional-cyan);
+  --danger-bg: var(--functional-red);
+  --success-bg: var(--functional-green);
+  --warning-bg: var(--functional-orange);
+}
+
+.no-transparency,
+.reduce-transparency {
+  --left-pane-bg: var(--color-background-sidebar-opaque);
+  --color-background-header-right: var(--color-background-header-right-opaque);
+  --color-background-menu: var(--color-background-menu-opaque);
+}

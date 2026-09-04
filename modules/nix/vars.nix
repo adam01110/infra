@@ -1,9 +1,8 @@
 {self, ...}: let
   vars = import "${self}/vars.nix";
 in {
-  flake.vars = vars;
-
-  flake.modules.generic.vars = {
-    _module.args.vars = vars;
+  flake = {
+    inherit vars;
+    modules.generic.vars._module.args = {inherit vars;};
   };
 }

@@ -1,5 +1,3 @@
 {
-  flake.modules.nixos.bandwhich = {
-    programs.bandwhich.enable = true;
-  };
+  flake.modules.nixos.bandwhich.programs.bandwhich.enable = true;
 }

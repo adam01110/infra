@@ -45,9 +45,11 @@
       enabledThemeLinks = externalThemeLinks;
     };
 
-    xdg.configFile."equibop/themes/snippets.css".source = ./snippets.css;
+    xdg.configFile = {
+      "equibop/themes/snippets.css".source = ./snippets.css;
 
-    # Install themed css with fonts and palette from Stylix.
-    xdg.configFile."equibop/themes/system24.css".source = system24Theme;
+      # Install themed css with fonts and palette from Stylix.
+      "equibop/themes/system24.css".source = system24Theme;
+    };
   };
 }

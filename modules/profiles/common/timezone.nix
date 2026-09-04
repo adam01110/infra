@@ -34,6 +34,7 @@
       (mkIf (cfgTimezone != null && cfgTimezone != "automatic-timezoned") {
         time.timeZone = cfgTimezone;
       })
+
       (mkIf (cfgTimezone == "automatic-timezoned") {
         services.automatic-timezoned.enable = true;
       })

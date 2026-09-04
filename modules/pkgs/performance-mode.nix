@@ -1,6 +1,12 @@
 {
-  perSystem = {pkgs, ...}: let
-    inherit (pkgs.lib) escapeShellArg;
+  perSystem = {
+    # keep-sorted start
+    lib,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: let
+    inherit (lib) escapeShellArg;
     inherit (pkgs) writeShellApplication;
 
     luaScript = ''

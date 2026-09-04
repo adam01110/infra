@@ -1,5 +1,3 @@
 {
-  flake.modules.nixos.tmp = {
-    boot.tmp.useTmpfs = true;
-  };
+  flake.modules.nixos.tmp.boot.tmp.useTmpfs = true;
 }

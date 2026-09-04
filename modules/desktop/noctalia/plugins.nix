@@ -1,6 +1,7 @@
 {inputs, ...}: {
   flake-file.inputs.noctalia-plugins = {
     url = "git+https://tangled.org/did:plc:b6k57yhdgjjytcqrstva6cbx";
+
     inputs = {
       # keep-sorted start
       flake-parts.follows = "flake-parts";
@@ -20,28 +21,30 @@
     jsonFormat = pkgs.formats.json {};
     videosDir = config.xdg.userDirs.videos;
   in {
-    home.file.".local/state/noctalia/plugins/data/noctalia/world_clock/zones.json" = {
-      force = true;
-      source = jsonFormat.generate "noctalia-world-clock-zones.json" [
-        "UTC"
-        "Europe/Amsterdam"
-        "Europe/London"
-        "America/Curacao"
-        "Europe/Madrid"
-        "Europe/Paris"
+    home = {
+      file.".local/state/noctalia/plugins/data/noctalia/world_clock/zones.json" = {
+        force = true;
+        source = jsonFormat.generate "noctalia-world-clock-zones.json" [
+          "UTC"
+          "Europe/Amsterdam"
+          "Europe/London"
+          "America/Curacao"
+          "Europe/Madrid"
+          "Europe/Paris"
+        ];
+      };
+
+      packages = with pkgs; [
+        # keep-sorted start
+        fzf
+        gpu-screen-recorder
+        hyprpicker
+        performance-mode
+        udiskie
+        udisks2
+        # keep-sorted end
       ];
     };
-
-    home.packages = with pkgs; [
-      # keep-sorted start
-      fzf
-      gpu-screen-recorder
-      hyprpicker
-      performance-mode
-      udiskie
-      udisks2
-      # keep-sorted end
-    ];
 
     programs.noctalia.settings = {
       plugin_settings = {
