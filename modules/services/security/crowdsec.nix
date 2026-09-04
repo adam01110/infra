@@ -25,6 +25,7 @@
   flake.modules.nixos.crowdsec-base = {
     # keep-sorted start
     config,
+    pkgs,
     self,
     # keep-sorted end
     ...
@@ -59,7 +60,6 @@
           "crowdsecurity/appsec-generic-rules"
           "crowdsecurity/appsec-virtual-patching"
           "crowdsecurity/http-cve"
-          "crowdsecurity/linux"
           "crowdsecurity/sshd"
           "crowdsecurity/traefik"
           "firix/authentik"
@@ -86,6 +86,17 @@
         ];
       };
     };
+
+    # Removes whitelist resources left by the previously enabled Linux collection.
+    systemd.services.crowdsec-setup.preStart = ''
+      for collection in crowdsecurity/linux crowdsecurity/whitelist-good-actors; do
+        ${pkgs.crowdsec}/bin/cscli collections remove "$collection" --force --purge || true
+      done
+
+      for postoverflow in crowdsecurity/google-special-crawlers-whitelist crowdsecurity/seo-bots-whitelist; do
+        ${pkgs.crowdsec}/bin/cscli postoverflows remove "$postoverflow" --force --purge || true
+      done
+    '';
 
     users = {
       groups.${config.services.crowdsec.group} = {};

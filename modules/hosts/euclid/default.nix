@@ -108,6 +108,9 @@
 
     users.users.${config.services.crowdsec.user}.extraGroups = ["podman" "traefik"];
 
+    # Keeps remote activation alive while applying NetworkManager changes on reboot.
+    systemd.services.NetworkManager.restartIfChanged = false;
+
     systemd.services.crowdsec = {
       after = ["podman.socket"];
       wants = ["podman.socket"];
