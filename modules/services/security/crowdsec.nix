@@ -145,6 +145,7 @@
     sops = {
       secrets = {
         # keep-sorted start
+        "crowdsec/console_enroll_key" = {};
         "crowdsec/gotify_api_key" = {};
         "traefik/crowdsec_bouncer_key" = {};
         # keep-sorted end
@@ -194,6 +195,8 @@
             listen_port = metricsPort;
           };
         };
+
+        console.enrollKeyFile = secrets."crowdsec/console_enroll_key".path;
 
         profiles = [
           {
