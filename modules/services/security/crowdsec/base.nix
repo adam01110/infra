@@ -24,6 +24,28 @@
       # keep-sorted end
     ];
 
+    environment.etc."crowdsec/postoverflows/s01-whitelist/curacao.yaml".source =
+      config.sops.templates."crowdsec-curacao-whitelist.yaml".path;
+
+    sops = {
+      secrets."crowdsec/curacao" = {};
+
+      templates."crowdsec-curacao-whitelist.yaml" = {
+        content = ''
+          name: local/curacao
+          description: "Whitelist Curacao dynamic IP"
+          whitelist:
+            reason: "Curacao dynamic DNS address"
+            expression:
+              - evt.Overflow.Alert.Source.IP in LookupHost("${config.sops.placeholder."crowdsec/curacao"}")
+        '';
+        group = config.services.crowdsec.group;
+        mode = "0440";
+        owner = config.services.crowdsec.user;
+        restartUnits = ["crowdsec.service"];
+      };
+    };
+
     services.crowdsec = {
       enable = true;
       autoUpdateService = true;
