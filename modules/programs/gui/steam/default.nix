@@ -47,21 +47,7 @@
         };
       };
 
-      homeManager.steam = {pkgs, ...}: let
-        inherit (pkgs) fetchFromGitHub;
-      in {
-        programs.steam.millennium = {
-          enable = true;
-          activeTheme = "adwaita";
-
-          themes.adwaita = fetchFromGitHub {
-            owner = "tkashkin";
-            repo = "Adwaita-for-Steam";
-            rev = "1e92107a51f6ed53c59c38646444c9eb3a52b030";
-            hash = "sha256-wH0z2LZ94j5ErRI40f9IRBJXJ6yuL+NLgjmj9G8odxU=";
-          };
-        };
-      };
+      homeManager.steam.programs.steam.millennium.enable = true;
     };
   };
 }
