@@ -44,10 +44,7 @@
         rust-overlay.follows = "tuigreet/rust-overlay";
       };
     };
-    millennium = {
-      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=release";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nix-index-database = {
