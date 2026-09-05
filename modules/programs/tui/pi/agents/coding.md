@@ -1,6 +1,8 @@
 ---
 description: Coding agent for implementing and verifying changes
 display_name: Coding
+extensions: true
+isolated: false
 model: sol
 prompt_mode: append
 ---

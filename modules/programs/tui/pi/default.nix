@@ -73,6 +73,7 @@
         # keep-sorted start
         rtk
         wl-clipboard
+        ydotool
         # keep-sorted end
       ])
       ++ [bunRuntime]
@@ -82,6 +83,52 @@
 
     programs.pi.coding-agent = {
       enable = true;
+
+      jail = {
+        enable = true;
+        permissions = combinators:
+          with combinators; [
+            # Retain network and desktop integration without exposing the host
+            # filesystem that backs them.
+            network
+            pipewire
+            wayland
+            (dbus {
+              talk = [
+                # keep-sorted start
+                "org.a11y.Bus"
+                "org.freedesktop.DBus"
+                "org.freedesktop.portal.*"
+                # keep-sorted end
+              ];
+            })
+
+            # Make Nix inputs and profiles visible without permitting changes.
+            (readonly "/nix/store")
+            (try-readonly "/etc/profiles")
+            (try-readonly "/run/current-system")
+            (try-readonly (noescape "~/.local/state/nix/profile"))
+            (try-readonly (noescape "~/.nix-profile"))
+            (try-readonly "${config.home.homeDirectory}/Infra")
+
+            # Preserve the state and sockets required by Pi extensions.
+            (try-readwrite (noescape "~/.cc-safety-net"))
+            (try-readwrite (noescape "\"$XDG_RUNTIME_DIR/.ydotool_socket\""))
+            (try-readwrite (noescape "\"$XDG_RUNTIME_DIR/at-spi\""))
+            (try-readwrite (noescape "\"$XDG_RUNTIME_DIR/hypr\""))
+            (try-readwrite "/nix/var/nix/daemon-socket")
+
+            # Forward only environment values needed by runtime tools.
+            (try-fwd-env "HYPRLAND_INSTANCE_SIGNATURE")
+            (try-fwd-env "XDG_CURRENT_DESKTOP")
+            (try-fwd-env "XDG_SESSION_DESKTOP")
+            (fwd-env "PATH")
+
+            # Apply last so the current working tree stays writable when it is
+            # nested under an otherwise read-only path such as ~/Infra.
+            mount-cwd
+          ];
+      };
 
       # Provide runtime commands used by Pi and its extensions.
       package = symlinkJoin {

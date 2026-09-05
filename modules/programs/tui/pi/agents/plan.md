@@ -1,6 +1,8 @@
 ---
 description: Read-only software architect for implementation planning
 display_name: Plan
+extensions: true
+isolated: false
 tools: read, bash, grep, find, ls
 model: sol
 ---

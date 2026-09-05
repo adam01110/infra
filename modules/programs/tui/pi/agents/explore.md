@@ -1,6 +1,8 @@
 ---
 description: Fast read-only search agent for locating code
 display_name: Explore
+extensions: true
+isolated: false
 tools: read, bash, grep, find, ls
 model: luna
 ---

@@ -1,9 +1,8 @@
 ---
 name: simplify
 description: >-
-  Use only when the user explicitly invokes `/simplify` or explicitly asks to
-  use the simplify skill; never use for ordinary implementation, review,
-  cleanup, refactoring, or code changes.
+  Review settled code changes for behavior-preserving improvements to reuse,
+  clarity, quality, and efficiency.
 license: AGPL-3.0-only
 compatibility:
   Requires repository diffs; parallel subagent support is recommended.
@@ -18,10 +17,7 @@ argument-hint:
 
 # simplify
 
-activation gate: user invoked `/simplify` or explicitly asked for simplify
-skill? continue. anything else—including ordinary code change, implementation,
-review, cleanup, refactor—do not run.
-
+Use after implementation has settled, not while behavior is still changing.
 bug diagnosis? use `ce-debug`; simplify is not debugger.
 
 goal: clarity, reuse, quality, efficiency. exact behavior stays. readable

@@ -32,6 +32,8 @@
 
     mcpConfig = jsonFormat.generate "pi-mcp.json" {
       settings = {
+        # Apply one policy to actual server calls from both mcp and mcpScript.
+        approveTools = true;
         directTools = false;
         idleTimeout = 1;
       };
@@ -43,6 +45,8 @@
         };
 
         context7 = {
+          # Context7 is the only server whose tools do not require approval.
+          approveTools = false;
           command = "context7-mcp-wrapper";
           directTools = false;
           exposeResources = false;
