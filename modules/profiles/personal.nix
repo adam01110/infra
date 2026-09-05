@@ -105,6 +105,7 @@
         # TUI
         # keep-sorted start block=yes
         cava
+        scope-tui
         wiremix
         # keep-sorted end
 

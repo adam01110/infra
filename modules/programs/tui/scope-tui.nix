@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.speedtest = {
+  flake.modules.homeManager.scope-tui = {
     # keep-sorted start
     lib,
     pkgs,
@@ -7,11 +7,12 @@
     ...
   }: let
     inherit (lib) getExe;
-    pkg = pkgs.speedtest-go;
+
+    pkg = pkgs.scope-tui;
   in {
     home = {
       packages = [pkg];
-      shellAliases.speedtest = getExe pkg;
+      shellAliases.scope-tui = "${getExe pkg} --scatter pulse @DEFAULT_MONITOR@";
     };
   };
 }
