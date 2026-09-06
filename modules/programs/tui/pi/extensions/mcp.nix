@@ -10,15 +10,37 @@
     ...
   }: let
     inherit
-      (lib)
+      (builtins)
       # keep-sorted start
-      escapeShellArg
-      getExe
-      mkOption
-      types
+      attrNames
+      attrValues
       # keep-sorted end
       ;
-    inherit (pkgs) writeShellApplication;
+    inherit
+      (lib)
+      # keep-sorted start
+      concatMap
+      concatStringsSep
+      escapeShellArg
+      escapeShellArgs
+      genAttrs
+      getExe
+      mapAttrs
+      mapAttrsToList
+      mkOption
+      optional
+      optionalString
+      types
+      unique
+      # keep-sorted end
+      ;
+    inherit
+      (pkgs)
+      # keep-sorted start
+      coreutils
+      writeShellApplication
+      # keep-sorted end
+      ;
 
     jsonFormat = pkgs.formats.json {};
 
@@ -30,6 +52,84 @@
       else throw "pi: unsupported computer-use-linux architecture";
     piSuite = inputs.pi-suite.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
+    mkMcp = {
+      approveTools ? true,
+      args ? [],
+      command,
+      environment ? {},
+      name,
+      secrets ? {},
+    }: let
+      environmentNames = attrNames (environment // secrets);
+      wrapperName = "${name}-mcp-wrapper";
+      package = writeShellApplication {
+        name = wrapperName;
+        runtimeInputs = [coreutils];
+        text = concatStringsSep "\n" (
+          (mapAttrsToList (variable: value: "${variable}=${escapeShellArg value}") environment)
+          ++ (mapAttrsToList (
+              variable: secretName: ''${variable}="$(cat ${escapeShellArg config.sops.secrets.${secretName}.path})"''
+            )
+            secrets)
+          ++ optional (environmentNames != []) "export ${concatStringsSep " " environmentNames}"
+          ++ ["exec ${escapeShellArg command}${optionalString (args != []) " ${escapeShellArgs args}"} \"$@\""]
+        );
+      };
+    in {
+      inherit package;
+      secretNames = attrValues secrets;
+      server = {
+        inherit approveTools;
+        command = wrapperName;
+        directTools = false;
+        exposeResources = false;
+        lifecycle = "lazy";
+      };
+    };
+
+    mcps = mapAttrs (name: mcp: mkMcp (mcp // {inherit name;})) {
+      # keep-sorted start block=yes newline_separated=yes
+      computer-use-linux = {
+        args = ["mcp"];
+        command = "${piSuite}/node_modules/@agent-sh/computer-use-linux/npm/bin/computer-use-linux-linux-${computerUseNodeArch}";
+      };
+
+      context7 = {
+        # Context7 is the only server whose tools do not require approval.
+        approveTools = false;
+        command = getExe pkgs.context7-mcp;
+
+        secrets.CONTEXT7_API_KEY = "ai/context7_key";
+      };
+
+      excalidash = {
+        command = getExe pkgs.nur.repos.adam0.excalidash-mcp;
+
+        environment.EXCALIDASH_URL = "https://excalidash.${vars.groundDomain}";
+
+        secrets.EXCALIDASH_API_KEY = "ai/excalidash_key";
+      };
+
+      github = {
+        args = ["stdio"];
+        command = getExe pkgs.github-mcp-server;
+
+        secrets.GITHUB_PERSONAL_ACCESS_TOKEN = "ai/github_token";
+      };
+
+      tangled = {
+        command = getExe pkgs.nur.repos.adam0.tangled-mcp;
+
+        environment = {
+          TANGLED_HANDLE = vars.atprotoHandle;
+          TANGLED_PDS_URL = "https://pds.${vars.groundDomain}";
+        };
+
+        secrets.TANGLED_PASSWORD = "atproto_app_password";
+      };
+      # keep-sorted end
+    };
+
     mcpConfig = jsonFormat.generate "pi-mcp.json" {
       settings = {
         # Apply one policy to actual server calls from both mcp and mcpScript.
@@ -38,70 +138,10 @@
         idleTimeout = 1;
       };
 
-      mcpServers = {
-        computer-use-linux = {
-          args = ["mcp"];
-          command = "${piSuite}/node_modules/@agent-sh/computer-use-linux/npm/bin/computer-use-linux-linux-${computerUseNodeArch}";
-        };
-
-        context7 = {
-          # Context7 is the only server whose tools do not require approval.
-          approveTools = false;
-          command = "context7-mcp-wrapper";
-          directTools = false;
-          exposeResources = false;
-          lifecycle = "lazy";
-        };
-
-        github = {
-          command = "github-mcp-server-wrapper";
-          directTools = false;
-          exposeResources = false;
-          lifecycle = "lazy";
-        };
-
-        tangled = {
-          command = "tangled-mcp-wrapper";
-          directTools = false;
-          exposeResources = false;
-          lifecycle = "lazy";
-        };
-      };
+      mcpServers = mapAttrs (_: mcp: mcp.server) mcps;
     };
 
-    # keep-sorted start block=yes newline_separated=yes
-    context7McpWrapper = writeShellApplication {
-      name = "context7-mcp-wrapper";
-      runtimeInputs = [pkgs.coreutils];
-      text = ''
-        CONTEXT7_API_KEY="$(cat "${config.sops.secrets."ai/context7_key".path}")"
-        export CONTEXT7_API_KEY
-        exec "${getExe pkgs.context7-mcp}" "$@"
-      '';
-    };
-
-    githubMcpServerWrapper = writeShellApplication {
-      name = "github-mcp-server-wrapper";
-      runtimeInputs = [pkgs.coreutils];
-      text = ''
-        GITHUB_PERSONAL_ACCESS_TOKEN="$(cat "${config.sops.secrets."ai/github_token".path}")"
-        export GITHUB_PERSONAL_ACCESS_TOKEN
-        exec "${getExe pkgs.github-mcp-server}" stdio "$@"
-      '';
-    };
-
-    tangledMcpWrapper = writeShellApplication {
-      name = "tangled-mcp-wrapper";
-      runtimeInputs = [pkgs.coreutils];
-      text = ''
-        TANGLED_HANDLE=${escapeShellArg vars.atprotoHandle}
-        TANGLED_PASSWORD="$(cat "${config.sops.secrets."atproto_app_password".path}")"
-        TANGLED_PDS_URL=${escapeShellArg "https://pds.${vars.groundDomain}"}
-        export TANGLED_HANDLE TANGLED_PASSWORD TANGLED_PDS_URL
-        exec "${getExe pkgs.nur.repos.adam0.tangled-mcp}" "$@"
-      '';
-    };
-    # keep-sorted end
+    mcpSecretNames = unique (concatMap (mcp: mcp.secretNames) (attrValues mcps));
   in {
     options.programs.pi.mcpServers = mkOption {
       description = "MCP server packages added to the wrapped Pi launcher PATH.";
@@ -111,23 +151,9 @@
     };
 
     config = {
-      sops.secrets = {
-        # keep-sorted start
-        "ai/context7_key" = {};
-        "ai/github_token" = {};
-        "atproto_app_password" = {};
-        # keep-sorted end
-      };
+      sops.secrets = genAttrs mcpSecretNames (_: {});
 
-      programs.pi.mcpServers = {
-        inherit
-          # keep-sorted start
-          context7McpWrapper
-          githubMcpServerWrapper
-          tangledMcpWrapper
-          # keep-sorted end
-          ;
-      };
+      programs.pi.mcpServers = mapAttrs (_: mcp: mcp.package) mcps;
 
       # Keep the declarative baseline writable for extensions that register servers.
       home.activation.writePiMcpConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
