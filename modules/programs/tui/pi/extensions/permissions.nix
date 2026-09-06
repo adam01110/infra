@@ -1,5 +1,11 @@
 {
-  flake.modules.homeManager.pi = {config, pkgs, ...}: let
+  flake.modules.homeManager.pi = {
+    # keep-sorted start
+    config,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: let
     home = config.home.homeDirectory;
     jsonFormat = pkgs.formats.json {};
   in {
@@ -15,7 +21,7 @@
           "simplify" = "ask";
         };
 
-        # Outside the cwd, expose only the read-only roots mirrored by the jail.
+        # Outside the cwd, expose only roots mirrored by the jail.
         external_directory_read = {
           "*" = "deny";
           "/etc/profiles/*" = "allow";
@@ -24,10 +30,11 @@
           "${home}/.local/state/nix/profile/*" = "allow";
           "${home}/.nix-profile/*" = "allow";
           "${home}/Infra/*" = "allow";
+          "${home}/Projects/*" = "allow";
         };
 
-        # Keep external writes denied at both the policy and jail layers.
-        external_directory_write = "deny";
+        # Require confirmation before writing outside the launch directory.
+        external_directory_write = "ask";
       };
     };
   };

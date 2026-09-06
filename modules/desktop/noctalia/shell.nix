@@ -45,6 +45,7 @@
           polkit_agent = true;
           screen_time_enabled = true;
           setup_wizard_enabled = false;
+          window_switcher.mru = true;
           # keep-sorted end
 
           # Clipboard

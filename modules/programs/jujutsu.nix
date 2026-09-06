@@ -26,6 +26,11 @@
 
       templates."jj-user-config" = {
         content = ''
+          [signing]
+          backend = "gpg"
+          behavior = "own"
+          key = "${gitSigningKey}"
+
           [user]
           email = "${config.sops.placeholder."git/email"}"
           name = "${fullName}"

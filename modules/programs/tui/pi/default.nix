@@ -7,6 +7,7 @@
 
     pi-suite = {
       url = "git+https://tangled.org/did:plc:yyq2r4sag7vtnnd36rvsnnuq";
+
       inputs = {
         # keep-sorted start
         flake-parts.follows = "flake-parts";
@@ -30,6 +31,7 @@
     inherit
       (lib)
       # keep-sorted start
+      escapeShellArg
       getExe
       makeBinPath
       # keep-sorted end
@@ -45,6 +47,8 @@
 
     inherit (pkgs.stdenv.hostPlatform) system;
 
+    gpgHome = config.programs.gpg.homedir;
+    jjUserConfig = config.sops.templates."jj-user-config".path;
     piPackage = inputs.pi-nix.packages.${system}.coding-agent-bun.overrideAttrs (old: {
       patches = (old.patches or []) ++ [./patches/disable-llama-extension.patch];
     });
@@ -71,12 +75,18 @@
     runtimePackages =
       (with pkgs; [
         # keep-sorted start
+        openssh
         rtk
         wl-clipboard
         ydotool
         # keep-sorted end
       ])
-      ++ [bunRuntime]
+      ++ [
+        # keep-sorted start
+        bunRuntime
+        config.programs.gpg.package
+        # keep-sorted end
+      ]
       ++ attrValues config.programs.pi.mcpServers;
   in {
     imports = [inputs.pi-nix.homeModules.default];
@@ -109,7 +119,34 @@
             (try-readonly "/run/current-system")
             (try-readonly (noescape "~/.local/state/nix/profile"))
             (try-readonly (noescape "~/.nix-profile"))
-            (try-readonly "${config.home.homeDirectory}/Infra")
+
+            # Keep project roots writable independently of the launch
+            # directory.
+            (try-readwrite "${config.home.homeDirectory}/Infra")
+            (try-readwrite "${config.home.homeDirectory}/Projects")
+
+            # Expose Jujutsu identity and signing policy without private key
+            # files.
+            (readonly jjUserConfig)
+            (try-readonly "${gpgHome}/pubring.kbx")
+            (try-readonly "${gpgHome}/trustdb.gpg")
+            (add-runtime ''
+              gpgAgentSocket="$(${config.programs.gpg.package}/bin/gpgconf --homedir ${escapeShellArg gpgHome} --list-dirs agent-socket)"
+              if [[ -S "$gpgAgentSocket" ]]; then
+                RUNTIME_ARGS+=(--bind "$gpgAgentSocket" "$gpgAgentSocket")
+              fi
+            '')
+
+            # Provide SSH host configuration and agent access without key
+            # files.
+            (try-readonly (noescape "~/.ssh/config"))
+            (try-readonly (noescape "~/.ssh/known_hosts"))
+            (try-readonly (noescape "~/.ssh/known_hosts2"))
+            (add-runtime ''
+              if [[ -S "''${SSH_AUTH_SOCK-}" ]]; then
+                RUNTIME_ARGS+=(--bind "$SSH_AUTH_SOCK" "$SSH_AUTH_SOCK")
+              fi
+            '')
 
             # Preserve the state and sockets required by Pi extensions.
             (try-readwrite (noescape "~/.cc-safety-net"))
@@ -120,7 +157,9 @@
 
             # Forward only environment values needed by runtime tools.
             (try-fwd-env "HYPRLAND_INSTANCE_SIGNATURE")
+            (try-fwd-env "SSH_AUTH_SOCK")
             (try-fwd-env "XDG_CURRENT_DESKTOP")
+            (try-fwd-env "XDG_RUNTIME_DIR")
             (try-fwd-env "XDG_SESSION_DESKTOP")
             (fwd-env "PATH")
 
@@ -138,6 +177,8 @@
         nativeBuildInputs = [makeWrapper];
         postBuild = ''
           wrapProgram $out/bin/pi \
+            --set GNUPGHOME ${escapeShellArg gpgHome} \
+            --set JJ_CONFIG ${escapeShellArg jjUserConfig} \
             --set PI_SUITE_BTW_MODEL "openai-codex gpt-5.6-terra openai-codex-responses" \
             --prefix PATH : ${makeBinPath runtimePackages}
         '';
