@@ -53,7 +53,6 @@
     piSuite = inputs.pi-suite.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     mkMcp = {
-      approveTools ? true,
       args ? [],
       command,
       environment ? {},
@@ -79,7 +78,7 @@
       inherit package;
       secretNames = attrValues secrets;
       server = {
-        inherit approveTools;
+        approveTools = false;
         command = wrapperName;
         directTools = false;
         exposeResources = false;
@@ -95,8 +94,6 @@
       };
 
       context7 = {
-        # Context7 is the only server whose tools do not require approval.
-        approveTools = false;
         command = getExe pkgs.context7-mcp;
 
         secrets.CONTEXT7_API_KEY = "ai/context7_key";
@@ -132,8 +129,7 @@
 
     mcpConfig = jsonFormat.generate "pi-mcp.json" {
       settings = {
-        # Apply one policy to actual server calls from both mcp and mcpScript.
-        approveTools = true;
+        approveTools = false;
         directTools = false;
         idleTimeout = 1;
       };

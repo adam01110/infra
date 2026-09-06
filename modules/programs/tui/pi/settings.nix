@@ -4,6 +4,7 @@
       clearOnStart = true;
       enableInstallTelemetry = false;
       quietStartup = true;
+      tuiMode = "regular";
     };
   };
 }

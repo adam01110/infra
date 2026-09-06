@@ -1,0 +1,28 @@
+diff --git a/packages/tui/src/tui-main-screen.ts b/packages/tui/src/tui-main-screen.ts
+--- a/packages/tui/src/tui-main-screen.ts
++++ b/packages/tui/src/tui-main-screen.ts
+@@ -8,0 +9,6 @@ const KITTY_SEQUENCE_PREFIX = "\x1b_G";
++// Full-width borders can trigger eager terminal autowrap, moving the physical
++// cursor without updating the renderer's logical row. Guard every main-screen
++// frame so relative row movement remains exact in regular mode.
++const DISABLE_AUTOWRAP = "\x1b[?7l";
++const ENABLE_AUTOWRAP = "\x1b[?7h";
++
+@@ -280 +287 @@ export class TuiMainScreen extends TuiBase implements TUI {
+-			output.append("\x1b[?2026h"); // Begin synchronized output
++			output.append("\x1b[?2026h" + DISABLE_AUTOWRAP); // Begin synchronized output
+@@ -302 +309 @@ export class TuiMainScreen extends TuiBase implements TUI {
+-			output.append("\x1b[?2026l"); // End synchronized output
++			output.append(ENABLE_AUTOWRAP + "\x1b[?2026l"); // End synchronized output
+@@ -403 +410 @@ export class TuiMainScreen extends TuiBase implements TUI {
+-				output.append("\x1b[?2026h");
++				output.append("\x1b[?2026h" + DISABLE_AUTOWRAP);
+@@ -435 +442 @@ export class TuiMainScreen extends TuiBase implements TUI {
+-				output.append("\x1b[?2026l");
++				output.append(ENABLE_AUTOWRAP + "\x1b[?2026l");
+@@ -460 +467 @@ export class TuiMainScreen extends TuiBase implements TUI {
+-		output.append("\x1b[?2026h"); // Begin synchronized output
++		output.append("\x1b[?2026h" + DISABLE_AUTOWRAP); // Begin synchronized output
+@@ -567 +574 @@ export class TuiMainScreen extends TuiBase implements TUI {
+-		output.append("\x1b[?2026l"); // End synchronized output
++		output.append(ENABLE_AUTOWRAP + "\x1b[?2026l"); // End synchronized output
