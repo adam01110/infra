@@ -1,5 +1,5 @@
 ---
-description: General-purpose agent for research and multi-step tasks
+description: Research and execute multi-step tasks
 display_name: Agent
 extensions: true
 isolated: false
