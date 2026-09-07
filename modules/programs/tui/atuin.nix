@@ -31,7 +31,7 @@
           enabled = true;
           endpoint = "https://atuin.${groundDomain}";
           endpoint_protocol = "oss";
-          model = "deepseek-v4-flash";
+          model = "glm-5.3-flash";
         };
 
         # keep-sorted start
