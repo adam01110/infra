@@ -1549,11 +1549,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788698830,
-        "narHash": "sha256-pTBnuBgGvblhfbMOUIIRwTPu0OGLL4DOCfGrNg4HvHQ=",
+        "lastModified": 1788766666,
+        "narHash": "sha256-q/uOIJbWTTz6eNnwUTCH4yd2x1vFCUx2ewqF2jCR1AE=",
         "ref": "refs/heads/main",
-        "rev": "0b2300e12fbee0e15ffda7971e9590e3c2a79d43",
-        "revCount": 5,
+        "rev": "137bf9832834287112584fd2b949c0781a589780",
+        "revCount": 6,
         "type": "git",
         "url": "https://tangled.org/did:plc:b6k57yhdgjjytcqrstva6cbx"
       },
