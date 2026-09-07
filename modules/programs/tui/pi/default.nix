@@ -57,7 +57,13 @@
           ./patches/disable-main-screen-autowrap.patch
         ];
     });
-    piSuite = inputs.pi-suite.packages.${system}.default;
+    piSuite = inputs.pi-suite.packages.${system}.default.overrideAttrs (old: {
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          substituteInPlace "$out/skills/computer-use-linux/SKILL.md" --replace-fail $'  Use when observing or controlling the local Linux desktop through accessibility\n  trees, screenshots, window targeting, or synthesized input.' $'  Use only when the user explicitly invokes `/computer-use-linux` or explicitly\n  asks to use computer use; never use for ordinary desktop tasks.'
+        '';
+    });
 
     bunRuntime = symlinkJoin {
       name = "bun-runtime";

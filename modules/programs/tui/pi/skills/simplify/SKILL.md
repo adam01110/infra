@@ -1,8 +1,9 @@
 ---
 name: simplify
 description: >-
-  Review settled code changes for behavior-preserving improvements to reuse,
-  clarity, quality, and efficiency.
+  Use only when the user explicitly invokes `/simplify` or explicitly asks to
+  use the simplify skill; never use for ordinary implementation, review,
+  cleanup, refactoring, or code changes.
 license: AGPL-3.0-only
 compatibility:
   Requires repository diffs; parallel subagent support is recommended.
