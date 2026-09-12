@@ -7,6 +7,7 @@
     # keep-sorted end
     ...
   }: let
+    inherit (lib) getExe;
     inherit
       (lib.self)
       # keep-sorted start
@@ -14,7 +15,6 @@
       starshipJujutsuPrompt
       # keep-sorted end
       ;
-    inherit (lib) getExe;
 
     stylixColors = config.lib.stylix.colors.withHashtag;
     jjStarshipPrompt = starshipJujutsuPrompt pkgs stylixColors.base01;

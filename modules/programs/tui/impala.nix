@@ -17,8 +17,9 @@
       # keep-sorted end
       ;
 
-    cfgWifi = osConfig.capabilities.wifi;
     pkg = pkgs.impala;
+
+    cfgWifi = osConfig.capabilities.wifi;
   in {
     config = mkIf cfgWifi {
       # keep-sorted start block=yes newline_separated=yes

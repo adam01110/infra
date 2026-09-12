@@ -8,6 +8,7 @@
     ...
   }: let
     inherit (lib) getExe';
+
     inherit (vars) username;
     resolvedAddress = "169.254.0.53";
   in {

@@ -7,6 +7,7 @@
     ...
   }: let
     inherit (lib) getExe;
+
     ripgrep = getExe config.programs.ripgrep.package;
   in {
     programs.ripgrep.enable = true;

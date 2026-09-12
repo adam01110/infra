@@ -44,11 +44,8 @@
       writeShellScriptBin
       # keep-sorted end
       ;
-
     inherit (pkgs.stdenv.hostPlatform) system;
 
-    gpgHome = config.programs.gpg.homedir;
-    jjUserConfig = config.sops.templates."jj-user-config".path;
     piPackage = inputs.pi-nix.packages.${system}.coding-agent-bun.overrideAttrs (old: {
       patches =
         (old.patches or [])
@@ -65,6 +62,9 @@
           substituteInPlace "$out/skills/computer-use-linux/SKILL.md" --replace-fail $'  Use when observing or controlling the local Linux desktop through accessibility\n  trees, screenshots, window targeting, or synthesized input.' $'  Use only when the user explicitly invokes `/computer-use-linux` or explicitly\n  asks to use computer use; never use for ordinary desktop tasks.'
         '';
     });
+
+    gpgHome = config.programs.gpg.homedir;
+    jjUserConfig = config.sops.templates."jj-user-config".path;
 
     bunRuntime = symlinkJoin {
       name = "bun-runtime";

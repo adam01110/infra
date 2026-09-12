@@ -1,6 +1,7 @@
 {self, ...}: {
   flake.overlays.pkgs = final: _prev: let
     inherit (final.stdenv.hostPlatform) system;
+
     packages = self.packages.${system};
   in {
     inherit

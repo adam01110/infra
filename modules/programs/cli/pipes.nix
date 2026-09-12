@@ -7,6 +7,7 @@
     ...
   }: let
     inherit (lib) getExe;
+
     pipes = pkgs.pipes-rs;
   in {
     home = {

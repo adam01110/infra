@@ -33,9 +33,10 @@
         getExe'
         # keep-sorted end
         ;
-      inherit (vars) username;
 
       tomlFormat = pkgs.formats.toml {};
+
+      inherit (vars) username;
     in {
       # keep-sorted start block=yes newline_separated=yes
       environment = {

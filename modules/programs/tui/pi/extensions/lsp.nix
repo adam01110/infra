@@ -14,7 +14,9 @@
       getExe'
       # keep-sorted end
       ;
+
     jsonFormat = pkgs.formats.json {};
+
     mkServer = {
       args ? [],
       bin,

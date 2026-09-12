@@ -34,13 +34,9 @@
       unique
       # keep-sorted end
       ;
-    inherit
-      (pkgs)
-      # keep-sorted start
-      coreutils
-      writeShellApplication
-      # keep-sorted end
-      ;
+    inherit (pkgs) writeShellApplication;
+
+    inherit (pkgs) coreutils;
 
     jsonFormat = pkgs.formats.json {};
 

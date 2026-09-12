@@ -7,6 +7,7 @@
     ...
   }: let
     inherit (pkgs.stdenv.hostPlatform) system;
+
     src = inputs.nixpkgs-crowdsec-blocklist-import.legacyPackages.${system}.crowdsec-blocklist-import.src;
   in {
     packages.crowdsec-blocklist-import = pkgs.python3Packages.buildPythonApplication {

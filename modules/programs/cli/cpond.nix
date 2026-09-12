@@ -7,6 +7,7 @@
     ...
   }: let
     inherit (lib) getExe;
+
     inherit (pkgs.nur.repos.adam0) cpond;
   in {
     home = {

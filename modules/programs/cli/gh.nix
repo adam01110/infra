@@ -10,6 +10,7 @@
   }: let
     inherit (lib) getExe;
     inherit (pkgs) runCommand writeShellApplication;
+
     inherit (vars) gitUsername;
 
     ghCompletions = runCommand "gh-fish-completions" {} ''

@@ -7,6 +7,7 @@
     ...
   }: let
     inherit (lib) mkOption types;
+
     cfg = config.home.shellAbbreviations;
   in {
     options.home.shellAbbreviations = mkOption {

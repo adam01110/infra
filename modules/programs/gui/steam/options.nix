@@ -23,11 +23,15 @@
       # keep-sorted end
       ;
     inherit (lib.hm.dag) entryAfter;
+    inherit (pkgs.python3Packages) toPythonApplication;
+
     inherit (pkgs) jq;
-    inherit (pkgs.python3Packages) json5 toPythonApplication;
+    inherit (pkgs.python3Packages) json5;
+
+    jsonFormat = pkgs.formats.json {};
 
     cfg = config.programs.steam.millennium;
-    jsonFormat = pkgs.formats.json {};
+
     json5Application = toPythonApplication json5;
 
     mergeConfig = empty: jqOperation: path: staticSettings: ''

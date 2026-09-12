@@ -13,6 +13,7 @@
       getExe'
       # keep-sorted end
       ;
+
     jsonFormat = pkgs.formats.json {};
   in {
     home.file.".pi/agent/extensions/pi-autoformat/config.json".source = jsonFormat.generate "pi-autoformat.json" {

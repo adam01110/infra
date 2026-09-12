@@ -6,9 +6,9 @@
     # keep-sorted end
     ...
   }: let
-    secrets = config.sops.secrets;
-
     inherit (vars) groundDomain;
+
+    secrets = config.sops.secrets;
   in {
     services.traefik.dynamicConfigOptions = {
       http = {

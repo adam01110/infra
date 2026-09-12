@@ -17,8 +17,9 @@
       # keep-sorted end
       ;
 
-    cfgBluetooth = osConfig.capabilities.bluetooth;
     pkg = pkgs.bluetui;
+
+    cfgBluetooth = osConfig.capabilities.bluetooth;
   in {
     config = mkIf cfgBluetooth {
       # keep-sorted start block=yes newline_separated=yes

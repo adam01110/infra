@@ -23,8 +23,6 @@
     inherit (pkgs) nixosOptionsDoc;
 
     hmLib = import "${inputs.home-manager}/modules/lib/stdlib-extended.nix" lib;
-    allowDocUnfreePredicate = pkg: builtins.elem (getName pkg) ["vscode-extension-ms-dotnettools-csharp"];
-
     hmBaseModules = import "${inputs.home-manager}/modules/modules.nix" {
       lib = hmLib;
       inherit pkgs;
@@ -41,6 +39,7 @@
       nixpkgs.config.allowUnfreePredicate = allowDocUnfreePredicate;
     };
 
+    allowDocUnfreePredicate = pkg: builtins.elem (getName pkg) ["vscode-extension-ms-dotnettools-csharp"];
     mkHomeManagerDoc = module: let
       # Evaluate third-party Home Manager modules against Home Manager's full module set.
       homeManagerOptions =

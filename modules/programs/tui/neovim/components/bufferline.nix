@@ -6,8 +6,9 @@
     # keep-sorted end
     ...
   }: let
-    colors = config.lib.stylix.colors.withHashtag;
     inherit (lib.generators) mkLuaInline;
+
+    colors = config.lib.stylix.colors.withHashtag;
   in {
     # keep-sorted start block=yes newline_separated=yes
     programs.nvf.settings.vim.luaConfigPreSnippets = [

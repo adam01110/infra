@@ -10,10 +10,10 @@
   }: let
     inherit (lib) mkForce;
 
+    inherit (vars) groundDomain;
+
     secrets = config.sops.secrets;
     templates = config.sops.templates;
-
-    inherit (vars) groundDomain;
   in {
     sops = {
       secrets.cloudbeaver_database_password = {};

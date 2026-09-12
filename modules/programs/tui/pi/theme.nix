@@ -6,8 +6,9 @@
     # keep-sorted end
     ...
   }: let
-    colors = config.lib.stylix.colors.withHashtag;
     jsonFormat = pkgs.formats.json {};
+
+    colors = config.lib.stylix.colors.withHashtag;
   in {
     programs.pi.coding-agent = {
       settings.theme = "stylix";

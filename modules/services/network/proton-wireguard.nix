@@ -9,6 +9,8 @@
   }: let
     inherit (lib) getExe getExe';
 
+    secret = config.sops.placeholder;
+
     interface = "proton0";
     gateway = "10.2.0.1";
     routingTable = 51820;
@@ -19,8 +21,6 @@
     # keep-sorted end
 
     ip = getExe' pkgs.iproute2 "ip";
-    secret = config.sops.placeholder;
-    secretPrefix = "wireguard/${config.networking.hostName}/proton";
 
     privateIPv4Subnets = [
       # keep-sorted start
@@ -31,6 +31,7 @@
     ];
 
     routingTableString = toString routingTable;
+    secretPrefix = "wireguard/${config.networking.hostName}/proton";
 
     privateSubnetPostUpRules = builtins.concatStringsSep "\n" (map (subnet: ''
         ${ip} -4 rule del from ${containerIPv4Subnet} to ${subnet} table main priority 900 2>/dev/null || true

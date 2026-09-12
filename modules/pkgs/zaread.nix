@@ -10,12 +10,13 @@
     inherit
       (pkgs)
       # keep-sorted start
-      bashNonInteractive
       fetchFromGitHub
       makeWrapper
       stdenv
       # keep-sorted end
       ;
+
+    inherit (pkgs) bashNonInteractive;
   in {
     packages.zaread = stdenv.mkDerivation {
       pname = "zaread";

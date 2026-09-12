@@ -7,6 +7,7 @@
     ...
   }: let
     inherit (lib) mkForce;
+
     colors = config.lib.stylix.colors.withHashtag;
   in {
     stylix.targets.noctalia.colors.override.withHashtag = with colors; {

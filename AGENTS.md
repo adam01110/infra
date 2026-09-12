@@ -27,6 +27,35 @@ For `.nix` files only. Not for prose docs, copied upstream option descriptions, 
 - Existing emphatic or humorous comments are fine if they still help readability.
 - Upstream-style package headings or labels are fine when preserving imported structure helps.
 
+## Let Binding Order
+
+For top-level and module `let ... in` expressions, use this order:
+
+1. One contiguous library/helper import group: `builtins`, direct `lib`,
+   upstream `lib.<namespace>` sources in a sensible order, `lib.self`, then
+   helper APIs exposed through `pkgs`. Do not separate source groups with blank
+   lines.
+2. Actual package derivations inherited or aliased from package sets.
+3. Format constructors such as `jsonFormat` and `tomlFormat`.
+4. External configuration or imported values such as `vars` and `config`.
+5. Configuration aliases such as `cfg`, `colors`, `secrets`, and `templates`.
+6. Primitive constants and paths.
+7. Package or executable aliases not already inherited.
+8. Simple derived values.
+9. Helper, constructor, and transformation functions.
+10. Large generated scripts, lists, and attribute sets.
+
+Use one blank line between semantic groups, not between every binding, and never
+immediately after `let`. In particular, separate format constructors from the
+preceding library/helper or package group with a blank line. Classify bindings by
+purpose rather than source path. Package-building and platform APIs are helpers;
+this includes `runCommand`, `writeShellApplication`, `writeText`,
+`makeDesktopItem`, `mkShell`, `symlinkJoin`, `nixosOptionsDoc`, `buildVimPlugin`,
+`toPythonApplication`, and similar APIs. Runtime/installable derivations such as `jq`, `json5`, `onefetch`,
+fonts, plugins, and NUR packages are packages. Split mixed `inherit (pkgs)`
+statements at the helper/package boundary. Keep nested and small lets dependency-
+or concept-ordered unless these groups clearly apply.
+
 ## Keep-Sorted Patterns
 
 - Use matching `keep-sorted` start/end control comments for multi-item module argument sets, `inherit` groups, lists, and compact attrsets.

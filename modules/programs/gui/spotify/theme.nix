@@ -6,11 +6,12 @@
     # keep-sorted end
     ...
   }: let
-    inherit (config.lib.stylix) colors;
     inherit (pkgs.stdenv.hostPlatform) system;
 
-    font = config.stylix.fonts.monospace.name;
     spicePkgs = inputs.spicetify-nix.legacyPackages.${system};
+
+    inherit (config.lib.stylix) colors;
+    font = config.stylix.fonts.monospace.name;
   in {
     # keep-sorted start block=yes newline_separated=yes
     # Apply local Spicetify overrides on top of the Stylix palette.

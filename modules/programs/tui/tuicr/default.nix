@@ -10,6 +10,7 @@
     inherit (pkgs) writeShellApplication;
 
     tomlFormat = pkgs.formats.toml {};
+
     tuicr = getExe pkgs.tuicr;
 
     gitReview = writeShellApplication {

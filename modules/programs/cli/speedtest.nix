@@ -7,6 +7,7 @@
     ...
   }: let
     inherit (lib) getExe;
+
     pkg = pkgs.speedtest-go;
   in {
     home = {

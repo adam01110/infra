@@ -6,6 +6,7 @@
 
   flake.overlays.crowdsec = final: _prev: let
     inherit (final.stdenv.hostPlatform) system;
+
     crowdsecPkgs = inputs.nixpkgs-crowdsec.legacyPackages.${system};
   in {
     inherit

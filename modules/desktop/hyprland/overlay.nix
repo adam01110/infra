@@ -1,6 +1,7 @@
 {inputs, ...}: {
   flake.overlays.hyprland = final: _prev: let
     inherit (final.stdenv.hostPlatform) system;
+
     packages = inputs.hyprland.packages.${system};
   in {
     inherit (packages) xdg-desktop-portal-hyprland;

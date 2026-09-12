@@ -19,6 +19,7 @@
     ...
   }: let
     jsonFormat = pkgs.formats.json {};
+
     videosDir = config.xdg.userDirs.videos;
   in {
     home = {

@@ -9,8 +9,9 @@
   }: let
     inherit (lib.self) blendHex;
 
-    colors = config.lib.stylix.colors.withHashtag;
     tomlFormat = pkgs.formats.toml {};
+
+    colors = config.lib.stylix.colors.withHashtag;
   in {
     xdg.configFile."tuicr/themes/stylix.tmTheme".source =
       config.programs.bat.themes."base16-stylix".src;

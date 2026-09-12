@@ -12,13 +12,14 @@
 
     inherit (pkgs.nur.repos.adam0) gotifyPlugins;
 
+    inherit (vars) groundDomain;
+
+    templates = config.sops.templates;
+
     gotifyPluginsDrv = pkgs.symlinkJoin {
       name = "gotify-plugins";
       paths = [gotifyPlugins.authentik];
     };
-
-    templates = config.sops.templates;
-    inherit (vars) groundDomain;
   in {
     sops = {
       secrets = {

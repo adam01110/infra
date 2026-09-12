@@ -7,8 +7,8 @@
     ...
   }: let
     inherit (builtins) readFile;
-    inherit (pkgs) writeTextDir;
     inherit (lib) range;
+    inherit (pkgs) writeTextDir;
   in {
     programs.yazi = {
       plugins = {

@@ -8,6 +8,7 @@
     ...
   }: let
     inherit (lib) getExe;
+
     bat = getExe config.programs.bat.package;
   in {
     programs.bat = {

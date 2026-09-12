@@ -25,7 +25,6 @@
     inherit (builtins) readFile;
     inherit (lib) mkAfter;
     inherit (lib.self) stylixPalette;
-
     inherit (pkgs.stdenv.hostPlatform) system;
 
     inherit (vars) groundDomain;
