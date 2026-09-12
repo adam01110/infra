@@ -59,8 +59,8 @@
     '';
 
     # keep-sorted start block=yes newline_separated=yes
-    # Supply gcr for the gnome pinentry integration.
-    home.packages = [pkgs.gcr];
+    # Supply GCR 3 for the GNOME pinentry integration.
+    home.packages = [pkgs.gcr_3];
 
     programs.gpg = {
       enable = true;
