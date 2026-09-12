@@ -31,6 +31,8 @@
 
         # keep-sorted start
         hide_filename_extension = false;
+        icons_enabled = false;
+        section_separators.left = "";
         show_filename_only = true;
         show_modified_status = false;
         # keep-sorted end
@@ -39,7 +41,6 @@
         buffers_color.active = {
           bg = colors.base0D;
           fg = colors.base00;
-          icons_enabled = true;
         };
         # keep-sorted end
 

@@ -7,7 +7,7 @@
 
     keymaps = [
       {
-        key = "<leader>td";
+        key = "<leader>tD";
         mode = "n";
         action = "<cmd>lua if Snacks.dim.enabled then Snacks.dim.disable() else Snacks.dim.enable() end<CR>";
         desc = "Dim Toggle";

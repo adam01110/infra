@@ -131,7 +131,7 @@
 
       keymaps = [
         {
-          key = "<leader>d";
+          key = "<leader>D";
           mode = "n";
           action = "<cmd>lua _G.open_snacks_dashboard()<cr>";
           desc = "Open dashboard";
@@ -319,7 +319,6 @@
           }
         ];
       };
-
     };
     # keep-sorted end
   };
