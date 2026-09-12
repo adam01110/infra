@@ -1,4 +1,6 @@
+---
 interface:
   display_name: "ExcaliDash Diagramming"
   short_description: "Draw clear editable diagrams in ExcaliDash"
-  default_prompt: "Use $excalidash to draw a clear editable diagram on my ExcaliDash board."
+  default_prompt: >-
+    Use $excalidash to draw a clear editable diagram on my ExcaliDash board.
