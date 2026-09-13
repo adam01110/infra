@@ -308,6 +308,9 @@
             height = 6;
             padding = 1;
             indent = 3;
+            # Avoid showing stale terminal cache before live status arrives.
+            random = 1;
+            ttl = 0;
           }
           {
             pane = 2;
@@ -319,6 +322,7 @@
           }
         ];
       };
+
     };
     # keep-sorted end
   };

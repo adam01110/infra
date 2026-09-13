@@ -1,7 +1,13 @@
 {inputs, ...}: {
   flake-file.inputs.nixcord = {
     url = "github:kaylorben/nixcord";
-    inputs.flake-parts.follows = "flake-parts";
+    inputs = {
+      # keep-sorted start
+      home-manager.follows = "home-manager";
+      nixpkgs.follows = "nixpkgs";
+      treefmt-nix.follows = "treefmt-nix";
+      # keep-sorted end
+    };
   };
 
   flake.modules.homeManager.discord = {
