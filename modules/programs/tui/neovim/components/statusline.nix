@@ -104,6 +104,22 @@
         # keep-sorted end
       };
 
+      options = {
+        component_separators = {
+          # keep-sorted start
+          left = "";
+          right = "";
+          # keep-sorted end
+        };
+
+        section_separators = {
+          # keep-sorted start
+          left = "";
+          right = "";
+          # keep-sorted end
+        };
+      };
+
       sections = {
         # keep-sorted start block=yes newline_separated=yes
         lualine_a = ["mode"];
