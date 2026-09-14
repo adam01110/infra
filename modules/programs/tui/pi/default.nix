@@ -63,6 +63,14 @@
         '';
     });
 
+    jsonFormat = pkgs.formats.json {};
+
+    # opencode-go routes by the x-opencode-session header Pi sends anyway, so the
+    # affinity compat flag stays explicitly off to quiet the cache-optimizer warning.
+    modelsFile = jsonFormat.generate "pi-models.json" {
+      providers."opencode-go".compat.sendSessionAffinityHeaders = false;
+    };
+
     gpgHome = config.programs.gpg.homedir;
     jjUserConfig = config.sops.templates."jj-user-config".path;
 
@@ -120,6 +128,8 @@
             --prefix PATH : ${makeBinPath runtimePackages}
         '';
       };
+      models = modelsFile;
+
       settings = {
         npmCommand = [(getExe bunRuntime)];
         packages = ["${piSuite}"];

@@ -217,7 +217,7 @@
 
           startup = {
             homepage = "https://${groundDomain}";
-            page = 1;
+            page = 3;
           };
 
           tabs = {
