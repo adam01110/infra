@@ -7,13 +7,21 @@ license: MIT
 compatibility: Requires the excalidash MCP server.
 metadata:
   author: davifernan, adapted by Adam0
-  version: "1.0.0"
-  short-description: Draw clear editable ExcaliDash diagrams
+  version: "1.1.0"
+  short-description: Draw clear editable, restrained ExcaliDash diagrams
 ---
 
 # excalidash diagramming
 
 grug want diagram clear, editable, no box pile.
+
+## restraint gate
+
+before first board write, read
+[`references/design-restraint.md`](references/design-restraint.md). every rule
+there hard. budget 3 stroke colors, red included. no decorative box, no frame
+unless user ask. hierarchy live in position and spacing. over budget? strip to
+black and redraw. 8 color export look "nice"? no. 8 color export is failure.
 
 ## choose club
 
@@ -43,6 +51,12 @@ labels stay small:
 long words make giant diamond. long edge text sit on neighbor. detail belong in
 node or not at all.
 
+structured diagram? converter place every shape. never hand-place rectangle,
+frame, node with `apply_drawing_ops` for flow, sequence, class, state, ER,
+node-edge content. converter own placement, converter place better. manual
+shape op only for `draw_scene` free sketch, small edit on existing element, or
+repair after look.
+
 `draw_mermaid` and `draw_graph` mode:
 
 - `replace`: replace prior server drawing; keep hand drawing
@@ -59,14 +73,19 @@ structural change? edit source, redraw with `replace`.
 - many self-loops? overlap.
 - subgraph big? converter may reject. split diagram.
 - color has no meaning? remove color.
+- hand-placed box pile? delete boxes, redraw with `draw_mermaid` `replace`.
 
-use 3-4 colors max. one meaning each: layer, team, stage. red mean failure.
-safe stroke/fill names: `blue green orange purple red yellow pink gray amber
-cyan lime`. `teal` fill only. `black` and `white` stroke only. orange, yellow,
-and amber share same stroke, so fill must carry meaning.
+use 3 stroke colors max, red included. one meaning each: layer, team, stage.
+red mean failure. safe stroke/fill names: `blue green orange purple red yellow
+pink gray amber cyan lime`. `teal` fill only. `black` and `white` stroke only.
+orange, yellow, and amber share same stroke, so fill must carry meaning.
+
+color rule above all others: black and gray stroke always ok, color not.
+count distinct color in own ops. over budget? redraw.
 
 ## look with eyes
 
 always call `export_png` and inspect image before done. json lie politely.
 caption overlap and lopsided graph only show here. bad? simplify, flip direction,
-or shorten labels, then export again.
+shorten label, export again. count color and box in image. over budget? strip
+and redraw before done.

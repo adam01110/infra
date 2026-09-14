@@ -34,8 +34,56 @@ not bonus.
 - clear match? load now. no need user request.
 - many matches? most specific first. task grows? load next.
 - task small? still load when workflow, tool choice, or quality bar changes.
-- programming task starts? always load `jj-vcs`. no remembered jj workflow or
+- programming task starts? always load `jujutsu`. no remembered jj workflow or
   commit policy.
+- frontend or UI work starts? always load `frontend-skill` first.
+
+## formatting
+
+repo has treefmt configured (`treefmt.toml`, `.treefmt*`, or `nix fmt` flake
+output)? run `treefmt` after every edit batch and before reporting done. comma
+resolves it when not on PATH.
+
+no treefmt? run the configured per-file formatter for each edited file. never
+leave edited files unformatted.
+
+## version control
+
+jj repo? every edit lives in a described change.
+
+- before first edit: `jj st`. `@` has work to preserve? `jj new` first.
+- describe before editing: `jj desc -m "Imperative summary"`.
+- task done? `jj st` and confirm `@` is described and holds only this task's
+  edits. never end a turn with an undescribed change or unrelated files in `@`.
+- never report "uncommitted in working tree" as a result. that is a bug report
+  about yourself.
+
+non-jj repo? no VCS action unless asked.
+
+## verify
+
+- claim fixed, working, or done only after running the thing: build, test,
+  reload, request. the run output is the evidence, not the diff.
+- same command fails twice? stop repeating it. change approach, read the error,
+  or ask.
+- provider aborts or context errors? shrink scope or summarize; retrying the
+  same oversized request verbatim never succeeds.
+
+## tool hygiene
+
+- prefer the edit tool for file changes. `sed -i`, heredoc rewrites, and
+  generated-file reconstruction only when edit cannot do it. never patch
+  lockfiles by hand.
+- background long-running processes (dev servers, builds)? start once, reuse;
+  never spawn a second instance. kill by port or exact name, never a broad
+  `pkill -f` that can match your own shell.
+
+## reporting
+
+- final report: what changed, how verified, file paths. no narration of every
+  attempt.
+- no hedging fillers ("likely", "should work now"), no "want me to continue?",
+  no restating the task. say what is true and stop.
 
 ## task tools
 
