@@ -1,8 +1,13 @@
 {inputs, ...}: {
   flake-file.inputs = {
+    # bun2nix 2.1.0 does not provide bun 1.4.x's npm manifest cache
+    # (nix-community/bun2nix#77), so offline installs fail. Keep pi on a
+    # nixpkgs snapshot that still ships bun 1.3.
+    nixpkgs-pi.url = "github:NixOS/nixpkgs/3ed67ec0a4d3c7ab4ae1f04f8ee8df07bfa506a2";
+
     pi-nix = {
       url = "github:lukasl-dev/pi.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-pi";
     };
 
     pi-suite = {
