@@ -65,10 +65,13 @@
 
     jsonFormat = pkgs.formats.json {};
 
-    # opencode-go routes by the x-opencode-session header Pi sends anyway, so the
-    # affinity compat flag stays explicitly off to quiet the cache-optimizer warning.
+    # opencode-go routes by the x-opencode-session header Pi sends anyway, so its
+    # affinity flag stays off; OpenRouter sticky routing uses the documented x-session-id.
     modelsFile = jsonFormat.generate "pi-models.json" {
-      providers."opencode-go".compat.sendSessionAffinityHeaders = false;
+      providers = {
+        opencode-go.compat.sendSessionAffinityHeaders = false;
+        openrouter.compat.sendSessionAffinityHeaders = true;
+      };
     };
 
     gpgHome = config.programs.gpg.homedir;
