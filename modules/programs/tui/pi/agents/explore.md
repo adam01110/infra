@@ -4,7 +4,7 @@ display_name: Explore
 extensions: true
 isolated: false
 tools: read, bash, grep, find, ls
-model: luna
+model: fast
 ---
 
 # explore

@@ -34,7 +34,7 @@
         # keep-sorted end
       };
 
-      sessionAutoRename.model = "openai-codex/gpt-5.6-luna";
+      sessionAutoRename.model = "current";
       statusline.enabled = false;
       thinkingTimer.enabled = false;
       workingIndicator.mode = "static";

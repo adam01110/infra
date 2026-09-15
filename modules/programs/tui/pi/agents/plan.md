@@ -4,7 +4,7 @@ display_name: Plan
 extensions: true
 isolated: false
 tools: read, bash, grep, find, ls
-model: sol
+model: coder
 ---
 
 # plan

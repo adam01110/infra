@@ -132,7 +132,6 @@
           wrapProgram $out/bin/pi \
             --set GNUPGHOME ${escapeShellArg gpgHome} \
             --set JJ_CONFIG ${escapeShellArg jjUserConfig} \
-            --set PI_SUITE_BTW_MODEL "openai-codex gpt-5.6-terra openai-codex-responses" \
             --prefix PATH : ${makeBinPath runtimePackages}
         '';
       };
