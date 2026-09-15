@@ -232,12 +232,7 @@
           bin = getExe pkgs.rust-analyzer;
           extensions = [".rs"];
           languageId = "rust";
-          rootMarkers = [
-            # keep-sorted start
-            ".git"
-            "Cargo.toml"
-            # keep-sorted end
-          ];
+          rootMarkers = [".git"];
         })
 
         (mkServer {
