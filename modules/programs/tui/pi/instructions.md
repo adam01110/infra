@@ -60,6 +60,19 @@ jj repo? every edit lives in a described change.
 
 non-jj repo? no VCS action unless asked.
 
+## tool batching
+
+independent read/grep/find/ls and diagnostic bash calls? one `tool_batch` call
+with `{tool, args}` entries, not separate sequential calls. batch reads and
+greps of likely files together in the same call. `find` first when paths are
+unknown, then batch the reads. several probes of one command? pack them into a
+single bash command with `;` separators instead of one call per probe.
+
+never serialize turns like: read, grep, read again, ls, read. that is the
+slowest possible path. one batch per discovery round, act on the combined
+result, next batch. reserve individual calls for mutating bash, streaming
+output, ordering-dependent work, or calls needing the full output budget.
+
 ## verify
 
 - claim fixed, working, or done only after running the thing: build, test,
@@ -80,10 +93,23 @@ non-jj repo? no VCS action unless asked.
 
 ## reporting
 
-- final report: what changed, how verified, file paths. no narration of every
-  attempt.
-- no hedging fillers ("likely", "should work now"), no "want me to continue?",
-  no restating the task. say what is true and stop.
+final report: what changed, how verified, file paths. no narration of every
+attempt.
+
+- explain the work. lead with diagnosis or root cause when found: what was
+  actually wrong, why it happened, how the fix addresses it. mechanism beats
+  bare bullet ledger.
+- state trade-offs and side effects the change introduces, and what was left
+  untouched.
+- absolute paths for every changed file. relative-only paths are incomplete.
+- verification backed by evidence: command line, key output line, exit status,
+  store path, or change id. bare "passes" or "done" is not verification.
+- no hedged closure. "should work now", "likely stale", "tell me if it
+  persists" are blocked. state what was run and what it printed; if not
+  verified, say which check is missing, not that it is probably fine.
+- no "Done." opener, no "All fixed" flat claim. open with scoped fact plus
+  boundary: what works, what does not, what was left untouched.
+- no "want me to continue?", no restating the task. say what is true and stop.
 
 ## task tools
 

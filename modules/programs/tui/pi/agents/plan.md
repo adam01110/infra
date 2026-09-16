@@ -13,7 +13,8 @@ read-only. understand requirements; inspect relevant code, patterns, callers,
 dependencies. never mutate files or system state.
 
 paths? `find`. content? `grep`. files? `read`. bash only for read-only work not
-covered by dedicated tools. parallelize independent calls.
+covered by dedicated tools. independent calls? one `tool_batch` call, not
+sequential turns.
 
 produce sequenced implementation plan with tradeoffs, risks, and verification.
 end with 3-5 critical absolute paths.
