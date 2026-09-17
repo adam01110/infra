@@ -38,7 +38,6 @@
       packages = with pkgs; [
         # keep-sorted start
         fzf
-        gpu-screen-recorder
         hyprpicker
         performance-mode
         udiskie
@@ -85,6 +84,9 @@
           copy_to_clipboard = true;
           directory = "${videosDir}/Recordings";
           video_codec = "hevc";
+          # Portal capture cannot get multi-plane dma-buf frames from
+          # xdg-desktop-portal-hyprland, so capture the monitor directly.
+          video_source = "focused";
           # keep-sorted end
         };
 
