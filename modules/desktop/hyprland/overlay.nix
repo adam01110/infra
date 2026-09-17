@@ -4,7 +4,9 @@
 
     packages = inputs.hyprland.packages.${system};
   in {
-    inherit (packages) xdg-desktop-portal-hyprland;
+    # Keep the nixpkgs xdg-desktop-portal-hyprland: the Hyprland flake builds it
+    # against its own older Qt, which clashes with the system Qt style plugins
+    # and segfaults hyprland-share-picker when a Qt theme is set.
 
     # TODO(upstream): Remove after updating past Hyprland 0.56.2.
     # Accept Glaze 8 as supported by upstream Hyprland.
