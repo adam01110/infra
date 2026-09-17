@@ -1,7 +1,5 @@
-{self, ...}: {
+{
   flake-file.inputs = {
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.56.2";
-
     hylix = {
       url = "git+https://tangled.org/did:plc:r3tmbeocrgryca5nbgxns4yu";
       inputs = {
@@ -18,7 +16,6 @@
   flake.modules = {
     nixos.hyprland = {
       # keep-sorted start
-      inputs,
       lib,
       pkgs,
       # keep-sorted end
@@ -26,9 +23,6 @@
     }: let
       inherit (lib) getExe;
       inherit (pkgs) writeShellApplication;
-      inherit (pkgs.stdenv.hostPlatform) system;
-
-      pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
 
       resetTouchpad = writeShellApplication {
         name = "reset-touchpad";
@@ -43,13 +37,6 @@
         '';
       };
     in {
-      nixpkgs.overlays = with self.overlays; [
-        # keep-sorted start
-        hyprland
-        hyprland-plugins
-        # keep-sorted end
-      ];
-
       programs.hyprland = {
         enable = true;
         withUWSM = true;
@@ -67,9 +54,6 @@
 
       hardware.graphics = {
         enable32Bit = true;
-
-        package = pkgs-unstable.mesa;
-        package32 = pkgs-unstable.pkgsi686Linux.mesa;
       };
     };
 

@@ -31,11 +31,6 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.56.2";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins?ref=v0.56.0";
-      inputs.hyprland.follows = "hyprland";
-    };
     import-tree.url = "github:vic/import-tree";
     lanzaboote = {
       url = "github:nix-community/lanzaboote?ref=v1.1.0";
