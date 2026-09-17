@@ -3,10 +3,14 @@
     # keep-sorted start
     config,
     modulesPath,
+    pkgs,
     # keep-sorted end
     ...
   }: {
     imports = [(modulesPath + "/installer/scan/not-detected.nix")];
+
+    # TigerLake vaapi encode only comes from the Intel media driver, not mesa.
+    hardware.graphics.extraPackages = [pkgs.intel-media-driver];
 
     # keep-sorted start block=yes newline_separated=yes
     # Kernel modules for laptop hardware support.
