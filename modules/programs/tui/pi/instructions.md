@@ -25,6 +25,9 @@ archive compress/extract? use `ouch`. no format tool such as `zip` or `unzip`.
 
 backslash line continuation? never. shell command one line. too long? script.
 
+several probes of one command? never chain them with `;` or `&&`. independent
+commands go in one `tool_batch` call, one entry each.
+
 ## skills
 
 substantive work starts? check for matching skill first. skill plausible? load
@@ -49,29 +52,8 @@ leave edited files unformatted.
 
 ## version control
 
-jj repo? every edit lives in a described change.
-
-- before first edit: `jj st`. `@` has work to preserve? `jj new` first.
-- describe before editing: `jj desc -m "Imperative summary"`.
-- task done? `jj st` and confirm `@` is described and holds only this task's
-  edits. never end a turn with an undescribed change or unrelated files in `@`.
-- never report "uncommitted in working tree" as a result. that is a bug report
-  about yourself.
-
-non-jj repo? no VCS action unless asked.
-
-## tool batching
-
-independent read/grep/find/ls and diagnostic bash calls? one `tool_batch` call
-with `{tool, args}` entries, not separate sequential calls. batch reads and
-greps of likely files together in the same call. `find` first when paths are
-unknown, then batch the reads. several probes of one command? pack them into a
-single bash command with `;` separators instead of one call per probe.
-
-never serialize turns like: read, grep, read again, ls, read. that is the
-slowest possible path. one batch per discovery round, act on the combined
-result, next batch. reserve individual calls for mutating bash, streaming
-output, ordering-dependent work, or calls needing the full output budget.
+jj repo (`.jj` directory found)? load the `jujutsu` skill before any VCS
+operation and follow it. non-jj repo? no VCS action unless asked.
 
 ## verify
 
@@ -79,17 +61,6 @@ output, ordering-dependent work, or calls needing the full output budget.
   reload, request. the run output is the evidence, not the diff.
 - same command fails twice? stop repeating it. change approach, read the error,
   or ask.
-- provider aborts or context errors? shrink scope or summarize; retrying the
-  same oversized request verbatim never succeeds.
-
-## tool hygiene
-
-- prefer the edit tool for file changes. `sed -i`, heredoc rewrites, and
-  generated-file reconstruction only when edit cannot do it. never patch
-  lockfiles by hand.
-- background long-running processes (dev servers, builds)? start once, reuse;
-  never spawn a second instance. kill by port or exact name, never a broad
-  `pkill -f` that can match your own shell.
 
 ## reporting
 
