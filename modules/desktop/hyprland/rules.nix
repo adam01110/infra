@@ -14,6 +14,15 @@
       escapeRegex
       getExe
       getExe'
+      zipListsWith
+      # keep-sorted end
+      ;
+
+    inherit
+      (lib.self)
+      # keep-sorted start
+      hyprlandWorkspaceNamesAll
+      hyprlandWorkspaceNumbersAll
       # keep-sorted end
       ;
 
@@ -371,6 +380,15 @@
           }
           # keep-sorted end
         ];
+
+        # Names cover every monitor's range, so each bar shows I through VIII.
+        workspace =
+          zipListsWith (number: name: {
+            workspace = toString number;
+            default_name = name;
+          })
+          hyprlandWorkspaceNumbersAll
+          hyprlandWorkspaceNamesAll;
       };
     };
   };

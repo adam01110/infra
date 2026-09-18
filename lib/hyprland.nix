@@ -1,5 +1,19 @@
 _: let
-  inherit (builtins) genList;
+  inherit
+    (builtins)
+    # keep-sorted start
+    genList
+    length
+    # keep-sorted end
+    ;
+
+  # hyprsplit offsets each monitor by the workspace count, so names repeat.
+  # keep-sorted start
+  workspaceNames = ["I" "II" "III" "IV" "V" "VI" "VII" "VIII"];
+  workspaceNamesAll = workspaceNames ++ workspaceNames;
+  workspaceNumbers = genList (index: index + 1) 8;
+  workspaceNumbersAll = genList (index: index + 1) (2 * length workspaceNames);
+  # keep-sorted end
 
   mkDirection = key: direction: label: resize: {
     inherit
@@ -58,6 +72,9 @@ in {
 
   # keep-sorted start
   hyprlandGroupNumbers = genList (index: index + 1) 5;
-  hyprlandWorkspaceNumbers = genList (index: index + 1) 8;
+  hyprlandWorkspaceNames = workspaceNames;
+  hyprlandWorkspaceNamesAll = workspaceNamesAll;
+  hyprlandWorkspaceNumbers = workspaceNumbers;
+  hyprlandWorkspaceNumbersAll = workspaceNumbersAll;
   # keep-sorted end
 }
