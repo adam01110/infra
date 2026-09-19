@@ -19,30 +19,33 @@
       enable = true;
       systemd.enable = true;
 
-      # Blend Overzicht's built-in panel shadow with a light fullscreen dim backdrop.
-      settings.effects = {
-        enableBackdrop = true;
+      settings = {
+        overview.romanNumerals = true;
 
-        # keep-sorted start
-        backdropOpacity = 0.18;
-        emptyWorkspaceWallpaperOverlayOpacity = 0.12;
-        panelOpacity = 0.93;
-        windowOverlayOpacity = 0.06;
-        workspaceOpacity = 1;
-        # keep-sorted end
-      };
+        # Blend Overzicht's built-in panel shadow with a light fullscreen dim backdrop.
+        effects = {
+          enableBackdrop = true;
 
-      settings.appearance.rounding = {
-        # keep-sorted start
-        full = 0;
-        large = 0;
-        normal = 0;
-        screenRounding = 0;
-        small = 0;
-        unsharpen = 0;
-        verysmall = 0;
-        windowRounding = 0;
-        # keep-sorted end
+          # keep-sorted start
+          backdropOpacity = 0.18;
+          emptyWorkspaceWallpaperOverlayOpacity = 0.12;
+          panelOpacity = 0.93;
+          windowOverlayOpacity = 0.06;
+          workspaceOpacity = 1;
+          # keep-sorted end
+        };
+        appearance.rounding = {
+          # keep-sorted start
+          full = 0;
+          large = 0;
+          normal = 0;
+          screenRounding = 0;
+          small = 0;
+          unsharpen = 0;
+          verysmall = 0;
+          windowRounding = 0;
+          # keep-sorted end
+        };
       };
     };
   };
