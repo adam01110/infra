@@ -310,3 +310,9 @@ time[datetime]:hover::after {
 .content_f75fb0 > aside > .outer_c0bea0 {
     overflow: visible !important;
 }
+
+/* Fix border on reply */
+.stackedBars__74017:first-child {
+    border-start-end-radius: var(--radius-md);
+    border-start-start-radius: var(--radius-md);
+}
