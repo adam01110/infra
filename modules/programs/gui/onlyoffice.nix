@@ -8,6 +8,8 @@
 
       settings = {
         # keep-sorted start
+        # OnlyOffice keeps the gtk dialog unless this flag is set.
+        "--xdg-desktop-portal" = true;
         UITheme = "theme-dark";
         uiscaling = 100;
         usegpu = true;
