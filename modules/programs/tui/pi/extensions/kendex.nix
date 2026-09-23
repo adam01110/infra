@@ -40,7 +40,7 @@
 
         sessionAutoRename.model = "current";
         statusline.enabled = false;
-        thinkingTimer.enabled = false;
+        thinkingTimer.enabled = true;
         workingIndicator.mode = "static";
       };
 

@@ -57,7 +57,6 @@
         ++ [
           ./patches/disable-llama-extension.patch
           ./patches/disable-main-screen-autowrap.patch
-          ./patches/reduce-long-session-render-work.patch
         ];
     });
     piSuite = inputs.pi-suite.packages.${system}.default.overrideAttrs (old: {
