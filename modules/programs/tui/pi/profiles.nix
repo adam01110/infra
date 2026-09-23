@@ -5,23 +5,23 @@
     profiles = {
       codex = {
         session = {
-          model = "openai-codex/gpt-5.6-sol";
+          model = "openai-codex/gpt-6-sol";
           thinking = "medium";
         };
 
         coder = {
-          model = "openai-codex/gpt-5.6-sol";
+          model = "openai-codex/gpt-6-sol";
           thinking = "medium";
         };
 
         fast = {
-          model = "openai-codex/gpt-5.6-luna";
+          model = "openai-codex/gpt-6-luna";
           thinking = "medium";
         };
 
         worker = {
-          model = "openai-codex/gpt-5.6-terra";
-          thinking = "medium";
+          model = "openai-codex/gpt-6-sol";
+          thinking = "low";
         };
       };
 
