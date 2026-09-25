@@ -33,7 +33,7 @@
         };
 
         hltb-for-millennium = fetchPlugin {
-          hash = "sha256-ke8HX02b7aG21nXBdXDAfZBKLiG1WrJ2zNx3sQIry/k=";
+          hash = "sha256-Mc29zUjMfrKEqQvDUwanWZrwiDkYmKio7YGdVIWXcWQ=";
           id = "f685622bace6c63a70a24265f72fabd32aa497b5";
           name = "hltb-for-millennium";
         };
@@ -51,13 +51,13 @@
         };
 
         size-on-disk = fetchPlugin {
-          hash = "sha256-SlVd5BCT5t0x9ah7gpUXJMymee/nzF6W6vqjcKzjERU=";
+          hash = "sha256-GebzTS6GO/3bN03XIB6N0/Pb0X8aruU5KFsodU26II0=";
           id = "e73371b61eef68019413475b7642ecc37e53bbbd";
           name = "size-on-disk";
         };
 
         steam-easygrid = fetchPlugin {
-          hash = "sha256-29WWqUR+s8gms0yg0plmIwntAc6t83KDGWFzOtFU8OE=";
+          hash = "sha256-hpejvAqLX+YsZIFcVByzlH8cgSe7yyxNlCqvBeK50Fg=";
           id = "2519c8a9fc979627a214a78ad642ae5d5723216f";
           name = "steam-easygrid";
         };

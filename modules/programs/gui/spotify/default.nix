@@ -28,7 +28,6 @@
         (with spicePkgs.extensions; [
           # keep-sorted start
           aiBandBlocker
-          betterGenres
           copyLyrics
           fullAlbumDate
           goToSong
@@ -48,7 +47,19 @@
           playlistIcons
           volumePercentage
           # keep-sorted end
-        ]);
+        ])
+        # Pinned inline: upstream dropped betterGenres from its sources.
+        ++ [
+          {
+            src = "${pkgs.fetchFromGitHub {
+              owner = "LucasOe";
+              repo = "spicetify-genres";
+              rev = "59dd0e75e2dce5da4c525ebed22eb43ab19f3ba3";
+              hash = "sha256-IeW7qjrUe8CI2UshQPD7EJvEGFJElexSjJ1aqDOCYXc=";
+            }}/dist";
+            name = "whatsThatGenre.js";
+          }
+        ];
 
       enabledSnippets = with spicePkgs.snippets; [
         # keep-sorted start

@@ -1,6 +1,6 @@
 {
   flake-file.inputs.lanzaboote = {
-    url = "github:nix-community/lanzaboote?ref=v1.1.0";
+    url = "github:nix-community/lanzaboote?ref=v1.2.0";
 
     inputs = {
       # keep-sorted start
