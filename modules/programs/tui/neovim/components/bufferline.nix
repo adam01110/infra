@@ -19,7 +19,16 @@
           end
 
           vim.schedule(function()
-            vim.cmd(string.format("bdelete %d", bufnr))
+            if vim.fn.bufexists(bufnr) == 0 then
+              return
+            end
+
+            -- bdelete errors E516 on listed buffers that are not loaded.
+            if vim.fn.bufloaded(bufnr) == 1 then
+              vim.cmd(string.format("bdelete %d", bufnr))
+            else
+              vim.api.nvim_buf_delete(bufnr, {})
+            end
           end)
         end
       ''
