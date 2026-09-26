@@ -32,7 +32,6 @@
 
         # keep-sorted start
         hide_filename_extension = false;
-        icons_enabled = false;
         section_separators.left = "";
         show_filename_only = true;
         show_modified_status = false;
