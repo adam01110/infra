@@ -28,6 +28,9 @@ backslash line continuation? never. shell command one line. too long? script.
 several probes of one command? never chain them with `;` or `&&`. independent
 commands go in one `tool_batch` call, one entry each.
 
+need root? load the `sudo` skill first, then tell the user why, then run the
+command through `run0` for the user's per-command systemd approval prompt.
+
 ## skills
 
 substantive work starts? check for matching skill first. skill plausible? load
