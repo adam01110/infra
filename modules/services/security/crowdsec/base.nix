@@ -20,7 +20,7 @@
       # keep-sorted start
       "${inputs.nixpkgs-crowdsec-blocklist-import}/nixos/modules/services/security/crowdsec-blocklist-import.nix"
       "${inputs.nixpkgs-crowdsec}/nixos/modules/services/security/crowdsec-firewall-bouncer.nix"
-      "${inputs.nixpkgs-crowdsec}/nixos/modules/services/security/crowdsec.nix"
+      "${inputs.nixpkgs-crowdsec}/nixos/modules/services/security/crowdsec/default.nix"
       # keep-sorted end
     ];
 
