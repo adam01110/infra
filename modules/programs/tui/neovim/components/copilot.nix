@@ -34,6 +34,10 @@
           pattern = "LazyFile";
         };
       };
+
+      lazy.plugins."copilot-lualine" = {
+        package = pkgs.vimPlugins.copilot-lualine;
+      };
     };
   };
 }

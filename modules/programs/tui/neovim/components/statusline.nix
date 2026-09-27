@@ -205,6 +205,21 @@
 
         lualine_x = [
           {
+            "@1" = "copilot";
+            show_colors = true;
+
+            symbols.status.hl = {
+              # keep-sorted start
+              disabled = colors.base04;
+              enabled = colors.base0B;
+              sleep = colors.base04;
+              unknown = colors.base08;
+              warning = colors.base0A;
+              # keep-sorted end
+            };
+          }
+
+          {
             "@1" = mkLuaInline ''
               function()
                 local buf_ft = vim.bo.filetype
