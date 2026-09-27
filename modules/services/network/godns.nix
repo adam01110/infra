@@ -112,7 +112,6 @@
             "https://api-ipv4.ip.sb/ip"
             "https://api.ip.sb/ip"
             "https://api.ipify.org"
-            "https://myip.biturl.top"
             # keep-sorted end
           ];
         };
