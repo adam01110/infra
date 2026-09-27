@@ -33,13 +33,13 @@
     };
     import-tree.url = "github:vic/import-tree";
     lanzaboote = {
-      url = "github:nix-community/lanzaboote?ref=v1.1.0";
+      url = "github:nix-community/lanzaboote?ref=v1.2.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "tuigreet/rust-overlay";
       };
     };
-    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+    millennium.url = "github:SteamClientHomebrew/Millennium/1f5d6053b69afdff67abd452f9a5c2a0a431d9fe?dir=packages/nix";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=release";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nix-index-database = {
