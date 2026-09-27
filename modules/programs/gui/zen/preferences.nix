@@ -418,7 +418,10 @@
           # keep-sorted start
           auth.subresource-http-auth-allow = 1;
           ssl_tokens_cache_capacity = 32768;
-          trr.mode = 2;
+          # TRR off: system resolver (NextDNS DoT via systemd-resolved) is the
+          # single DNS path. Firefox DoH defaults to Cloudflare in NL,
+          # which bypasses NextDNS filtering.
+          trr.mode = 0;
           # keep-sorted end
 
           # keep-sorted start

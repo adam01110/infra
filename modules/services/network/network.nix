@@ -52,8 +52,28 @@
         dns = "systemd-resolved";
         plugins = [pkgs.networkmanager-openvpn];
 
-        # Prefer temporary IPv6 addresses for outbound connections.
-        settings.connection."ipv6.ip6-privacy" = 2;
+        settings = {
+          connection = {
+            # Keep DHCP-provided DNS out of resolved's link scope. Otherwise
+            # the router server outranks the global NextDNS list for ~.
+            # routing and queries leak past NextDNS filtering.
+            "ipv4.ignore-auto-dns" = true;
+            "ipv6.ignore-auto-dns" = true;
+
+            # Prefer temporary IPv6 addresses for outbound connections.
+            "ipv6.ip6-privacy" = 2;
+          };
+
+          # Prefer temporary Mac's addresses for outbound connections.
+          ethernet."cloned-mac-address" = "random";
+
+          wifi = {
+            # Random scan MACs keep identity off the air between connections.
+            "mac-address-randomization" = 1;
+            "cloned-mac-address" = "random";
+          };
+        };
+        # keep-sorted end
       };
     };
 
@@ -62,11 +82,12 @@
     services.resolved = {
       enable = true;
       settings.Resolve = {
-        DNSOverTLS = "opportunistic";
-
         # Prefer the global servers over per-link DNS from DHCP.
         Domains = ["~."];
 
+        DNSOverTLS = "opportunistic";
+
+        # Cloudflare fallbacks cover NextDNS outages.
         FallbackDNS = [
           # keep-sorted start
           "1.0.0.1#cloudflare-dns.com"
