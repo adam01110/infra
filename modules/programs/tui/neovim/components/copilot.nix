@@ -26,17 +26,17 @@
         };
       };
 
-      lazy.plugins."copilot-lsp" = {
-        package = pkgs.vimPlugins.copilot-lsp;
+      lazy.plugins = {
+        copilot-lsp = {
+          package = pkgs.vimPlugins.copilot-lsp;
 
-        event = {
-          event = "User";
-          pattern = "LazyFile";
+          event = {
+            event = "User";
+            pattern = "LazyFile";
+          };
         };
-      };
 
-      lazy.plugins."copilot-lualine" = {
-        package = pkgs.vimPlugins.copilot-lualine;
+        copilot-lualine = {package = pkgs.vimPlugins.copilot-lualine;};
       };
     };
   };
