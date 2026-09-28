@@ -1,9 +1,22 @@
 {
-  flake.modules.homeManager.neovim = {pkgs, ...}: {
+  flake.modules.homeManager.neovim = {
+    config,
+    pkgs,
+    ...
+  }: let
+    colors = config.lib.stylix.colors.withHashtag;
+  in {
     programs.nvf.settings.vim = {
       luaConfigPreSnippets = [
         "vim.g.copilot_nes_debounce = 500"
       ];
+
+      highlight = {
+        # keep-sorted start
+        CopilotAnnotation.fg = colors.base03;
+        CopilotSuggestion.fg = colors.base04;
+        # keep-sorted end
+      };
 
       assistant.copilot = {
         enable = true;
