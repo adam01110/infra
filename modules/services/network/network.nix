@@ -73,7 +73,6 @@
             "cloned-mac-address" = "random";
           };
         };
-        # keep-sorted end
       };
     };
 

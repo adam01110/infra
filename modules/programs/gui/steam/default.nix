@@ -5,7 +5,7 @@
   # keep-sorted end
   ...
 }: {
-  flake-file.inputs.millennium.url = "github:SteamClientHomebrew/Millennium/1f5d6053b69afdff67abd452f9a5c2a0a431d9fe?dir=packages/nix";
+  flake-file.inputs.millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
 
   flake = {
     overlays.millennium = inputs.millennium.overlays.default;
