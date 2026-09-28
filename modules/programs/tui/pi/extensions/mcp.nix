@@ -147,9 +147,13 @@
 
       programs.pi.mcpServers = mapAttrs (_: mcp: mcp.package) mcps;
 
-      # Keep the declarative baseline writable for extensions that register servers.
+      # Keep the adapter baseline writable for extensions that register servers.
       home.activation.writePiMcpConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        ${pkgs.coreutils}/bin/install -Dm600 ${mcpConfig} "$HOME/.pi/agent/mcp.json"
+        ${pkgs.coreutils}/bin/install -Dm600 ${mcpConfig} "$HOME/.pi/agent/mcp-adapter.json"
+        # Remove only the old generated baseline; preserve any local edits.
+        if ${pkgs.coreutils}/bin/cmp -s ${mcpConfig} "$HOME/.pi/agent/mcp.json"; then
+          ${pkgs.coreutils}/bin/rm "$HOME/.pi/agent/mcp.json"
+        fi
       '';
     };
   };

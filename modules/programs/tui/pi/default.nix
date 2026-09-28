@@ -64,6 +64,8 @@
         (old.postInstall or "")
         + ''
           substituteInPlace "$out/skills/computer-use-linux/SKILL.md" --replace-fail $'  Use when observing or controlling the local Linux desktop through accessibility\n  trees, screenshots, window targeting, or synthesized input.' $'  Use only when the user explicitly invokes `/computer-use-linux` or explicitly\n  asks to use computer use; never use for ordinary desktop tasks.'
+          # The adapter's copy collides with the suite's top-level skill.
+          rm -r "$out/node_modules/pi-mcp-adapter/skills/mcp-scripting"
         '';
     });
 
