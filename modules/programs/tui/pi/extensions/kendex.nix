@@ -39,6 +39,8 @@
         };
 
         sessionAutoRename.model = "current";
+        # Avoid loading every saved session into memory at startup.
+        sessionSearch.enabled = false;
         statusline.enabled = false;
         thinkingTimer.enabled = false;
         workingIndicator.mode = "static";
