@@ -381,7 +381,7 @@
           # keep-sorted end
         ];
 
-        # Names cover every monitor's range, so each bar shows I through VIII.
+        # Repeat 1 through 8 across monitor workspace ranges.
         workspace =
           zipListsWith (number: name: {
             workspace = toString number;

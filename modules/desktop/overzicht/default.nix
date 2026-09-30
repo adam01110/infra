@@ -20,8 +20,6 @@
       systemd.enable = true;
 
       settings = {
-        overview.romanNumerals = true;
-
         # Blend Overzicht's built-in panel shadow with a light fullscreen dim backdrop.
         effects = {
           enableBackdrop = true;

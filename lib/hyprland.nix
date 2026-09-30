@@ -9,7 +9,7 @@ _: let
 
   # hyprsplit offsets each monitor by the workspace count, so names repeat.
   # keep-sorted start
-  workspaceNames = ["I" "II" "III" "IV" "V" "VI" "VII" "VIII"];
+  workspaceNames = ["1" "2" "3" "4" "5" "6" "7" "8"];
   workspaceNamesAll = workspaceNames ++ workspaceNames;
   workspaceNumbers = genList (index: index + 1) 8;
   workspaceNumbersAll = genList (index: index + 1) (2 * length workspaceNames);
