@@ -27,7 +27,10 @@
         # keep-sorted end
 
         # GUI
+        # keep-sorted start
+        gns3
         seahorse
+        # keep-sorted end
 
         # Services
         # keep-sorted start
