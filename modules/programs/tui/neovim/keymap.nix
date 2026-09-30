@@ -100,17 +100,17 @@
     # Buffer navigation
     # keep-sorted start block=yes newline_separated=yes
     {
-      key = "[";
-      mode = "n";
-      action = "<cmd>bprevious<cr>";
-      desc = "Previous buffer";
-    }
-
-    {
-      key = "]";
+      key = "<C-0>";
       mode = "n";
       action = "<cmd>bnext<cr>";
       desc = "Next buffer";
+    }
+
+    {
+      key = "<C-9>";
+      mode = "n";
+      action = "<cmd>bprevious<cr>";
+      desc = "Previous buffer";
     }
     # keep-sorted end
   ];
