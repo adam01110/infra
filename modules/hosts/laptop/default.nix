@@ -3,6 +3,7 @@
     imports = with self.modules.nixos; [
       # Hardware
       # keep-sorted start
+      arduino-uno
       bluetooth
       lidswitch
       roccat
@@ -106,13 +107,6 @@
         RADEON_DPM_PERF_LEVEL_ON_BAT = "";
         # keep-sorted end
       };
-
-      # Apply uaccess before 73-seat-late.rules grants active-seat permissions.
-      udev.packages = [
-        (pkgs.writeTextDir "lib/udev/rules.d/70-arduino-uno.rules" ''
-          SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0043", TAG+="uaccess"
-        '')
-      ];
 
       udev.extraRules = ''
         # Allow the internal keyboard to wake the laptop.
