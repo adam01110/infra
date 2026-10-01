@@ -25,6 +25,7 @@
       escapeShellArgs
       genAttrs
       getExe
+      getExe'
       mapAttrs
       mapAttrsToList
       mkOption
@@ -110,14 +111,9 @@
       };
 
       tangled = {
-        command = getExe pkgs.nur.repos.adam0.tangled-mcp;
+        command = getExe' pkgs.nur.repos.adam0.tg "tgmcp";
 
-        environment = {
-          TANGLED_HANDLE = vars.atprotoHandle;
-          TANGLED_PDS_URL = "https://pds.${vars.groundDomain}";
-        };
-
-        secrets.TANGLED_PASSWORD = "atproto_app_password";
+        environment.TGMCP_ACCOUNT = vars.atprotoHandle;
       };
       # keep-sorted end
     };
