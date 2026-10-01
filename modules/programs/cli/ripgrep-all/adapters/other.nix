@@ -36,7 +36,7 @@
       # Convert PPTX presentations with the local markdown adapter.
       {
         name = "pptx";
-        version = 1;
+        version = 2;
         description = "Uses an adapter wrapper to convert PPTX files to markdown";
         extensions = ["pptx"];
         mimetypes = ["application/vnd.openxmlformats-officedocument.presentationml.presentation"];
@@ -49,12 +49,12 @@
       # Extract text from XLSX spreadsheets with in2csv.
       {
         name = "xlsx";
-        version = 1;
+        version = 2;
         description = "Uses in2csv to extract text from XLSX files";
         extensions = ["xlsx"];
         mimetypes = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
         binary = in2csv;
-        args = ["\${input_virtual_path}"];
+        args = ["--format" "xlsx" "-"];
         disabled_by_default = false;
         match_only_by_mime = false;
       }

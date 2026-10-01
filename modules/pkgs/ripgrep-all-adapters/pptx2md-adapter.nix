@@ -1,10 +1,36 @@
 {
   perSystem = {pkgs, ...}: let
-    inherit (pkgs) writeShellApplication;
+    inherit (pkgs) fetchPypi writeShellApplication;
+    inherit (pkgs.python3Packages) buildPythonApplication;
+
+    pptx2md = buildPythonApplication {
+      pname = "pptx2md";
+      version = "2.0.6";
+      pyproject = true;
+      src = fetchPypi {
+        pname = "pptx2md";
+        version = "2.0.6";
+        hash = "sha256-KtwFLZ+14DGwdgiH7qkx58eMIIt7JECxBGijwodLTkQ=";
+      };
+      build-system = [pkgs.python3Packages.poetry-core];
+      dependencies = with pkgs.python3Packages; [
+        # keep-sorted start
+        numpy
+        pillow
+        pydantic
+        python-pptx
+        rapidfuzz
+        scipy
+        tqdm
+        # keep-sorted end
+      ];
+      pythonImportsCheck = ["pptx2md"];
+      meta.mainProgram = "pptx2md";
+    };
   in {
     packages.pptx2md-adapter = writeShellApplication {
       name = "pptx2md.sh";
-      runtimeInputs = [pkgs.coreutils];
+      runtimeInputs = [pkgs.coreutils pptx2md];
       text = ''
         set -o errtrace -o errexit -o nounset -o pipefail
         [[ "''${TRACE:-0}" == "1" ]] && set -o xtrace
@@ -13,28 +39,27 @@
         IFS=$'\n\t'
         PS4='+\t '
 
-        error_handler() { cat >&2 "Error: In ''${BASH_SOURCE[0]} Line ''${1} exited with Status ''${2}"; }
+        error_handler() { printf 'Error: In %s Line %s exited with Status %s\n' "''${BASH_SOURCE[0]}" "$1" "$2" >&2; }
         trap 'error_handler ''${LINENO} $?' ERR
 
-        if ! command -v pptx2md >/dev/null 2>&1; then
-          cat >&2 "pptx2md is required in PATH for the pptx adapter."
-          exit 127
+        if [ $# -eq 0 ]; then
+          printf 'Usage: pptx2md.sh [options] <file|->\n' >&2
+          exit 2
         fi
 
         output_file="$(mktemp "''${TMPDIR:-/tmp}/tempXXXXXXXXXX.md")"
-        cleanup_output() {
+        input_file=""
+        cleanup() {
           rm -f "$output_file"
+          if [ -n "$input_file" ]; then
+            rm -f "$input_file"
+          fi
         }
-        trap cleanup_output EXIT
+        trap cleanup EXIT
 
         for arg; do :; done
         if [ "$arg" = "-" ]; then
           input_file="$(mktemp "''${TMPDIR:-/tmp}/tempXXXXXXXXXX.pptx")"
-          cleanup_input() {
-            rm -f "$input_file"
-          }
-          trap cleanup_input EXIT
-
           cat > "$input_file"
 
           if [ $# -gt 1 ]; then
