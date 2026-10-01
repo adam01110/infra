@@ -15,7 +15,6 @@
       ;
     # keep-sorted start
     djvutorga = getExe pkgs.djvutorga-adapter;
-    in2csv = getExe' pkgs.csvkit "in2csv";
     markitdown = getExe' pkgs.markitdown "markitdown";
     # keep-sorted end
   in {
@@ -33,28 +32,36 @@
         match_only_by_mime = false;
       }
 
-      # Convert PPTX presentations from stdin to Markdown.
+      # Prefer one stdin converter over the overlapping built-in adapters.
       {
-        name = "pptx";
-        version = 3;
-        description = "Uses MarkItDown to convert PPTX files to Markdown";
-        extensions = ["pptx"];
-        mimetypes = ["application/vnd.openxmlformats-officedocument.presentationml.presentation"];
+        name = "markitdown";
+        version = 1;
+        description = "Uses MarkItDown to convert documents to Markdown";
+        extensions = [
+          # keep-sorted start
+          "docx"
+          "epub"
+          "htm"
+          "html"
+          "pdf"
+          "pptx"
+          "xls"
+          "xlsx"
+          # keep-sorted end
+        ];
+        mimetypes = [
+          # keep-sorted start
+          "application/epub+zip"
+          "application/pdf"
+          "application/vnd.ms-excel"
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          "text/html"
+          # keep-sorted end
+        ];
         binary = markitdown;
-        args = ["--extension" "pptx"];
-        disabled_by_default = false;
-        match_only_by_mime = false;
-      }
-
-      # Extract text from XLSX spreadsheets with in2csv.
-      {
-        name = "xlsx";
-        version = 2;
-        description = "Uses in2csv to extract text from XLSX files";
-        extensions = ["xlsx"];
-        mimetypes = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
-        binary = in2csv;
-        args = ["--format" "xlsx" "-"];
+        args = ["--extension" "\${input_file_extension}"];
         disabled_by_default = false;
         match_only_by_mime = false;
       }

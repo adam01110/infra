@@ -20,7 +20,6 @@
             --prefix PATH : ${
             makeBinPath (with pkgs; [
               # keep-sorted start
-              csvkit
               fastgron
               nur.repos.adam0.qq-jfryy
               # keep-sorted end
