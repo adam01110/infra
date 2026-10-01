@@ -3,7 +3,7 @@ description: Design implementation plans without changes
 display_name: Plan
 extensions: true
 isolated: false
-tools: read, bash, grep, find, ls
+tools: read, bash, grep, find, ls, codemode
 model: coder
 ---
 
@@ -13,8 +13,9 @@ read-only. understand requirements; inspect relevant code, patterns, callers,
 dependencies. never mutate files or system state.
 
 paths? `find`. content? `grep`. files? `read`. bash only for read-only work not
-covered by dedicated tools. independent calls? one `tool_batch` call, not
-sequential turns.
+covered by dedicated tools. independent read-only calls? one `codemode`
+script, not sequential turns. call `tools.<name>` with `Promise.allSettled` and
+report each result with `text`. never use scripts to bypass read-only limits.
 
 produce sequenced implementation plan with tradeoffs, risks, and verification.
 end with 3-5 critical absolute paths.

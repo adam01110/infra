@@ -74,11 +74,8 @@
       inherit package;
       secretNames = attrValues secrets;
       server = {
-        approveTools = false;
-        command = wrapperName;
-        directTools = false;
-        exposeResources = false;
-        lifecycle = "lazy";
+        command = getExe package;
+        exposure = "codemode";
       };
     };
 
@@ -124,13 +121,24 @@
     };
 
     mcpConfig = jsonFormat.generate "pi-mcp.json" {
+      mcpServers = mapAttrs (_: mcp: mcp.server) mcps;
+    };
+
+    legacyMcpConfig = jsonFormat.generate "pi-mcp-adapter.json" {
       settings = {
         approveTools = false;
         directTools = false;
         idleTimeout = 1;
       };
-
-      mcpServers = mapAttrs (_: mcp: mcp.server) mcps;
+      mcpServers =
+        mapAttrs (name: _: {
+          approveTools = false;
+          command = "${name}-mcp-wrapper";
+          directTools = false;
+          exposeResources = false;
+          lifecycle = "lazy";
+        })
+        mcps;
     };
 
     mcpSecretNames = unique (concatMap (mcp: mcp.secretNames) (attrValues mcps));
@@ -147,12 +155,12 @@
 
       programs.pi.mcpServers = mapAttrs (_: mcp: mcp.package) mcps;
 
-      # Keep the adapter baseline writable for extensions that register servers.
+      # Keep native MCP settings writable for the server manager.
       home.activation.writePiMcpConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        ${pkgs.coreutils}/bin/install -Dm600 ${mcpConfig} "$HOME/.pi/agent/mcp-adapter.json"
-        # Remove only the old generated baseline; preserve any local edits.
-        if ${pkgs.coreutils}/bin/cmp -s ${mcpConfig} "$HOME/.pi/agent/mcp.json"; then
-          ${pkgs.coreutils}/bin/rm "$HOME/.pi/agent/mcp.json"
+        ${pkgs.coreutils}/bin/install -Dm600 ${mcpConfig} "$HOME/.pi/agent/mcp.json"
+        # Remove only the generated adapter baseline; preserve local edits.
+        if ${pkgs.diffutils}/bin/cmp -s ${legacyMcpConfig} "$HOME/.pi/agent/mcp-adapter.json"; then
+          ${pkgs.coreutils}/bin/rm "$HOME/.pi/agent/mcp-adapter.json"
         fi
       '';
     };

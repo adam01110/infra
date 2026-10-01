@@ -1,7 +1,9 @@
 {
   flake.modules.homeManager.neovim = {
+    # keep-sorted start
     config,
     pkgs,
+    # keep-sorted end
     ...
   }: let
     colors = config.lib.stylix.colors.withHashtag;

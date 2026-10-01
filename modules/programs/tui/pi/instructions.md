@@ -26,10 +26,28 @@ archive compress/extract? use `ouch`. no format tool such as `zip` or `unzip`.
 backslash line continuation? never. shell command one line. too long? script.
 
 several probes of one command? never chain them with `;` or `&&`. independent
-commands go in one `tool_batch` call, one entry each.
+commands go in one `codemode` call through `tools.bash`, using
+`Promise.allSettled` and `text` to report each result.
 
 need root? load the `sudo` skill first, then tell the user why, then run the
 command through `run0` for the user's per-command systemd approval prompt.
+
+## native tools
+
+use `codemode` for independent read/search/list/diagnostic calls; call
+`tools.<name>(args)` and return only needed output with `text`. use direct tools
+for one call, mutations, streaming, or dependent operations. dependent read-only
+steps may be chained in a script when each step checks the previous result.
+
+MCP is built in. discover tools with `searchTools` and `describeTool` inside
+`codemode`, or load direct declarations with `tool_search`. MCP names are
+`mcp__<server>__<tool>`; results contain `content`, optional `structuredContent`,
+and `isError`. check `isError` before using a result. no adapter `mcp`,
+`mcpScript`, `emit`, or `tools.call` API.
+
+manage personal MCP servers in the Nix config above, not with `pi mcp add` or
+`pi mcp remove`, which edit runtime JSON. verify with `pi mcp list`; use
+`pi mcp login <server>` for OAuth and `/reload` after activation.
 
 ## skills
 

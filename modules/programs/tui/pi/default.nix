@@ -64,8 +64,6 @@
         (old.postInstall or "")
         + ''
           substituteInPlace "$out/skills/computer-use-linux/SKILL.md" --replace-fail $'  Use when observing or controlling the local Linux desktop through accessibility\n  trees, screenshots, window targeting, or synthesized input.' $'  Use only when the user explicitly invokes `/computer-use-linux` or explicitly\n  asks to use computer use; never use for ordinary desktop tasks.'
-          # The adapter's copy collides with the suite's top-level skill.
-          rm -r "$out/node_modules/pi-mcp-adapter/skills/mcp-scripting"
         '';
     });
 
@@ -120,7 +118,19 @@
   in {
     imports = [inputs.pi-nix.homeModules.default];
 
-    programs.pi.coding-agent = {
+    # Keep shell subcommands ahead of session-only flags.
+    options.programs.pi.coding-agent.finalPackage = lib.mkOption {
+      apply = package:
+        package.overrideAttrs (old: {
+          buildCommand =
+            old.buildCommand
+            + ''
+              substituteInPlace "$out/bin/pi" --replace-fail 'in install|remove|uninstall|update|list|config)' 'in install|remove|uninstall|update|list|config|auth|mcp)'
+            '';
+        });
+    };
+
+    config.programs.pi.coding-agent = {
       enable = true;
 
       # Provide runtime commands used by Pi and its extensions.

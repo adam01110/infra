@@ -1311,11 +1311,11 @@
         "nixpkgs-x86_64-darwin": "nixpkgs-x86_64-darwin"
       },
       "locked": {
-        "lastModified": 1790765247,
-        "narHash": "sha256-pW/lWS/ZlQxr/7JCvWlQil1MZg/fyWVQnJQ6IotfT8c=",
+        "lastModified": 1790800934,
+        "narHash": "sha256-vp3C2oZCoMtRoQ5BXLFP/KhC+fJIwHxUVenFfXwHQk8=",
         "owner": "lukasl-dev",
         "repo": "pi.nix",
-        "rev": "1e4e51a9a2e8ef8e754f745e1951a7235d024e1c",
+        "rev": "a8331076564e00a753610240919889b845743bcf",
         "type": "github"
       },
       "original": {
@@ -1340,11 +1340,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790607434,
-        "narHash": "sha256-9LKt1AqmgqcTGTuk00gcRJ4twxMRK30MVcNrCOgUjvU=",
+        "lastModified": 1790844311,
+        "narHash": "sha256-4DUiJ8JGv3OT5iI9fk8M8byJIKcze/hkZ4WG373NTvQ=",
         "ref": "refs/heads/main",
-        "rev": "b790373a398df6c0c6366bf01fe0f1f4b222cd55",
-        "revCount": 62,
+        "rev": "e121edd79a0e745be7ebc65cf5f322ccf192a0e3",
+        "revCount": 63,
         "type": "git",
         "url": "https://tangled.org/did:plc:yyq2r4sag7vtnnd36rvsnnuq"
       },
