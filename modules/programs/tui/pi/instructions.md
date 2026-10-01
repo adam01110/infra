@@ -25,19 +25,22 @@ archive compress/extract? use `ouch`. no format tool such as `zip` or `unzip`.
 
 backslash line continuation? never. shell command one line. too long? script.
 
-several probes of one command? never chain them with `;` or `&&`. independent
-commands go in one `codemode` call through `tools.bash`, using
-`Promise.allSettled` and `text` to report each result.
+several probes of one command? never chain them with `;` or `&&`. batch
+independent commands with the batch tool, not `codemode`.
 
 need root? load the `sudo` skill first, then tell the user why, then run the
 command through `run0` for the user's per-command systemd approval prompt.
 
 ## native tools
 
-use `codemode` for independent read/search/list/diagnostic calls; call
-`tools.<name>(args)` and return only needed output with `text`. use direct tools
-for one call, mutations, streaming, or dependent operations. dependent read-only
-steps may be chained in a script when each step checks the previous result.
+use direct tools by default. batch independent read/search/list/diagnostic or
+shell calls with the batch tool, not `codemode`.
+
+use `codemode` only for data pipelines: one tool's output must be transformed,
+filtered, or passed through multiple subsequent operations, including work that
+would otherwise need shell pipes. do not use it for a single tool call, simple
+output wrapping, or independent calls with `Promise.allSettled`. dependence alone
+is not enough; ordinary sequential calls stay direct.
 
 MCP is built in with the suite's lazy-lifecycle patch. servers start on demand
 and stop after one idle minute. on first use in a session, activate only the
