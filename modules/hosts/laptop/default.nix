@@ -107,6 +107,13 @@
         # keep-sorted end
       };
 
+      # Apply uaccess before 73-seat-late.rules grants active-seat permissions.
+      udev.packages = [
+        (pkgs.writeTextDir "lib/udev/rules.d/70-arduino-uno.rules" ''
+          SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0043", TAG+="uaccess"
+        '')
+      ];
+
       udev.extraRules = ''
         # Allow the internal keyboard to wake the laptop.
         ACTION=="add", SUBSYSTEM=="serio", KERNEL=="serio0", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
