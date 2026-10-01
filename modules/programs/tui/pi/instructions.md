@@ -39,8 +39,12 @@ use `codemode` for independent read/search/list/diagnostic calls; call
 for one call, mutations, streaming, or dependent operations. dependent read-only
 steps may be chained in a script when each step checks the previous result.
 
-MCP is built in. discover tools with `searchTools` and `describeTool` inside
-`codemode`, or load direct declarations with `tool_search`. MCP names are
+MCP is built in with the suite's lazy-lifecycle patch. servers start on demand
+and stop after one idle minute. on first use in a session, activate only the
+needed server with `mcp_connect({server: "name"})`; then discover tools with
+`searchTools` and `describeTool` inside `codemode`, or load direct declarations
+with `tool_search`. later tool calls reconnect idle servers automatically.
+MCP names are
 `mcp__<server>__<tool>`; results contain `content`, optional `structuredContent`,
 and `isError`. check `isError` before using a result. no adapter `mcp`,
 `mcpScript`, `emit`, or `tools.call` API.

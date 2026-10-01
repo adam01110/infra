@@ -57,6 +57,7 @@
         ++ [
           ./patches/disable-llama-extension.patch
           ./patches/disable-main-screen-autowrap.patch
+          "${inputs.pi-suite}/patches/pi-native-mcp-lazy.patch"
         ];
     });
     piSuite = inputs.pi-suite.packages.${system}.default.overrideAttrs (old: {

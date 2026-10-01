@@ -76,6 +76,8 @@
       server = {
         command = getExe package;
         exposure = "codemode";
+        lifecycle = "lazy";
+        idleTimeout = 60;
       };
     };
 
