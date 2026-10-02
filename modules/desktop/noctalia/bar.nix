@@ -259,6 +259,7 @@
           hide_when_no_media = true;
           max_length = 145.0;
           min_length = 0.0;
+          rotate_album_art = true;
           title_scroll = "on_hover";
           # keep-sorted end
         };

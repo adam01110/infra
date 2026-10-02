@@ -44,6 +44,7 @@
           panel_anchor_bar = "main";
           polkit_agent = true;
           screen_time_enabled = true;
+          settings_expand_all_groups = true;
           setup_wizard_enabled = false;
           window_switcher.mru = true;
           # keep-sorted end
