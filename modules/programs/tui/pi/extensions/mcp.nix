@@ -54,13 +54,14 @@
       command,
       environment ? {},
       name,
+      runtimeInputs ? [],
       secrets ? {},
     }: let
       environmentNames = attrNames (environment // secrets);
       wrapperName = "${name}-mcp-wrapper";
       package = writeShellApplication {
         name = wrapperName;
-        runtimeInputs = [coreutils];
+        runtimeInputs = [coreutils] ++ runtimeInputs;
         text = concatStringsSep "\n" (
           (mapAttrsToList (variable: value: "${variable}=${escapeShellArg value}") environment)
           ++ (mapAttrsToList (
@@ -87,6 +88,7 @@
       computer-use-linux = {
         args = ["mcp"];
         command = "${piSuite}/node_modules/@agent-sh/computer-use-linux/npm/bin/computer-use-linux-linux-${computerUseNodeArch}";
+        runtimeInputs = [pkgs.glib];
       };
 
       context7 = {

@@ -103,6 +103,7 @@
     runtimePackages =
       (with pkgs; [
         # keep-sorted start
+        glib
         openssh
         rtk
         wl-clipboard
