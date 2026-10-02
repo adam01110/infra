@@ -6,7 +6,7 @@
   ...
 }: {
   flake-file.inputs.nvf = {
-    url = "github:NotAShelf/nvf";
+    url = "github:adam01110/nvf/personal";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
