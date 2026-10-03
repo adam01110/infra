@@ -2,12 +2,9 @@
   flake.modules.homeManager.neovim = {
     # keep-sorted start
     config,
-    lib,
     # keep-sorted end
     ...
   }: let
-    inherit (lib.modules) mkAfter;
-
     colors = config.lib.stylix.colors.withHashtag;
   in {
     programs.nvf.settings.vim = {
@@ -16,19 +13,6 @@
         CursorTabCompletion.fg = colors.base04;
         CursorTabJumpSymbol.fg = colors.base03;
         # keep-sorted end
-      };
-
-      autocomplete.blink-cmp.setupOpts.sources = {
-        default = mkAfter ["cursortab"];
-        providers.cursortab = {
-          # keep-sorted start
-          async = true;
-          module = "cursortab.blink";
-          name = "cursortab";
-          score_offset = 50;
-          timeout_ms = 5000;
-          # keep-sorted end
-        };
       };
 
       assistant.cursortab = {

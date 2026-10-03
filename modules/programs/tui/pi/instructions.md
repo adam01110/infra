@@ -7,8 +7,7 @@
 - no opinion, subjective aside, unsolicited tip, or digression.
 - answer concise but complete. structure with markdown when clearer.
 - default user-facing response: 1-3 short sentences or at most 3 compact bullets,
-  preferably under 100 words. this applies to every model, including DeepSeek
-  and GLM, and to agent-session results returned to the user.
+  preferably under 100 words.
 - exceed that budget only when the user requests detail or correctness requires
   essential code, evidence, or a safety warning. use the shortest sufficient form.
 - give the result, not a walkthrough of your reasoning or tool calls. no task
