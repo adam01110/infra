@@ -98,6 +98,7 @@
         direnv
         gen-license
         gitfetch
+        hyfetch
         onefetch
         pi
         pipes
