@@ -24,6 +24,7 @@
       systemd-status-preview
       telescope-all-recent-nvim
       text-preview
+      xberg-rga-adapter
       zaread
       # keep-sorted end
       ;

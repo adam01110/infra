@@ -10,12 +10,11 @@
       (lib)
       # keep-sorted start
       getExe
-      getExe'
       # keep-sorted end
       ;
     # keep-sorted start
     djvutorga = getExe pkgs.djvutorga-adapter;
-    markitdown = getExe' pkgs.markitdown "markitdown";
+    xbergRga = getExe pkgs.xberg-rga-adapter;
     # keep-sorted end
   in {
     programs.ripgrep-all.custom_adapters = [
@@ -34,9 +33,9 @@
 
       # Prefer one stdin converter over the overlapping built-in adapters.
       {
-        name = "markitdown";
+        name = "xberg";
         version = 1;
-        description = "Uses MarkItDown to convert documents to Markdown";
+        description = "Uses Xberg to convert documents to Markdown";
         extensions = [
           # keep-sorted start
           "docx"
@@ -60,8 +59,8 @@
           "text/html"
           # keep-sorted end
         ];
-        binary = markitdown;
-        args = ["--extension" "\${input_file_extension}"];
+        binary = xbergRga;
+        args = ["\${input_file_extension}"];
         disabled_by_default = false;
         match_only_by_mime = false;
       }
