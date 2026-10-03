@@ -28,8 +28,7 @@ backslash line continuation? never. shell command one line. too long? script.
 several probes of one command? never chain them with `;` or `&&`. batch
 independent commands with the batch tool, not `codemode`.
 
-need root? load the `sudo` skill first, then tell the user why, then run the
-command through `run0` for the user's per-command systemd approval prompt.
+need root? load the `sudo` skill.
 
 ## native tools
 
@@ -41,20 +40,6 @@ filtered, or passed through multiple subsequent operations, including work that
 would otherwise need shell pipes. do not use it for a single tool call, simple
 output wrapping, or independent calls with `Promise.allSettled`. dependence alone
 is not enough; ordinary sequential calls stay direct.
-
-MCP is built in with the suite's lazy-lifecycle patch. servers start on demand
-and stop after one idle minute. on first use in a session, activate only the
-needed server with `mcp_connect({server: "name"})`; then discover tools with
-`searchTools` and `describeTool` inside `codemode`, or load direct declarations
-with `tool_search`. later tool calls reconnect idle servers automatically.
-MCP names are
-`mcp__<server>__<tool>`; results contain `content`, optional `structuredContent`,
-and `isError`. check `isError` before using a result. no adapter `mcp`,
-`mcpScript`, `emit`, or `tools.call` API.
-
-manage personal MCP servers in the Nix config above, not with `pi mcp add` or
-`pi mcp remove`, which edit runtime JSON. verify with `pi mcp list`; use
-`pi mcp login <server>` for OAuth and `/reload` after activation.
 
 ## skills
 
@@ -125,7 +110,7 @@ review inside. tool owns order.
 
 ## commit messages
 
-Conventional Commit? never. applies to every VCS, repo, example, suggestion,
+Conventional Commit? not unlesss the user asks for it. applies to every VCS, repo, example, suggestion,
 generated command, and automated flow—even repo already uses it. no type prefix,
 scope, or breaking marker: `feat:`, `fix(parser):`, `refactor!:` are bad.
 
