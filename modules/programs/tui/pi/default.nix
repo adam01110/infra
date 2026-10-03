@@ -32,7 +32,7 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues;
+    inherit (builtins) attrValues readFile replaceStrings;
     inherit
       (lib)
       # keep-sorted start
@@ -47,6 +47,7 @@
       makeWrapper
       symlinkJoin
       writeShellScriptBin
+      writeText
       # keep-sorted end
       ;
     inherit (pkgs.stdenv.hostPlatform) system;
@@ -57,7 +58,11 @@
         ++ [
           ./patches/disable-llama-extension.patch
           ./patches/disable-main-screen-autowrap.patch
-          "${inputs.pi-suite}/patches/pi-native-mcp-lazy.patch"
+          # Match Pi 1.0's expanded tui import without changing the upstream patch.
+          (writeText "pi-native-mcp-lazy.patch" (replaceStrings
+            [''import type { SelectItem } from "@earendil-works/pi-tui";'']
+            [''import { hyperlink, type SelectItem } from "@earendil-works/pi-tui";'']
+            (readFile "${inputs.pi-suite}/patches/pi-native-mcp-lazy.patch")))
         ];
     });
     piSuite = inputs.pi-suite.packages.${system}.default.overrideAttrs (old: {
@@ -119,18 +124,6 @@
       ++ attrValues config.programs.pi.mcpServers;
   in {
     imports = [inputs.pi-nix.homeModules.default];
-
-    # Keep shell subcommands ahead of session-only flags.
-    options.programs.pi.coding-agent.finalPackage = lib.mkOption {
-      apply = package:
-        package.overrideAttrs (old: {
-          buildCommand =
-            old.buildCommand
-            + ''
-              substituteInPlace "$out/bin/pi" --replace-fail 'in install|remove|uninstall|update|list|config)' 'in install|remove|uninstall|update|list|config|auth|mcp)'
-            '';
-        });
-    };
 
     config.programs.pi.coding-agent = {
       enable = true;
