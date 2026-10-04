@@ -6,31 +6,10 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) div;
-    inherit
-      (lib)
-      # keep-sorted start
-      fromHexString
-      optionalString
-      removePrefix
-      stringLength
-      substring
-      toHexString
-      # keep-sorted end
-      ;
     inherit (lib.generators) mkLuaInline;
+    inherit (lib.self) blendHex;
 
     colors = config.lib.stylix.colors.withHashtag;
-
-    # Blends a subtle severity tint into the editor background.
-    tintBackground = foreground: let
-      channel = color: offset: fromHexString (substring offset 2 (removePrefix "#" color));
-      blendedChannel = offset: div ((channel colors.base00 offset * 85) + (channel foreground offset * 15)) 100;
-      toPaddedHex = value: let
-        hex = toHexString value;
-      in
-        optionalString (stringLength hex == 1) "0" + hex;
-    in "#${toPaddedHex (blendedChannel 0)}${toPaddedHex (blendedChannel 2)}${toPaddedHex (blendedChannel 4)}";
   in {
     programs.nvf.settings.vim = {
       utility.snacks-nvim.setupOpts.statuscolumn.enable = true;
@@ -84,28 +63,28 @@
 
         DiagnosticVirtualTextError = {
           # keep-sorted start
-          bg = tintBackground colors.base08;
+          bg = blendHex 15 colors.base00 colors.base08;
           fg = colors.base08;
           # keep-sorted end
         };
 
         DiagnosticVirtualTextHint = {
           # keep-sorted start
-          bg = tintBackground colors.base0C;
+          bg = blendHex 15 colors.base00 colors.base0C;
           fg = colors.base0C;
           # keep-sorted end
         };
 
         DiagnosticVirtualTextInfo = {
           # keep-sorted start
-          bg = tintBackground colors.base0C;
+          bg = blendHex 15 colors.base00 colors.base0C;
           fg = colors.base0C;
           # keep-sorted end
         };
 
         DiagnosticVirtualTextWarn = {
           # keep-sorted start
-          bg = tintBackground colors.base0A;
+          bg = blendHex 15 colors.base00 colors.base0A;
           fg = colors.base0A;
           # keep-sorted end
         };
