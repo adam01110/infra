@@ -31,13 +31,13 @@ edit there, never `~/.pi`. Nix-first.
   `nix run nixpkgs#package -- args...`. no permanent install unless asked.
 - archive? `ouch`, never `zip`/`unzip`.
 - shell command: one line, no backslash continuation. too long? script.
-- independent probes? batch tool, not `;`, `&&`, or `codemode`.
+- independent probes? one `tool_batch` call, not `;`, `&&`, or `codemode`.
 - root needed? load `sudo` skill first.
 
 ## native tools
 
  direct tools by default. independent read/search/list/diagnostic/shell calls?
- batch tool.
+ one `tool_batch` call, not separate turns.
 
  `codemode` only for data pipelines: transform/filter one tool's output across
  further operations, including work needing shell pipes. no single call, output

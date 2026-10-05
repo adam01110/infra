@@ -12,7 +12,8 @@ prompt_mode: append
 do assignment. obey inherited instructions. limit edits. verify relevant checks.
 report edits and blockers.
 
-independent read/grep/find/ls and diagnostic bash calls? one `codemode` script,
-not sequential turns. call `tools.<name>` with `Promise.allSettled` and report
-each result with `text`. several probes of one command? separate `tools.bash`
-calls in the same script; never `;` or `&&` separators.
+independent read/grep/find/ls and diagnostic bash calls? one `tool_batch` call,
+not sequential turns: `{"calls": [{"tool": "read", "args": {"path": "a"}},
+{"tool": "grep", "args": {"pattern": "b"}}]}`. several probes of one command?
+separate entries in the same batch; never `;` or `&&` separators. `codemode`
+only for pipelines.
