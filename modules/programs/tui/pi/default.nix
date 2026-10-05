@@ -32,7 +32,7 @@
     # keep-sorted end
     ...
   }: let
-    inherit (builtins) attrValues readFile replaceStrings;
+    inherit (builtins) attrValues;
     inherit
       (lib)
       # keep-sorted start
@@ -47,24 +47,27 @@
       makeWrapper
       symlinkJoin
       writeShellScriptBin
-      writeText
       # keep-sorted end
       ;
     inherit (pkgs.stdenv.hostPlatform) system;
 
-    piPackage = inputs.pi-nix.packages.${system}.coding-agent-bun.overrideAttrs (old: {
-      patches =
-        (old.patches or [])
-        ++ [
-          ./patches/disable-llama-extension.patch
-          ./patches/disable-main-screen-autowrap.patch
-          # Match Pi 1.0's expanded tui import without changing the upstream patch.
-          (writeText "pi-native-mcp-lazy.patch" (replaceStrings
-            [''import type { SelectItem } from "@earendil-works/pi-tui";'']
-            [''import { hyperlink, type SelectItem } from "@earendil-works/pi-tui";'']
-            (readFile "${inputs.pi-suite}/patches/pi-native-mcp-lazy.patch")))
-        ];
-    });
+    piPackageBase = inputs.pi-nix.packages.${system}.coding-agent-bun;
+
+    # Patches target pi's workspace sources, which pi.nix builds into the runtime
+    # package tarballs; the runtime derivation itself only carries the npm lock.
+    piSource = pkgs.applyPatches {
+      name = "pi-source-patched";
+      src = piPackageBase.passthru.workspacePackages.src;
+      patches = [
+        ./patches/disable-llama-extension.patch
+        ./patches/disable-main-screen-autowrap.patch
+        "${inputs.pi-suite}/patches/pi-native-mcp-lazy.patch"
+      ];
+    };
+
+    piPackage = piPackageBase.override {
+      src = piSource;
+    };
     piSuite = inputs.pi-suite.packages.${system}.default.overrideAttrs (old: {
       postInstall =
         (old.postInstall or "")
