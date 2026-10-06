@@ -13,6 +13,10 @@
       url = "github:nix-community/disko?ref=latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    eh = {
+      url = "github:NotAShelf/eh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

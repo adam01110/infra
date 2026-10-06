@@ -96,6 +96,7 @@
         codexbar
         cpond
         direnv
+        eh
         gen-license
         gitfetch
         hyfetch

@@ -363,6 +363,26 @@
         "type": "github"
       }
     },
+    "eh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790587643,
+        "narHash": "sha256-U7fJQKbPScT82dbmLWOg/wriKqvDF+OCgTDGm8LtdEY=",
+        "owner": "NotAShelf",
+        "repo": "eh",
+        "rev": "196d9e1bf8604006ec10b20da29ffed6e725b559",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NotAShelf",
+        "repo": "eh",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -1479,6 +1499,7 @@
         "authentik-nix": "authentik-nix",
         "determinate": "determinate",
         "disko": "disko",
+        "eh": "eh",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
