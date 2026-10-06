@@ -1,7 +1,7 @@
 rec {
   # Identity shared across modules.
   # keep-sorted start
-  atprotoHandle = "adam0.dev";
+  atprotoHandle = orbitDomain;
   fullName = "Adam0";
   username = "adam0";
   # keep-sorted end
@@ -23,6 +23,6 @@ rec {
   # Domains.
   # keep-sorted start
   groundDomain = "zezura.xyz";
-  orbitDomain = "adam0.dev";
+  orbitDomain = "${username}.dev";
   # keep-sorted end
 }

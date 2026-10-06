@@ -22,7 +22,7 @@
         (old.postInstall or "")
         + ''
           rm -f $out/bin/,
-          rm -f $out/share/bash-completion/completions/,
+          rm -f $out/share/bash-completion/completions/,.bash
           rm -f $out/share/zsh/site-functions/_,
           rm -f $out/share/fish/vendor_completions.d/,.fish
         '';
