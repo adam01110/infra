@@ -5,6 +5,7 @@
       blur_intensity = 0.4;
       blurred_desktop = true;
       tint_intensity = 0.2;
+      transition = ["honeycomb"];
       # keep-sorted end
     };
 
