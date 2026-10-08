@@ -24,7 +24,6 @@
         # keep-sorted start
         appimage
         java
-        node-red
         winboat
         # keep-sorted end
 
@@ -101,6 +100,7 @@
         gen-license
         gitfetch
         hyfetch
+        node-red
         onefetch
         pi
         pipes

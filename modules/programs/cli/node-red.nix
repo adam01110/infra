@@ -1,19 +1,19 @@
 {
-  flake.modules.nixos.node-red = {
+  flake.modules.homeManager.node-red = {
     # keep-sorted start
-    pkgs,
     lib,
+    pkgs,
     # keep-sorted end
     ...
   }: let
     inherit (lib) makeBinPath;
     inherit
       (pkgs)
-      symlinkJoin
       makeWrapper
+      symlinkJoin
       ;
-  in {
-    environment.systemPackages = symlinkJoin {
+
+    node-red = symlinkJoin {
       name = "node-red";
       paths = [pkgs.node-red];
 
@@ -26,5 +26,7 @@
         ])}
       '';
     };
+  in {
+    home.packages = [node-red];
   };
 }
