@@ -24,6 +24,7 @@
         # keep-sorted start
         appimage
         java
+        node-red
         winboat
         # keep-sorted end
 
