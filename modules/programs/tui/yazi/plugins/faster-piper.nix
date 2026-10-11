@@ -1,13 +1,18 @@
 {
   flake.modules.homeManager.yazi = {
     # keep-sorted start
+    config,
     lib,
     pkgs,
     # keep-sorted end
     ...
   }: let
     inherit (lib) getExe;
-    inherit (lib.self) mkYaziUrlEntries;
+    inherit (lib.self) mkGlamourStyle mkYaziUrlEntries;
+
+    jsonFormat = pkgs.formats.json {};
+
+    glowStyle = jsonFormat.generate "glow-stylix.json" (mkGlamourStyle config.lib.stylix.colors.withHashtag);
 
     piper = "faster-piper --";
     systemdStatusPreview = getExe pkgs.systemd-status-preview;
@@ -19,7 +24,7 @@
       settings.plugin = {
         # keep-sorted start newline_separated=yes
         prepend_preloaders =
-          mkYaziUrlEntries "${piper} CLICOLOR_FORCE=1 glow -w=$w -s=dark -- \"$1\"" ["*.md"]
+          mkYaziUrlEntries "${piper} CLICOLOR_FORCE=1 glow -w=$w -s=${glowStyle} -- \"$1\"" ["*.md"]
           ++
           # SQLite database files.
           mkYaziUrlEntries ''${piper} sqlite3 -readonly "$1" ".schema --indent"'' ["*.{db,sqlite,sqlite3}"]

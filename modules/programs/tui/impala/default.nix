@@ -4,7 +4,6 @@
     config,
     lib,
     osConfig,
-    pkgs,
     # keep-sorted end
     ...
   }: let
@@ -17,13 +16,11 @@
       # keep-sorted end
       ;
 
-    pkg = pkgs.impala;
-
     cfgWifi = osConfig.capabilities.wifi;
   in {
     config = mkIf cfgWifi {
       # keep-sorted start block=yes newline_separated=yes
-      home.packages = [pkg];
+      programs.impala.enable = true;
 
       xdg.desktopEntries.impala = {
         name = "Impala";
@@ -32,7 +29,7 @@
 
         exec = let
           # keep-sorted start
-          impala = getExe' pkg "impala";
+          impala = getExe' config.programs.impala.package "impala";
           terminalCommand = getExe config.xdg.terminal-exec.package;
           # keep-sorted end
         in "${terminalCommand} --title=Impala ${impala}";
