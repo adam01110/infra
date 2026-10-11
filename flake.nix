@@ -4,6 +4,16 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
+    albedo-suite = {
+      url = "git+file:///home/adam0/Projects/albedo-suite?ref=main";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
       inputs.flake-parts.follows = "flake-parts";

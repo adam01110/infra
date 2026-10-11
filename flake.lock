@@ -1,5 +1,39 @@
 {
   "nodes": {
+    "albedo-suite": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "home-manager": [
+          "home-manager"
+        ],
+        "import-tree": [
+          "import-tree"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nur": "nur",
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791722275,
+        "narHash": "sha256-JTF/mFh3oLU2JsHqrMSH2INVYCwmMQ0x2mHK1oHFIRM=",
+        "ref": "main",
+        "rev": "9fc92f3c087cb1623967c04aa946884a106506cb",
+        "revCount": 1,
+        "type": "git",
+        "url": "file:///home/adam0/Projects/albedo-suite"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "file:///home/adam0/Projects/albedo-suite"
+      }
+    },
     "authentik-nix": {
       "inputs": {
         "authentik-src": "authentik-src",
@@ -1270,6 +1304,31 @@
         "url": "https://tangled.org/did:plc:b6k57yhdgjjytcqrstva6cbx"
       }
     },
+    "nur": {
+      "inputs": {
+        "flake-parts": [
+          "albedo-suite",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "albedo-suite",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791574175,
+        "narHash": "sha256-L1TNe2CIwsl178EYTTNd/wDj8T8KIqehna5nAX2CAJo=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "3bef01d390b2cf5ffacc7970a3574a21e7e89e67",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "nur_2": {
       "inputs": {
         "flake-parts": [
@@ -1496,6 +1555,7 @@
     },
     "root": {
       "inputs": {
+        "albedo-suite": "albedo-suite",
         "authentik-nix": "authentik-nix",
         "determinate": "determinate",
         "disko": "disko",

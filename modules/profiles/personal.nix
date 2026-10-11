@@ -111,6 +111,7 @@
 
         # TUI
         # keep-sorted start block=yes
+        albedo
         cava
         opencubicplayer
         scope-tui
