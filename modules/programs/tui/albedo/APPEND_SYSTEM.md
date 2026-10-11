@@ -53,8 +53,9 @@ edit there, not generated files in `$ALBEDO_HOME` or `~/.agents`. Nix-first.
 ## formatting
 
  formatting waits until work is complete, not after each write or edit batch.
- the formatter extension gates final replies for `files.write`/`files.edit` changes.
- review formatter feedback and fix failures before regenerating the final report.
+ configured formatters and LSP checks run on changed files before the final reply.
+ running one `nix fmt` once work is complete, before the final reply, is still useful.
+ review formatter changes and LSP diagnostics; fix failures before regenerating the final report.
  shell or remote changes? format those explicitly once complete, before reporting.
 
 ## version control
