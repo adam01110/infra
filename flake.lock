@@ -20,18 +20,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1791722275,
-        "narHash": "sha256-JTF/mFh3oLU2JsHqrMSH2INVYCwmMQ0x2mHK1oHFIRM=",
-        "ref": "main",
-        "rev": "9fc92f3c087cb1623967c04aa946884a106506cb",
-        "revCount": 1,
+        "lastModified": 1791726763,
+        "narHash": "sha256-LReU9S29cx45qo0SGLpdI5HTLpQh56E67pRNyUIOZ+8=",
+        "ref": "refs/heads/main",
+        "rev": "6e2a35d18982c56091500809cfc1eb2f2a119bed",
+        "revCount": 3,
         "type": "git",
-        "url": "file:///home/adam0/Projects/albedo-suite"
+        "url": "https://tangled.org/did:plc:4yew6fq5qsishjxq7mizijnz"
       },
       "original": {
-        "ref": "main",
         "type": "git",
-        "url": "file:///home/adam0/Projects/albedo-suite"
+        "url": "https://tangled.org/did:plc:4yew6fq5qsishjxq7mizijnz"
       }
     },
     "authentik-nix": {

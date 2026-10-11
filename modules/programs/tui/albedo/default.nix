@@ -1,6 +1,6 @@
 {inputs, ...}: {
   flake-file.inputs.albedo-suite = {
-    url = "git+file:///home/adam0/Projects/albedo-suite?ref=main";
+    url = "git+https://tangled.org/did:plc:4yew6fq5qsishjxq7mizijnz";
     # Keep the suite's NUR revision matched to its source pin.
     inputs = {
       # keep-sorted start

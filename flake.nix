@@ -5,7 +5,7 @@
 
   inputs = {
     albedo-suite = {
-      url = "git+file:///home/adam0/Projects/albedo-suite?ref=main";
+      url = "git+https://tangled.org/did:plc:4yew6fq5qsishjxq7mizijnz";
       inputs = {
         flake-parts.follows = "flake-parts";
         home-manager.follows = "home-manager";
