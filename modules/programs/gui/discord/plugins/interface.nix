@@ -34,6 +34,8 @@
 
       betterUploadButton.enable = true;
 
+      characterCounter.enable = true;
+
       cleanerChannelGroups.enable = true;
 
       clickableRoles.enable = true;
@@ -69,6 +71,8 @@
       globalBadges.enable = true;
 
       greetStickerPicker.enable = true;
+
+      homeTyping.enable = true;
 
       mentionAvatars.enable = true;
 

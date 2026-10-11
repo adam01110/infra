@@ -6,6 +6,12 @@
 
       gitHubRepos.enable = true;
 
+      googleThat = {
+        enable = true;
+        defaultEngine = "LetMeGoogleThatForYou";
+        hyperlink = true;
+      };
+
       openInApp = {
         enable = true;
       };

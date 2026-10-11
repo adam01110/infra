@@ -11,8 +11,8 @@
     inherit
       (lib)
       # keep-sorted start
-      escapeShellArg
       concatMapStringsSep
+      escapeShellArg
       # keep-sorted end
       ;
     inherit (lib.hm.dag) entryAfter;

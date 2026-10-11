@@ -6,6 +6,12 @@
 
       betterInvites.enable = true;
 
+      cancelFriendRequest.enable = true;
+
+      copyProfileColors.enable = true;
+
+      copyStatusUrls.enable = true;
+
       forceOwnerCrown.enable = true;
 
       friendshipRanks.enable = true;

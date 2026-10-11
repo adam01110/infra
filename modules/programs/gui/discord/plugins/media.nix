@@ -4,6 +4,8 @@
   in {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
+      betterImageEditor.enable = true;
+
       biggerStreamPreview.enable = true;
 
       callTimer = {
@@ -14,6 +16,8 @@
       disableCallIdle.enable = true;
 
       disableCameras.enable = !cfgCamera;
+
+      limitlessScreenshare.enable = true;
 
       mediaPlaybackSpeed.enable = true;
 
@@ -49,6 +53,8 @@
       voiceDownload.enable = true;
 
       voiceMessages.enable = true;
+
+      voiceMessagesInBackground.enable = true;
 
       volumeBooster.enable = true;
       # keep-sorted end

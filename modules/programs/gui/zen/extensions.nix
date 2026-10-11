@@ -34,6 +34,7 @@
         # keep-sorted start
         bitwarden
         pronoundb
+        shinigami-eyes
         violentmonkey
         # keep-sorted end
       ];
@@ -55,7 +56,6 @@
         "helloyanis@ageverif-bypass" = "age-verification-bypass";
         "knockoff@knockoff.shopping" = "knockoff";
         "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}" = "ttv-lol-pro";
-        "{microslop@4o4}" = "microslop";
         # keep-sorted end
       })
       // {

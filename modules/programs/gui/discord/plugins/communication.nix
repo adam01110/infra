@@ -8,6 +8,8 @@
   }: {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
+      addAttachments.enable = true;
+
       autoZipper.enable = true;
 
       betterCommands.enable = true;
@@ -59,6 +61,8 @@
 
       imageFilename.enable = true;
 
+      markdownTables.enable = true;
+
       messageBurst = {
         enable = true;
         timePeriod = 3;
@@ -93,6 +97,8 @@
         fixPunctuation = true;
         # keep-sorted end
       };
+
+      reactionTimestamps.enable = true;
 
       replyTimestamp.enable = true;
 
@@ -205,6 +211,7 @@
         blockedWords = "http, https";
       };
 
+      zipPreview.enable = true;
       # keep-sorted end
     };
   };

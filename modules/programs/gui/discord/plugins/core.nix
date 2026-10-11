@@ -30,11 +30,16 @@
         };
       };
 
-      crashHandler.attemptToNavigateToHome = true;
+      crashHandler = {
+        enable = true;
+        attemptToNavigateToHome = true;
+      };
 
       declutter.enable = true;
 
       equibopStreamFixes.enable = true;
+
+      loginWithQr.enable = true;
 
       newPluginsManager.enable = true;
 
