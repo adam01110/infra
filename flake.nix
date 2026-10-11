@@ -77,7 +77,6 @@
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
     nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/saltsprint";
     nixpkgs-crowdsec-blocklist-import.url = "github:gaelj/nixpkgs/init-crowdsec-blocklist-import";
-    nixpkgs-pi.url = "github:NixOS/nixpkgs/3ed67ec0a4d3c7ab4ae1f04f8ee8df07bfa506a2";
     noctalia-plugins = {
       url = "git+https://tangled.org/did:plc:b6k57yhdgjjytcqrstva6cbx";
       inputs = {
@@ -99,19 +98,6 @@
     };
     overzicht = {
       url = "git+https://tangled.org/did:plc:s2okz4xb2i7jtwk4sb35fofx";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        import-tree.follows = "import-tree";
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
-    pi-nix = {
-      url = "github:lukasl-dev/pi.nix";
-      inputs.nixpkgs.follows = "nixpkgs-pi";
-    };
-    pi-suite = {
-      url = "git+https://tangled.org/did:plc:yyq2r4sag7vtnnd36rvsnnuq";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";

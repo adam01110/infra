@@ -146,11 +146,6 @@
         prefixes = ["programs.overzicht"];
       };
 
-      pi-nix-home-manager = {
-        rawDoc = mkHomeManagerDoc inputs.pi-nix.homeModules.default;
-        prefixes = ["programs.pi"];
-      };
-
       sops-nix-home-manager = {
         rawDoc = mkHomeManagerDoc inputs.sops-nix.homeManagerModules.sops;
         prefixes = ["sops"];
@@ -205,11 +200,6 @@
       lanzaboote = {
         rawDoc = mkNixosDoc inputs.lanzaboote.nixosModules.lanzaboote;
         prefixes = ["boot.lanzaboote"];
-      };
-
-      pi-nix = {
-        rawDoc = mkNixosDoc inputs.pi-nix.nixosModules.default;
-        prefixes = ["programs.pi"];
       };
 
       sops-nix = {

@@ -11,7 +11,6 @@
 
         # Desktop
         # keep-sorted start block=yes
-        computerUseLinux
         hyprland
         keyd
         noctalia
@@ -102,7 +101,6 @@
         hyfetch
         node-red
         onefetch
-        pi
         pipes
         ripgrep-all
         rocksky
