@@ -18,11 +18,35 @@ child says done? claim, not evidence. read diff, run tests yourself.
   infrastructure gets one owner. roster in every brief; blockers go to owner.
 - cap from machine capacity. build-heavy? three default, different toolchains
   where possible. serialize heavy suites; children use targeted tests first.
-- `await agents.models()` before spawning; choose explicitly. cheap model for
-  reading, strong model for implementation/judgment. verify account can run it.
-  stalled, hollow twice, asks permission for assigned work? replace, not coach forever.
+- select model and thinking level using the rules below. verify account can run it.
+  stalled, hollow twice, asks permission for assigned work? replace within the
+  user's model ceiling, not coach forever.
 - fresh child `running=False`, no transcript? may still boot. end turn, wait
   for mail. no polling/sleep, no cancelling merely for that snapshot.
+
+## model and thinking selection
+
+- `await agents.models()` before spawning; use the live catalog, not remembered
+  model names. choose explicitly. use the latest available version of the
+  selected model or an eligible lower-tier member of its family.
+- the user's model choice is a capability/cost ceiling, not permission to use
+  every variant in the family. stay in that family at the same tier or lower;
+  explicit user model/version constraints take precedence. ask before moving
+  to a higher tier or another family, including when replacing a stalled child.
+- examples: `6.1-sol` permits the latest Sol, Luna, or Terra. use a lower tier
+  only when it can handle the task; Terra being eligible does not make it a
+  useful default. `deepseek-4.1-flash` permits the latest Flash or a suitable
+  lower tier, never Pro without user approval. version freshness does not
+  override the tier ceiling. unclear family/tier relationship? keep the
+  selected model rather than guessing an upgrade.
+- prefer the lowest supported thinking level sufficient for the task. simple
+  reading, extraction, or mechanical edits? use low, or off/none when offered.
+  reserve higher thinking for complex reasoning, ambiguous design, or difficult
+  debugging; do not default every child to the parent's thinking level.
+- configure thinking through the supported spawn/session controls; check the
+  available levels for the chosen model. do not invent parameters or levels.
+  raise thinking within the allowed model only when task complexity or observed
+  failures justify it; a harder task does not authorize a model-tier upgrade.
 
 ## brief
 
