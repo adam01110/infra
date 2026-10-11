@@ -49,9 +49,11 @@
         startAsUserService = true;
         backupCommand = "${pkgs.trash-cli}/bin/trash";
 
-        users.${username} = {lib, ...}: {
+        users.${username} = {lib, ...}: let
+          inherit (lib.hm.dag) entryAfter;
+        in {
           # Refresh removed units while the user manager is still starting.
-          home.activation.reloadStartingSystemd = lib.hm.dag.entryAfter ["reloadSystemd"] ''
+          home.activation.reloadStartingSystemd = entryAfter ["reloadSystemd"] ''
             systemdStatus=$(${pkgs.systemd}/bin/systemctl --user is-system-running 2>&1 || true)
             if [[ $systemdStatus == starting ]]; then
               run ${pkgs.systemd}/bin/systemctl --user daemon-reload
