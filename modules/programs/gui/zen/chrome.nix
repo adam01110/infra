@@ -130,7 +130,7 @@
             *::after {
               border-radius: 0px !important;
               font-family: "${config.stylix.fonts.sansSerif.name}" !important;
-              font-feature-settings: "calt" 1, "liga" 1, "dlig" 1 !important;
+              font-feature-settings: "calt" 0, "liga" 0, "dlig" 0 !important;
             }
 
             :is(pre, code, kbd, samp, tt),

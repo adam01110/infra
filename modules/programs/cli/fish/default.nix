@@ -34,6 +34,15 @@
 
           interactiveShellInit = concatStringsSep "\n" cfg.interactiveShellInitSnippets;
 
+          interactiveShellInitSnippets = [
+            # Ghostty shapes ligatures within a single color run, so the
+            # redirection color must match the parameter color for `->` and
+            # `=>` to ligate on the command line.
+            ''
+              set -g fish_color_redirection $fish_color_param
+            ''
+          ];
+
           binds = {
             # keep-sorted start
             "alt-d".erase = true;

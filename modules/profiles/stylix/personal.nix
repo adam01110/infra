@@ -34,10 +34,10 @@ in {
         };
 
         fonts = let
-          # Term spacing keeps Nerd Font symbols inside one cell.
+          # NL build ships without ligature glyphs.
           ioskeley = {
-            package = pkgs.ioskeley-mono.term-nf;
-            name = "IoskeleyMonoTerm Nerd Font Mono";
+            package = pkgs.ioskeley-mono.nl-nf;
+            name = "IoskeleyMonoNL Nerd Font Mono";
           };
         in {
           # keep-sorted start block=yes newline_separated=yes
