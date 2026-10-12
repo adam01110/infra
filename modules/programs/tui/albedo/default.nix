@@ -9,6 +9,7 @@
       import-tree.follows = "import-tree";
       nixpkgs.follows = "nixpkgs";
       treefmt-nix.follows = "treefmt-nix";
+      nur.follows = "nur";
       # keep-sorted end
     };
   };

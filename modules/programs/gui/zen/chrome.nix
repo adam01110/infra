@@ -129,17 +129,16 @@
             *::before,
             *::after {
               border-radius: 0px !important;
-              font-family: "${config.stylix.fonts.sansSerif.name}" !important;
-              font-feature-settings: "calt" 0, "liga" 0, "dlig" 0 !important;
             }
 
-            :is(pre, code, kbd, samp, tt),
-            :is(pre, code, kbd, samp, tt) * {
-              &,
-              &::before,
-              &::after {
-                font-family: "${config.stylix.fonts.monospace.name}" !important;
-              }
+            /* Set inherited defaults without replacing site icon fonts or ligatures. */
+            body {
+              font-family: "${config.stylix.fonts.sansSerif.name}" !important;
+              font-feature-settings: "calt" 0, "dlig" 0;
+            }
+
+            :is(pre, code, kbd, samp, tt) {
+              font-family: "${config.stylix.fonts.monospace.name}" !important;
             }
           '';
         })

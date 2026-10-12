@@ -1,7 +1,9 @@
 {
   flake.modules.homeManager.albedo = {
+    # keep-sorted start
     lib,
     pkgs,
+    # kee end
     ...
   }: let
     inherit (lib) getExe getExe';

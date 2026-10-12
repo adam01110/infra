@@ -14,17 +14,19 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nur": "nur",
+        "nur": [
+          "nur"
+        ],
         "treefmt-nix": [
           "treefmt-nix"
         ]
       },
       "locked": {
-        "lastModified": 1791797253,
-        "narHash": "sha256-q53u3H+ZyjODngagP+mbLmWyNI/JBAXRg0guaNSnmag=",
+        "lastModified": 1791809496,
+        "narHash": "sha256-8VoW1AvKuA788zs+F7y3TWFAgI4eyJ9k/AYvEIJBj6s=",
         "ref": "refs/heads/main",
-        "rev": "e9973790dc8c5e7f16ccd16553848e5137ce67da",
-        "revCount": 9,
+        "rev": "6749ab92e113693f0640928ebaa8659f97b6a335",
+        "revCount": 10,
         "type": "git",
         "url": "https://tangled.org/did:plc:4yew6fq5qsishjxq7mizijnz"
       },
@@ -1166,31 +1168,6 @@
     "nur": {
       "inputs": {
         "flake-parts": [
-          "albedo-suite",
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "albedo-suite",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1791574175,
-        "narHash": "sha256-L1TNe2CIwsl178EYTTNd/wDj8T8KIqehna5nAX2CAJo=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "3bef01d390b2cf5ffacc7970a3574a21e7e89e67",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
-        "type": "github"
-      }
-    },
-    "nur_2": {
-      "inputs": {
-        "flake-parts": [
           "flake-parts"
         ],
         "nixpkgs": [
@@ -1198,11 +1175,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791807092,
-        "narHash": "sha256-YHJI1M2GD+j8cmYEIGo/UnRhlHitanIV3arIwvI9a+0=",
+        "lastModified": 1791809774,
+        "narHash": "sha256-R1fL2Dbn2YTIr1QLtgSHRqKyO8bf/N6zAYPOXtGwYVc=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "a0a2d120a3ee1364f4d47b923495f160bf3a2ae5",
+        "rev": "b3fd6c34bd903be6c196f6139af9663d2e6287c0",
         "type": "github"
       },
       "original": {
@@ -1381,7 +1358,7 @@
         "nixpkgs-crowdsec": "nixpkgs-crowdsec",
         "nixpkgs-crowdsec-blocklist-import": "nixpkgs-crowdsec-blocklist-import",
         "noctalia-plugins": "noctalia-plugins",
-        "nur": "nur_2",
+        "nur": "nur",
         "nvf": "nvf",
         "overzicht": "overzicht",
         "sops-nix": "sops-nix",

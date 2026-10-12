@@ -1,13 +1,25 @@
 {
   flake.modules.homeManager.albedo = {
+    # keep-sorted start
     config,
     lib,
     pkgs,
     vars,
+    # keep-sorted end
     ...
   }: let
     inherit (builtins) attrValues;
-    inherit (lib) concatMap genAttrs getExe getExe' mapAttrs unique;
+    inherit
+      (lib)
+      # keep-sorted start
+      concatMap
+      genAttrs
+      getExe
+      getExe'
+      mapAttrs
+      unique
+      # keep-sorted end
+      ;
 
     mcps = {
       # keep-sorted start block=yes newline_separated=yes
