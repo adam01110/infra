@@ -28,11 +28,15 @@ edit there, not generated files in `$ALBEDO_HOME` or `~/.agents`. Nix-first.
 ## commands
 
 - command missing? `, command args...`. comma fails?
-  `nix run nixpkgs#package -- args...`. no permanent install unless asked.
+  `eh run nixpkgs#package -- args...`. no permanent install unless asked.
 - archive? `ouch`, never `zip`/`unzip`.
 - shell command: one line, no backslash continuation. too long? script.
 - independent probes? start jobs together in one Python cell, then await results.
 - root needed? load `sudo` skill first.
+- never rebuild or switch the system unless the user explicitly asks.
+  verification is not permission to rebuild.
+- use `nh` for requested system rebuilds, not `nixos-rebuild`.
+  use `eh` for Nix run, shell, build, develop, and related package operations.
 
 ## native tools
 
@@ -55,7 +59,8 @@ edit there, not generated files in `$ALBEDO_HOME` or `~/.agents`. Nix-first.
  formatting waits until work is complete, not after each write or edit batch.
  configured formatters and LSP checks run on changed files before the final reply.
  running one `nix fmt` once work is complete, before the final reply, is still useful.
- review formatter changes and LSP diagnostics; fix failures before regenerating the final report.
+ review formatter changes and LSP diagnostics; fix failures before regenerating
+ the final report.
  shell or remote changes? format those explicitly once complete, before reporting.
 
 ## version control
