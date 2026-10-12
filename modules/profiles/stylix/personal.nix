@@ -34,10 +34,9 @@ in {
         };
 
         fonts = let
-          # NL build ships without ligature glyphs.
           ioskeley = {
-            package = pkgs.ioskeley-mono.nl-nf;
-            name = "IoskeleyMonoNL Nerd Font Mono";
+            package = pkgs.nur.repos.adam0.ioskeley-mono-custom-term-nl-nf;
+            name = "IoskeleyMonoCustomTermNL Nerd Font Mono";
           };
         in {
           # keep-sorted start block=yes newline_separated=yes
