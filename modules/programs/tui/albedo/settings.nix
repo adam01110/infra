@@ -12,7 +12,7 @@
         # keep-sorted end
       };
 
-      showDiffs = true;
+      showDiffs = false;
       settings = {
         enabled = {
           # keep-sorted start
