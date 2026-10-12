@@ -33,24 +33,23 @@ in {
           package = pkgs.nur.repos.adam0.gruvbox-plus-icons;
         };
 
-        # Use JetBrainsMono without ligatures.
         fonts = let
           inherit (pkgs.nerd-fonts) jetbrains-mono;
         in {
           # keep-sorted start block=yes newline_separated=yes
           monospace = {
             package = jetbrains-mono;
-            name = "JetBrainsMonoNL Nerd Font Mono";
+            name = "JetBrainsMono Nerd Font Mono";
           };
 
           sansSerif = {
             package = jetbrains-mono;
-            name = "JetBrainsMonoNL Nerd Font Propo";
+            name = "JetBrainsMono Nerd Font Propo";
           };
 
           serif = {
             package = jetbrains-mono;
-            name = "JetBrainsMonoNL Nerd Font Propo";
+            name = "JetBrainsMono Nerd Font Propo";
           };
           # keep-sorted end
         };

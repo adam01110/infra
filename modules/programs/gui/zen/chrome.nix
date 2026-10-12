@@ -123,7 +123,7 @@
             }
           ];
 
-          # Remove rounded corners on sites and apply nix-userstyles themes.
+          # Apply global overrides alongside site themes.
           extraCss = ''
             *,
             *::before,

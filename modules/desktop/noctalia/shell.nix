@@ -35,7 +35,7 @@
           # keep-sorted start
           avatar_path = "${config.home.homeDirectory}/.face";
           corner_radius_scale = 0.0;
-          font_family = "JetBrainsMonoNL Nerd Font Propo";
+          font_family = "JetBrainsMono Nerd Font Propo";
           # keep-sorted end
 
           # Behavior

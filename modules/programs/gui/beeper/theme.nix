@@ -14,6 +14,10 @@
     rgb = self.lib.self.stylixRgb config.lib.stylix.colors;
     themeVars =
       colors
+      // {
+        monospaceFont = config.stylix.fonts.monospace.name;
+        sansSerifFont = config.stylix.fonts.sansSerif.name;
+      }
       // listToAttrs (
         map (name: {
           name = "${name}Rgb";
