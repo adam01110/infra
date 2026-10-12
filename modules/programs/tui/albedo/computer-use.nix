@@ -16,7 +16,7 @@
       dconf.settings."org/gnome/desktop/interface".toolkit-accessibility = true;
       home.packages = [hypruse];
 
-      programs.albedo.mcp.servers.hypruse = {
+      programs.albedo.mcp.servers.computer-use = {
         command = getExe hypruse;
         environment = {
           # keep-sorted start

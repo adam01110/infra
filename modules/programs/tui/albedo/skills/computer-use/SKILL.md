@@ -1,9 +1,9 @@
 ---
-name: hypruse
-description: Observe and control the local Hyprland desktop through Hypruse MCP. Use only when the user explicitly asks for computer use or invokes /hypruse; not for ordinary coding, shell tasks, or browser automation.
+name: computer-use
+description: Observe and control the local desktop through the computer-use MCP. Use only when the user explicitly asks for computer use or invokes /computer-use; not for ordinary coding, shell tasks, or browser automation.
 ---
 
-# Hypruse computer use
+# Computer use
 
 This controls the user's real desktop, not an isolated browser or sandbox.
 Use Albedo's browser tools for browser-only tasks. Do not use computer use
@@ -11,22 +11,21 @@ without explicit user authorization for the task.
 
 ## Start and stop
 
-1. `await mcp.load("hypruse")` discovers only this server. Inspect schemas with
-   `await mcp.describe("hypruse/desktop")` and the selected operation's schema;
-   do not guess arguments. `hypruse doctor` diagnoses missing dependencies.
-2. Start with `await mcp.call("hypruse/desktop")`. Prefer window addresses and
-   `ui` / `click_ui` accessible controls over pixel estimates. Do not print the
-   entire desktop inventory or accessibility tree unnecessarily.
+1. `await mcp.load("computer-use")` discovers only this server. Inspect schemas
+   with `await mcp.describe("computer-use/desktop")` and the selected operation's
+   schema;
+   do not guess arguments.
+2. Start with `await mcp.call("computer-use/desktop")`. Prefer window addresses
+   and `ui` / `click_ui` accessible controls over pixel estimates. Do not print
+   the entire desktop inventory or accessibility tree unnecessarily.
 3. Use targeted `screenshot` or `zoom` when accessibility cannot describe the
    surface. Re-observe after each action. Use short, known sequences, not a
    speculative plan that can submit or delete data.
-4. `await mcp.unload("hypruse")` when finished or interrupted. Do not leave a
-   server loaded for unrelated work.
+4. `await mcp.unload("computer-use")` when finished or interrupted. Do not leave
+   a server loaded for unrelated work.
 
-The package provides grim, wtype, busctl and ImageMagick. hyprctl must come
-from the running Hyprland session. No ydotool daemon or input group is needed.
-Lua-defined compositor keybind closures cannot be executed through use_bind;
-use the explicit window/workspace tools instead.
+Compositor keybind closures cannot be executed through use_bind; use the
+explicit window/workspace tools instead.
 
 ## Display screenshots
 
@@ -35,7 +34,7 @@ blocks in the active Python cell, and return them through show_image. Never
 print the base64 payload. Check isError before interpreting any result.
 
 ```python
-r = await mcp.call("hypruse/screenshot", window="active")
+r = await mcp.call("computer-use/screenshot", window="active")
 if r.isError:
     print(r)
 else:
@@ -73,5 +72,5 @@ small targets; never assume image pixels equal desktop coordinates.
   effects before deciding whether to retry; never replay input blindly.
 - Do not run multiple agents against the same seat or compete with the user.
   If focus or cursor changes unexpectedly, pause and re-observe.
-- Emergency stop: the user can run `hypruse stop`. Guards and tool annotations
-  do not enforce host approval and are not a security sandbox.
+- Guards and tool annotations do not enforce host approval and are not a
+  security sandbox.

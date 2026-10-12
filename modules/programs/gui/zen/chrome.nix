@@ -129,6 +129,17 @@
             *::before,
             *::after {
               border-radius: 0px !important;
+              font-family: "${config.stylix.fonts.sansSerif.name}" !important;
+              font-feature-settings: "calt" 1, "liga" 1, "dlig" 1 !important;
+            }
+
+            :is(pre, code, kbd, samp, tt),
+            :is(pre, code, kbd, samp, tt) * {
+              &,
+              &::before,
+              &::after {
+                font-family: "${config.stylix.fonts.monospace.name}" !important;
+              }
             }
           '';
         })
