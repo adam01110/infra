@@ -11,6 +11,16 @@
 
     mcps = {
       # keep-sorted start block=yes newline_separated=yes
+      canvas = {
+        command = getExe pkgs.nur.repos.adam0.canvas-api-mcp;
+        secrets = {
+          # keep-sorted start
+          CANVAS_BASE_URL = "ai/canvas_base_url";
+          CANVAS_TOKEN = "ai/canvas_token";
+          # keep-sorted end
+        };
+      };
+
       context7 = {
         command = getExe pkgs.context7-mcp;
         secrets.CONTEXT7_API_KEY = "ai/context7_key";
