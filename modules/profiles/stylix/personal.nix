@@ -34,23 +34,18 @@ in {
         };
 
         fonts = let
-          inherit (pkgs.nerd-fonts) jetbrains-mono;
+          # Term spacing keeps Nerd Font symbols inside one cell.
+          ioskeley = {
+            package = pkgs.ioskeley-mono.term-nf;
+            name = "IoskeleyMonoTerm Nerd Font Mono";
+          };
         in {
           # keep-sorted start block=yes newline_separated=yes
-          monospace = {
-            package = jetbrains-mono;
-            name = "JetBrainsMono Nerd Font Mono";
-          };
+          monospace = ioskeley;
 
-          sansSerif = {
-            package = jetbrains-mono;
-            name = "JetBrainsMono Nerd Font Propo";
-          };
+          sansSerif = ioskeley;
 
-          serif = {
-            package = jetbrains-mono;
-            name = "JetBrainsMono Nerd Font Propo";
-          };
+          serif = ioskeley;
           # keep-sorted end
         };
       };
