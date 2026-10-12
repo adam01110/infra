@@ -27,16 +27,15 @@ edit there, not generated files in `$ALBEDO_HOME` or `~/.agents`. Nix-first.
 
 ## commands
 
-- command missing? `, command args...`. comma fails?
-  `eh run nixpkgs#package -- args...`. no permanent install unless asked.
+- command missing? `, command args...`. comma fails? load `nix-cli`.
+  no permanent install unless asked.
 - archive? `ouch`, never `zip`/`unzip`.
 - shell command: one line, no backslash continuation. too long? script.
 - independent probes? start jobs together in one Python cell, then await results.
 - root needed? load `sudo` skill first.
 - never rebuild or switch the system unless the user explicitly asks.
   verification is not permission to rebuild.
-- use `nh` for requested system rebuilds, not `nixos-rebuild`.
-  use `eh` for Nix run, shell, build, develop, and related package operations.
+- Nix command execution? load `nix-cli` first.
 
 ## native tools
 
