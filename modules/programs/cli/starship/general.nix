@@ -13,8 +13,8 @@
       character = {
         format = "$symbol ";
         # keep-sorted start
-        error_symbol = "[➜](fg:red bold)";
-        success_symbol = "[➜](fg:green bold)";
+        error_symbol = "[](fg:red bold)";
+        success_symbol = "[](fg:green bold)";
         vimcmd_replace_one_symbol = "[](fg:magenta bold)";
         vimcmd_replace_symbol = "[](fg:magenta bold)";
         vimcmd_symbol = "[](fg:green bold)";

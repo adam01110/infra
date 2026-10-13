@@ -23,6 +23,7 @@
       languageId,
       languageIdByExtension ? genAttrs extensions (_: languageId),
       rootMarkers ? [".git"],
+      settings ? {},
     }: {
       inherit
         args
@@ -30,6 +31,7 @@
         id
         languageIdByExtension
         rootMarkers
+        settings
         ;
       enabled = true;
       include = map (extension: "**/*${extension}") extensions;
@@ -37,7 +39,6 @@
       startupTimeoutMs = 45000;
       diagnosticsWaitMs = 2000;
       initializationOptions = {};
-      settings = {};
     };
   in {
     programs.albedo.lsp = {
@@ -77,6 +78,7 @@
             args = ["--stdio"];
             extensions = [".css"];
             languageId = "css";
+            settings.css = {};
             rootMarkers = [
               # keep-sorted start
               ".git"

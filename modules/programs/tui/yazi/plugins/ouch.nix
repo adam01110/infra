@@ -3,6 +3,14 @@
     programs.yazi = {
       plugins.ouch = pkgs.yaziPlugins.ouch;
 
+      keymap.mgr.prepend_keymap = [
+        {
+          on = ["C"];
+          run = "plugin ouch";
+          desc = "Compress with ouch";
+        }
+      ];
+
       settings = {
         plugin.prepend_previewers = [
           {
@@ -11,26 +19,11 @@
           }
         ];
 
-        mgr.prepend_keymap = {
-          on = ["C"];
-          run = "plugin ouch";
-          desc = "Compress with ouch";
-        };
-
         opener.extract = [
-          # keep-sorted start block=yes newline_separated=yes
           {
-            run = "ouch d -y %*";
+            run = "ouch d -y %s";
             desc = "Extract here with ouch";
-            for = "windows";
           }
-
-          {
-            run = "ouch d -y '$@'";
-            desc = "Extract here with ouch";
-            for = "unix";
-          }
-          # keep-sorted end
         ];
       };
     };

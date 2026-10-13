@@ -4,7 +4,6 @@
       imports = with self.modules.nixos; [
         # keep-sorted start
         lsfg
-        optiscaler
         steam
         # keep-sorted end
       ];

@@ -21,13 +21,17 @@
     ouchWrapper = writeShellApplication {
       name = "ouch";
       text = ''
-        if [[ $# -ge 3 && "''${1-}" == compress ]]; then
-          archive="''${!#}"
+        case "''${1-}" in
+          c | compress)
+            if [[ $# -ge 3 ]]; then
+              archive="''${!#}"
 
-          if [[ "$archive" == *.rar ]]; then
-            exec ${rar} a "$archive" "''${@:2:$(($# - 2))}"
-          fi
-        fi
+              if [[ "$archive" == *.rar ]]; then
+                exec ${rar} a "$archive" "''${@:2:$(($# - 2))}"
+              fi
+            fi
+            ;;
+        esac
 
         exec ${ouch} "$@"
       '';
