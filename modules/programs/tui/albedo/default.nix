@@ -8,8 +8,8 @@
       home-manager.follows = "home-manager";
       import-tree.follows = "import-tree";
       nixpkgs.follows = "nixpkgs";
-      treefmt-nix.follows = "treefmt-nix";
       nur.follows = "nur";
+      treefmt-nix.follows = "treefmt-nix";
       # keep-sorted end
     };
   };

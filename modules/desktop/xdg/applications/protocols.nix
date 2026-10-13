@@ -23,9 +23,6 @@
       ++ (mimeAppEntries "x-scheme-handler" "obsidian.desktop" [
         "obsidian"
       ])
-      ++ (mimeAppEntries "x-scheme-handler" "onlyoffice-desktopeditors.desktop" [
-        "oo-office"
-      ])
       ++ (mimeAppEntries "x-scheme-handler" "org.prismlauncher.PrismLauncher.desktop" [
         # keep-sorted start
         "curseforge"

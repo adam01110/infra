@@ -50,9 +50,24 @@
         secrets.GITHUB_PERSONAL_ACCESS_TOKEN = "ai/github_token";
       };
 
+      gridcraft = {
+        args = ["mcp"];
+        command = getExe' pkgs.nur.repos.quriosity.gridcraft "gridcraft-cli";
+      };
+
       tangled = {
         command = getExe' pkgs.nur.repos.adam0.tg "tgmcp";
         environment.TGMCP_ACCOUNT = vars.atprotoHandle;
+      };
+
+      wordcraft = {
+        args = ["mcp"];
+        command = getExe' pkgs.nur.repos.quriosity.wordcraft "wordcraft-cli";
+      };
+
+      deckcraft = {
+        args = ["mcp"];
+        command = getExe' pkgs.nur.repos.quriosity.deckcraft "deckcraft-cli";
       };
       # keep-sorted end
     };

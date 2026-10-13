@@ -124,18 +124,20 @@
         bleachbit
         crosspipe
         decibels
+        deckcraft
         discord
         eduvpn
         flatseal
         gimp
         gotify-desktop
+        gridcraft
         loupe
-        onlyoffice
         proton
         seahorse
         showtime
         spotify
         tangled
+        wordcraft
         zaread
         zathura
         zen
