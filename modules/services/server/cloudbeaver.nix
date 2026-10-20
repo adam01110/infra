@@ -112,8 +112,13 @@
           # keep-sorted end
 
           serviceConfig = {
+            # keep-sorted start
+            Restart = "on-failure";
+            RestartForceExitStatus = [143];
+            RestartSec = "10s";
             SuccessExitStatus = [143];
             TimeoutStopSec = mkForce "60s";
+            # keep-sorted end
           };
         };
       };
