@@ -20,6 +20,7 @@
       unique
       # keep-sorted end
       ;
+    inherit (pkgs) writeShellApplication;
 
     mcps = {
       # keep-sorted start block=yes newline_separated=yes
@@ -53,6 +54,31 @@
       gridcraft = {
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.gridcraft "gridcraft-cli";
+      };
+
+      penpot = {
+        command = getExe (writeShellApplication {
+          name = "penpot-mcp";
+          runtimeInputs = with pkgs; [
+            # keep-sorted start
+            mcp-proxy
+            python3
+            # keep-sorted end
+          ];
+          text = ''
+            export SSE_URL
+            SSE_URL="$(python3 - <<'PY'
+            import os
+            import urllib.parse
+
+            key = os.environ.get("PENPOT_MCP_KEY", "").strip()
+            print("https://penpot.${vars.groundDomain}/mcp/stream?userToken=" + urllib.parse.quote(key, safe=""))
+            PY
+            )"
+            exec mcp-proxy --transport streamablehttp
+          '';
+        });
+        secrets.PENPOT_MCP_KEY = "ai/penpot_key";
       };
 
       tangled = {
