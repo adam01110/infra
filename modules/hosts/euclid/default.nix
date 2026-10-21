@@ -12,7 +12,6 @@
 
       # Services
       # keep-sorted start
-      anubis
       apprise
       authentik
       cloudbeaver
@@ -26,7 +25,6 @@
       protonWireguard
       spindleMicrovm
       traefik
-      valkey
       wireguard
       # keep-sorted end
     ];

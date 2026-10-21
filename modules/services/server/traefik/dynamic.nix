@@ -14,11 +14,6 @@
       http = {
         middlewares = {
           # keep-sorted start block=yes newline_separated=yes
-          anubis.forwardAuth = {
-            address = "http://127.0.0.1:8923/.within.website/x/cmd/anubis/api/check";
-            trustForwardHeader = true;
-          };
-
           authentik-proxy.forwardAuth = {
             address = "http://[::1]:9005/outpost.goauthentik.io/auth/traefik";
             trustForwardHeader = true;
@@ -66,16 +61,9 @@
 
         routers = {
           # keep-sorted start block=yes newline_separated=yes
-          anubis = {
-            entryPoints = ["websecure"];
-            rule = "Host(`anubis.${groundDomain}`)";
-            service = "anubis";
-          };
-
           apprise = {
             entryPoints = ["websecure"];
             middlewares = [
-              "anubis@file"
               "authentik@file"
             ];
             rule = "Host(`apprise.${groundDomain}`)";
@@ -84,14 +72,12 @@
 
           authentik = {
             entryPoints = ["websecure"];
-            middlewares = ["anubis@file"];
             rule = "Host(`authentik.${groundDomain}`)";
             service = "authentik";
           };
 
           authentik-outpost = {
             entryPoints = ["websecure"];
-            middlewares = ["anubis@file"];
             priority = 15;
             rule = "Host(`traefik.${groundDomain}`) && PathPrefix(`/outpost.goauthentik.io/`)";
             service = "authentik-outpost";
@@ -100,7 +86,6 @@
           cloudbeaver = {
             entryPoints = ["websecure"];
             middlewares = [
-              "anubis@file"
               "authentik@file"
             ];
             rule = "Host(`cloudbeaver.${groundDomain}`)";
@@ -109,29 +94,19 @@
 
           dockhand = {
             entryPoints = ["websecure"];
-            middlewares = ["anubis@file"];
             rule = "Host(`dockhand.${groundDomain}`)";
             service = "dockhand";
           };
 
           gotify = {
             entryPoints = ["websecure"];
-            middlewares = ["anubis@file"];
             rule = "Host(`gotify.${groundDomain}`)";
             service = "gotify";
-          };
-
-          robots = {
-            entryPoints = ["websecure"];
-            priority = 100;
-            rule = "Path(`/robots.txt`)";
-            service = "anubis";
           };
 
           traefik-dashboard = {
             entryPoints = ["websecure"];
             middlewares = [
-              "anubis@file"
               "authentik@file"
             ];
             rule = "Host(`traefik.${groundDomain}`)";
@@ -142,10 +117,6 @@
 
         services = {
           # keep-sorted start block=yes newline_separated=yes
-          anubis.loadBalancer.servers = [
-            {url = "http://127.0.0.1:8923";}
-          ];
-
           apprise.loadBalancer.servers = [
             {url = "http://10.100.0.1:8000";}
           ];

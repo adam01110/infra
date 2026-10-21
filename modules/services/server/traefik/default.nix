@@ -49,13 +49,11 @@
       services.traefik = {
         after = [
           # keep-sorted start
-          "anubis-traefik.service"
           "podman.socket"
           # keep-sorted end
         ];
         wants = [
           # keep-sorted start
-          "anubis-traefik.service"
           "podman.socket"
           # keep-sorted end
         ];
