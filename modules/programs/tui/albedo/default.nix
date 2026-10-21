@@ -13,8 +13,31 @@
     };
   };
 
-  flake.modules.homeManager.albedo = {config, ...}: {
-    imports = [inputs.albedo-suite.homeManagerModules.default];
+  flake.modules.homeManager.albedo = {
+    # keep-sorted start
+    config,
+    pkgs,
+    # keep-sorted end
+    ...
+  }: let
+    # Use the host package set so the suite inherits its unfree policy.
+    suite = (import "${inputs.albedo-suite}/flake.nix").outputs suiteInputs;
+    suiteInputs =
+      inputs.albedo-suite.inputs
+      // {
+        self = inputs.albedo-suite // suite // {inputs = suiteInputs;};
+        nixpkgs =
+          inputs.nixpkgs
+          // {
+            legacyPackages =
+              inputs.nixpkgs.legacyPackages
+              // {
+                ${pkgs.stdenv.hostPlatform.system} = pkgs;
+              };
+          };
+      };
+  in {
+    imports = [suite.homeManagerModules.default];
     programs.albedo = {
       enable = true;
       appendInstructions = ./APPEND_SYSTEM.md;

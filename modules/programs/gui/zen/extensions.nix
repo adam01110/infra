@@ -25,7 +25,6 @@
         libredirect
         modrinthify
         return-youtube-dislikes
-        terms-of-service-didnt-read
         translate-web-pages
         wikiwand-wikipedia-modernized
         # keep-sorted end
@@ -54,6 +53,7 @@
         "@crw-extension-firefox" = "consumer-rights-wiki";
         "aturi@dame.is" = "aturi";
         "helloyanis@ageverif-bypass" = "age-verification-bypass";
+        "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack" = "terms-of-service-didnt-read";
         "knockoff@knockoff.shopping" = "knockoff";
         "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}" = "ttv-lol-pro";
         # keep-sorted end
