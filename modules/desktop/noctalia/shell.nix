@@ -58,7 +58,15 @@
 
           animation.speed = 2.0;
 
-          launcher.providers.calculator.global = false;
+          launcher.providers = {
+            # keep-sorted start
+            emoji.global = true;
+            panels.global = true;
+            session.global = true;
+            wallpaper.global = true;
+            windows.global = true;
+            # keep-sorted end
+          };
 
           panel = {
             # Appearance
