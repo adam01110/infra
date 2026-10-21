@@ -61,7 +61,12 @@
       crowdsec.settings.acquisitions = [
         # keep-sorted start block=yes newline_separated=yes
         {
-          appsec_configs = ["crowdsecurity/appsec-default"];
+          appsec_configs = [
+            # keep-sorted start
+            "crowdsecurity/appsec-default"
+            "crowdsecurity/crs"
+            # keep-sorted end
+          ];
           labels.type = "appsec";
           listen_addr = "127.0.0.1:7424";
           source = "appsec";

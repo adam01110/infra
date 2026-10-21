@@ -42,6 +42,7 @@
           "LePresidente/jellyfin"
           "LePresidente/jellyseerr"
           "baudneo/gotify"
+          "crowdsecurity/appsec-crs"
           "crowdsecurity/appsec-generic-rules"
           "crowdsecurity/appsec-virtual-patching"
           "crowdsecurity/http-cve"
