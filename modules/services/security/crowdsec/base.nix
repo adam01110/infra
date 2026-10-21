@@ -45,6 +45,7 @@
           "crowdsecurity/appsec-crs"
           "crowdsecurity/appsec-generic-rules"
           "crowdsecurity/appsec-virtual-patching"
+          "crowdsecurity/appsec-wordpress"
           "crowdsecurity/http-cve"
           "crowdsecurity/sshd"
           "crowdsecurity/traefik"
