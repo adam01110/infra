@@ -75,7 +75,6 @@
       };
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
-    nixpkgs-crowdsec.url = "github:TornaxO7/nixpkgs/saltsprint";
     nixpkgs-crowdsec-blocklist-import.url = "github:gaelj/nixpkgs/init-crowdsec-blocklist-import";
     noctalia-plugins = {
       url = "git+https://tangled.org/did:plc:b6k57yhdgjjytcqrstva6cbx";

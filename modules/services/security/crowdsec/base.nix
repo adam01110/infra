@@ -3,25 +3,11 @@
     # keep-sorted start
     config,
     pkgs,
-    self,
     # keep-sorted end
     ...
   }: {
-    nixpkgs.overlays = [self.overlays.crowdsec];
-
-    disabledModules = [
-      # keep-sorted start
-      "services/security/crowdsec-firewall-bouncer.nix"
-      "services/security/crowdsec.nix"
-      # keep-sorted end
-    ];
-
     imports = [
-      # keep-sorted start
       "${inputs.nixpkgs-crowdsec-blocklist-import}/nixos/modules/services/security/crowdsec-blocklist-import.nix"
-      "${inputs.nixpkgs-crowdsec}/nixos/modules/services/security/crowdsec-firewall-bouncer.nix"
-      "${inputs.nixpkgs-crowdsec}/nixos/modules/services/security/crowdsec/default.nix"
-      # keep-sorted end
     ];
 
     environment.etc."crowdsec/postoverflows/s01-whitelist/curacao.yaml".source =
@@ -96,14 +82,5 @@
         ${pkgs.crowdsec}/bin/cscli postoverflows remove "$postoverflow" --force --purge || true
       done
     '';
-
-    users = {
-      groups.${config.services.crowdsec.group} = {};
-
-      users.${config.services.crowdsec.user} = {
-        group = config.services.crowdsec.group;
-        isSystemUser = true;
-      };
-    };
   };
 }
