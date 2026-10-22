@@ -7,7 +7,7 @@ license: AGPL-3.0-only
 compatibility: Requires access to the text being edited.
 metadata:
   author: Adam0
-  version: "1.0.0"
+  version: "1.1.0"
   short-description: Remove AI writing patterns without changing meaning
 allowed-tools: read edit write
 ---
@@ -19,6 +19,11 @@ allowed-tools: read edit write
 text has AI tells? scan, rewrite, check meaning and intended tone stay.
 edit writing, not facts. no invented sources, measurements, or certainty.
 return edited text unless user asks for explanation.
+
+These are editorial checks, not proof of AI authorship. Preserve the intended
+voice, genuine opinions and feelings, necessary explanation, and honest
+uncertainty. Do not turn all prose into neutral encyclopedia writing. Cleanup
+alone does not authorize imitating the user or changing another author's voice.
 
 rule ids stay stable for other skills. gaps intentional. never renumber.
 
@@ -84,3 +89,31 @@ rule ids stay stable for other skills. gaps intentional. never renumber.
     verbs, stock framing. "rides along" -> "is included". say literal meaning.
 33. do not over-compress edited prose. keep articles and verbs. spell out arrows
     and abbreviations when reader must decode. short whole sentences beat shorthand.
+
+## evidence and unfinished text
+
+34. citations or source identifiers? check that the source exists and supports
+    the attached claim. correct mismatches only from verified evidence; never
+    invent replacement citations. cannot verify? flag the limitation rather
+    than claim verification or silently remove potentially valid evidence.
+35. claims of significance, influence, recognition, or broad reception? keep
+    them proportionate to supplied facts or sources. an isolated mention or
+    media list does not establish widespread acclaim. preserve clearly stated
+    personal opinion without presenting it as independent consensus.
+36. informational prose uses advertising-like praise instead of facts? replace
+    unsupported superlatives with specific supported description. keep genuine
+    enthusiasm, subjective judgments, and the requested persuasive genre;
+    positive language alone is not an error or a sign of AI authorship.
+37. irrelevant model-cutoff disclaimers or assistant-access claims in the draft?
+    remove them from the deliverable. preserve material uncertainty and relevant
+    historical dates. check time-sensitive claims before presenting them as
+    current; if unverified, qualify or flag them instead of guessing.
+38. abrupt truncation, drafting instructions, or unresolved placeholders? resolve
+    only from supplied or verified information. flag missing essential content;
+    do not invent it or silently cut it to make the draft appear complete.
+    keep intentional placeholders when the user requests a template.
+
+These additions draw on
+[Wikipedia's signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing).
+Its indicators are descriptive and context-dependent; Wikipedia-only markup
+and editorial conventions are not general requirements for other prose.
