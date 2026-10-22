@@ -41,7 +41,12 @@
 
       excalidash = {
         command = getExe pkgs.nur.repos.adam0.excalidash-mcp;
-        environment.EXCALIDASH_URL = "https://excalidash.${vars.groundDomain}";
+        environment = {
+          # keep-sorted start
+          EXCALIDASH_BACKEND_URL = "https://excalidash.${vars.groundDomain}/api";
+          EXCALIDASH_URL = "https://excalidash.${vars.groundDomain}";
+          # keep-sorted end
+        };
         secrets.EXCALIDASH_API_KEY = "ai/excalidash_key";
       };
 
