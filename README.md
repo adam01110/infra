@@ -1,10 +1,12 @@
+<!-- rumdl-disable MD033 MD041 -->
+
 <div align="center">
   <img src="./assets/face.png" alt="Avatar" width="112" />
   <img src="./assets/nix.png" alt="Nix logo" width="112" />
 
   # adam0's infra
 
-  The Nix flake that keeps my desktop, laptop, and homelab server reproducible.
+  NixOS and Home Manager configuration for my desktop, laptop and homelab server.
 
   [![Repo Size](https://img.shields.io/github/repo-size/adam01110/infra?style=flat-square&label=repo%20size&labelColor=504945&color=3c3836)](https://github.com/adam01110/infra)
   <br />
@@ -15,42 +17,70 @@
   [![SOPS Nix](https://img.shields.io/badge/SOPS%20Nix-secrets-fe8019?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://github.com/Mic92/sops-nix)
   [![Disko](https://img.shields.io/badge/Disko-storage-98971a?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://github.com/nix-community/disko)
 
-  [What This Is](#what-this-is) - [Machines](#machines) - [Layout](#layout)
+  [Machines](#machines) - [Configuration](#configuration) - [Layout](#layout) - [Making changes](#making-changes)
 </div>
 
-This is my personal infrastructure repo. It is mostly here so I can rebuild my own machines without trying to remember every package, service, kernel tweak, browser preference, shell setting, and desktop detail by hand.
+<!-- rumdl-enable MD033 MD041 -->
 
-It is not meant to be a starter template. Some parts are reusable, but a lot of it is deliberately shaped around my hardware, my domains, my secrets layout, and the way I like my desktop to feel.
+This repo contains the NixOS and Home Manager configuration for my `desktop`,
+`laptop` and `euclid` server.
 
-## What This Is
-
-- A multi-host NixOS flake for my `desktop`, `laptop`, and `euclid` server.
-- Home Manager configuration for the user-facing parts of my setup.
-- A Hyprland desktop built around UWSM, tuigreet, Noctalia Shell, Stylix, Zen Browser, themed apps, and a lot of small quality-of-life modules.
-- A homelab/server stack for services like Authentik, Traefik, WireGuard, CrowdSec, databases, notifications, and media-related tooling.
-- Local packages, overlays, preview helpers, and small libraries that make the rest of the tree less repetitive.
-
-The repo is wired with `flake-parts`, `flake-file`, and `import-tree`, so most of the structure is discovered from `modules/` instead of being manually listed in one giant flake file.
+If you want to use parts of it, check the hardware settings, disk layouts and
+secrets first. Those are configured for these machines, so they will need
+changes before using them on another system.
 
 ## Machines
 
-| Host | What it is |
-| --- | --- |
-| `desktop` | Main workstation |
-| `laptop` | Portable system |
-| `euclid` | Homelab server |
+| Host | Purpose | Configuration |
+| --- | --- | --- |
+| `desktop` | Desktop | [Desktop configuration](modules/hosts/desktop/) |
+| `laptop` | Laptop | [Laptop configuration](modules/hosts/laptop/) |
+| `euclid` | Homelab server | [Server configuration](modules/hosts/euclid/) |
+
+## Configuration
+
+The desktop and laptop use Hyprland with UWSM, Noctalia Shell and tuigreet.
+Stylix handles theming, and the application configuration includes Zen Browser,
+Neovim, Fish and the other programs in [`modules/programs/`](modules/programs/).
+
+The server configuration includes Traefik, Authentik, WireGuard and CrowdSec,
+with databases, notifications and container services. The server's service
+imports are in
+[`modules/hosts/euclid/default.nix`](modules/hosts/euclid/default.nix).
+
+Disko defines the disk layouts in
+[`modules/profiles/partitioning/`](modules/profiles/partitioning/). Secrets
+are stored in `secrets.yaml` and loaded through SOPS Nix. The system expects an
+existing Age key at `/var/lib/sops-nix/key.txt`; it does not generate one.
 
 ## Layout
 
-| Path | Purpose |
+| Path | What is there |
 | --- | --- |
-| `assets/` | README images and shared static assets |
-| `lib/` | Small helper libraries for Hyprland, Stylix, MIME, Starship, Yazi, and environment handling |
-| `modules/hosts/` | The actual machine entrypoints |
-| `modules/desktop/` | Hyprland, Noctalia, greetd, UWSM, portals, clipboard, tablet, MangoHud, and desktop glue |
-| `modules/programs/` | CLI, TUI, GUI, browser, Git, GPG, SSH, GTK, Java, and Nix-LD modules |
-| `modules/services/` | Audio, networking, power, storage, containers, homelab services, and system tuning |
-| `modules/profiles/` | Shared base, personal, server, gaming, partitioning, locale, and theming profiles |
-| `modules/pkgs/` | Local packages, adapters, previews, and overlays |
-| `modules/nix/` | Flake inputs, Nix settings, Home Manager, SOPS, kernel, firmware, and boot-related modules |
-| `vars.nix` | Shared identity, Git metadata, locale, and domain defaults |
+| [`modules/hosts/`](modules/hosts/) | Host configuration and hardware settings |
+| [`modules/profiles/`](modules/profiles/) | Base, personal, server and gaming profiles, partitioning and theming |
+| [`modules/desktop/`](modules/desktop/) | Hyprland, Noctalia, login and desktop settings |
+| [`modules/programs/`](modules/programs/) | Application and shell configuration |
+| [`modules/services/`](modules/services/) | Networking, security, storage and server services |
+| [`modules/nix/`](modules/nix/) | Nix, Home Manager, secrets, boot and input configuration |
+| [`modules/development/`](modules/development/) | Development shell and formatter configuration |
+| [`modules/pkgs/`](modules/pkgs/) | Local packages, overlays and helper scripts |
+| [`lib/`](lib/) | Helper functions used by the modules |
+| [`vars.nix`](vars.nix) | Shared user, locale and domain settings |
+| [`assets/`](assets/) | README images |
+
+## Making changes
+
+For a machine-specific change, start in [`modules/hosts/`](modules/hosts/).
+The desktop and laptop import the `personal` and `gaming` profiles; `euclid`
+imports `server`. The profiles select the application and service modules for
+each setup.
+
+The flake uses `flake-parts` and `import-tree` to load the files under
+`modules/`. Defining a named NixOS or Home Manager module does not enable it;
+it still needs to be imported by a host or profile.
+
+`flake.nix` is generated by `flake-file`. Input declarations are kept in the
+module files, including [`modules/nix/dendritic.nix`](modules/nix/dendritic.nix),
+so make input changes there and regenerate the flake rather than editing the
+generated file.
