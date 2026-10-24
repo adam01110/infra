@@ -22,6 +22,11 @@
       ;
     inherit (pkgs) writeShellApplication;
 
+    # mcp-proxy 0.13 requires the MCP 1.x SDK.
+    mcpProxy = pkgs.mcp-proxy.override {
+      python3Packages = pkgs.python3Packages // {mcp = pkgs.python3Packages.mcp_1;};
+    };
+
     mcps = {
       # keep-sorted start block=yes newline_separated=yes
       canvas = {
@@ -70,10 +75,10 @@
         description = "Load when the user asks to inspect or change a Penpot design, extract its assets, or implement a UI from an existing Penpot design.";
         command = getExe (writeShellApplication {
           name = "penpot-mcp";
-          runtimeInputs = with pkgs; [
+          runtimeInputs = [
             # keep-sorted start
-            mcp-proxy
-            python3
+            mcpProxy
+            pkgs.python3
             # keep-sorted end
           ];
           text = ''
