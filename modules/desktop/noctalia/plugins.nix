@@ -64,6 +64,8 @@
           manager_open_near_click = true;
         };
 
+        "ashur-d/nvim-projects".max_results = 16;
+
         "avivbintangaringga/nix-monitor" = {
           # keep-sorted start
           clean_command = "nh clean all";
@@ -128,7 +130,9 @@
           # keep-sorted start
           "adam0/albedo-monitor"
           "aristides/udiskie"
+          "ashur-d/nvim-projects"
           "avivbintangaringga/nix-monitor"
+          "cleboost/ssh-launcher"
           "detluck/performance-plus"
           "kenn/keybind-cheatsheet"
           "nightwatch75/file-search"
@@ -136,6 +140,7 @@
           "noctalia/screen_recorder"
           "noctalia/world_clock"
           "oldirtty/color_picker"
+          "weinguyen/shell-command"
           # keep-sorted end
         ];
 
