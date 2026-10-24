@@ -38,6 +38,7 @@
       };
   in {
     imports = [suite.homeManagerModules.default];
+    _module.args.albedoSuitePackages = suite.packages.${pkgs.stdenv.hostPlatform.system};
     programs.albedo = {
       enable = true;
       appendInstructions = ./APPEND_SYSTEM.md;

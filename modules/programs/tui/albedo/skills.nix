@@ -1,6 +1,7 @@
-{inputs, ...}: {
+{
   flake.modules.homeManager.albedo = {
     # keep-sorted start
+    albedoSuitePackages,
     config,
     lib,
     pkgs,
@@ -17,7 +18,7 @@
       ;
     inherit (lib.hm.dag) entryAfter;
 
-    inherit (inputs.albedo-suite.packages.${pkgs.stdenv.hostPlatform.system}) albedo-configure;
+    inherit (albedoSuitePackages) albedo-configure;
 
     jsonFormat = pkgs.formats.json {};
 

@@ -13,6 +13,7 @@
 
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
+    albedoSuitePackages,
     config,
     lib,
     pkgs,
@@ -21,7 +22,7 @@
   }: let
     inherit (lib) getExe;
 
-    inherit (inputs.albedo-suite.packages.${pkgs.stdenv.hostPlatform.system}) albedo-monitor;
+    inherit (albedoSuitePackages) albedo-monitor;
 
     jsonFormat = pkgs.formats.json {};
 
