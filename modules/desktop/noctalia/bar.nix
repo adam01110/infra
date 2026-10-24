@@ -86,10 +86,10 @@
               "tray"
               "performance"
               "group:g2"
+              "group:g3"
             ]
             ++ optional cfgBluetooth "bluetooth"
             ++ [
-              "group:g3"
               "brightness"
             ]
             ++ optional cfgBattery "battery"
