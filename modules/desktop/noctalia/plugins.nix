@@ -39,7 +39,6 @@
         # keep-sorted start
         fzf
         hyprpicker
-        performance-mode
         udiskie
         udisks2
         # keep-sorted end
@@ -61,6 +60,15 @@
           optimize_command = "nix store optimise";
           panel_open_near_click = true;
           panel_placement = "floating";
+          # keep-sorted end
+        };
+
+        "detluck/performance-plus" = {
+          # keep-sorted start
+          clear_notifications = false;
+          disable_osd = false;
+          enable_dnd = false;
+          set_power_profile = false;
           # keep-sorted end
         };
 
@@ -108,9 +116,9 @@
         auto_update = "all";
         enabled = [
           # keep-sorted start
-          "adam0/performance"
           "aristides/udiskie"
           "avivbintangaringga/nix-monitor"
+          "detluck/performance-plus"
           "kenn/keybind-cheatsheet"
           "nightwatch75/file-search"
           "noctalia/kaomoji"

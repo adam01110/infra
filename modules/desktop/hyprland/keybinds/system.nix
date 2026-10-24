@@ -32,10 +32,10 @@
         }
 
         {
-          description = "Performance mode";
+          description = "Performance Plus";
 
           keys = ["SUPER" "F1"];
-          exec = "${noctalia} plugin adam0/performance:toggle focused:main toggle";
+          exec = "${noctalia} plugin detluck/performance-plus:service all toggle";
         }
 
         {

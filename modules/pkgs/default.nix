@@ -17,7 +17,6 @@
       jj-conflict-nvim
       man-preview
       os-age
-      performance-mode
       proton-indexer-proxy
       proton-port-forward
       rclone-bisync-runner

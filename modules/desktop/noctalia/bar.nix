@@ -294,7 +294,7 @@
 
         performance = {
           color = "on_surface";
-          type = "adam0/performance:toggle";
+          type = "detluck/performance-plus:indicator";
         };
 
         privacy.hide_inactive = true;
