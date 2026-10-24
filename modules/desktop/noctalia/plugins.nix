@@ -59,7 +59,7 @@
           refreshIntervalSec = 60;
         };
 
-        "aristides/udiskie" = {
+        "adam0/udiskie" = {
           auto_open_filemanager = true;
           manager_open_near_click = true;
         };
@@ -129,7 +129,7 @@
         enabled = [
           # keep-sorted start
           "adam0/albedo-monitor"
-          "aristides/udiskie"
+          "adam0/udiskie"
           "ashur-d/nvim-projects"
           "avivbintangaringga/nix-monitor"
           "cleboost/ssh-launcher"

@@ -300,7 +300,7 @@
 
         status = {
           color = "on_surface";
-          type = "aristides/udiskie:status";
+          type = "adam0/udiskie:status";
         };
 
         swap = mkStat "swap_pct";
