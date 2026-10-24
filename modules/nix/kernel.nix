@@ -20,11 +20,11 @@
       nixpkgs.overlays = [self.overlays.nix-cachyos-kernel];
 
       nix.settings = let
-        cache = "https://attic.xuyh0120.win/lantian";
+        cache = "https://cache.lantian.pub/lantian";
       in {
         substituters = [cache];
         trusted-substituters = [cache];
-        trusted-public-keys = ["lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="];
+        trusted-public-keys = ["lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ="];
       };
 
       # Use cachyos kernel for performance optimizations.
