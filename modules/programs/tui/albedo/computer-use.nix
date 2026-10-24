@@ -17,6 +17,7 @@
       home.packages = [hypruse];
 
       programs.albedo.mcp.servers.computer-use = {
+        description = "Load only when the user explicitly asks to observe or interact with the local desktop, or invokes /computer-use; not for ordinary coding, shell tasks or browser automation.";
         command = getExe hypruse;
         environment = {
           # keep-sorted start
