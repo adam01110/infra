@@ -168,7 +168,7 @@
               enabled = true;
               fill = "surface_variant";
               id = "g4";
-              members = ["bar_2" "widget_2" "status"];
+              members = ["albedo-monitor" "widget_2" "status"];
               opacity = 1.0;
               padding = 4.0;
               radius = 0.0;
@@ -210,14 +210,11 @@
           # keep-sorted end
         };
 
+        albedo-monitor.type = "adam0/albedo-monitor:status";
+
         bar = {
           enable_scroll = false;
           type = "noctalia/world_clock:bar";
-        };
-
-        bar_2 = {
-          enable_scroll = false;
-          type = "salemsayed/codexbar-meter:bar";
         };
 
         battery = {

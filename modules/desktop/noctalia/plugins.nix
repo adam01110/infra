@@ -14,10 +14,15 @@
   flake.modules.homeManager.noctalia = {
     # keep-sorted start
     config,
+    lib,
     pkgs,
     # keep-sorted end
     ...
   }: let
+    inherit (lib) getExe;
+
+    inherit (inputs.albedo-suite.packages.${pkgs.stdenv.hostPlatform.system}) albedo-monitor;
+
     jsonFormat = pkgs.formats.json {};
 
     videosDir = config.xdg.userDirs.videos;
@@ -37,6 +42,7 @@
 
       packages = with pkgs; [
         # keep-sorted start
+        albedo-monitor
         fzf
         hyprpicker
         udiskie
@@ -48,6 +54,11 @@
     programs.noctalia.settings = {
       plugin_settings = {
         # keep-sorted start block=yes newline_separated=yes
+        "adam0/albedo-monitor" = {
+          monitorPath = getExe albedo-monitor;
+          refreshIntervalSec = 60;
+        };
+
         "aristides/udiskie" = {
           auto_open_filemanager = true;
           manager_open_near_click = true;
@@ -108,7 +119,6 @@
           # keep-sorted end
         };
 
-        "salemsayed/codexbar-meter".panel_placement = "floating";
         # keep-sorted end
       };
 
@@ -116,6 +126,7 @@
         auto_update = "all";
         enabled = [
           # keep-sorted start
+          "adam0/albedo-monitor"
           "aristides/udiskie"
           "avivbintangaringga/nix-monitor"
           "detluck/performance-plus"
@@ -125,7 +136,6 @@
           "noctalia/screen_recorder"
           "noctalia/world_clock"
           "oldirtty/color_picker"
-          "salemsayed/codexbar-meter"
           # keep-sorted end
         ];
 
