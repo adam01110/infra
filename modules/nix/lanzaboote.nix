@@ -26,8 +26,6 @@
     };
 
     boot = {
-      initrd.systemd.enable = true;
-
       loader = {
         # Skip bootloader timeout for faster boot.
         timeout = 0;
