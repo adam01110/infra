@@ -45,6 +45,8 @@
         albedo-monitor
         fzf
         hyprpicker
+        proton-vpn-cli
+        python3
         udiskie
         udisks2
         # keep-sorted end
@@ -129,6 +131,7 @@
         enabled = [
           # keep-sorted start
           "adam0/albedo-monitor"
+          "adam0/noctaproton-vpn"
           "adam0/udiskie"
           "ashur-d/nvim-projects"
           "avivbintangaringga/nix-monitor"

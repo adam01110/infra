@@ -86,6 +86,9 @@
               "tray"
               "performance"
               "group:g2"
+            ]
+            ++ optional cfgBluetooth "bluetooth"
+            ++ [
               "group:g3"
               "brightness"
             ]
@@ -149,13 +152,13 @@
             }
 
             {
-              accordion = false;
+              accordion = true;
               accordion_direction = "end";
               border = "outline";
               enabled = true;
               fill = "surface_variant";
               id = "g3";
-              members = ["network"] ++ optional cfgBluetooth "bluetooth";
+              members = ["network" "protonvpn"];
               opacity = 1.0;
               padding = 4.0;
               radius = 0.0;
@@ -295,6 +298,8 @@
         };
 
         privacy.hide_inactive = true;
+
+        protonvpn.type = "adam0/noctaproton-vpn:bar";
 
         ram = mkStat "ram_used";
 
