@@ -7,7 +7,8 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) escapeShellArg getExe;
+    inherit (builtins) isBool;
+    inherit (lib) boolToString concatMapAttrsStringSep escapeShellArgs getExe;
     inherit (lib.hm.dag) entryAfter;
 
     inherit (pkgs) surge-downloader;
@@ -16,6 +17,21 @@
 
     colors = config.lib.stylix.colors.withHashtag;
     themePath = "${config.xdg.configHome}/surge/themes/stylix.toml";
+
+    settings = {
+      # keep-sorted start
+      "General.Live_Speed_Graph" = true;
+      "General.Show_Speed_Graph" = true;
+      "General.Skip_Update_Check" = true;
+      "General.Theme" =
+        if config.stylix.polarity == "light"
+        then 1
+        else 2;
+      "General.Theme_Path" = themePath;
+      "Network.Max_Concurrent_Downloads" = 4;
+      "Network.Max_Concurrent_Probes" = 4;
+      # keep-sorted end
+    };
   in {
     home.packages = [surge-downloader];
 
@@ -32,19 +48,19 @@
     };
 
     # Preserve other settings edited through the TUI.
-    home.activation.configureSurge = entryAfter ["linkGeneration"] ''
-      run ${getExe surge-downloader} config General.Live_Speed_Graph true
-      run ${getExe surge-downloader} config General.Show_Speed_Graph true
-      run ${getExe surge-downloader} config General.Skip_Update_Check true
-      run ${getExe surge-downloader} config Network.Max_Concurrent_Downloads 4
-      run ${getExe surge-downloader} config Network.Max_Concurrent_Probes 4
-      run ${getExe surge-downloader} config General.Theme ${
-        if config.stylix.polarity == "light"
-        then "1"
-        else "2"
-      }
-      run ${getExe surge-downloader} config General.Theme_Path ${escapeShellArg themePath}
-    '';
+    home.activation.configureSurge = entryAfter ["linkGeneration"] (
+      concatMapAttrsStringSep "\n" (
+        name: value: "run ${getExe surge-downloader} config ${escapeShellArgs [
+          name
+          (
+            if isBool value
+            then boolToString value
+            else toString value
+          )
+        ]}"
+      )
+      settings
+    );
 
     xdg.configFile."surge/themes/stylix.toml".source = tomlFormat.generate "surge-stylix.toml" {
       colors = with colors; {
