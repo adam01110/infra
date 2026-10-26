@@ -74,14 +74,17 @@
       colors = with colors; {
         name = "Stylix";
         primary = {
+          # keep-sorted start
+          accent = base0D;
           background = base00;
           foreground = base05;
+          # keep-sorted end
         };
         normal = {
           # keep-sorted start
-          black = base01;
+          black = base03;
           blue = base0D;
-          cyan = base0C;
+          cyan = base04;
           green = base0B;
           magenta = base0E;
           red = base08;
@@ -93,7 +96,7 @@
           # keep-sorted start
           black = base03;
           blue = base0D;
-          cyan = base0C;
+          cyan = base04;
           green = base0B;
           magenta = base0E;
           red = base08;
@@ -101,6 +104,14 @@
           yellow = base0A;
           # keep-sorted end
         };
+
+        # Speed graph gradient, quiet at the bottom and accent at the top.
+        graph = [
+          base03
+          base04
+          base0D
+          base0D
+        ];
       };
     };
 
