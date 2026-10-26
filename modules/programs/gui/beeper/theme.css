@@ -14,8 +14,11 @@ body {
   font-family: "__monospaceFont__" !important;
 }
 
-:root {
+:root,
+:root[data-theme] {
   color-scheme: dark;
+  --font-family: "__sansSerifFont__", Twemoji, sans-serif;
+  --font-family-mono: "__monospaceFont__", monospace;
 
   --color-bg: __base00__;
   --color-bg-rgb: __base00Rgb__;
@@ -57,6 +60,20 @@ body {
   --color-base-gray-120: __base07__;
   --color-base-gray-120-rgb: __base07Rgb__;
 
+  --color-base-gray-130: __base00__;
+  --color-base-system-blue-80: __base0D__;
+  --color-base-system-blue-90: __base0D__;
+  --color-base-system-blue-90-rgb: __base0DRgb__;
+  --color-base-system-blue-100: __base0C__;
+  --color-base-system-blue-110: __base0D__;
+  --color-base-system-blue-110-rgb: __base0DRgb__;
+  --color-base-red-80: __base08__;
+  --color-base-red-90: __base08__;
+  --color-base-red-100: __base08__;
+  --color-base-red-110: __base08__;
+  --color-base-red-110-rgb: __base08Rgb__;
+  --color-base-green-110: __base0B__;
+
   --color-dracula-red: __base08__;
   --color-dracula-orange: __base09__;
   --color-dracula-yellow: __base0A__;
@@ -80,15 +97,15 @@ body {
   --color-background-button-secondary: var(--color-base-gray-40);
   --color-background-button-secondary-active: var(--color-base-gray-50);
   --color-background-button-secondary-disabled: var(--color-base-gray-30);
-  --color-background-button-translucent: rgba(var(--color-base-white-rgb), 0.1);
-  --color-background-button-translucent-active: rgba(var(--color-base-white-rgb), 0.15);
-  --color-background-button-translucent-disabled: rgba(var(--color-base-white-rgb), 0.05);
+  --color-background-button-translucent: rgb(var(--color-base-white-rgb) / 0.1);
+  --color-background-button-translucent-active: rgb(var(--color-base-white-rgb) / 0.15);
+  --color-background-button-translucent-disabled: rgb(var(--color-base-white-rgb) / 0.05);
 
-  --color-background-sidebar: rgba(var(--color-base-gray-30-rgb), 0.6);
+  --color-background-sidebar: rgb(var(--color-base-gray-30-rgb) / 0.6);
   --color-background-sidebar-opaque: var(--color-base-gray-30);
-  --color-background-sidebar-thread-focus: rgba(var(--color-base-white-rgb), 0.1);
+  --color-background-sidebar-thread-focus: rgb(var(--color-base-white-rgb) / 0.1);
   --color-background-sidebar-thread-selected: var(--color-background-selected-primary);
-  --color-background-sidebar-thread-selected-unfocused: rgba(var(--color-base-white-rgb), 0.15);
+  --color-background-sidebar-thread-selected-unfocused: rgb(var(--color-base-white-rgb) / 0.15);
 
   --color-background-message-active: var(--color-base-gray-20);
   --color-background-message-bubble-received: var(--color-base-gray-50);
@@ -96,13 +113,13 @@ body {
   --color-background-message-bubble-linked: var(--color-base-gray-20);
 
   --color-background-selected-primary: var(--color-primary);
-  --color-background-selected-secondary: rgba(var(--color-base-white-rgb), 0.1);
+  --color-background-selected-secondary: rgb(var(--color-base-white-rgb) / 0.1);
 
   --color-background-input: var(--color-base-gray-20);
-  --color-background-kbd: rgba(var(--color-base-white-rgb), 0.15);
-  --color-background-header-right: rgba(var(--color-base-gray-30-rgb), 0.9);
+  --color-background-kbd: rgb(var(--color-base-white-rgb) / 0.15);
+  --color-background-header-right: rgb(var(--color-base-gray-30-rgb) / 0.9);
   --color-background-header-right-opaque: var(--color-base-gray-30);
-  --color-background-menu: rgba(var(--color-base-gray-30-rgb), 0.9);
+  --color-background-menu: rgb(var(--color-base-gray-30-rgb) / 0.9);
   --color-background-menu-opaque: var(--color-base-gray-30);
   --color-background-menu-option-hover: __base0C__;
 
@@ -111,40 +128,40 @@ body {
   --color-border-neutrals-weak: var(--color-base-gray-20);
   --color-border-input: var(--color-base-gray-40);
   --color-border-input-active: var(--color-base-gray-50);
-  --color-border-translucent: rgba(var(--color-base-white-rgb), 0.1);
-  --color-border-translucent-strong: rgba(var(--color-base-white-rgb), 0.15);
-  --color-border-translucent-strongest: rgba(var(--color-base-white-rgb), 0.5);
-  --color-border-translucent-weak: rgba(var(--color-base-white-rgb), 0.05);
+  --color-border-translucent: rgb(var(--color-base-white-rgb) / 0.1);
+  --color-border-translucent-strong: rgb(var(--color-base-white-rgb) / 0.15);
+  --color-border-translucent-strongest: rgb(var(--color-base-white-rgb) / 0.5);
+  --color-border-translucent-weak: rgb(var(--color-base-white-rgb) / 0.05);
 
   --color-text-neutrals: var(--color-fg);
   --color-text-neutrals-subtle: var(--color-base-gray-90);
   --color-text-neutrals-weak: var(--color-base-gray-110);
   --color-text-on-accent: __base00__;
-  --color-text-on-accent-weak: rgba(__base00Rgb__, 0.8);
-  --color-text-translucent: rgba(var(--color-base-white-rgb), 0.9);
-  --color-text-translucent-subtle: rgba(var(--color-base-white-rgb), 0.6);
-  --color-text-translucent-weak: rgba(var(--color-base-white-rgb), 0.75);
+  --color-text-on-accent-weak: rgb(__base00Rgb__ / 0.8);
+  --color-text-translucent: rgb(var(--color-base-white-rgb) / 0.9);
+  --color-text-translucent-subtle: rgb(var(--color-base-white-rgb) / 0.6);
+  --color-text-translucent-weak: rgb(var(--color-base-white-rgb) / 0.75);
 
   --color-icon-neutrals: var(--color-base-gray-90);
   --color-icon-neutrals-strong: var(--color-fg);
   --color-icon-neutrals-subtle: var(--color-base-gray-110);
   --color-icon-neutrals-weak: var(--color-base-gray-80);
-  --color-icon-on-accent: rgba(__base00Rgb__, 0.85);
-  --color-icon-on-accent-strong: rgba(__base00Rgb__, 0.95);
-  --color-icon-on-accent-weak: rgba(__base00Rgb__, 0.6);
-  --color-icon-translucent: rgba(var(--color-base-white-rgb), 0.6);
-  --color-icon-translucent-strong: rgba(var(--color-base-white-rgb), 0.9);
-  --color-icon-translucent-subtle: rgba(var(--color-base-white-rgb), 0.3);
-  --color-icon-translucent-weak: rgba(var(--color-base-white-rgb), 0.4);
+  --color-icon-on-accent: rgb(__base00Rgb__ / 0.85);
+  --color-icon-on-accent-strong: rgb(__base00Rgb__ / 0.95);
+  --color-icon-on-accent-weak: rgb(__base00Rgb__ / 0.6);
+  --color-icon-translucent: rgb(var(--color-base-white-rgb) / 0.6);
+  --color-icon-translucent-strong: rgb(var(--color-base-white-rgb) / 0.9);
+  --color-icon-translucent-subtle: rgb(var(--color-base-white-rgb) / 0.3);
+  --color-icon-translucent-weak: rgb(var(--color-base-white-rgb) / 0.4);
 
-  --color-background-scrollbar: rgba(var(--color-base-white-rgb), 0.3);
-  --color-background-scrollbar-hover: rgba(var(--color-base-white-rgb), 0.5);
-  --color-background-tag: rgba(var(--color-base-white-rgb), 0.1);
+  --color-background-scrollbar: rgb(var(--color-base-white-rgb) / 0.3);
+  --color-background-scrollbar-hover: rgb(var(--color-base-white-rgb) / 0.5);
+  --color-background-tag: rgb(var(--color-base-white-rgb) / 0.1);
   --color-overlay-modal: rgba(0, 0, 0, 0.4);
   --color-transparent: rgba(0, 0, 0, 0);
 
   --left-pane-bg: transparent;
-  --right-pane-bg: rgba(var(--color-bg-rgb), 1);
+  --right-pane-bg: rgb(var(--color-bg-rgb) / 1);
   --mark-bg: var(--color-base-gray-50);
   --error-color: __base08__;
   --warning-color: __base09__;
@@ -181,6 +198,85 @@ body {
   --ansi-bright-magenta: __base0E__;
   --ansi-bright-cyan: __base0C__;
   --ansi-bright-white: __base07__;
+
+
+  /* Appearance tokens introduced in Beeper 4.3 feed the semantic UI colors. */
+  --appearance-glass-main-fill: rgb(__base0DRgb__ / 0.8);
+  --appearance-glass-main-fill-muted: rgb(__base0DRgb__ / 0.2);
+  --appearance-glass-danger-fill: rgb(__base08Rgb__ / 0.8);
+  --appearance-glass-danger-fill-muted: rgb(__base08Rgb__ / 0.15);
+  --appearance-color-bg-dark: __base00__;
+  --appearance-color-bg-primary: var(--color-background-app);
+  --appearance-color-bg-primary-elevated: var(--color-background-elevated);
+  --appearance-color-bg-secondary: var(--color-background-app-weak);
+  --appearance-color-bg-secondary-elevated: var(--color-background-elevated-hover);
+  --appearance-color-bg-inverse: __base05__;
+  --appearance-color-bg-fill-main: var(--color-primary);
+  --appearance-color-bg-fill-main-disabled: rgb(__base0DRgb__ / 0.5);
+  --appearance-color-bg-fill-main-muted: rgb(__base0DRgb__ / 0.15);
+  --appearance-color-bg-fill-main-muted-pressed: rgb(__base0DRgb__ / 0.25);
+  --appearance-color-bg-fill-main-pressed: __base0C__;
+  --appearance-color-bg-fill-primary: rgb(__base05Rgb__ / 0.1);
+  --appearance-color-bg-fill-secondary: rgb(__base05Rgb__ / 0.15);
+  --appearance-color-bg-fill-tertiary: rgb(__base05Rgb__ / 0.2);
+  --appearance-color-bg-fill-quaternary: rgb(__base05Rgb__ / 0.4);
+  --appearance-color-bg-fill-pressed: rgb(__base05Rgb__ / 0.1);
+  --appearance-color-bg-fill-disabled: rgb(__base05Rgb__ / 0.08);
+  --appearance-color-bubble-in-bg: var(--color-background-message-bubble-received);
+
+  --appearance-color-border: var(--color-border-neutrals);
+  --appearance-color-border-secondary: var(--color-border-neutrals-weak);
+  --appearance-color-border-tertiary: var(--color-border-translucent-weak);
+  --appearance-color-border-emphasis: __base04__;
+  --appearance-color-border-main: var(--color-primary);
+  --appearance-color-border-main-emphasis: __base0C__;
+  --appearance-color-text-primary: var(--color-fg);
+  --appearance-color-text-secondary: __base04__;
+  --appearance-color-text-tertiary: __base03__;
+  --appearance-color-text-quaternary: __base03__;
+  --appearance-color-text-inverse: __base00__;
+  --appearance-color-text-inverse-secondary: rgb(__base00Rgb__ / 0.8);
+  --appearance-color-text-inverse-tertiary: rgb(__base00Rgb__ / 0.6);
+  --appearance-color-text-main: var(--color-primary);
+  --appearance-color-text-main-disabled: rgb(__base0DRgb__ / 0.5);
+  --appearance-color-text-on-main: var(--color-text-on-accent);
+
+  --appearance-color-bg-fill-danger: __base08__;
+  --appearance-color-bg-fill-danger-disabled: rgb(__base08Rgb__ / 0.5);
+  --appearance-color-bg-fill-danger-hover: rgb(__base08Rgb__ / 0.8);
+  --appearance-color-bg-fill-danger-pressed: rgb(__base08Rgb__ / 0.7);
+  --appearance-color-bg-fill-danger-muted: rgb(__base08Rgb__ / 0.15);
+  --appearance-color-bg-fill-danger-muted-pressed: rgb(__base08Rgb__ / 0.25);
+  --appearance-color-border-danger: __base08__;
+  --appearance-color-border-danger-emphasis: __base08__;
+  --appearance-color-text-danger: __base08__;
+  --appearance-color-text-danger-disabled: rgb(__base08Rgb__ / 0.4);
+  --appearance-color-text-on-danger: __base00__;
+  --appearance-color-bg-fill-warning: __base09__;
+  --appearance-color-bg-fill-warning-disabled: rgb(__base09Rgb__ / 0.5);
+  --appearance-color-bg-fill-warning-hover: rgb(__base09Rgb__ / 0.8);
+  --appearance-color-bg-fill-warning-pressed: rgb(__base09Rgb__ / 0.7);
+  --appearance-color-bg-fill-warning-muted: rgb(__base09Rgb__ / 0.15);
+  --appearance-color-bg-fill-warning-muted-pressed: rgb(__base09Rgb__ / 0.25);
+  --appearance-color-border-warning: __base09__;
+  --appearance-color-border-warning-emphasis: __base09__;
+  --appearance-color-text-warning: __base09__;
+  --appearance-color-text-warning-disabled: rgb(__base09Rgb__ / 0.4);
+  --appearance-color-text-on-warning: __base00__;
+
+  /* Older views still consume the Material-style color aliases. */
+  --color-surface: var(--appearance-color-bg-primary);
+  --color-surface-rgb: __base00Rgb__;
+  --color-on-surface: var(--appearance-color-text-primary);
+  --color-on-surface-rgb: __base05Rgb__;
+  --color-on-surface-variant: var(--appearance-color-text-secondary);
+  --color-on-surface-variant-rgb: __base04Rgb__;
+  --color-secondary-container: var(--color-background-message-bubble-received);
+  --color-on-secondary-container: var(--color-fg);
+  --color-primary-container: var(--color-background-app-weak);
+  --color-on-primary-rgb: __base00Rgb__;
+  --color-outline: var(--color-border-neutrals);
+  --color-outline-variant: var(--color-border-neutrals-weak);
 
   --functional-red: __base08__;
   --functional-orange: __base09__;

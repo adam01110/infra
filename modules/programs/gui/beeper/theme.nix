@@ -21,7 +21,8 @@
       // listToAttrs (
         map (name: {
           name = "${name}Rgb";
-          value = rgb name;
+          # Match Beeper's rgb(... / alpha) consumers.
+          value = replaceStrings [","] [""] (rgb name);
         }) (attrNames colors)
       );
     theme =
