@@ -2,14 +2,11 @@
   flake.modules.homeManager.yazi = {
     # keep-sorted start
     config,
-    lib,
     osConfig,
     pkgs,
     # keep-sorted end
     ...
-  }: let
-    inherit (lib.generators) mkLuaInline;
-  in {
+  }: {
     programs.yazi = {
       package = pkgs.yazi.override {
         optionalDeps =
@@ -85,7 +82,7 @@
         full-border = {
           package = pkgs.yaziPlugins.full-border;
           setup = true;
-          settings.type = mkLuaInline "ui.Border.PLAIN";
+          settings.set = "plain";
         };
 
         git = pkgs.yaziPlugins.git;
