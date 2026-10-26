@@ -55,6 +55,7 @@
         "helloyanis@ageverif-bypass" = "age-verification-bypass";
         "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack" = "terms-of-service-didnt-read";
         "knockoff@knockoff.shopping" = "knockoff";
+        "surge@surge-downloader.com" = "surge";
         "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}" = "ttv-lol-pro";
         # keep-sorted end
       })

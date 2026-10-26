@@ -112,6 +112,7 @@
         cava
         opencubicplayer
         scope-tui
+        surge
         wiremix
         # keep-sorted end
 
