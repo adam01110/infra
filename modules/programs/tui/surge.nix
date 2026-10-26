@@ -9,9 +9,17 @@
   }: let
     inherit (builtins) isBool;
     inherit (lib) boolToString concatMapAttrsStringSep escapeShellArgs getExe;
-    inherit (lib.hm.dag) entryAfter;
+    inherit (pkgs) writeShellScript;
 
-    inherit (pkgs) surge-downloader;
+    # Backport saved settings loading for the connected TUI in 0.12.2.
+    surge-downloader = pkgs.surge-downloader.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [./surge-connect-settings.patch];
+      postCheck =
+        (old.postCheck or "")
+        + ''
+          go test ./cmd -run '^TestNewRemoteRootModel' -count=1
+        '';
+    });
 
     tomlFormat = pkgs.formats.toml {};
 
@@ -32,6 +40,21 @@
       "Network.Max_Concurrent_Probes" = 4;
       # keep-sorted end
     };
+
+    configureSurge = writeShellScript "configure-surge" (
+      "set -e\n"
+      + concatMapAttrsStringSep "\n" (
+        name: value: "${getExe surge-downloader} config ${escapeShellArgs [
+          name
+          (
+            if isBool value
+            then boolToString value
+            else toString value
+          )
+        ]}"
+      )
+      settings
+    );
   in {
     home.packages = [surge-downloader];
 
@@ -46,21 +69,6 @@
         end
       '';
     };
-
-    # Preserve other settings edited through the TUI.
-    home.activation.configureSurge = entryAfter ["linkGeneration"] (
-      concatMapAttrsStringSep "\n" (
-        name: value: "run ${getExe surge-downloader} config ${escapeShellArgs [
-          name
-          (
-            if isBool value
-            then boolToString value
-            else toString value
-          )
-        ]}"
-      )
-      settings
-    );
 
     xdg.configFile."surge/themes/stylix.toml".source = tomlFormat.generate "surge-stylix.toml" {
       colors = with colors; {
@@ -123,6 +131,7 @@
       };
 
       Service = {
+        ExecStartPre = ["${configureSurge}"];
         ExecStart = "${getExe surge-downloader} server start --port 1700 --output ${config.xdg.userDirs.download}";
         Restart = "on-failure";
         RestartSec = 5;

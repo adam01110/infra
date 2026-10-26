@@ -1,0 +1,52 @@
+--- a/cmd/connect.go
++++ b/cmd/connect.go
+@@ -103,7 +103,11 @@
+ 
+ func newRemoteRootModel(baseURL string, service service.DownloadService) tui.RootModel {
+ 	serverHost, serverPort := parseRemoteServerAddress(baseURL)
+-	m := tui.InitialRootModel(serverPort, Version, service, nil, nil, false, Commit)
++	settings, err := config.LoadSettings()
++	if err != nil {
++		fmt.Fprintf(os.Stderr, "Warning: could not load local settings: %v\n", err)
++	}
++	m := tui.InitialRootModel(serverPort, Version, service, nil, settings, false, Commit)
+ 	m.ServerHost = serverHost
+ 	m.ServerPort = serverPort
+ 	m.IsRemote = true
+--- /dev/null
++++ b/cmd/connect_settings_local_test.go
+@@ -0,0 +1,34 @@
++package cmd
++
++import (
++    "os"
++    "path/filepath"
++    "testing"
++
++    "github.com/SurgeDM/Surge/internal/config"
++    "github.com/SurgeDM/Surge/internal/tui"
++)
++
++func TestNewRemoteRootModelLoadsSavedSettings(t *testing.T) {
++    t.Setenv("XDG_CONFIG_HOME", t.TempDir())
++    dir := filepath.Join(os.Getenv("XDG_CONFIG_HOME"), "surge")
++    if err := os.MkdirAll(dir, 0700); err != nil { t.Fatal(err) }
++    if err := os.WriteFile(filepath.Join(dir, "settings.toml"), []byte(`[general]
++live_speed_graph = true
++skip_update_check = true
++theme = 2
++[network]
++max_concurrent_downloads = 4
++max_concurrent_probes = 4
++`), 0600); err != nil { t.Fatal(err) }
++    previous := tui.IsTestMode
++    tui.IsTestMode = true
++    t.Cleanup(func() { tui.IsTestMode = previous })
++    m := newRemoteRootModel("http://127.0.0.1:1700", nil)
++    if !config.Resolve[bool](m.Settings.General.LiveSpeedGraph) || !config.Resolve[bool](m.Settings.General.SkipUpdateCheck) {
++        t.Fatal("connected TUI ignored saved general settings")
++    }
++    if config.Resolve[int](m.Settings.Network.MaxConcurrentDownloads) != 4 || config.Resolve[int](m.Settings.Network.MaxConcurrentProbes) != 4 {
++        t.Fatal("connected TUI ignored saved concurrency settings")
++    }
++}
