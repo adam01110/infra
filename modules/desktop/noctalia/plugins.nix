@@ -62,6 +62,11 @@
           refreshIntervalSec = 60;
         };
 
+        "adam0/forges" = {
+          panel_placement = "floating";
+          provider = "tangled";
+        };
+
         "adam0/udiskie" = {
           auto_open_filemanager = true;
           manager_open_near_click = true;
@@ -132,6 +137,7 @@
         enabled = [
           # keep-sorted start
           "adam0/albedo-monitor"
+          "adam0/forges"
           "adam0/noctaproton-vpn"
           "adam0/udiskie"
           "ashur-d/nvim-projects"

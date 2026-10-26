@@ -96,6 +96,7 @@
             ++ [
               "caffeine"
               "notifications"
+              "forges"
               "group:g1"
               "control-center"
             ];
@@ -241,6 +242,8 @@
           vertical_format = "{:%H\n%M - %d\n%m}";
           # keep-sorted end
         };
+
+        forges.type = "adam0/forges:forges";
 
         lock_keys = {
           # keep-sorted start
