@@ -95,8 +95,7 @@
             ++ optional cfgBattery "battery"
             ++ [
               "caffeine"
-              "notifications"
-              "forges"
+              "group:notifications"
               "group:g1"
               "control-center"
             ];
@@ -124,6 +123,19 @@
                 ];
               opacity = 1.0;
               padding = 6.0;
+            }
+
+            {
+              accordion = false;
+              accordion_direction = "end";
+              border = "outline";
+              enabled = true;
+              fill = "surface_variant";
+              id = "notifications";
+              members = ["notifications" "forges"];
+              opacity = 1.0;
+              padding = 4.0;
+              radius = 0.0;
             }
 
             {

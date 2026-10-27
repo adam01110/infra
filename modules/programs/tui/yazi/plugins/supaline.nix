@@ -16,10 +16,6 @@
         package = pkgs.nur.repos.adam0.yaziPlugins.supaline;
         setup = true;
         settings = {
-          lightness.fg = {
-            from = 0.40;
-            to = 0.90;
-          };
           linemodes.size_mtime = [
             "size"
             (mkLuaInline ''{ "mtime", format = "%Y-%m-%d %H:%M", width = 16 }'')
@@ -29,8 +25,8 @@
 
       theme.supaline = {
         # keep-sorted start
-        mtime = "${colors.base0A} <->";
-        size = "${colors.base0D} <->";
+        mtime = "${colors.base04} -> ${colors.base0A}";
+        size = "${colors.base04} -> ${colors.base0D}";
         # keep-sorted end
       };
     };
