@@ -73,6 +73,7 @@
             "group:system-monitor"
             "nix-monitor"
             "group:g4"
+            "surge"
             "privacy"
             "lock_keys"
             "active_window"
@@ -322,6 +323,8 @@
           color = "on_surface";
           type = "adam0/udiskie:status";
         };
+
+        surge.type = "adam0/surge:status";
 
         swap = mkStat "swap_pct";
 

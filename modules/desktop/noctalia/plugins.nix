@@ -67,6 +67,12 @@
           provider = "tangled";
         };
 
+        "adam0/surge" = {
+          host = "127.0.0.1:1700";
+          refreshIntervalSec = 2;
+          surgePath = getExe pkgs.surge-downloader;
+        };
+
         "adam0/udiskie" = {
           auto_open_filemanager = true;
           manager_open_near_click = true;
@@ -139,6 +145,7 @@
           "adam0/albedo-monitor"
           "adam0/forges"
           "adam0/noctaproton-vpn"
+          "adam0/surge"
           "adam0/udiskie"
           "ashur-d/nvim-projects"
           "avivbintangaringga/nix-monitor"
