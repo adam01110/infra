@@ -61,6 +61,7 @@
         env
         face
         gh
+        glab
         gpg
         ssh
         sshfs

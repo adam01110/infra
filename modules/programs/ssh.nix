@@ -3,6 +3,9 @@
     inherit (vars) groundDomain username;
   in {
     sops.secrets = {
+      "git/fhict/private_ssh_key".path = "/home/${username}/.ssh/fhict";
+      "git/fhict/public_ssh_key".path = "/home/${username}/.ssh/fhict.pub";
+
       # keep-sorted start
       "servers/euclid/private_ssh_key".path = "/home/${username}/.ssh/euclid";
       "servers/euclid/public_ssh_key".path = "/home/${username}/.ssh/euclid.pub";
@@ -15,8 +18,13 @@
       # Keep the default config disabled to quiet the upstream warning.
       enableDefaultConfig = false;
 
-      # Dedicate a key for github traffic to keep identities separate.
       settings = {
+        "git.fhict.nl" = {
+          IdentitiesOnly = true;
+          IdentityFile = "~/.ssh/fhict";
+          User = "git";
+        };
+
         "github.com" = {
           HostName = "github.com";
           IdentityFile = "~/.ssh/git";

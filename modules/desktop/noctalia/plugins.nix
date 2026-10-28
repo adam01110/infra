@@ -21,13 +21,26 @@
     ...
   }: let
     inherit (lib) getExe;
+    inherit (config.lib.file) mkOutOfStoreSymlink;
 
     inherit (albedoSuitePackages) albedo-monitor;
 
     jsonFormat = pkgs.formats.json {};
 
     videosDir = config.xdg.userDirs.videos;
+    forgesSecretName = "noctalia/forges/gitlab_url";
+    forgesTemplateName = "noctalia-forges";
   in {
+    sops = {
+      secrets.${forgesSecretName} = {};
+      templates.${forgesTemplateName}.content = ''
+        [plugin_settings."adam0/forges"]
+        gitlab_url = "${config.sops.placeholder.${forgesSecretName}}"
+      '';
+    };
+
+    xdg.configFile."noctalia/forges.toml".source = mkOutOfStoreSymlink config.sops.templates.${forgesTemplateName}.path;
+
     home = {
       file.".local/state/noctalia/plugins/data/noctalia/world_clock/zones.json" = {
         force = true;
