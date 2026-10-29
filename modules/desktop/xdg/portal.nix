@@ -83,11 +83,12 @@
     in {
       xdg.configFile = {
         "xdg-desktop-portal-termfilechooser/config".text = let
-          terminalCommand = getExe config.xdg.terminal-exec.package;
+          # Wait for Yazi before the portal reads its selection file.
+          terminalCommand = "${getExe config.programs.ghostty.package} --gtk-single-instance=false --quit-after-last-window-closed=true --title=Termfilechooser -e";
         in ''
           [filechooser]
           cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
-          env=TERMCMD=${terminalCommand} --title=Termfilechooser
+          env=TERMCMD=${terminalCommand}
         '';
       };
     };

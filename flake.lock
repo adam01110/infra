@@ -183,11 +183,11 @@
     "catppuccin-userstyles": {
       "flake": false,
       "locked": {
-        "lastModified": 1791754155,
-        "narHash": "sha256-DmSVt+kFeuE3fn8m2oqtKeXKAxOm72xsVWGCrhV91vE=",
+        "lastModified": 1792712439,
+        "narHash": "sha256-55unWTjA0f9B8R5uGMJAp6fcAs/CEOXSaMnZld7+sZs=",
         "owner": "catppuccin",
         "repo": "userstyles",
-        "rev": "aef780c2a8e0db2f272bec1a0e276a9c6c59f45f",
+        "rev": "b11ebae921abddde23e56603e059199ef06bd1f8",
         "type": "github"
       },
       "original": {
@@ -903,11 +903,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791964796,
-        "narHash": "sha256-OQSIDupAWMOYl68ymgEjTLYi78iKlbOHGR2FBJI8Fys=",
+        "lastModified": 1793263493,
+        "narHash": "sha256-gFFbCMGmoesfi00IDJ0FjkM2HfGUjTspwVAy1z7J5ZM=",
         "ref": "refs/heads/main",
-        "rev": "479f6f2bdc1cab9f3899f72fac31ae572047cdb1",
-        "revCount": 97,
+        "rev": "46e5c6a5114bb069506a1ef782b06e6c7ef4a65e",
+        "revCount": 98,
         "type": "git",
         "url": "https://tangled.org/did:plc:zkwqzie5qsn4tqfkt4mvxqio"
       },
@@ -1560,11 +1560,11 @@
     "tangled-catppuccin": {
       "flake": false,
       "locked": {
-        "lastModified": 1791962464,
-        "narHash": "sha256-JtKpbwpnH/x0FWivUxGH69fGJAnb1ngoa0/yGVbUPfw=",
+        "lastModified": 1793262379,
+        "narHash": "sha256-o/Sgrr6Fi9av45xa6p16u/S/05YDjIf1u2dR0/klry4=",
         "ref": "refs/heads/main",
-        "rev": "8ce47b6610ca1285c7ec00be9d1bf20a0592fbb6",
-        "revCount": 37,
+        "rev": "976186692150dcc431ce3e4935c74bbf3af677ca",
+        "revCount": 41,
         "type": "git",
         "url": "https://tangled.org/did:plc:y77gjqopzj4i6l4y7woi6d22"
       },
