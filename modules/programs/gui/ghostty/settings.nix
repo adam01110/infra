@@ -1,5 +1,7 @@
 {
-  flake.modules.homeManager.ghostty = {
+  flake.modules.homeManager.ghostty = {lib, ...}: let
+    inherit (lib) mkForce;
+  in {
     programs.ghostty.settings = {
       # Font settings.
       font-feature = "-calt, -liga, -dlig";
@@ -13,6 +15,8 @@
 
       # Appearance settings.
       # keep-sorted start
+      # Stylix injects 0.95 from stylix.opacity.terminal; keep the surface opaque.
+      background-opacity = mkForce 1;
       gtk-custom-css = "${./theme.css}";
       gtk-tabs-location = "bottom";
       gtk-titlebar = false;

@@ -42,6 +42,15 @@ child says done? claim, not evidence. read diff, run tests yourself.
   effort by default. check levels for the chosen model and use documented controls;
   do not invent levels or parameters. harder work can justify more reasoning,
   not an unauthorized model upgrade.
+- temporary, user-approved 2026-11-01, review after 2026-12-01: non-complex
+  children may use `deepseek-v4.1-flash` on the user's opencode account even
+  when the parent runs another family. it is near-free there, so cost beats
+  family for this one model. simple reading, extraction, mechanical edits, and
+  bounded changes with clear tests only, at low reasoning. not for complex
+  reasoning, ambiguous design, hard debugging, or anything where a stall costs
+  more than the saving. the catalog lists it bare, no `opencode/` prefix;
+  confirm the live ID in `agents.models()` before spawning. task complex or
+  model absent? parent model.
 
 examples (subject to those limits):
 
@@ -52,8 +61,9 @@ examples (subject to those limits):
 - debug an intermittent race or review an ambiguous design: parent model, high
   reasoning if supported and needed.
 - parent uses `provider-a/model-x`; catalog also offers `provider-b/model-x`:
-  the latter needs approval despite the identical model name. `provider-a/model-y`
-  needs no family relationship, but still needs suitability and ceiling evidence.
+  the latter needs approval despite the identical model name, unless it is the
+  temporary `deepseek-v4.1-flash` exception above. `provider-a/model-y` needs no
+  family relationship, but still needs suitability and ceiling evidence.
 
 ## brief
 

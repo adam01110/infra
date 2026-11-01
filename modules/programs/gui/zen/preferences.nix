@@ -556,6 +556,7 @@
 
         zen = {
           # keep-sorted start
+          library.enabled = false;
           view.experimental-no-window-controls = true;
           watermark.enabled = false;
           welcome-screen.seen = true;
