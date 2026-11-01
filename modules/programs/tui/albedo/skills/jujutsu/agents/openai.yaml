@@ -3,5 +3,5 @@ interface:
   display_name: "Jujutsu"
   short_description: "Help with Jujutsu version control workflows"
   default_prompt: >-
-    Use $jujutsu to inspect this repo, choose the right jj workflow, and carry
-    the change through safely.
+    Use $jujutsu to make described change first: `jj new -m "<summary>"` before
+    any file edit. then inspect repo, carry change safe.

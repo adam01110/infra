@@ -50,7 +50,8 @@ edit there, not generated files in `$ALBEDO_HOME` or `~/.agents`. Nix-first.
 
 - clear match? load without asking. many? most specific first.
 - scope grows? load next matching skill.
-- programming? always load `jujutsu`. never rely on remembered jj rules.
+- programming? load `jujutsu` before first file edit, not after. no remembered
+  jj rules.
 - frontend/UI? always load `frontend` first.
 
 ## formatting
@@ -64,8 +65,15 @@ edit there, not generated files in `$ALBEDO_HOME` or `~/.agents`. Nix-first.
 
 ## version control
 
- `.jj` exists? load `jujutsu` before VCS operation, follow it.
- non-jj repo? no VCS action unless asked.
+ check once per repo at task start: `.jj/` in cwd or parent, or `jj root`
+ work? jj repo.
+
+- jj repo? load `jujutsu` before first file edit. then `jj new -m
+  "<imperative summary>"`. every task, small edit too.
+- `.jj` there, skill not loaded? load it. no edit first.
+- never edit into old task change or undescribed `@`.
+- one task, one described change. `jj st` before report.
+- not jj repo? no VCS action unless asked.
 
 ## verify
 

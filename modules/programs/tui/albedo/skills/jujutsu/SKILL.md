@@ -1,15 +1,16 @@
 ---
 name: jujutsu
 description: >-
-  Use before every version-control operation, especially when the repository
-  contains a .jj directory or the task involves commits, branches, conflicts,
-  workspaces, or history.
+  Use at the start of any coding task in a repository containing a .jj
+  directory, before the first file edit and before any jj or git command.
+  Covers starting a described change, plus commits, branches, conflicts,
+  workspaces, history, and push.
 license: Apache-2.0
 compatibility:
   Requires jj 0.44.0 or compatible and shell access to a repository.
 metadata:
   author: johnstegeman
-  version: "1.4"
+  version: "1.5"
   short-description: Perform safe version-control operations with Jujutsu
 allowed-tools: Bash(jj *)
 ---
@@ -17,6 +18,31 @@ allowed-tools: Bash(jj *)
 # jujutsu
 
 jj version assumed: 0.44.0. version differs? command may differ; inspect help.
+
+## required flow
+
+every task, same order. no thinking about it. no skip.
+
+```bash
+jj root                      # error? not jj repo, skill no apply
+jj new -m "Add login validation"
+# edit files. next jj command snapshot
+jj st
+```
+
+grug always make new change first, always describe it. one command do both.
+
+edit first? bad. work fall into old change, or into undescribed `@`. grug say no.
+
+end of task: `@` stay described. no `jj new` to close. no `git commit`.
+
+only way out, and user must say it:
+
+- user say amend this change? `jj desc -m "..."`. no `jj new`.
+- stray `@-` with `(empty) (no description set)`? `jj abandon @-`. nothing lost.
+- work belong beside `trunk()`? [`references/NONLINEAR.md`](references/NONLINEAR.md).
+
+more: [`references/NEW_CHANGE.md`](references/NEW_CHANGE.md).
 
 need compact inspection? [`references/TEMPLATES.md`](references/TEMPLATES.md).
 query syntax? [`references/QUERY_LANGUAGES.md`](references/QUERY_LANGUAGES.md).
@@ -68,24 +94,6 @@ reference? prefer change ID.
 
 one commit = one logical change. unrelated work stays separate.
 
-## start change: describe before edit
-
-```bash
-jj st
-```
-
-`@` empty? reuse. `@` has work to preserve? `jj new` first. then:
-
-```bash
-jj desc -m "Add login validation"
-# edit files
-jj st
-```
-
-never run `jj new` at task end. next task decides reuse/new. full branch logic:
-[`references/NEW_CHANGE.md`](references/NEW_CHANGE.md). work belongs on
-`trunk()` sibling? [`references/NONLINEAR.md`](references/NONLINEAR.md).
-
 ## inspect narrowly
 
 agent inspection defaults to compact commands in
@@ -105,8 +113,7 @@ need query grammar?
 move:
 
 ```bash
-jj new
-jj new && jj desc -m "Describe next change"
+jj new -m "Describe next change"
 jj edit <change-id>
 jj prev -e
 jj next -e

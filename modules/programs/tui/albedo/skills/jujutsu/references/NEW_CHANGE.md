@@ -1,35 +1,29 @@
 # start change
 
-rule: describe first, edit, refine. `@` already commit.
+every task: `jj new -m "<summary>"` before first edit. one change per task,
+always described.
 
 ```bash
+jj root
+jj new -m "Add login validation"
+# edit. next jj command snapshot
 jj st
 ```
 
-`@` empty and description absent/discardable? reuse. `@` contains work to
-preserve? run `jj new`; creates empty child.
+`@` is working copy commit. edit land there. no `jj add`, no `jj commit`, no
+staging.
 
-then, before file edit:
+user say amend? `jj desc -m "..."`, edit in place. stray `@-`
+`(empty) (no description set)`? `jj abandon @-`. nothing lost.
 
-```bash
-jj desc -m "Add login validation"
-# edit; next jj command snapshots
-jj st
-```
-
-one description should name one logical change. inline `-m` mandatory for
-agent; editor prompt hangs. no `jj add`, no `jj commit`.
-
-done? leave `@` there. do not `jj new` to close. next task performs same status
-decision.
-
-need split/squash/absorb/abandon?
-[`REFINE_COMMIT.md`](REFINE_COMMIT.md). unrelated sibling?
-[`NONLINEAR.md`](NONLINEAR.md).
-
-avoid:
+avoid demon:
 
 - code before description.
-- bare `jj desc`.
-- `jj commit` mental model.
-- end-of-task `jj new` leaving empty `@`.
+- reuse of undescribed `@`.
+- bare `jj desc`. editor hang. always inline `-m`.
+- `jj commit` thinking.
+- `jj new` at end of task, leave empty undescribed `@` behind.
+
+description one logical change. too big? split,
+[`REFINE_COMMIT.md`](REFINE_COMMIT.md). unrelated work?
+[`NONLINEAR.md`](NONLINEAR.md).
