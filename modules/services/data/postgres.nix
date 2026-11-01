@@ -21,6 +21,9 @@
       package = pkgs.postgresql_18;
 
       settings = {
+        # Leave headroom for service pools and concurrent startup connections.
+        max_connections = 300;
+
         # Listen only on local and WireGuard addresses.
         listen_addresses = mkForce "127.0.0.1,::1,10.100.0.1";
 
