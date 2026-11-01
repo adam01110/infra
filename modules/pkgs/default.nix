@@ -7,6 +7,7 @@
     inherit
       (packages)
       # keep-sorted start
+      audio-pm-ctl
       crowdsec-blocklist-gotify-proxy
       crowdsec-blocklist-import
       dashboard-gh-notify

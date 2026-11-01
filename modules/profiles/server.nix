@@ -33,6 +33,9 @@
       # Disable LLMNR; servers do not need local name discovery.
       services.resolved.settings.Resolve.LLMNR = "false";
 
+      # Keep hang detection available on unattended hosts.
+      tweaks.watchdogs.enable = true;
+
       boot.kernel.sysctl."vm.overcommit_memory" = mkDefault 1;
 
       powerManagement.cpuFreqGovernor = "performance";

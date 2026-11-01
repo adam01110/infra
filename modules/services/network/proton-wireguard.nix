@@ -59,6 +59,9 @@
       ${ip} -4 route del ${gateway} dev ${interface} 2>/dev/null || true
     '';
   in {
+    # Route container traffic through the Proton tunnel.
+    boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
     sops = {
       secrets = {
         # keep-sorted start
