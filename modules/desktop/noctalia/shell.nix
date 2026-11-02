@@ -45,6 +45,7 @@
           polkit_agent = true;
           screen_time_enabled = true;
           settings_expand_all_groups = true;
+          settings_window_translucent = true;
           setup_wizard_enabled = false;
           window_switcher.mru = true;
           # keep-sorted end
