@@ -9,12 +9,7 @@
       # keep-sorted end
     };
 
-    dwindle = {
-      preserve_split = true;
-
-      # Keep the special workspace narrower than the full monitor.
-      special_scale_factor = 0.8;
-    };
+    dwindle.preserve_split = true;
 
     # Reduce noise from optional ecosystem features.
     ecosystem = {

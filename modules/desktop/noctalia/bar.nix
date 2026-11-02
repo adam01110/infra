@@ -57,7 +57,7 @@
           # Capsule
           # keep-sorted start
           capsule = true;
-          capsule_border = "outline";
+          capsule_border = "outline_variant";
           capsule_padding = 4.0;
           capsule_radius = 0.0;
           # keep-sorted end
@@ -129,7 +129,7 @@
             {
               accordion = false;
               accordion_direction = "end";
-              border = "outline";
+              border = "outline_variant";
               enabled = true;
               fill = "surface_variant";
               id = "notifications";
@@ -142,7 +142,7 @@
             {
               accordion = true;
               accordion_direction = "end";
-              border = "outline";
+              border = "outline_variant";
               enabled = true;
               fill = "surface_variant";
               id = "g1";
@@ -155,7 +155,7 @@
             {
               accordion = false;
               accordion_direction = "end";
-              border = "outline";
+              border = "outline_variant";
               enabled = true;
               fill = "surface_variant";
               id = "g2";
@@ -168,7 +168,7 @@
             {
               accordion = true;
               accordion_direction = "end";
-              border = "outline";
+              border = "outline_variant";
               enabled = true;
               fill = "surface_variant";
               id = "g3";
@@ -181,7 +181,7 @@
             {
               accordion = true;
               accordion_direction = "end";
-              border = "outline";
+              border = "outline_variant";
               enabled = true;
               fill = "surface_variant";
               id = "g4";
@@ -364,7 +364,7 @@
           focused_output_only = true;
           label_source = "name";
           max_label_chars = 4;
-          occupied_color = "outline";
+          occupied_color = "outline_variant";
           pill_scale = 0.8;
           show_labels = true;
           # keep-sorted end
