@@ -30,7 +30,7 @@
     mcps = {
       # keep-sorted start block=yes newline_separated=yes
       canvas = {
-        description = "Load when a coursework question requires the user's actual Canvas assignments, deadlines, grades or course materials; not for general study help.";
+        description = "Access Canvas assignments, deadlines, grades and course materials.";
         command = getExe pkgs.nur.repos.adam0.canvas-api-mcp;
         secrets = {
           # keep-sorted start
@@ -41,13 +41,13 @@
       };
 
       context7 = {
-        description = "Load when implementing or debugging against a library or framework requires current API documentation or version-specific examples.";
+        description = "Look up current library documentation and version-specific examples.";
         command = getExe pkgs.context7-mcp;
         secrets.CONTEXT7_API_KEY = "ai/context7_key";
       };
 
       excalidash = {
-        description = "Load when the user wants a diagram or whiteboard created or changed on ExcaliDash, including architecture, flow and sequence diagrams.";
+        description = "Create and edit diagrams and whiteboards in ExcaliDash.";
         command = getExe pkgs.nur.repos.adam0.excalidash-mcp;
         environment = {
           # keep-sorted start
@@ -59,20 +59,27 @@
       };
 
       github = {
-        description = "Load when a task requires GitHub-hosted issue, pull request or review information or changes; not for ordinary edits in a local checkout.";
+        description = "Manage GitHub issues, pull requests and reviews.";
         args = ["stdio"];
         command = getExe pkgs.github-mcp-server;
         secrets.GITHUB_PERSONAL_ACCESS_TOKEN = "ai/github_token";
       };
 
+      gitlab = {
+        description = "Manage GitLab projects, issues, merge requests and pipelines.";
+        args = ["mcp" "serve"];
+        command = getExe pkgs.glab;
+        secrets.GITLAB_TOKEN = "ai/gitlab_token";
+      };
+
       gridcraft = {
-        description = "Load when the user wants a spreadsheet created or changed, or needs calculations, analysis or charts in a spreadsheet rather than a chat table.";
+        description = "Create and edit spreadsheets, formulas and charts.";
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.gridcraft "gridcraft-cli";
       };
 
       penpot = {
-        description = "Load when the user asks to inspect or change a Penpot design, extract its assets, or implement a UI from an existing Penpot design.";
+        description = "Inspect and edit Penpot designs and extract assets.";
         command = getExe (writeShellApplication {
           name = "penpot-mcp";
           runtimeInputs = [
@@ -98,19 +105,19 @@
       };
 
       tangled = {
-        description = "Load when a task requires Tangled-hosted repository, issue or pipeline information or changes; not for ordinary edits in a local checkout.";
+        description = "Manage Tangled repositories, issues and pipelines.";
         command = getExe' pkgs.nur.repos.adam0.tg "tgmcp";
         environment.TGMCP_ACCOUNT = vars.atprotoHandle;
       };
 
       wordcraft = {
-        description = "Load when the user wants a document file created or revised, or an existing document imported or exported; not for a prose answer in chat.";
+        description = "Create, edit, import and export document files.";
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.wordcraft "wordcraft-cli";
       };
 
       deckcraft = {
-        description = "Load when the user wants a slide deck created or revised, or an existing presentation imported or exported; not for an outline in chat.";
+        description = "Create, edit, import and export slide decks.";
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.deckcraft "deckcraft-cli";
       };
