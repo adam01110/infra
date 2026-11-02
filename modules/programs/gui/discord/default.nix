@@ -18,11 +18,27 @@
     # keep-sorted end
     ...
   }: let
-    inherit (lib) mkForce;
+    inherit
+      (lib)
+      # keep-sorted start
+      concatMapStringsSep
+      escapeShellArg
+      genAttrs
+      getExe'
+      mkForce
+      # keep-sorted end
+      ;
     inherit (lib.hm) dag;
 
-    settingsPath = "${config.xdg.configHome}/equibop/settings.json";
-    settingsSource = config.home.file.${settingsPath}.source;
+    inherit (pkgs) coreutils;
+    inherit (pkgs.nur.repos.adam0) equibop-fixed;
+
+    settingsPaths = [
+      # keep-sorted start
+      "${config.programs.nixcord.equibop.configDir}/settings.json"
+      "${config.programs.nixcord.equibop.configDir}/settings/settings.json"
+      # keep-sorted end
+    ];
   in {
     imports = [inputs.nixcord.homeModules.nixcord];
 
@@ -32,21 +48,25 @@
 
       equibop = {
         enable = true;
+        package = equibop-fixed;
         configDir = "${config.xdg.configHome}/equibop";
       };
     };
 
     # Let Equibop persist runtime changes to its generated settings.
     home = {
-      file.${settingsPath}.enable = mkForce false;
+      file = genAttrs settingsPaths (_: {enable = mkForce false;});
 
-      activation.nixcordEquibopWritableSettings = dag.entryAfter ["writeBoundary"] ''
-        settings=${lib.escapeShellArg settingsPath}
-        if [[ -L "$settings" ]]; then
-          rm "$settings"
-        fi
-        ${lib.getExe' pkgs.coreutils "install"} -Dm644 ${lib.escapeShellArg settingsSource} "$settings"
-      '';
+      activation.nixcordEquibopWritableSettings = dag.entryAfter ["writeBoundary"] (
+        concatMapStringsSep "\n" (path: ''
+          settings=${escapeShellArg path}
+          if [[ -L "$settings" ]]; then
+            run rm "$settings"
+          fi
+          run ${getExe' coreutils "install"} -Dm644 ${escapeShellArg config.home.file.${path}.source} "$settings"
+        '')
+        settingsPaths
+      );
     };
   };
 }
