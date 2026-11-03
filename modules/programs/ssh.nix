@@ -9,9 +9,9 @@
     inherit (vars) groundDomain username;
   in {
     sops.secrets = {
-      "git/credential_host" = {};
-      "git/private_forge/private_ssh_key".path = "/home/${username}/.ssh/private-forge";
-      "git/private_forge/public_ssh_key".path = "/home/${username}/.ssh/private-forge.pub";
+      "git/college_forge/host" = {};
+      "git/college_forge/private_ssh_key".path = "/home/${username}/.ssh/college-forge";
+      "git/college_forge/public_ssh_key".path = "/home/${username}/.ssh/college-forge.pub";
 
       # keep-sorted start
       "servers/euclid/private_ssh_key".path = "/home/${username}/.ssh/euclid";
@@ -19,10 +19,10 @@
       # keep-sorted end
     };
 
-    sops.templates."ssh-private-forge".content = ''
-      Host ${config.sops.placeholder."git/credential_host"}
+    sops.templates."ssh-college-forge".content = ''
+      Host ${config.sops.placeholder."git/college_forge/host"}
         IdentitiesOnly yes
-        IdentityFile ~/.ssh/private-forge
+        IdentityFile ~/.ssh/college-forge
         User git
     '';
 
@@ -31,7 +31,7 @@
 
       # Keep the default config disabled to quiet the upstream warning.
       enableDefaultConfig = false;
-      includes = [config.sops.templates."ssh-private-forge".path];
+      includes = [config.sops.templates."ssh-college-forge".path];
 
       settings = {
         "github.com" = {

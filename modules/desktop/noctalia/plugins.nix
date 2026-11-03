@@ -28,14 +28,14 @@
     jsonFormat = pkgs.formats.json {};
 
     videosDir = config.xdg.userDirs.videos;
-    forgesSecretName = "noctalia/forges/gitlab_url";
+    forgesSecretName = "git/college_forge/host";
     forgesTemplateName = "noctalia-forges";
   in {
     sops = {
       secrets.${forgesSecretName} = {};
       templates.${forgesTemplateName}.content = ''
         [plugin_settings."adam0/forges"]
-        gitlab_url = "${config.sops.placeholder.${forgesSecretName}}"
+        gitlab_url = "https://${config.sops.placeholder.${forgesSecretName}}"
       '';
     };
 

@@ -16,9 +16,14 @@
       username
       # keep-sorted end
       ;
+
+    # Upstream git omits the libsecret helper unless it is built in.
+    git = pkgs.git.override {withLibsecret = true;};
   in {
     sops = {
       secrets = {
+        "git/college_forge/host" = {};
+
         # Per-user git email address stored in sops.
         "git/email" = {};
 
@@ -26,10 +31,13 @@
         "git/private_ssh_key".path = "/home/${username}/.ssh/git";
       };
 
-      # Small include that injects the sops email into git config.
+      # Keep private Git settings out of the Nix store.
       templates."git-config".content = ''
         [user]
           email = ${config.sops.placeholder."git/email"}
+        [credential "https://${config.sops.placeholder."git/college_forge/host"}"]
+          helper =
+          helper = !glab auth git-credential
       '';
     };
 
@@ -40,6 +48,7 @@
     programs = {
       git = {
         enable = true;
+        package = git;
 
         settings = {
           user = {
@@ -54,11 +63,11 @@
           tag.gpgSign = true;
           # keep-sorted end
 
-          # Store https credentials via the desktop keyring (libsecret).
-          credential.helper = "${pkgs.git}/libexec/git-core/git-credential-libsecret";
+          # Store generic https credentials via the desktop keyring.
+          credential.helper = "${git}/libexec/git-core/git-credential-libsecret";
         };
 
-        # Include the sops-generated snippet to set the email.
+        # Include private settings after the default credential helper.
         includes = [{inherit (config.sops.templates."git-config") path;}];
       };
     };
