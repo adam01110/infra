@@ -68,10 +68,11 @@ edit there, not generated files in `$ALBEDO_HOME` or `~/.agents`. Nix-first.
  check once per repo at task start: `.jj/` in cwd or parent, or `jj root`
  work? jj repo.
 
-- jj repo? load `jujutsu` before first file edit. then `jj new -m
-  "<imperative summary>"`. every task, small edit too.
+- jj repo? load `jujutsu` before first file edit. inspect `@`: empty?
+  reuse with `jj desc -m "<imperative summary>"`; nonempty? start a new
+  described change with `jj new -m "<imperative summary>"`.
 - `.jj` there, skill not loaded? load it. no edit first.
-- never edit into old task change or undescribed `@`.
+- never mix new work into a nonempty old task change or edit undescribed `@`.
 - one task, one described change. `jj st` before report.
 - not jj repo? no VCS action unless asked.
 

@@ -21,25 +21,33 @@ jj version assumed: 0.44.0. version differs? command may differ; inspect help.
 
 ## required flow
 
-every task, same order. no thinking about it. no skip.
+before every task, inspect the working copy and describe the task before editing.
 
 ```bash
 jj root                      # error? not jj repo, skill no apply
-jj new -m "Add login validation"
+jj st
+jj log -r @ --no-graph -T 'empty ++ "\n"'
+# true: reuse @
+jj desc -m "Add login validation"
+# false: instead create a new change
+# jj new -m "Add login validation"
 # edit files. next jj command snapshot
 jj st
 ```
 
-grug always make new change first, always describe it. one command do both.
+empty `@`? reuse it with `jj desc -m "<summary>"`, even if already described.
+nonempty `@`? `jj new -m "<summary>"` to keep existing work separate.
+never create a child merely because a new task starts when `@` is empty.
+explicit user instructions about the change or base take precedence.
 
 edit first? bad. work fall into old change, or into undescribed `@`. grug say no.
 
 end of task: `@` stay described. no `jj new` to close. no `git commit`.
 
-only way out, and user must say it:
+exceptions:
 
 - user say amend this change? `jj desc -m "..."`. no `jj new`.
-- stray `@-` with `(empty) (no description set)`? `jj abandon @-`. nothing lost.
+- empty ancestor? do not automatically abandon it; reuse `@` to avoid adding more.
 - work belong beside `trunk()`? [`references/NONLINEAR.md`](references/NONLINEAR.md).
 
 more: [`references/NEW_CHANGE.md`](references/NEW_CHANGE.md).

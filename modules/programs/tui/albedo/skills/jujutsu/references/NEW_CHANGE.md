@@ -1,29 +1,31 @@
 # start change
 
-every task: `jj new -m "<summary>"` before first edit. one change per task,
-always described.
+inspect `@` before the first edit. one described change per task does not mean
+creating a new commit when the working copy is already empty.
 
 ```bash
 jj root
-jj new -m "Add login validation"
-# edit. next jj command snapshot
 jj st
+jj log -r @ --no-graph -T 'empty ++ "\n"'
 ```
 
-`@` is working copy commit. edit land there. no `jj add`, no `jj commit`, no
-staging.
+- `true`: reuse `@` with `jj desc -m "<summary>"`, even if already described.
+- `false`: preserve existing work with `jj new -m "<summary>"`.
+- user explicitly says amend? edit that change in place; describe with inline `-m`.
+- user specifies another base? follow [`NONLINEAR.md`](NONLINEAR.md).
 
-user say amend? `jj desc -m "..."`, edit in place. stray `@-`
-`(empty) (no description set)`? `jj abandon @-`. nothing lost.
+then edit files and run `jj st`. `@` is the working-copy commit; edits land
+there. no `jj add`, no `jj commit`, no staging.
 
-avoid demon:
+avoid:
 
-- code before description.
-- reuse of undescribed `@`.
-- bare `jj desc`. editor hang. always inline `-m`.
-- `jj commit` thinking.
-- `jj new` at end of task, leave empty undescribed `@` behind.
+- editing before describing the task.
+- creating a child of empty `@` just to start a task.
+- mixing unrelated work into nonempty `@`.
+- automatically abandoning empty ancestors.
+- bare `jj desc`, which opens an editor; always use inline `-m`.
+- `jj new` at the end of a task, leaving empty undescribed `@` behind.
 
-description one logical change. too big? split,
+keep the description to one logical change. too big? split:
 [`REFINE_COMMIT.md`](REFINE_COMMIT.md). unrelated work?
 [`NONLINEAR.md`](NONLINEAR.md).
