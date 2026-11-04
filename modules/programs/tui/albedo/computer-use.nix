@@ -17,7 +17,7 @@
       home.packages = [hypruse];
 
       programs.albedo.mcp.servers.computer-use = {
-        description = "Observe and control the local desktop only on explicit request or /computer-use.";
+        description = "Desktop control; explicit request only.";
         command = getExe hypruse;
         environment = {
           # keep-sorted start

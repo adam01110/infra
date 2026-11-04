@@ -30,7 +30,7 @@
     mcps = {
       # keep-sorted start block=yes newline_separated=yes
       canvas = {
-        description = "Access Canvas assignments, deadlines, grades and course materials.";
+        description = "Canvas coursework.";
         command = getExe pkgs.nur.repos.adam0.canvas-api-mcp;
         secrets = {
           # keep-sorted start
@@ -41,13 +41,13 @@
       };
 
       context7 = {
-        description = "Look up current library documentation and version-specific examples.";
+        description = "Current library documentation and examples.";
         command = getExe pkgs.context7-mcp;
         secrets.CONTEXT7_API_KEY = "ai/context7_key";
       };
 
       excalidash = {
-        description = "Create and edit diagrams and whiteboards in ExcaliDash.";
+        description = "Create and edit diagrams and whiteboards.";
         command = getExe pkgs.nur.repos.adam0.excalidash-mcp;
         environment = {
           # keep-sorted start
@@ -59,7 +59,6 @@
       };
 
       figma = {
-        description = "Inspect Figma designs, extract assets and generate implementation context.";
         command = getExe (writeShellApplication {
           name = "figma-mcp";
           runtimeInputs = [pkgs.nodejs];
@@ -70,27 +69,24 @@
       };
 
       github = {
-        description = "Manage GitHub issues, pull requests and reviews.";
         args = ["stdio"];
         command = getExe pkgs.github-mcp-server;
         secrets.GITHUB_PERSONAL_ACCESS_TOKEN = "ai/github_token";
       };
 
       gitlab = {
-        description = "Manage GitLab projects, issues, merge requests and pipelines.";
         args = ["mcp" "serve"];
         command = getExe pkgs.glab;
         secrets.GITLAB_TOKEN = "ai/gitlab_token";
       };
 
       gridcraft = {
-        description = "Create and edit spreadsheets, formulas and charts.";
+        description = "Create, edit, import and export spreadsheets.";
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.gridcraft "gridcraft-cli";
       };
 
       penpot = {
-        description = "Inspect and edit Penpot designs and extract assets.";
         command = getExe (writeShellApplication {
           name = "penpot-mcp";
           runtimeInputs = [
@@ -116,13 +112,13 @@
       };
 
       tangled = {
-        description = "Manage Tangled repositories, issues and pipelines.";
+        description = "Manage Tangled Git repositories, issues and pipelines.";
         command = getExe' pkgs.nur.repos.adam0.tg "tgmcp";
         environment.TGMCP_ACCOUNT = vars.atprotoHandle;
       };
 
       wordcraft = {
-        description = "Create, edit, import and export document files.";
+        description = "Create, edit, import and export documents.";
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.wordcraft "wordcraft-cli";
       };
@@ -143,7 +139,8 @@
       lazy = true;
       servers =
         mapAttrs (_: mcp: {
-          inherit (mcp) command description;
+          inherit (mcp) command;
+          description = mcp.description or "";
           args = mcp.args or [];
           environment = mcp.environment or {};
           secretFiles = mapAttrs (_: secret: config.sops.secrets.${secret}.path) (mcp.secrets or {});
