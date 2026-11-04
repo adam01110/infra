@@ -58,6 +58,17 @@
         secrets.EXCALIDASH_API_KEY = "ai/excalidash_key";
       };
 
+      figma = {
+        description = "Inspect Figma designs, extract assets and generate implementation context.";
+        command = getExe (writeShellApplication {
+          name = "figma-mcp";
+          runtimeInputs = [pkgs.nodejs];
+          text = ''
+            exec npx --yes mcp-remote@0.16.0 https://mcp.figma.com/mcp
+          '';
+        });
+      };
+
       github = {
         description = "Manage GitHub issues, pull requests and reviews.";
         args = ["stdio"];
