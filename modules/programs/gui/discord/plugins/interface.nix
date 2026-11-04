@@ -94,7 +94,8 @@
 
       platformIndicators.enable = true;
 
-      platformSpoofer.enable = true;
+      # Keep the gateway identity consistent with the browser login.
+      platformSpoofer.enable = false;
 
       previewMessage.enable = true;
 
