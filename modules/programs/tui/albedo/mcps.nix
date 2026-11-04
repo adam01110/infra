@@ -81,7 +81,7 @@
       };
 
       gridcraft = {
-        description = "Create, edit, import and export spreadsheets.";
+        description = "Edit spreadsheets.";
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.gridcraft "gridcraft-cli";
       };
@@ -118,13 +118,13 @@
       };
 
       wordcraft = {
-        description = "Create, edit, import and export documents.";
+        description = "Edit documents.";
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.wordcraft "wordcraft-cli";
       };
 
       deckcraft = {
-        description = "Create, edit, import and export slide decks.";
+        description = "Edit slide decks.";
         args = ["mcp"];
         command = getExe' pkgs.nur.repos.quriosity.deckcraft "deckcraft-cli";
       };
