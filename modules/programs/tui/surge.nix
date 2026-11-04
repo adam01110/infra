@@ -11,15 +11,7 @@
     inherit (lib) boolToString concatMapAttrsStringSep escapeShellArgs getExe;
     inherit (pkgs) writeShellScript;
 
-    # Backport saved settings loading for the connected TUI in 0.12.2.
-    surge-downloader = pkgs.surge-downloader.overrideAttrs (old: {
-      patches = (old.patches or []) ++ [./surge-connect-settings.patch];
-      postCheck =
-        (old.postCheck or "")
-        + ''
-          go test ./cmd -run '^TestNewRemoteRootModel' -count=1
-        '';
-    });
+    inherit (pkgs) surge-downloader;
 
     tomlFormat = pkgs.formats.toml {};
 
