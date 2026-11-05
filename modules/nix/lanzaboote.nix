@@ -37,6 +37,7 @@
 
       lanzaboote = {
         enable = true;
+        configurationLimit = 2;
 
         # Manage secure boot keys on the host during initial setup.
         autoGenerateKeys.enable = true;
