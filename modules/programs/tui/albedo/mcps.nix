@@ -46,6 +46,12 @@
         secrets.CONTEXT7_API_KEY = "ai/context7_key";
       };
 
+      deckcraft = {
+        description = "Edit slide decks.";
+        args = ["mcp"];
+        command = getExe' pkgs.deckcraft "deckcraft-cli";
+      };
+
       excalidash = {
         description = "Create and edit diagrams and whiteboards.";
         command = getExe pkgs.nur.repos.adam0.excalidash-mcp;
@@ -116,6 +122,15 @@
         secrets.PENPOT_MCP_KEY = "ai/penpot_key";
       };
 
+      rea = {
+        description = "Reverse engineering: binaries, applications, runtime behavior.";
+        args = ["mcp"];
+        # Use analysis engines from the caller's PATH.
+        command = getExe pkgs.nur.repos.silicalet.rea;
+        # Keep advertised schemas compact across roughly 200 tools.
+        environment.REA_MCP_INPUT_SCHEMA_PROFILE = "compact";
+      };
+
       tangled = {
         description = "Manage Tangled Git repositories, issues and pipelines.";
         command = getExe' pkgs.nur.repos.adam0.tg "tgmcp";
@@ -126,12 +141,6 @@
         description = "Edit documents.";
         args = ["mcp"];
         command = getExe' pkgs.wordcraft "wordcraft-cli";
-      };
-
-      deckcraft = {
-        description = "Edit slide decks.";
-        args = ["mcp"];
-        command = getExe' pkgs.deckcraft "deckcraft-cli";
       };
       # keep-sorted end
     };
