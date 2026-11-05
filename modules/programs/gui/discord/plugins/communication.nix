@@ -31,8 +31,6 @@
 
       copyFileContents.enable = true;
 
-      copyStickerLinks.enable = true;
-
       copyUserMention.enable = true;
 
       copyUserUrls.enable = true;
@@ -43,7 +41,7 @@
 
       dontRoundMyTimestamps.enable = true;
 
-      expressionCloner.enable = true;
+      expressionManager.enable = true;
 
       fixCodeblockGap.enable = true;
 

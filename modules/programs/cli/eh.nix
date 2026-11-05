@@ -6,27 +6,53 @@
 
   flake.modules.homeManager.eh = {
     # keep-sorted start
+    config,
     lib,
     pkgs,
     # keep-sorted end
     ...
   }: let
-    inherit (lib) getExe;
+    inherit
+      (lib)
+      # keep-sorted start
+      getExe
+      makeBinPath
+      optionalString
+      # keep-sorted end
+      ;
     inherit (pkgs.stdenv.hostPlatform) system;
+    inherit
+      (pkgs)
+      # keep-sorted start
+      symlinkJoin
+      writeShellScriptBin
+      # keep-sorted end
+      ;
 
-    # The eh package installs a `,` multicall symlink that shadows
-    # nix-index-database's comma command; drop it while keeping eh and the
-    # other multicall binaries.
-    eh = inputs.eh.packages.${system}.eh.overrideAttrs (old: {
-      postInstall =
-        (old.postInstall or "")
-        + ''
-          rm -f $out/bin/,
-          rm -f $out/share/bash-completion/completions/,.bash
-          rm -f $out/share/zsh/site-functions/_,
-          rm -f $out/share/fish/vendor_completions.d/,.fish
-        '';
-    });
+    cfg = config.programs.nix-your-shell;
+
+    # Bridge subprocesses that cannot see fish's nix function.
+    nixForEh = writeShellScriptBin "nix" ''
+      export PATH="${makeBinPath [config.nix.package]}:$PATH"
+      exec ${getExe cfg.package} ${optionalString cfg.nix-output-monitor.enable "--nom"} ${getExe config.programs.fish.package} nix -- "$@"
+    '';
+
+    eh = symlinkJoin {
+      name = "eh-with-fish";
+      paths = [inputs.eh.packages.${system}.eh];
+      nativeBuildInputs = [pkgs.makeWrapper];
+      postBuild = ''
+        # Leave comma to nix-index-database.
+        rm -f $out/bin/,
+        rm -f $out/share/bash-completion/completions/,.bash
+        rm -f $out/share/zsh/site-functions/_,
+        rm -f $out/share/fish/vendor_completions.d/,.fish
+        for program in "$out"/bin/*; do
+          wrapProgram "$program" --argv0 "$(basename "$program")" --prefix PATH : ${nixForEh}/bin
+        done
+      '';
+      meta.mainProgram = "eh";
+    };
   in {
     home.packages = [eh];
 
