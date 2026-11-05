@@ -78,6 +78,8 @@
           };
 
           db_config = {
+            # Limit LAPI bursts to leave capacity for other services.
+            max_open_conns = 10;
             db_name = "crowdsec";
             db_path = "/run/postgresql";
             type = "pgx";

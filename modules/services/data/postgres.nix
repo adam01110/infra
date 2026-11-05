@@ -21,8 +21,9 @@
       package = pkgs.postgresql_18;
 
       settings = {
-        # Leave headroom for service pools and concurrent startup connections.
+        # Retain burst headroom until Compose pools are tuned and measured.
         max_connections = 300;
+        superuser_reserved_connections = 5;
 
         # Listen only on local and WireGuard addresses.
         listen_addresses = mkForce "127.0.0.1,::1,10.100.0.1";

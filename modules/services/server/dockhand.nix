@@ -36,6 +36,9 @@
         "--health-timeout=5s"
       ];
 
+      # Reclaim idle postgres.js sessions without reducing burst concurrency.
+      environment.PGIDLE_TIMEOUT = "300";
+
       environmentFiles = [templates."dockhand.env".path];
       volumes = ["/var/lib/dockhand:/app/data"];
     };

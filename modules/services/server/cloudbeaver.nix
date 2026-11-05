@@ -46,6 +46,10 @@
         CLOUDBEAVER_APP_FORWARD_PROXY = "true";
         CLOUDBEAVER_DB_BACKUP_ENABLED = "false";
         CLOUDBEAVER_DB_DRIVER = "postgres-jdbc";
+        # Bound the management pool, not users' interactive database sessions.
+        CLOUDBEAVER_DB_MAX_CONNECTIONS = "5";
+        CLOUDBEAVER_DB_MAX_IDLE_CONNECTIONS = "2";
+        CLOUDBEAVER_DB_MIN_IDLE_CONNECTIONS = "1";
         CLOUDBEAVER_DB_SCHEMA = "public";
         CLOUDBEAVER_DB_URL = "jdbc:postgresql://127.0.0.1:5432/cloudbeaver";
         CLOUDBEAVER_DB_USER = "cloudbeaver";
