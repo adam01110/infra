@@ -77,7 +77,12 @@
       gitlab = {
         args = ["mcp" "serve"];
         command = getExe pkgs.glab;
-        secrets.GITLAB_TOKEN = "ai/gitlab_token";
+        secrets = {
+          # keep-sorted start
+          GITLAB_HOST = "git/college_forge/host";
+          GITLAB_TOKEN = "ai/gitlab_token";
+          # keep-sorted end
+        };
       };
 
       gridcraft = {
