@@ -44,6 +44,7 @@
 
         setupOpts = {
           provider.type = "copilot";
+          ui.jump.text = " Alt-y ";
 
           blink = {
             # keep-sorted start
