@@ -88,7 +88,7 @@
       gridcraft = {
         description = "Edit spreadsheets.";
         args = ["mcp"];
-        command = getExe' pkgs.nur.repos.quriosity.gridcraft "gridcraft-cli";
+        command = getExe' pkgs.gridcraft "gridcraft-cli";
       };
 
       penpot = {
@@ -125,13 +125,13 @@
       wordcraft = {
         description = "Edit documents.";
         args = ["mcp"];
-        command = getExe' pkgs.nur.repos.quriosity.wordcraft "wordcraft-cli";
+        command = getExe' pkgs.wordcraft "wordcraft-cli";
       };
 
       deckcraft = {
         description = "Edit slide decks.";
         args = ["mcp"];
-        command = getExe' pkgs.nur.repos.quriosity.deckcraft "deckcraft-cli";
+        command = getExe' pkgs.deckcraft "deckcraft-cli";
       };
       # keep-sorted end
     };
