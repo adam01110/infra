@@ -3,7 +3,7 @@
     # keep-sorted start
     lib,
     pkgs,
-    # kee end
+    # keep-sorted end
     ...
   }: let
     inherit (lib) getExe getExe';
