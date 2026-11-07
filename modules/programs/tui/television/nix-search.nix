@@ -39,7 +39,13 @@
       nixpkgs.config.allowUnfreePredicate = allowDocUnfreePredicate;
     };
 
-    allowDocUnfreePredicate = pkg: builtins.elem (getName pkg) ["vscode-extension-ms-dotnettools-csharp"];
+    allowDocUnfreePredicate = pkg:
+      builtins.elem (getName pkg) [
+        # keep-sorted start
+        "copilot-language-server"
+        "vscode-extension-ms-dotnettools-csharp"
+        # keep-sorted end
+      ];
     mkHomeManagerDoc = module: let
       # Evaluate third-party Home Manager modules against Home Manager's full module set.
       homeManagerOptions =
