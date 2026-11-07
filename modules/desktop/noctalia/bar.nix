@@ -108,7 +108,7 @@
               accordion = false;
               accordion_direction = "end";
               enabled = true;
-              fill = "surface_variant";
+              fill = "surface_container";
               id = "system-monitor";
               members =
                 [
@@ -131,7 +131,7 @@
               accordion_direction = "end";
               border = "outline_variant";
               enabled = true;
-              fill = "surface_variant";
+              fill = "surface_container";
               id = "notifications";
               members = ["notifications" "forges"];
               opacity = 1.0;
@@ -144,7 +144,7 @@
               accordion_direction = "end";
               border = "outline_variant";
               enabled = true;
-              fill = "surface_variant";
+              fill = "surface_container";
               id = "g1";
               members = ["clock" "bar"];
               opacity = 1.0;
@@ -157,7 +157,7 @@
               accordion_direction = "end";
               border = "outline_variant";
               enabled = true;
-              fill = "surface_variant";
+              fill = "surface_container";
               id = "g2";
               members = ["volume" "microphone"];
               opacity = 1.0;
@@ -170,7 +170,7 @@
               accordion_direction = "end";
               border = "outline_variant";
               enabled = true;
-              fill = "surface_variant";
+              fill = "surface_container";
               id = "g3";
               members = ["network" "protonvpn"];
               opacity = 1.0;
@@ -183,7 +183,7 @@
               accordion_direction = "end";
               border = "outline_variant";
               enabled = true;
-              fill = "surface_variant";
+              fill = "surface_container";
               id = "g4";
               members = ["albedo-monitor" "widget_2" "status"];
               opacity = 1.0;
@@ -219,7 +219,6 @@
           # keep-sorted start
           color = "on_surface_variant";
           display = "icon_and_text";
-          inactive_opacity = 1.0;
           max_length = 145.0;
           min_length = 0.0;
           show_empty_label = false;

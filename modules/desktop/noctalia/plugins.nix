@@ -142,7 +142,7 @@
 
         "oldirtty/color_picker" = {
           # keep-sorted start
-          hyprpicker-lowercase = true;
+          lowercase-hex = true;
           panel_open_near_click = true;
           panel_position = "auto";
           # keep-sorted end
