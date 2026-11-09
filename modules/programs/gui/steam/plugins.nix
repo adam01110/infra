@@ -1,65 +1,93 @@
 {
   flake.modules.homeManager.steam = {pkgs, ...}: let
-    inherit (pkgs) fetchzip;
+    inherit (pkgs) fetchurl fetchzip;
 
+    # Release archive holding plugin.json, the backend and a built frontend bundle.
     fetchPlugin = {
+      # keep-sorted start
+      asset,
       hash,
-      id,
-      name,
+      repo,
+      tag,
+      stripRoot ? true,
+      # keep-sorted end
     }:
       fetchzip {
+        inherit hash stripRoot;
+        url = "https://github.com/${repo}/releases/download/${tag}/${asset}";
+      };
+
+    # Single-file package, which Millennium 3 loads next to unpacked plugins.
+    fetchStar = {
+      # keep-sorted start
+      asset,
+      hash,
+      repo,
+      tag,
+      # keep-sorted end
+    }:
+      fetchurl {
         inherit hash;
-        url = "https://steambrew.app/api/v1/plugins/download/?id=${id}&n=${name}.zip";
+        url = "https://github.com/${repo}/releases/download/${tag}/${asset}";
       };
   in {
     programs.steam.millennium = {
+      # Star packages register their metadata name, not their id or file name.
       config.plugins.enabledPlugins = [
         # keep-sorted start
+        "ProtonDB"
+        "Size on Disk"
         "extendium"
         "hltb-for-millennium"
         "non-steam-playtimes"
-        "protondb"
-        "size-on-disk"
         "steam-easygrid"
         # keep-sorted end
       ];
 
       plugins = {
         # keep-sorted start block=yes newline_separated=yes
+        "com.unicxrn.protondb.star" = fetchStar {
+          asset = "protondb-v2.0.0.star";
+          hash = "sha256-AIn6rFyFy/KaH0W2a8CzOa2bgkUC2LlShJ6Qzb5vDEA=";
+          repo = "unicxrn/protondb-millennium";
+          tag = "v2.0.0";
+        };
+
+        "size-on-disk.star" = fetchStar {
+          asset = "size-on-disk-1.3.1.star";
+          hash = "sha256-VJohLQSYLCj71zBlTM5yqS8iuER2lCYDPdkfj2YtTAo=";
+          repo = "k0d13/steam-size-on-disk";
+          tag = "v1.3.1";
+        };
+
         extendium = fetchPlugin {
-          hash = "sha256-t/6hMRh/HWxmMqYMwbMqT1NKY6rw+F1VaJHfalqJSAk=";
-          id = "788ed8554492ebd2ebe057b8eff79fad8a6c75d5";
-          name = "extendium";
+          asset = "extendium-2.0.5.zip";
+          hash = "sha256-xLgXWSU06onhi5JACcxbTh3qrgVqtkNRco1dbvcWLtk=";
+          repo = "BossSloth/Extendium";
+          tag = "v2.0.5";
         };
 
         hltb-for-millennium = fetchPlugin {
-          hash = "sha256-Mc29zUjMfrKEqQvDUwanWZrwiDkYmKio7YGdVIWXcWQ=";
-          id = "f685622bace6c63a70a24265f72fabd32aa497b5";
-          name = "hltb-for-millennium";
+          asset = "hltb-for-millennium-2.2.0.zip";
+          hash = "sha256-LH9JzLHSIOgJcasPEsFwQkninysyyzty37xDnFv0m/g=";
+          repo = "jcdoll/hltb-millennium-plugin";
+          tag = "v2.2.0";
         };
 
         non-steam-playtimes = fetchPlugin {
-          hash = "sha256-qRK39jhTwqj1ahR35s0pUiKO01rbrokVCUKLz4gq9LA=";
-          id = "02bed50d10a8b1e58fb8bba608fe6a120a3a0dca";
-          name = "non-steam-playtimes";
-        };
-
-        protondb = fetchPlugin {
-          hash = "sha256-eSwHAHFu4hTupTTI8vR4pFgntZNGnz0nT5ETRUG+vfI=";
-          id = "7913678dca9592b28d2f619aeefd47b06ebf36a2";
-          name = "protondb";
-        };
-
-        size-on-disk = fetchPlugin {
-          hash = "sha256-GebzTS6GO/3bN03XIB6N0/Pb0X8aruU5KFsodU26II0=";
-          id = "e73371b61eef68019413475b7642ecc37e53bbbd";
-          name = "size-on-disk";
+          asset = "non-steam-playtimes-2.0.3.zip";
+          hash = "sha256-O5f63HPaIEKTDvXAdD2ZxJmFyyJUU1/k7UFk6V4Htyw=";
+          repo = "k0d13/steam-non-steam-playtimes";
+          stripRoot = false;
+          tag = "v2.0.3";
         };
 
         steam-easygrid = fetchPlugin {
-          hash = "sha256-hpejvAqLX+YsZIFcVByzlH8cgSe7yyxNlCqvBeK50Fg=";
-          id = "2519c8a9fc979627a214a78ad642ae5d5723216f";
-          name = "steam-easygrid";
+          asset = "steam-easygrid.zip";
+          hash = "sha256-Awr50Lf6F5Ynk+5vGVyG+ezvAUdosshZUaiKtkFvx6U=";
+          repo = "luthor112/steam-easygrid";
+          stripRoot = false;
+          tag = "dev-98b8c45f12c6c45ac61c94618ba74a4f4db3c4d2";
         };
         # keep-sorted end
       };

@@ -50,7 +50,6 @@
       url = "github:nix-community/lanzaboote?ref=v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel?ref=release";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nix-index-database = {
