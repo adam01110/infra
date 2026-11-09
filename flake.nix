@@ -124,10 +124,6 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    tuigreet = {
-      url = "github:tuigreet/tuigreet";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake?ref=beta";
       inputs = {
