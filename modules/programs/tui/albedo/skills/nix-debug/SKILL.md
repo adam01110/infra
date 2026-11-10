@@ -15,15 +15,15 @@ allowed-tools: read grep find bash
 
 # nix debug
 
-need repeated inspection? one `nix repl`; not many `nix eval` calls.
+For repeated inspection, use one `nix repl` instead of many `nix eval` calls.
 
-1. choose narrowest useful target.
-2. load: `nix repl` then `:lf .`, or `nix repl ./path/to/file.nix`.
-3. key unknown? inspect parent with `builtins.attrNames`. never guess host,
-   user, output.
-4. walk missing path one segment at time. evaluate small expressions until
-   failing edge known.
-5. report exact attr path, value, or error.
+1. Choose the narrowest useful target.
+2. Load it: `nix repl` then `:lf .`, or `nix repl ./path/to/file.nix`.
+3. If a key is unknown, list the parent with `builtins.attrNames`. Do not guess
+   the host, user, or output.
+4. Walk a missing path one segment at a time with small expressions until
+   the failing edge is known.
+5. Report the exact attr path, value, or error.
 
 ```nix
 builtins.attrNames inputs
@@ -37,8 +37,8 @@ builtins.attrNames overlays
 :p packages.${builtins.currentSystem}.foo.drvAttrs
 ```
 
-inspect realized `config` first. need type/declaration metadata? then inspect
-`options`. special attr name? quote: `foo."bar-baz"`.
+Inspect the realized `config` first; inspect `options` only when you need type
+or declaration metadata. Quote special attr names: `foo."bar-baz"`.
 
-interactive debug means `nix repl` default. `nix eval` only when interaction not
-needed.
+Interactive debugging defaults to `nix repl`; use `nix eval` only when no
+interaction is needed.

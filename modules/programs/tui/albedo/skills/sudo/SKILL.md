@@ -13,18 +13,17 @@ allowed-tools: bash
 
 # sudo
 
-`sudo` is not for elevated operations. Elevated work goes through `run0`.
-`run0` generates a systemd approval prompt for the user to review each
-command's exact effect. Load this skill only when a command needs root.
+Run elevated operations through `run0`, not `sudo`. `run0` raises a systemd
+approval prompt where the user reviews each command's exact effect. Load this
+skill only when a command needs root.
 
-## why run0
+## Why run0
 
-`run0` sends a message to the human to review each command's exact request,
-not an agent-curated summary. Root access is granted per command, not per
-session. An agent repeating `sudo` unattended is the failure mode this blocks
-before it starts.
+The user reviews the exact command request, not an agent-curated summary, and
+root is granted per command rather than per session. This prevents an agent
+from repeating `sudo` unattended.
 
-## the message
+## The message
 
 Before each `run0` call, send the user a status message covering:
 
@@ -32,25 +31,26 @@ Before each `run0` call, send the user a status message covering:
 - what `run0` does when invoked
 - what the approval prompt will ask of them
 
-## rules
+## Rules
 
-- one message per command, sent before running it, then wait for the
-  approval flow to finish.
-- never queue elevated commands or hide command text via redirects,
-  variables, or truncation.
-- a denial is not an error — it is a blocked action, not an exception to
-  "same command fails twice? stop repeating it".
-- `run0` wraps a single command, not a script. no bun/npm/pnpm launchers
-  marked elevated.
+- Send one message per command before running it, then wait for the approval
+  flow to finish.
+- Run elevated commands one at a time, with the full command text visible; do
+  not hide it behind redirects, variables, or truncation.
+- A denial is a blocked action, not an error. The rule to stop repeating a
+  command that failed twice still applies to it.
+- `run0` wraps a single command, not a script. Do not mark bun/npm/pnpm
+  launchers as elevated.
 
-## flow
+## Flow
 
 Request `sudo systemctl restart wpa_supplicant`:
 
-1. message: `run0 systemctl restart wpa_supplicant — needs root to restart
+1. Message: `run0 systemctl restart wpa_supplicant — needs root to restart
    the network daemon after removing stale state; run0 runs it as root via
    systemd and your approval prompt shows this exact command text.`
-2. run: `run0 systemctl restart wpa_supplicant`
-3. prompt appears on the user's side, user reviews command text, allows.
-4. if user denies: report result and stop, no retry.
-5. if user allows: command runs as root, report the real output.
+2. Run: `run0 systemctl restart wpa_supplicant`
+3. The prompt appears on the user's side; the user reviews the command text and
+   allows it.
+4. If the user denies, report the result and stop without retrying.
+5. If the user allows, the command runs as root; report the real output.

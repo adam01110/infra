@@ -1,10 +1,11 @@
-# compact templates
+# Compact templates
 
-assume/tested jj 0.44.0. use commands as written. top-level `--no-pager`
-intentional. inline `-T` keeps repo/global config untouched. parse failure means
-version drift; inspect `jj <command> --help` and `jj help -k templates`.
+Tested with jj 0.44.0. Use the commands as written. The top-level `--no-pager`
+is intentional, and inline `-T` leaves repo and global config untouched. A parse
+failure means version drift; check `jj <command> --help` and
+`jj help -k templates`.
 
-## log
+## Log
 
 <!-- rumdl-disable MD013 -->
 
@@ -14,10 +15,10 @@ jj --no-pager log --no-graph -n 20 -T 'change_id.shortest(8) ++ if(bookmarks, " 
 
 <!-- rumdl-enable MD013 -->
 
-keeps stable 8-char change ID, bookmarks/`@`, empty/conflict, first
-description. bare `shortest()` may collapse to one char.
+Shows a stable 8-char change ID, bookmarks and `@`, empty/conflict flags, and
+the first description line. Bare `shortest()` may collapse to one character.
 
-## show
+## Show
 
 <!-- rumdl-disable MD013 -->
 
@@ -27,9 +28,9 @@ jj --no-pager show <change-id> --stat -T 'change_id.shortest(8) ++ if(bookmarks,
 
 <!-- rumdl-enable MD013 -->
 
-need no file summary? replace `--stat` with `--no-patch`.
+To drop the file summary, replace `--stat` with `--no-patch`.
 
-## diff
+## Diff
 
 <!-- rumdl-disable MD013 -->
 
@@ -39,9 +40,9 @@ jj --no-pager diff -T 'self.status_char() ++ " " ++ self.display_diff_path() ++ 
 
 <!-- rumdl-enable MD013 -->
 
-specific revision? add `-r <rev>`.
+For a specific revision, add `-r <rev>`.
 
-## bookmark list
+## Bookmark list
 
 <!-- rumdl-disable MD013 -->
 
@@ -51,9 +52,9 @@ jj --no-pager bookmark list -T 'if(self.normal_target(), self.name() ++ ": " ++ 
 
 <!-- rumdl-enable MD013 -->
 
-conflicted bookmark target details needed? default output.
+For conflicted bookmark target details, use the default output.
 
-## workspace list
+## Workspace list
 
 <!-- rumdl-disable MD013 -->
 
@@ -63,7 +64,7 @@ jj --no-pager workspace list -T 'self.name() ++ ": " ++ if(self.root(), self.roo
 
 <!-- rumdl-enable MD013 -->
 
-## operation log
+## Operation log
 
 <!-- rumdl-disable MD013 -->
 
@@ -73,9 +74,9 @@ jj --no-pager op log --no-graph -n 20 -T 'id.short(8) ++ " " ++ time.start().ago
 
 <!-- rumdl-enable MD013 -->
 
-recovery context first. `-p` only after relevant IDs narrowed.
+Get recovery context first; use `-p` only after narrowing to the relevant IDs.
 
-## evolution log
+## Evolution log
 
 <!-- rumdl-disable MD013 -->
 
@@ -85,7 +86,7 @@ jj --no-pager evolog -r <change-id> --no-graph -n 20 -T 'commit.change_id().shor
 
 <!-- rumdl-enable MD013 -->
 
-change summary left; rewriting operation right.
+The change summary is on the left; the rewriting operation is on the right.
 
-`jj st`/`status` expose no template in 0.44.0. side-effect commands such as undo,
-op restore, resolve need no template.
+`jj st`/`status` has no template in 0.44.0. Side-effect commands such as undo,
+op restore, and resolve need no template.

@@ -1,10 +1,11 @@
-# nonlinear work
+# Nonlinear work
 
-assume jj 0.44.0. new work unrelated to current stack? sibling from `trunk()`,
-not forced child.
+Assumes jj 0.44.0. Put work unrelated to the current stack in a sibling from
+`trunk()`, not a forced child.
 
-sibling fits when current `@` already logical change, independent lines
-requested, alternatives compared/merged, or quick fix interrupts feature.
+A sibling fits when `@` is already a logical change, independent lines are
+requested, alternatives get compared or merged, or a quick fix interrupts a
+feature.
 
 ```bash
 jj st
@@ -14,23 +15,25 @@ jj desc -m "Handle stale workspace recovery"
 jj st
 ```
 
-use `trunk()`, never guess `main`/`master`.
+Use `trunk()`; do not guess `main`/`master`.
 
-child `jj new` when work depends on current, stack requested, or intentional
-follow-up. sibling `jj new trunk()` when review/land/abandon should be
-independent or parallel agents need separate history.
+Use a child (`jj new`) when work depends on the current change, a stack is
+requested, or it is an intended follow-up. Use a sibling (`jj new trunk()`) when
+review, landing, or abandoning should be independent or parallel agents need
+separate history.
 
-both lines should remain visible? explicit merge:
+If both lines should remain visible, merge explicitly:
 
 ```bash
 jj new <left-change> <right-change> -m "Combine related work"
 ```
 
-rebase one onto other, visible merge, or separate pushes? consequential choice;
-ask user.
+Rebase one onto the other, visible merge, or separate pushes: this choice is
+consequential, so ask the user.
 
-never pile unrelated work into `@`. never use describe/edit/`jj new` as
-close-and-repeat loop. base first, then separate `jj desc -m`; do not default to
-`jj new trunk() --no-edit -m ...` here.
+Do not pile unrelated work into `@` or use describe, edit, or `jj new` as a
+close-and-repeat loop. Choose the base first, then run a separate
+`jj desc -m`; do not default to `jj new trunk() --no-edit -m ...` here.
 
-change start: [`NEW_CHANGE.md`](NEW_CHANGE.md). parallel copies: [`WORKSPACES.md`](WORKSPACES.md).
+Starting a change: [`NEW_CHANGE.md`](NEW_CHANGE.md). Parallel copies:
+[`WORKSPACES.md`](WORKSPACES.md).

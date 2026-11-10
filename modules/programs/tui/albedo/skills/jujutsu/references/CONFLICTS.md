@@ -1,11 +1,11 @@
-# conflicts
+# Conflicts
 
-jj conflict is commit data. rebase/squash producing conflict succeeds; commit
-stays marked. further rebase allowed. push rejects conflicted history by
-default.
-0.44 adds `jj git push --allow-conflicts`; agent never uses it.
+In jj, a conflict is commit data. A rebase or squash that produces a conflict
+succeeds, and the commit stays marked as conflicted. Further rebases are
+allowed. Push rejects conflicted history by default.
+0.44 adds `jj git push --allow-conflicts`; agents do not use it.
 
-## inspect
+## Inspect
 
 ```bash
 jj st
@@ -15,7 +15,8 @@ jj log
 jj config get ui.conflict-marker-style
 ```
 
-styles: `diff` modern default, `snapshot` full sides/base, `git` legacy 3-way.
+Styles: `diff` is the modern default, `snapshot` shows full sides and base, `git`
+is legacy 3-way.
 
 `diff`:
 
@@ -42,16 +43,16 @@ side 2 content here
 >>>>>>> Conflict 1 of 1 ends
 ```
 
-side #1 = ours/destination, usually current line. side #2 = theirs/source,
-usually incoming/rebased line. resolve manual by replacing whole marker block
-with final content.
+Side #1 is ours/destination, usually the current line. Side #2 is
+theirs/source, usually the incoming or rebased line. To resolve manually,
+replace the whole marker block with the final content.
 
-## choose path
+## Choose a path
 
-bare `jj resolve` launches interactive merge tool. agent? never.
+Bare `jj resolve` launches an interactive merge tool, so agents do not run it.
 
-1. complex merge: edit markers directly, then `jj st`.
-2. one side wholly correct:
+1. Complex merge: edit the markers directly, then run `jj st`.
+2. One side is wholly correct:
 
 ```bash
 jj resolve --tool :ours
@@ -59,21 +60,22 @@ jj resolve --tool :theirs
 jj resolve --tool :ours path/to/file.rs
 ```
 
-3. another revision correct:
+3. Another revision is correct:
 
 ```bash
 jj restore --from <change-id> path/to/file.txt
 ```
 
-4. change not worth keeping:
+4. The change is not worth keeping:
 
 ```bash
 jj abandon <change-id>
 ```
 
-descendants rebase; their conflicts remain.
+Descendants rebase, and their conflicts remain.
 
-5. same conflict repeated in descendants? resolve earliest conflicted ancestor once:
+5. The same conflict repeats in descendants: resolve the earliest conflicted
+   ancestor once.
 
 ```bash
 jj log -r 'conflicts()'
@@ -83,12 +85,12 @@ jj st
 jj edit <original-change-id>
 ```
 
-jj re-propagates fix. record original ID before moving; never assume `@-`
-returns prior location.
+jj propagates the fix. Record the original ID before moving, because `@-` may
+not return you to the prior location.
 
-## verify
+## Verify
 
-status alone insufficient:
+Status alone is not enough:
 
 ```bash
 jj st
@@ -96,14 +98,15 @@ git grep -E '^(<{7}|>{7}|\\%{7}|\\+{7})' || echo 'no residual conflict markers'
 # run project tests/linter
 ```
 
-co-located? read-only `git grep` safe. non-colocated? `rg` or `grep -rE`.
-tests catch markers valid inside language strings.
+Read-only `git grep` is safe in a co-located repo; otherwise use `rg` or
+`grep -rE`. Tests catch markers that are valid inside language strings.
 
-normal push refuses conflict. `--allow-conflicts` bypass exists in 0.44 but is
-forbidden: remote conflict commits are hard to consume and hide unfinished work.
+A normal push refuses conflicts. The `--allow-conflicts` bypass exists in 0.44
+but is forbidden, because remote conflict commits are hard to consume and hide
+unfinished work.
 
-avoid descendant-by-descendant fixes, `git checkout`, squash-to-hide, and bare
-resolve.
+Avoid fixing descendants one by one, `git checkout`, squashing to hide
+conflicts, and bare resolve.
 
 | need | command |
 |---|---|

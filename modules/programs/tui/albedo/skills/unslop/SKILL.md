@@ -16,102 +16,113 @@ allowed-tools: read edit write
 
 <!-- rumdl-disable MD029 -->
 
-text has AI tells? scan, rewrite, check meaning and intended tone stay.
-edit writing, not facts. no invented sources, measurements, or certainty.
-return edited text unless user asks for explanation.
+Scan the text for AI tells, rewrite them, and check that meaning and intended
+tone survive. Edit the writing, not the facts: do not invent sources,
+measurements, or certainty. Return the edited text unless the user asks for an
+explanation.
 
 These are editorial checks, not proof of AI authorship. Preserve the intended
 voice, genuine opinions and feelings, necessary explanation, and honest
-uncertainty. Do not turn all prose into neutral encyclopedia writing. Cleanup
+uncertainty. Do not flatten all prose into neutral encyclopedia writing. Cleanup
 alone does not authorize imitating the user or changing another author's voice.
 
-rule ids stay stable for other skills. gaps intentional. never renumber.
+Rule ids are referenced by other skills, so keep them stable. Gaps are
+intentional; do not renumber.
 
-## content
+## Content
 
-3. empty -ing clauses: "highlighting", "ensuring", "showcasing", "fostering".
-   cut or replace with sourced facts.
-5. vague attribution: "experts believe", "reports suggest". name source or cut.
+3. Empty -ing clauses ("highlighting", "ensuring", "showcasing", "fostering"):
+   cut them or replace with sourced facts.
+5. Vague attribution ("experts believe", "reports suggest"): name the source or
+   cut.
 
-## words
+## Words
 
 7. AI vocabulary: additionally, crucial, delve, enduring, enhance, fostering,
    garner, interplay, intricate, landscape, pivotal, showcase, tapestry,
-   testament, underscore, vibrant. use plain words; keep literal meanings.
-8. "serves as", "stands as", "boasts", "features"? use "is" or "has".
-9. "not just X, but Y"? state point directly.
-10. forced groups of three? use natural count.
-11. synonym cycling? pick one term, repeat it.
-12. "from X to Y" without real scale? list topics.
+   testament, underscore, vibrant. Use plain words; keep literal meanings.
+8. Replace "serves as", "stands as", "boasts", "features" with "is" or "has".
+9. Replace "not just X, but Y" with the point stated directly.
+10. Replace forced groups of three with the natural count.
+11. Avoid synonym cycling: pick one term and repeat it.
+12. Replace "from X to Y" without a real scale with a list of topics.
 
-## style
+## Style
 
-13. no em dashes. separate thoughts with periods or commas. no parentheses,
-    en dashes, or hyphens as dash substitutes.
-14. colon before list/example fine. mid-sentence connector? rewrite directly.
-15. bold only where useful, not every name/acronym.
-16. bold label repeats line? use prose. lead-in names item, ends with period,
-    adds new detail? fine.
-17. sentence case headings.
-18. no decorative emojis in headings/bullets.
-19. straight quotes, not curly.
+13. No em dashes. Separate thoughts with periods or commas. Do not substitute
+    parentheses, en dashes, or hyphens for dashes.
+14. A colon before a list or example is fine. A colon used as a mid-sentence
+    connector should be rewritten directly.
+15. Use bold only where useful, not on every name or acronym.
+16. If a bold label repeats its line, use prose. A lead-in that names the item,
+    ends with a period, and adds new detail is fine.
+17. Use sentence case headings.
+18. No decorative emojis in headings or bullets.
+19. Use straight quotes, not curly.
 
-## chat
+## Chat
 
-20. cut chatbot filler: "of course", "certainly", "hope this helps",
+20. Cut chatbot filler: "of course", "certainly", "hope this helps",
     "let me know", "found the smoking gun".
-22. cut flattery/agreement theater: "great question", "absolutely right".
+22. Cut flattery and agreement theater: "great question", "absolutely right".
 
-## filler
+## Filler
 
-23. "in order to" -> "to". "due to the fact that" -> "because".
-    "it is important to note"? cut.
-24. stacked hedges? keep only uncertainty evidence needs. "might possibly" -> "may".
-25. generic conclusion? give specific fact/plan or cut.
+23. "in order to" -> "to". "due to the fact that" -> "because". Cut "it is
+    important to note".
+24. For stacked hedges, keep only the uncertainty the evidence needs. "might
+    possibly" -> "may".
+25. Replace a generic conclusion with a specific fact or plan, or cut it.
 
-## concrete speech
+## Concrete speech
 
-26. abstract metaphor nouns? name real thing. substrate -> base, wedge -> add,
-    vector -> method, gold-plating -> more than needed, evacuate -> move out,
-    endgame -> last phase. check locus, vantage, nexus, primitive, harness,
-    surface, bedrock, scaffolding, modality, paradigm, ratchet, north star,
-    flywheel. literal technical term needed? keep it.
-27. say mechanism, instruction, fact, or number. not feeling.
-    "types follow schema" -> "a column rename fails the build" only if true.
-    sentence fits any project's docs unchanged? make specific or cut.
-28. dense sentence? split or drop clauses. one idea per sentence.
-29. prefer active voice, name actor. "queries are validated" -> "compiler
-    validates queries". actor unknown or irrelevant? passive fine.
-30. weak verb plus adverb? use stronger verb or measured delta. no fake numbers.
-31. plain word: utilize/leverage -> use, facilitate -> help, numerous -> many,
-    in the event that -> if.
-32. cut flourish, aphorisms, rhetorical fragments, personified code, figurative
-    verbs, stock framing. "rides along" -> "is included". say literal meaning.
-33. do not over-compress edited prose. keep articles and verbs. spell out arrows
-    and abbreviations when reader must decode. short whole sentences beat shorthand.
+26. Replace abstract metaphor nouns with the real thing: substrate -> base,
+    wedge -> add, vector -> method, gold-plating -> more than needed,
+    evacuate -> move out, endgame -> last phase. Also check locus, vantage,
+    nexus, primitive, harness, surface, bedrock, scaffolding, modality,
+    paradigm, ratchet, north star, flywheel. Keep a literal technical term when
+    it is needed.
+27. State the mechanism, instruction, fact, or number, not a feeling. "types
+    follow schema" -> "a column rename fails the build", only if true. If a
+    sentence would fit any project's docs unchanged, make it specific or cut it.
+28. Split dense sentences or drop clauses: one idea per sentence.
+29. Prefer active voice and name the actor: "queries are validated" ->
+    "compiler validates queries". Passive is fine when the actor is unknown or
+    irrelevant.
+30. Replace a weak verb plus adverb with a stronger verb or a measured delta. Do
+    not invent numbers.
+31. Use plain words: utilize/leverage -> use, facilitate -> help, numerous ->
+    many, in the event that -> if.
+32. Cut flourishes, aphorisms, rhetorical fragments, personified code,
+    figurative verbs, and stock framing. "rides along" -> "is included". Say
+    the literal meaning.
+33. Do not over-compress edited prose. Keep articles and verbs. Spell out arrows
+    and abbreviations the reader would have to decode. Short whole sentences
+    beat shorthand.
 
-## evidence and unfinished text
+## Evidence and unfinished text
 
-34. citations or source identifiers? check that the source exists and supports
-    the attached claim. correct mismatches only from verified evidence; never
-    invent replacement citations. cannot verify? flag the limitation rather
-    than claim verification or silently remove potentially valid evidence.
-35. claims of significance, influence, recognition, or broad reception? keep
-    them proportionate to supplied facts or sources. an isolated mention or
-    media list does not establish widespread acclaim. preserve clearly stated
+34. For citations or source identifiers, check that the source exists and
+    supports the attached claim. Correct mismatches only from verified
+    evidence; never invent replacement citations. If you cannot verify, flag
+    the limitation rather than claim verification or silently remove
+    potentially valid evidence.
+35. Keep claims of significance, influence, recognition, or broad reception
+    proportionate to the supplied facts or sources. An isolated mention or
+    media list does not establish widespread acclaim. Preserve clearly stated
     personal opinion without presenting it as independent consensus.
-36. informational prose uses advertising-like praise instead of facts? replace
-    unsupported superlatives with specific supported description. keep genuine
-    enthusiasm, subjective judgments, and the requested persuasive genre;
-    positive language alone is not an error or a sign of AI authorship.
-37. irrelevant model-cutoff disclaimers or assistant-access claims in the draft?
-    remove them from the deliverable. preserve material uncertainty and relevant
-    historical dates. check time-sensitive claims before presenting them as
-    current; if unverified, qualify or flag them instead of guessing.
-38. abrupt truncation, drafting instructions, or unresolved placeholders? resolve
-    only from supplied or verified information. flag missing essential content;
-    do not invent it or silently cut it to make the draft appear complete.
-    keep intentional placeholders when the user requests a template.
+36. When informational prose uses advertising-like praise instead of facts,
+    replace unsupported superlatives with specific supported description. Keep
+    genuine enthusiasm, subjective judgments, and the requested persuasive
+    genre; positive language alone is not an error or a sign of AI authorship.
+37. Remove irrelevant model-cutoff disclaimers or assistant-access claims from
+    the deliverable. Preserve material uncertainty and relevant historical
+    dates. Check time-sensitive claims before presenting them as current; if
+    unverified, qualify or flag them instead of guessing.
+38. For abrupt truncation, drafting instructions, or unresolved placeholders,
+    resolve only from supplied or verified information. Flag missing essential
+    content; do not invent it or silently cut it to make the draft look
+    complete. Keep intentional placeholders when the user requests a template.
 
 These additions draw on
 [Wikipedia's signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing).

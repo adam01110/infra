@@ -1,15 +1,15 @@
-# query languages
+# Query languages
 
-assume jj 0.44.0. need narrow revisions, paths, output? use queries; avoid
-verbose default.
+Assumes jj 0.44.0. Use queries to narrow revisions, paths, and output instead of
+the verbose defaults.
 
-## revsets
+## Revsets
 
 - `@`: current working-copy change.
 - `@-`: parent.
-- `trunk()`: configured mainline; no `main`/`master` guess.
+- `trunk()`: configured mainline; do not guess `main`/`master`.
 - `::@`: ancestors of `@`.
-- `trunk()..@`: current reachable work off trunk.
+- `trunk()..@`: current work reachable off trunk.
 - `working_copies()`: all workspace tips.
 - `<workspace>@`: named workspace tip.
 - `<change-id>`: stable ID.
@@ -20,9 +20,9 @@ jj --no-pager log -r 'working_copies()'
 jj --no-pager log -r '<workspace>@'
 ```
 
-punctuation/function present? shell-quote.
+Shell-quote any query containing punctuation or a function.
 
-## filesets
+## Filesets
 
 - `path` / `"path"`: cwd-relative `prefix-glob:` pattern.
 - `cwd:"path"`: literal cwd-relative prefix.
@@ -40,9 +40,9 @@ jj diff 'src ~ glob:"src/**/*.snap"'
 jj diff 'file:"README.md"'
 ```
 
-## templates
+## Templates
 
-common: `++`, `if(cond, a, b)`, `description.first_line()`,
+Common pieces: `++`, `if(cond, a, b)`, `description.first_line()`,
 `change_id.shortest(8)`, `bookmarks`, `current_working_copy`, `empty`, `conflict`.
 
 <!-- rumdl-disable MD013 -->
@@ -53,7 +53,8 @@ jj --no-pager log --no-graph -n 5 -T 'change_id.shortest(8) ++ " " ++ if(descrip
 
 <!-- rumdl-enable MD013 -->
 
-start with [`TEMPLATES.md`](TEMPLATES.md); invent only when need differs.
+Start with [`TEMPLATES.md`](TEMPLATES.md); write a new template only when the
+need differs.
 
-parse fails? inspect `jj <command> --help`, `jj help -k revsets`,
+If parsing fails, check `jj <command> --help`, `jj help -k revsets`,
 `jj help -k filesets`, or `jj help -k templates`.

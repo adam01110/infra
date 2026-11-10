@@ -13,24 +13,25 @@ allowed-tools: read grep find bash web_search fetch_content
 
 # readme
 
-need `README.md` create or update. inspect whole project and workspace first. no
-assumptions.
+Before creating or updating `README.md`, inspect the whole project and
+workspace; do not assume.
 
-style decision:
+Style, in priority order:
 
-1. local Adam style wins: structure, tone, formatting, detail.
-2. compare primary references:
+1. Local Adam style wins: structure, tone, formatting, detail.
+2. Compare the primary references:
    <https://raw.githubusercontent.com/adam01110/nixos/refs/heads/main/README.md>,
    <https://raw.githubusercontent.com/adam01110/nur/refs/heads/main/README.md>,
    <https://raw.githubusercontent.com/adam01110/nix-userstyles/refs/heads/main/README.md>.
-3. need inspiration? optional only:
+3. Optional inspiration only:
    <https://raw.githubusercontent.com/Azure-Samples/serverless-chat-langchainjs/refs/heads/main/README.md>,
    <https://raw.githubusercontent.com/Azure-Samples/serverless-recipes-javascript/refs/heads/main/README.md>,
    <https://raw.githubusercontent.com/sinedied/run-on-output/refs/heads/main/README.md>,
    <https://raw.githubusercontent.com/sinedied/smoke/refs/heads/main/README.md>.
 
-write comprehensive but compact GFM. easy scan. emoji-free. discovered logo/icon
-useful? place in header. GitHub admonition improves clarity? use. filler
-section? cut.
+Write comprehensive, compact, scannable, emoji-free GFM. Put a discovered logo
+or icon in the header when useful. Use GitHub admonitions where they add
+clarity. Cut filler sections.
 
-`LICENSE`, `CONTRIBUTING`, `CHANGELOG`, similar dedicated-file topics? omit.
+Omit dedicated-file topics such as `LICENSE`, `CONTRIBUTING`, and
+`CHANGELOG`.

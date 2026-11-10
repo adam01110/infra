@@ -14,120 +14,120 @@ allowed-tools: read grep find bash web_search fetch_content
 
 # frontend
 
-quality depends on art direction, hierarchy, restraint, imagery, motion? use
-this. goal: deliberate, premium, current. one big idea. strong image. sparse
-copy. rigorous space. few memorable motions.
+Use when quality depends on art direction, hierarchy, restraint, imagery, or
+motion. Aim for deliberate, premium, current: one big idea, strong image, sparse
+copy, rigorous spacing, few memorable motions.
 
-## think before build
+## Plan before building
 
-write:
+Write:
 
-- visual thesis: mood, material, energy; one sentence.
-- content plan: hero, support, detail, final CTA.
-- interaction thesis: 2-3 motions changing feel.
+- Visual thesis: mood, material, energy; one sentence.
+- Content plan: hero, support, detail, final CTA.
+- Interaction thesis: 2-3 motions that change the feel.
 
-section gets one job, dominant visual, takeaway/action.
+Each section gets one job, one dominant visual, one takeaway or action.
 
-## defaults
+## Defaults
 
-composition before components. first viewport is poster, not document.
-full-bleed hero/canvas anchor. brand/product loudest. copy scan in seconds. use
-whitespace, alignment, scale, crop, contrast before chrome. max two typefaces;
-one accent by default. cardless first: sections, columns, dividers, lists,
-media.
+Composition before components. The first viewport is a poster, not a document:
+anchor it with a full-bleed hero or canvas; brand or product is loudest. Copy
+scans in seconds. Use whitespace, alignment, scale, crop, and
+contrast before chrome. Use at most two typefaces and one accent by default.
+Start cardless: sections, columns, dividers, lists, media.
 
-### landing page
+### Landing pages
 
-sequence: hero -> one proof/feature -> depth/story/workflow -> final CTA.
+Sequence: hero, one proof or feature, depth (story or workflow), final CTA.
 
-hero:
+Hero:
 
-- one composition; dominant full-bleed image/plane.
-- branded page means hero edge-to-edge: no page gutter, frame, shared max-width.
-  constrain inner copy only.
-- order: brand, headline, body, CTA.
-- no default hero cards, stats, logo clouds, pill soup, floating dashboard.
-- desktop headline about 2-3 lines; mobile one-glance readable.
-- narrow copy anchored on calm image area. contrast and tap targets strong.
+- One composition; a dominant full-bleed image or plane.
+- On a branded page the hero is edge to edge: no page gutter, frame, or shared
+  max-width. Constrain only inner copy.
+- Order: brand, headline, body, CTA.
+- No default hero cards, stats, logo clouds, pill soup, or floating dashboard.
+- Desktop headline about 2-3 lines; readable at a glance on mobile.
+- Anchor narrow copy on a calm image area. Keep contrast and tap targets strong.
 
-remove image and viewport still works? image too weak. hide nav and brand
-disappears? hierarchy too weak.
+Viewport still works without the image? The image is too weak. Brand vanishes
+when the nav is hidden? Hierarchy is too weak.
 
-sticky/fixed header consumes viewport budget. header + hero must fit common
-desktop/mobile first screen. `100vh`/`100svh` plus persistent header? use
-`calc(100svh - header-height)` or overlay header.
+Sticky or fixed headers consume viewport budget; header plus hero must fit the
+first screen on common desktop and mobile. With `100vh`/`100svh` and a
+persistent header, use `calc(100svh - header-height)` or overlay the header.
 
-### app
+### Apps
 
-use calm surface hierarchy, strong type/space, few colors, dense readable
-information, minimal chrome. card only when card is interaction.
+Use calm surface hierarchy, strong type and spacing, few colors, dense readable
+information, minimal chrome. Use a card only when the card is the interaction.
 
-organize primary workspace, navigation, secondary context/inspector, one
-action/state accent. start with operating surface: KPIs, charts, filters,
-tables, status, task context. hero only when explicitly requested.
+Organize: primary workspace, navigation, secondary context or inspector, and one
+action/state accent. Start with the operating surface: KPIs, charts, filters,
+tables, status, task context. Add a hero only when explicitly requested.
 
-avoid dashboard-card mosaic, borders around every region, routine decorative
-gradients, competing accents, ornamental icons. panel works as plain layout?
-remove card.
+Avoid dashboard-card mosaics, borders around every region, routine decorative
+gradients, competing accents, ornamental icons. If a panel works as plain
+layout, remove the card.
 
-## imagery
+## Imagery
 
-image must carry narrative. brand, venue, editorial, lifestyle? at least one
-strong real-looking image. prefer in-situ photography over abstract
-gradient/fake 3D. crop with stable tonal copy area. avoid embedded signage,
-logos, typographic clutter. generated image must not bake in UI frames, splits,
-cards, panels. multiple moments? multiple images, not collage. texture alone not
-viewport anchor.
+Images carry the narrative. Brand, venue, editorial, or lifestyle work needs one
+or more strong, real-looking images. Prefer in-situ photography over abstract
+gradients or fake 3D. Crop with a stable tonal copy area. Avoid embedded
+signage, logos, typographic clutter. Generated images must not bake in UI
+frames, splits, cards, or panels. Multiple moments: multiple images, not a
+collage. Texture alone cannot anchor a viewport.
 
-## copy
+## Copy
 
-product language, never design commentary or prompt language. headline carries
-meaning; support usually one short sentence. repeated point? cut. section
-responsibility: explain, prove, deepen, convert.
+Use product language, never design commentary or prompt language. The headline
+carries meaning; support is usually one short sentence. Cut repeated points.
+Each section has one responsibility: explain, prove, deepen, or convert.
 
-product UI needs utility copy:
+Product UI needs utility copy:
 
-- orientation, status, action before promise/mood.
-- headings name area or action: `Selected KPIs`, `Plan status`,
+- Orientation, status, and action before promise or mood.
+- Headings name area or action: `Selected KPIs`, `Plan status`,
   `Search metrics`, `Top segments`, `Last sync`.
-- no metaphor, campaign copy, executive banner unless requested.
-- support explains scope, behavior, freshness, decision value in one sentence.
-- could appear in ad? rewrite.
-- does not help operate, monitor, decide? remove.
-- headings, labels, numbers alone should explain page.
+- No metaphor, campaign copy, or executive banner unless requested.
+- Support explains scope, behavior, freshness, or decision value in one sentence.
+- Could it appear in an ad? Rewrite.
+- Remove anything that does not help operate, monitor, or decide.
+- Headings, labels, and numbers alone explain the page.
 
-30% deletion improves page? keep deleting.
+If cutting 30% improves the page, keep cutting.
 
-## motion
+## Motion
 
-visually led work ships 2-3 intentional motions:
+Visually led work ships 2-3 intentional motions:
 
-- hero entrance sequence.
-- scroll-linked, sticky, or depth effect.
-- hover, reveal, or layout transition improving affordance.
+- Hero entrance sequence.
+- Scroll-linked, sticky, or depth effect.
+- Hover, reveal, or layout transition that improves affordance.
 
-Framer Motion available? prefer for reveals, shared layout, scroll
+If Framer Motion is available, prefer it for reveals, shared layout, scroll
 opacity/translate/scale, sticky story, narrative carousel, menus/drawers/modals.
 
-motion must show in quick recording, stay smooth mobile, fast, restrained,
-consistent. ornamental only? remove.
+Motion must show in a quick recording and stay smooth on mobile, fast,
+restrained, consistent. Remove purely ornamental motion.
 
-## reject
+## Reject
 
-- cards or hero cards by default.
-- boxed/center-column hero when brief says full bleed.
-- several dominant ideas in section.
-- many tiny devices needed to explain section.
-- headline overpowering brand.
-- filler.
-- split hero unless calm unified text side.
-- more than two typefaces or one accent without product-system reason.
-- generic SaaS card grid first impression.
-- image strong but brand weak; headline strong but action absent.
-- busy image behind text; repeated mood sections; purposeless carousel.
+- Cards or hero cards by default.
+- Boxed or center-column hero when the brief says full bleed.
+- Several dominant ideas per section.
+- Many tiny devices needed to explain a section.
+- Headline overpowering the brand.
+- Filler.
+- Split hero, unless the text side is calm and unified.
+- More than two typefaces or one accent without product-system reason.
+- Generic SaaS card grid first impression.
+- Strong image, weak brand; strong headline, absent action.
+- Busy image behind text; repeated mood sections; purposeless carousel.
 
-## final check
+## Final check
 
-brand unmistakable first screen? strong visual anchor? headlines alone explain?
-each section one job? every card necessary? motion improves
-hierarchy/atmosphere? remove shadows and still premium? no answer means revise.
+Revise on any no: Brand unmistakable on the first screen? Strong visual anchor?
+Headlines alone explain the page? One job per section? Every card necessary?
+Motion improves hierarchy or atmosphere? Still premium with shadows removed?

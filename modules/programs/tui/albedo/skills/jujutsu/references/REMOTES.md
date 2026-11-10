@@ -1,7 +1,7 @@
-# remotes
+# Remotes
 
-single remote push? [`PUSH.md`](PUSH.md). multiple remotes need explicit target
-and tracking decisions. official guide:
+For a single-remote push, see [`PUSH.md`](PUSH.md). Multiple remotes need an
+explicit target and tracking decisions. Official guide:
 <https://docs.jj-vcs.dev/latest/guides/multiple-remotes/>.
 
 ```bash
@@ -12,9 +12,9 @@ jj git remote set-url origin <new-url>
 jj git remote remove old-name
 ```
 
-no `--remote` on push? selection order: `git.push` config, then `origin` when
-multiple, then sole remote. one command cannot push several remotes; call once
-each.
+Without `--remote`, push selects the `git.push` config, then `origin` when there
+are several remotes, then the sole remote. One command cannot push to several
+remotes; run it once per remote.
 
 ```bash
 jj bookmark move my-feature --to @
@@ -22,15 +22,15 @@ jj git push -b my-feature --remote fork
 jj git push -b my-feature --remote upstream
 ```
 
-set default:
+Set a default:
 
 ```bash
 jj config set --repo git.push fork
 jj config set --user git.push origin
 ```
 
-remote bookmarks and tags appear as `<name>@<remote>`. symbol ambiguous? tag wins.
-local bookmark should follow one?
+Remote bookmarks and tags appear as `<name>@<remote>`. If a symbol is ambiguous,
+the tag wins. To make a local bookmark follow a remote one:
 
 ```bash
 jj bookmark track main@upstream
@@ -38,32 +38,32 @@ jj bookmark track 'glob:release/*@upstream'
 jj git push --tracked --remote upstream
 ```
 
-fetch:
+Fetch:
 
 ```bash
 jj git fetch --remote upstream
 jj git fetch --all-remotes
 ```
 
-0.44 fetches tags and auto-tracks same-name local tags. disable per remote only
-when intentional:
+0.44 fetches tags and auto-tracks same-name local tags. Disable this per remote
+only when intended:
 
 ```bash
 jj config set --repo remotes.upstream.fetch-tags '~*'
 ```
 
-push rejected because remote moved? fetch target, resolve bookmark
-conflict/rebase, retry. refusal acts like lease protection.
+If a push is rejected because the remote moved, fetch the target, resolve the
+bookmark conflict or rebase, and retry. The refusal works like lease protection.
 
-## choose topology
+## Choose a topology
 
-jj naming: `origin` writable push target; `upstream` canonical source. examples
-assume `main`.
+jj naming: `origin` is the writable push target; `upstream` is the canonical
+source. Examples assume `main`.
 
-### contributing fork
+### Contributing fork
 
-features go from fork `origin` into canonical `upstream` via PR. fetch both;
-push fork; upstream main defines immutable trunk.
+Features go from the fork `origin` into canonical `upstream` through PRs. Fetch
+both, push to the fork, and let upstream main define the immutable trunk.
 
 <!-- rumdl-disable MD013 -->
 
@@ -76,14 +76,14 @@ jj config set --repo 'revset-aliases."trunk()"' main@upstream
 
 <!-- rumdl-enable MD013 -->
 
-tracking `main` tracks both matching remote bookmarks. fetch updates local
-main; push keeps fork main synced. trunk boundary prevents rewrite of canonical
-commits.
+Tracking `main` tracks both matching remote bookmarks. Fetch updates local main;
+push keeps the fork's main in sync. The trunk boundary prevents rewriting
+canonical commits.
 
-### independent divergent repo
+### Independent divergent repo
 
-`origin` owns long-lived line. `upstream` only occasional source. track origin
-main only; origin defines trunk.
+`origin` owns the long-lived line; `upstream` is only an occasional source.
+Track only origin main, and let origin define trunk.
 
 <!-- rumdl-disable MD013 -->
 
@@ -99,8 +99,9 @@ jj config set --repo 'revset-aliases."trunk()"' main@origin
 
 <!-- rumdl-enable MD013 -->
 
-upstream remains separate and integration stays explicit.
+Upstream stays separate, and integration stays explicit.
 
-which? contribute back and upstream fetch should move local main -> fork
-scenario. no contribution, origin intentionally diverges, upstream manually
-integrated -> independent scenario. unclear? ask before config mutation.
+Choosing: if work is contributed back and upstream fetches should move local
+main, use the fork setup. If there is no contribution, origin diverges on
+purpose, and upstream is integrated manually, use the independent setup. If it
+is unclear, ask before changing config.

@@ -17,96 +17,100 @@ allowed-tools: Bash(jj *)
 
 # jujutsu
 
-jj version assumed: 0.44.0. version differs? command may differ; inspect help.
+Assumes jj 0.44.0. On another version, commands may differ; check the help.
 
-## required flow
+## Required flow
 
-before every task, inspect the working copy and describe the task before editing.
+Before each task, inspect the working copy and describe the task before editing.
 
 ```bash
-jj root                      # error? not jj repo, skill no apply
+jj root                      # an error means this is not a jj repo; skip this skill
 jj st
 jj log -r @ --no-graph -T 'empty ++ "\n"'
 # true: reuse @
 jj desc -m "Add login validation"
 # false: instead create a new change
 # jj new -m "Add login validation"
-# edit files. next jj command snapshot
+# edit files; the next jj command snapshots them
 jj st
 ```
 
-empty `@`? reuse it with `jj desc -m "<summary>"`, even if already described.
-nonempty `@`? `jj new -m "<summary>"` to keep existing work separate.
-never create a child merely because a new task starts when `@` is empty.
-explicit user instructions about the change or base take precedence.
+- If `@` is empty, reuse it with `jj desc -m "<summary>"`, even if already
+  described. Do not create a child just because a new task starts.
+- If `@` is nonempty, run `jj new -m "<summary>"` to keep existing work separate.
+- Explicit user instructions about the change or base take precedence.
 
-edit first? bad. work fall into old change, or into undescribed `@`. grug say no.
+Describe first, because edits made before that land in an old change or an
+undescribed `@`.
 
-end of task: `@` stay described. no `jj new` to close. no `git commit`.
+At task end, leave `@` described. Do not close it with `jj new` or `git commit`.
 
-exceptions:
+Exceptions:
 
-- user say amend this change? `jj desc -m "..."`. no `jj new`.
-- empty ancestor? do not automatically abandon it; reuse `@` to avoid adding more.
-- work belong beside `trunk()`? [`references/NONLINEAR.md`](references/NONLINEAR.md).
+- If the user says to amend this change, run `jj desc -m "..."`, not `jj new`.
+- Do not automatically abandon an empty ancestor; reuse `@` to avoid adding more.
+- If the work belongs beside `trunk()`, see
+  [`references/NONLINEAR.md`](references/NONLINEAR.md).
 
-more: [`references/NEW_CHANGE.md`](references/NEW_CHANGE.md).
+More detail: [`references/NEW_CHANGE.md`](references/NEW_CHANGE.md).
 
-need compact inspection? [`references/TEMPLATES.md`](references/TEMPLATES.md).
-query syntax? [`references/QUERY_LANGUAGES.md`](references/QUERY_LANGUAGES.md).
-unrelated/sibling work? [`references/NONLINEAR.md`](references/NONLINEAR.md).
-surprise? [`references/GOTCHAS.md`](references/GOTCHAS.md).
+- Compact inspection: [`references/TEMPLATES.md`](references/TEMPLATES.md).
+- Query syntax: [`references/QUERY_LANGUAGES.md`](references/QUERY_LANGUAGES.md).
+- Unrelated or sibling work: [`references/NONLINEAR.md`](references/NONLINEAR.md).
+- Surprising behavior: [`references/GOTCHAS.md`](references/GOTCHAS.md).
 
-## detect
+## Detect
 
-run `jj root`. path returned? jj repo. exact no-repo error or no `.jj/`? stop
-using skill.
+Run `jj root`. A returned path means a jj repo. On the no-repo error, or with no
+`.jj/`, stop using this skill.
 
-jj repo may also have `.git/`. still jj owns mutations.
+A jj repo may also contain `.git/`; jj still owns mutations.
 
-## mutation gate
+## Mutation gate
 
-never mutate with git in jj repo. forbidden: `git commit`, `git add`,
+Do not mutate with git in a jj repo. Forbidden: `git commit`, `git add`,
 `git stash`, `git reset`, `git checkout <branch>`, `git switch`, `git rebase`,
 `git merge`, `git cherry-pick`, `git push`, `git pull`.
 
-read-only safe: `git log`, `git show`, `git diff`, `git blame`, `git grep`,
-`git status`. prefer jj equivalents.
+Read-only commands are safe: `git log`, `git show`, `git diff`, `git blame`,
+`git grep`, `git status`. Prefer the jj equivalents.
 
-use `jj git push`, `jj git fetch`, `jj edit <change>`, `jj rebase`,
-`jj new <a> <b>`. co-located details:
+Use `jj git push`, `jj git fetch`, `jj edit <change>`, `jj rebase`, and
+`jj new <a> <b>`. Co-located details:
 [`references/COLOCATED.md`](references/COLOCATED.md).
 
-## agent rules
+## Agent rules
 
-noninteractive only. message-taking command? always inline `-m`:
+Run only noninteractive commands. Pass `-m` inline to any command that takes a
+message:
 
 ```bash
 jj desc -m "Add login validation"
 jj squash --into @- -m "Combine login validation"
 ```
 
-bare `jj desc`, described-commit `jj squash`, `jj split`, interactive flags,
-bare `jj resolve` can prompt/hang. avoid.
+Avoid bare `jj desc`, `jj squash` into a described commit, `jj split`,
+interactive flags, and bare `jj resolve`, because they can prompt and hang.
 
-mutation such as squash, abandon, rebase, restore? run `jj st` after. operation
-failed or surprising? `jj undo` first.
+Run `jj st` after a mutation such as squash, abandon, rebase, or restore. If an
+operation fails or surprises you, run `jj undo` first.
 
-## model
+## Model
 
-working directory is commit `@`. jj snapshots filesystem on commands. no
-staging. no `jj add`; no closing `jj commit` step. commits mutable.
+The working directory is the commit `@`, snapshotted when jj commands run.
+There is no staging, no `jj add`, and no closing `jj commit` step. Commits are
+mutable.
 
-change ID remains stable across rewrite; commit ID hash changes. command
-reference? prefer change ID.
+A change ID stays stable across rewrites; the commit ID hash changes, so refer
+to changes by change ID.
 
-one commit = one logical change. unrelated work stays separate.
+One commit holds one logical change. Keep unrelated work separate.
 
-## inspect narrowly
+## Inspect narrowly
 
-agent inspection defaults to compact commands in
+Default to the compact commands in
 [`references/TEMPLATES.md`](references/TEMPLATES.md), all with `jj --no-pager`.
-widen revset/fileset before requesting large patches.
+Narrow the revset or fileset before requesting large patches.
 
 ```bash
 jj log
@@ -115,10 +119,9 @@ jj show <change-id>
 jj diff
 ```
 
-need query grammar?
-[`references/QUERY_LANGUAGES.md`](references/QUERY_LANGUAGES.md).
+Query grammar: [`references/QUERY_LANGUAGES.md`](references/QUERY_LANGUAGES.md).
 
-move:
+Move between changes:
 
 ```bash
 jj new -m "Describe next change"
@@ -127,14 +130,14 @@ jj prev -e
 jj next -e
 ```
 
-## refine
+## Refine
 
-squash, restore, absorb, abandon, split alternative?
-[`references/REFINE_COMMIT.md`](references/REFINE_COMMIT.md). review `jj show @`
-or `jj diff`; ensure atomic; remove unrelated edits or move them correctly. then
-`jj st`.
+For squash, restore, absorb, abandon, and alternatives to split, see
+[`references/REFINE_COMMIT.md`](references/REFINE_COMMIT.md). Review with
+`jj show @` or `jj diff`, keep the change atomic, and remove or move unrelated
+edits. Then run `jj st`.
 
-bookmarks are branches but do not auto-advance:
+Bookmarks are branches, but they do not auto-advance:
 
 ```bash
 jj bookmark create my-feature -r@
@@ -143,13 +146,13 @@ jj bookmark list
 jj bookmark delete my-feature
 ```
 
-push only when explicitly requested; see
+Push only when the user explicitly asks; see
 [`references/PUSH.md`](references/PUSH.md) and
 [`references/REMOTES.md`](references/REMOTES.md).
 
-## workspaces
+## Workspaces
 
-parallel agents touching same repo? isolate working copies:
+When parallel agents touch the same repo, isolate their working copies:
 
 ```bash
 jj workspace add .workspaces/<repo>-<purpose>
@@ -157,28 +160,30 @@ jj workspace list
 jj workspace forget <name>
 ```
 
-shared store/op log, separate `@`. `.gitignore` gate, directory priority,
-bootstrap, handoff, integration choice, stale recovery all mandatory:
+Workspaces share the store and op log but have separate `@`. The `.gitignore`
+check, directory priority, bootstrap, handoff, integration choice, and stale
+recovery are all required:
 [`references/WORKSPACES.md`](references/WORKSPACES.md).
 
-## co-located git
+## Co-located git
 
-existing git project? prefer co-location:
+For an existing git project, prefer co-location:
 
 ```bash
 jj git clone <url> --colocate
 jj git init --colocate
 ```
 
-tags are native in jj 0.44: create with `jj tag set`, track with
-`jj tag track`, and push with `jj git push -t`. see
-[`references/PUSH.md`](references/PUSH.md). all co-location safety:
+Tags are native in jj 0.44: create them with `jj tag set`, track them with
+`jj tag track`, and push them with `jj git push -t`. See
+[`references/PUSH.md`](references/PUSH.md). Co-location safety:
 [`references/COLOCATED.md`](references/COLOCATED.md).
 
-## conflicts
+## Conflicts
 
-rebase/squash can succeed with conflicted commit. conflict persists; push
-rejects it by default. never bypass with `jj git push --allow-conflicts`.
+A rebase or squash can succeed with a conflicted commit. The conflict persists,
+and push rejects it by default. Do not bypass this with
+`jj git push --allow-conflicts`.
 
 ```bash
 jj st
@@ -187,14 +192,14 @@ jj resolve --tool :ours
 jj resolve --tool :theirs
 ```
 
-bare `jj resolve`? never in agent. choose side with explicit tool or edit
-markers directly. then status, marker grep, project checks. repeated descendant
-conflict? resolve first conflicted ancestor. full playbook:
-[`references/CONFLICTS.md`](references/CONFLICTS.md).
+Do not run bare `jj resolve`. Choose a side with an explicit tool, or edit the
+markers directly. Then check status, grep for markers, and run project checks.
+If the same conflict repeats in descendants, resolve the first conflicted
+ancestor. Full playbook: [`references/CONFLICTS.md`](references/CONFLICTS.md).
 
-## recovery
+## Recovery
 
-op log records mutations. work recoverable.
+The op log records every mutation, so work is recoverable.
 
 ```bash
 jj undo
@@ -203,16 +208,16 @@ jj op restore <op-id>
 jj evolog -r <change>
 ```
 
-something wrong? `jj undo` first, not manual reversal. need older state? compact
-op inspection first; patches only after narrowing. scenarios:
-[`references/RECOVERY.md`](references/RECOVERY.md).
+When something goes wrong, run `jj undo` first rather than reversing by hand.
+For an older state, inspect ops compactly first; request patches only after
+narrowing. Scenarios: [`references/RECOVERY.md`](references/RECOVERY.md).
 
-## provenance
+## Provenance
 
-fork: [danverbraganza](https://skills.sh/danverbraganza/jujutsu-skill/jujutsu).
-mutation gate: [knoopx](https://skills.sh/knoopx/pi/jujutsu). agent workspaces:
-[onevcat](https://skills.sh/onevcat/skills/onevcat-jj). local workspace path:
+Fork: [danverbraganza](https://skills.sh/danverbraganza/jujutsu-skill/jujutsu).
+Mutation gate: [knoopx](https://skills.sh/knoopx/pi/jujutsu). Agent workspaces:
+[onevcat](https://skills.sh/onevcat/skills/onevcat-jj). Local workspace path:
 [edmundmiller](https://lobehub.com/skills/edmundmiller-dotfiles-using-jj-workspaces).
-recovery framing: [trevors](https://skills.sh/trevors/dot-claude/jj-workflow).
-queries, nonlinear work, handoff:
+Recovery framing: [trevors](https://skills.sh/trevors/dot-claude/jj-workflow).
+Queries, nonlinear work, handoff:
 [joshuadavidthomas](https://github.com/joshuadavidthomas/agent-skills/tree/main/jj).

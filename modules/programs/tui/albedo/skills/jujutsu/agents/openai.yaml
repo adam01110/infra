@@ -1,7 +1,7 @@
----
 interface:
   display_name: "Jujutsu"
   short_description: "Help with Jujutsu version control workflows"
   default_prompt: >-
-    Use $jujutsu to make described change first: `jj new -m "<summary>"` before
-    any file edit. then inspect repo, carry change safe.
+    Use $jujutsu to describe the change before any file edit: reuse an empty
+    `@` with `jj desc -m "<summary>"`, otherwise run `jj new -m "<summary>"`.
+    Then inspect the repo and carry the change through safely.

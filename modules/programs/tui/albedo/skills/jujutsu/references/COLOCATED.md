@@ -1,8 +1,8 @@
-# co-located jj + git
+# Co-located jj and git
 
-co-located root has `.jj/` and `.git/`. jj owns local state; git compatibility
-supports GitHub, CI, hooks, IDE, `gh`. existing git project? strongly prefer
-this shape.
+A co-located root has both `.jj/` and `.git/`. jj owns local state; git
+compatibility serves GitHub, CI, hooks, IDEs, and `gh`. Strongly prefer this
+shape for existing git projects.
 
 ```bash
 jj git init --colocate
@@ -11,12 +11,12 @@ cd existing-git-repo
 jj git init --colocate
 ```
 
-existing git history? never omit `--colocate`; otherwise separate store
+With existing git history, always pass `--colocate`; otherwise a separate store
 appears under `.jj/repo/store/git`.
 
-## mutation rule
+## Mutation rule
 
-git may inspect only:
+Use git only to inspect:
 
 | command | decision |
 |---|---|
@@ -29,11 +29,12 @@ git may inspect only:
 | `git push` | forbidden; `jj git push -b <bookmark>` |
 | `git tag` | forbidden; `jj tag set`, `jj tag delete` |
 
-why? jj snapshots working copy. hidden git mutation breaks jj's state/op-log model.
+jj snapshots the working copy, so a git mutation it does not see breaks its
+state and op-log model.
 
-## forced git-only operation
+## Forced git-only operation
 
-external tool truly requires mutation? last resort:
+If an external tool truly requires a git mutation, as a last resort:
 
 ```bash
 jj st
@@ -43,27 +44,29 @@ jj st
 jj edit <change-id>
 ```
 
-almost always safer jj equivalent exists.
+A safer jj equivalent almost always exists.
 
-## surprises
+## Surprises
 
-- git says uncommitted? normal view of jj working-copy commit. trust `jj st`.
-- detached `HEAD`? jj manages it. never `git checkout`; use `jj edit`.
-- `.gitignore` automatically respected. `.jjignore` only for jj-only patterns.
-- fetched git branches become bookmarks. bookmarks do not auto-advance.
+- git reports uncommitted changes: that is its view of the jj working-copy
+  commit. Trust `jj st`.
+- Detached `HEAD`: jj manages it. Use `jj edit`, not `git checkout`.
+- `.gitignore` is respected automatically. Use `.jjignore` only for jj-only
+  patterns.
+- Fetched git branches become bookmarks, which do not auto-advance.
 
-push:
+Push:
 
 ```bash
 jj bookmark move main --to @
 jj git push -b main
 ```
 
-full push gate: [`PUSH.md`](PUSH.md).
+Full push rules: [`PUSH.md`](PUSH.md).
 
-## native tags in 0.44
+## Native tags in 0.44
 
-no git mode needed:
+No git mode is needed:
 
 ```bash
 jj tag set v1.2.3 -r <change-id>
@@ -72,6 +75,6 @@ jj tag track v1.2.3@origin
 jj git push -t v1.2.3 --remote origin
 ```
 
-fetch now gets tags like bookmarks and tracks matching local tags. need no tags?
-set `remotes.<name>.fetch-tags = '~*'`. `jj git push --all` pushes bookmarks
-and tags; use narrow `-b` or `-t` by default.
+Fetch now gets tags like bookmarks and tracks matching local tags. To skip tags,
+set `remotes.<name>.fetch-tags = '~*'`. `jj git push --all` pushes bookmarks and
+tags; default to a narrow `-b` or `-t`.

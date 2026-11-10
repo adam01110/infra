@@ -1,32 +1,32 @@
-# push
+# Push
 
-push only after explicit user request.
+Push only after an explicit user request.
 
-before push: correct bookmark/tag target? commits atomic/refined? no conflicts?
-bookmark and tag do not auto-advance. `--allow-conflicts` exists in 0.44; never
-use it.
+Before pushing, confirm the bookmark or tag targets the right change, the
+commits are atomic and refined, and there are no conflicts. Bookmarks and tags
+do not auto-advance. `--allow-conflicts` exists in 0.44; do not use it.
 
-existing bookmark:
+Existing bookmark:
 
 ```bash
 jj bookmark move my-feature --to @
 jj git push -b my-feature
 ```
 
-no bookmark:
+No bookmark yet:
 
 ```bash
 jj bookmark create my-feature
 jj git push -b my-feature
 ```
 
-specific example:
+Specific example:
 
 ```bash
 jj git push -b main
 ```
 
-## tags
+## Tags
 
 0.44 supports native tracked tags:
 
@@ -36,9 +36,9 @@ jj tag track v1.2.3@origin
 jj git push -t v1.2.3 --remote origin
 ```
 
-fetched tags auto-track by default. `jj git push --tracked` pushes tracked
-bookmarks and tags. `jj git push --all` pushes all bookmarks and tags. prefer
-`-b` or `-t`; broad push needs explicit user request.
+Fetched tags auto-track by default. `jj git push --tracked` pushes tracked
+bookmarks and tags; `jj git push --all` pushes all bookmarks and tags. Prefer
+`-b` or `-t`; a broad push needs an explicit user request.
 
-multiple/named remotes, tracking, fork/upstream config?
+Multiple or named remotes, tracking, and fork/upstream config:
 [`REMOTES.md`](REMOTES.md).

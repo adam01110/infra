@@ -11,101 +11,99 @@ metadata:
   author: Adam0
   version: "1.0.0"
   short-description: Simplify settled changed code without behavior changes
-allowed-tools: read grep find bash Agent ask_user
 argument-hint:
   "[blank to simplify current branch changes, or describe what to simplify]"
 ---
 
-# simplify
+# Simplify
 
 Use after implementation has settled, not while behavior is still changing.
-bug diagnosis? use `ce-debug`; simplify is not debugger.
+Simplify is not a debugger; diagnose bugs separately first.
 
-goal: clarity, reuse, quality, efficiency. exact behavior stays. readable
-explicit code beats fewer lines.
+Goal: clarity, reuse, quality, efficiency, with exact behavior preserved.
+Readable explicit code beats fewer lines.
 
-## 1. scope
+## 1. Scope
 
-resolve in order:
+Resolve in order:
 
-1. user names scope? authoritative. never widen.
-2. otherwise in git: current branch versus base. no usable base? staged +
-   unstaged via `git diff HEAD`.
-3. outside git/no diff: user-named files or files edited earlier in
-   conversation.
+1. A user-named scope is authoritative; do not widen it.
+2. Otherwise, in a jj repo: the changes in `trunk()..@`, read with
+   `jj diff -r 'trunk()..@'`.
+3. Otherwise, in git: current branch versus base. No usable base? Staged and
+   unstaged changes via `git diff HEAD`.
+4. Outside version control or with no diff: user-named files or files edited
+   earlier in the conversation.
 
-empty scope? ask what to simplify. use blocking question tool: `AskUserQuestion`
-in Claude Code (`ToolSearch` with `select:AskUserQuestion` first if schema
-absent), `request_user_input` in Codex, `ask_question` in Antigravity CLI
-(`agy`). no blocking tool or call errors?
-numbered chat options. schema load alone not failure. never silently skip
-question.
+If the scope is empty, ask in chat what to simplify, offering numbered
+options, and wait for the answer rather than guessing.
 
-preflight: substantive human-authored code absent—only docs, generated/vendor,
-dependencies/lockfiles, mechanical churn? report nothing to simplify; stop
-before reviewers. mixed? retain code only. kind gate, never size gate. explicit
-tiny scope still runs; caller owns cost threshold.
+Preflight: with no substantive human-authored code (only docs, generated/vendor,
+dependencies/lockfiles, mechanical churn), report nothing to simplify and stop
+before reviewers. Mixed scope keeps only code. The gate is kind, not size: an
+explicit tiny scope still runs, because the caller owns the cost threshold.
 
-task tracking available? show review, apply, verification outcomes. no
-one-task-per-reviewer. unavailable? continue; no fake chat task list.
+Track review, apply, and verification as items in the `work` ledger, not one
+item per reviewer.
 
-## 2. three reviews
+## 2. Three reviews
 
-read these assets fully, then pass full verbatim content plus full resolved
-diff/file set:
+Read these assets fully, then pass their full verbatim content plus the full
+resolved diff/file set:
 
 - `personas/code-reuse-reviewer.md`
 - `personas/code-quality-reviewer.md`
 - `personas/efficiency-reviewer.md`
 
-dispatch generic subagents through harness primitive (`Agent`/`Task` in Claude
-Code, `spawn_agent` in Codex). no primitive? inline/serial.
+Load the `orchestrating-agents` skill, then spawn one child per persona with
+`agents.self.spawn`. If spawning is unavailable, run the personas inline,
+one after another.
 
-queue all three. launch only accepted concurrency. active-agent/concurrency
-limit means backpressure: keep queued, retry after slot frees. other dispatch
-failure? run same asset inline; disclose substitution in one line.
+Queue all three; launch only accepted concurrency. An active-agent or
+concurrency limit is backpressure: keep queued, retry when a slot frees. Other
+dispatch failure? Run the same asset inline; disclose the substitution in one
+line.
 
-model override exposed and known? balanced mid-tier. Claude Code: Sonnet. Codex:
-only explicit model/custom-agent selector counts; wording cannot select model.
-otherwise inherit parent. working parent pass beats broken dispatch.
+Choose the child model by the `orchestrating-agents` rules. A working inline
+pass beats broken dispatch.
 
-omit dispatch `mode`; user permission config wins.
+## 3. Decide and edit
 
-## 3. decide and edit
+Wait for all three outcomes. Apply worthwhile, proven findings. Skip false
+positives and low-value ones without asking; record them.
 
-wait for all three outcomes. worthwhile and proven? apply. false positive/low
-value? skip without asking; record.
+Inspect outside scope if needed to judge. Edit only scope plus necessary
+import/export seams; if the user named a file or directory, seams stay inside
+it too. Skip a required edit that crosses this mutation boundary.
 
-inspect outside scope if needed to judge. edits limited to scope plus necessary
-import/export seams. user named file/directory? seams also must stay inside it.
-required edit crosses mutation boundary? skip.
+Preserve outputs, errors, side effects, and ordering. Cannot prove it? Skip.
 
-preserve outputs, errors, side effects, ordering. cannot prove? skip.
+A compat path existing only from an earlier unshipped iteration is removable
+only after proving no deployed, persisted, public, external, dependent-branch,
+or in-repo caller outside scope. Every caller update must fit
+the mutation boundary; otherwise preserve it.
 
-compat path exists only from earlier unshipped iteration? removable only after
-proving no deployed, persisted, public, external, dependent-branch, or in-repo
-caller outside scope. every caller update must fit mutation boundary; otherwise
-preserve.
-
-safety check? never thin/remove. preserve trust-boundary validation, data-loss
+Do not thin or remove safety checks: trust-boundary validation, data-loss
 protection, security checks, accessibility affordances.
 
-caller supplied plan path with structure-pin? context, not scope. preserve
-`session-settled:` Key Technical Decisions, including deliberate
+A caller-supplied plan path with a structure pin is context, not scope.
+Preserve `session-settled:` Key Technical Decisions, including deliberate
 duplication/separation.
 
-## 4. verify
+## 4. Verify
 
-run project-wide typecheck and lint. tests match blast radius: scoped for local,
-broader for shared/wide, full suite when runner cannot scope.
+Run project-wide typecheck and lint. Match tests to blast radius: scoped for
+local, broader for shared/wide, full suite when the runner cannot scope.
 
-failure? report check and relevant output. caused by simplification? fix or
-revert responsible change. never weaken assertion/type or skip test.
+On failure, report the check and relevant output. Caused by the simplification?
+Fix or revert the responsible change. Do not weaken an assertion or
+type, or skip a test.
 
-no configured test, lint, or typecheck? state explicitly.
+No configured test, lint, or typecheck? Say so explicitly.
 
-## 5. report
+## 5. Report
 
-say what was already sound and what improved. counts: reuse applied, quality
-applied, efficiency applied, skipped. include check outcomes. no changes? say
-so. net lines removed is not success metric.
+Say what was already sound and what improved. Counts: reuse applied,
+quality applied, efficiency applied, skipped. Include check outcomes. No
+changes? Say
+so. Net lines removed is not a success metric.

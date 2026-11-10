@@ -14,18 +14,19 @@ allowed-tools: bash
 
 # nix search
 
-package or option unknown? use `nix-search-tv`.
+Use `nix-search-tv` when a package or option is unknown.
 
-builtin indexes: `home-manager`, `nixos`, `nixpkgs`, `noogle`, `nur`.
+Builtin indexes: `home-manager`, `nixos`, `nixpkgs`, `noogle`, `nur`.
 
-custom options: `authentik-nix`, `determinate`, `disko`, `home-manager-nixos`,
-`hylix`, `lanzaboote`, `nix-flatpak`, `nix-index-database`, `nixcord`, `nvf`,
-`overzicht`, `sops-nix`,
+Custom option indexes: `authentik-nix`, `determinate`, `disko`,
+`home-manager-nixos`, `hylix`, `lanzaboote`, `nix-flatpak`,
+`nix-index-database`, `nixcord`, `nvf`, `overzicht`, `sops-nix`,
 `sops-nix-home-manager`, `spicetify-nix`, `stylix`, `stylix-home-manager`,
 `zen-browser`.
 
-repo wiring: builtin via `settings.indexes`; custom via
-`settings.experimental.options_file`. both queried with `--indexes <name>`.
+The repo wires builtin indexes through `settings.indexes` and custom ones
+through `settings.experimental.options_file`. Query both with
+`--indexes <name>`.
 
 ```bash
 nix-search-tv print --indexes nixpkgs
@@ -40,13 +41,14 @@ nix-search-tv source --indexes home-manager programs.noctalia.settings
 nix-search-tv homepage --indexes nixpkgs firefox
 ```
 
-first run builds index data; later uses cache. `cache.txt` missing? run
-`print --indexes <source>` once. stale? remove
-`~/.cache/nix-search-tv/<source-name>` then rerun.
+The first run builds index data; later runs use cache. If `cache.txt` is
+missing, run `print --indexes <source>` once. If data is stale, remove
+`~/.cache/nix-search-tv/<source-name>` and rerun.
 
-ambiguity possible? explicit `--indexes`. parse output? `NO_COLOR=1`;
-automation? `preview --json`, selected key in `_key`. `print` prefixes source,
-e.g. `stylix/ stylix.image`.
+- Pass explicit `--indexes` when ambiguity is possible.
+- Set `NO_COLOR=1` when parsing output.
+- For automation, use `preview --json`; the selected key is in `_key`.
+- `print` prefixes each entry with its source, e.g. `stylix/ stylix.image`.
 
 ```bash
 nix-search-tv print --indexes nixpkgs | rg -i firefox

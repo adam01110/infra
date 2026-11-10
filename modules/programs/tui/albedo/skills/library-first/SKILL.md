@@ -13,55 +13,60 @@ metadata:
 allowed-tools: read edit write grep find bash web_search fetch_content
 ---
 
-# library first
+# Library first
 
-less code to own. whole problem solved. readable beats clever; fewer lines not
-score. think through choices; report decision, not ritual checklist.
+Own less code; solve the whole problem. Readable beats clever; fewer lines is
+not the score. Think through choices; report the decision, not a ritual
+checklist.
 
-## before code
+## Before code
 
-read touched code and project conventions. trace callers, tests, fixtures,
-exports, config. identify behavior, compatibility, data-loss and security risks.
-fix root cause at shared seam; update every affected caller. no unrelated cleanup.
+Read touched code and project conventions. Trace callers, tests, fixtures,
+exports, and config. Identify behavior, compatibility, data-loss, and security
+risks. Fix the root cause at the shared seam and update every affected caller.
+Skip unrelated cleanup.
 
-## reuse ladder
+## Reuse ladder
 
-first option that fully fits:
+Take the first option that fully fits:
 
-1. not needed for requested outcome? omit.
-2. project helper, component, service, pattern? reuse as intended.
-3. standard library or platform feature? use it. house conventions still win.
-4. installed library solves it? use documented API, not own imitation.
-5. substantial parsing, protocols, crypto, dates, validation, or infrastructure?
-   look for maintained library before building engine.
-6. no suitable fit? smallest clear implementation.
+1. Not needed for the requested outcome: omit.
+2. Project helper, component, service, or pattern: reuse as intended.
+3. Standard library or platform feature: use it. House conventions still win.
+4. Installed library solves it: use its documented API, not an imitation.
+5. Substantial parsing, protocols, crypto, dates, validation, or infrastructure:
+   look for a maintained library before building an engine.
+6. No suitable fit: smallest clear implementation.
 
-new dependency? verify current docs, maintenance, license, security, runtime
-compatibility, transitive cost. compare integration cost against code maintained
-here. meaningful machinery replaced? library earns place. few obvious lines?
-no package. uncertain fit? bounded lookup, then decide; no package safari.
-never invent API or assume installed version supports it. use project dependency
-workflow and update lockfile when needed.
+For a new dependency, verify current docs, maintenance, license, security,
+runtime compatibility, and transitive cost. Compare integration cost against
+code maintained here. A library earns its place by replacing meaningful
+machinery; a few obvious lines do not need a package. If fit is uncertain, do a
+bounded lookup, then decide; no package safari. Do not
+invent APIs or assume the installed version supports one. Use the project's
+dependency workflow and update the lockfile when needed.
 
-## keep small, not fragile
+## Keep small, not fragile
 
-no speculative features, options, wrappers, layers, generic framework, or
-"for later" code. preserve existing architecture. delete obsolete code only
-inside task scope. one-liner needs decoding? expand.
+Skip speculative features, options, wrappers, layers, generic frameworks, and
+"for later" code. Preserve the existing architecture. Delete obsolete code only
+inside task scope. Expand a one-liner that needs decoding.
 
-never trade away trust-boundary validation, data-loss protection, error
-handling, security, accessibility, or requested behavior. reuse/move code?
-keep these guarantees. library does not remove caller's responsibility.
+Keep trust-boundary validation, data-loss protection, error handling, security,
+accessibility, and requested behavior; do not trade them away. When reusing or
+moving code, keep these guarantees, because a library does not remove the
+caller's responsibility.
 
-known shortcut? state limit and upgrade trigger near code when non-obvious.
-comments explain why, not syntax.
+For a known shortcut, state its limit and upgrade trigger near the code when
+non-obvious. Comments explain why, not syntax.
 
-## prove and stop
+## Prove and stop
 
-non-trivial logic? focused regression test or executable self-check. test
-library integration and relevant edge cases, not library internals. run scoped
-tests plus configured formatting, lint, typecheck; widen for shared changes.
-failed check? fix cause; never weaken check to pass.
+Give non-trivial logic a focused regression test or executable self-check. Test
+library integration and relevant edge cases, not library internals. Run scoped
+tests plus configured formatting, lint, and typecheck; widen for shared changes.
+If a check fails, fix the cause; do not weaken the check to pass.
 
-report outcome and actual checks. material limit, risk, or missing verification?
-state it. no mandatory skipped-work footer, line-count score, or extra features.
+Report the outcome and actual checks. State any material limit, risk,
+or missing verification. Skip mandatory skipped-work footers, line-count scores,
+and extra features.

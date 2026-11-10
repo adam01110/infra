@@ -1,19 +1,20 @@
-# recovery and operation log
+# Recovery and operation log
 
-op log records every repo mutation. bad squash, abandon, rebase, restore? work recoverable.
+The op log records every repo mutation, so work is recoverable after a bad
+squash, abandon, rebase, or restore.
 
-## primitives
+## Primitives
 
-first choice:
+First choice:
 
 ```bash
 jj undo
 ```
 
-reverses latest operation atomically, including abandon, squash, rebase,
-restore, describe. never manually unwind first.
+It atomically reverses the latest operation, including abandon, squash, rebase,
+restore, and describe. Use it before unwinding by hand.
 
-need older operation:
+For an older operation:
 
 ```bash
 jj op log
@@ -22,11 +23,11 @@ jj op log -p
 jj op restore <op-id>
 ```
 
-start compact command from [`TEMPLATES.md`](TEMPLATES.md). narrow op IDs; only
-then `-p`. `op restore` restores whole repo state and itself creates recoverable
-op. wrong restore? `jj undo`.
+Start with the compact command from [`TEMPLATES.md`](TEMPLATES.md); narrow op
+IDs before `-p`. `op restore` restores the whole repo state and itself creates
+a recoverable op; undo a wrong restore with `jj undo`.
 
-single change evolution:
+Evolution of a single change:
 
 ```bash
 jj evolog
@@ -34,29 +35,28 @@ jj evolog -r <change-id>
 jj evolog -p
 ```
 
-compact first; patch only after narrowing. useful for pre-rewrite commit version.
+Start compact; add the patch only after narrowing. Useful for a commit's
+pre-rewrite version.
 
-## scenarios
+## Scenarios
 
-wrong abandon just happened? `jj undo`. later? find preceding op,
-`jj op restore <op-id>`.
+- Wrong abandon just happened: `jj undo`. Noticed later: find the preceding op
+  and run `jj op restore <op-id>`.
+- Squash into the wrong parent, or a bad rebase: `jj undo`. If more work
+  followed, inspect the op log and restore an earlier op, knowing which later
+  ops become inactive.
+- Work lost after a sequence: run `jj op log -p`, find the last state with the
+  work, and restore it.
 
-squash into wrong parent or bad rebase? `jj undo`. more work followed? inspect op
-log and restore earlier op; understand later ops no longer active before
-choosing.
-
-lost work after sequence? `jj op log -p`; find last state containing work;
-restore it.
-
-need old file version:
+Old file version:
 
 ```bash
 jj evolog -r <change-id> -p
 jj restore --from <commit-id-from-evolog> <path>
 ```
 
-no stash/pop needed. each state already commit/op-log history. op log retained
-long enough for ordinary recovery; do not assume loss.
+No stash/pop is needed; every state is already in commit or op-log history.
+The op log is kept long enough for ordinary recovery, so do not assume loss.
 
 | need | command |
 |---|---|

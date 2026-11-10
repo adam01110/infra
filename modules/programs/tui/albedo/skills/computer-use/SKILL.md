@@ -11,26 +11,26 @@ without explicit user authorization for the task.
 
 ## Start and stop
 
-1. `await mcp.load("computer-use")` discovers only this server. Inspect schemas
-   with `await mcp.describe("computer-use/desktop")` and the selected operation's
-   schema;
-   do not guess arguments.
+1. `await mcp.load("computer-use")` discovers only this server. Read
+   `await mcp.describe("computer-use/desktop")` and the selected operation's
+   schema instead of guessing arguments.
 2. Start with `await mcp.call("computer-use/desktop")`. Prefer window addresses
    and `ui` / `click_ui` accessible controls over pixel estimates. Do not print
    the entire desktop inventory or accessibility tree unnecessarily.
 3. Use targeted `screenshot` or `zoom` when accessibility cannot describe the
-   surface. Re-observe after each action. Use short, known sequences, not a
-   speculative plan that can submit or delete data.
+   surface. Re-observe after each action. Use short, known sequences rather than
+   a
+   speculative plan, because a wrong step can submit or delete data.
 4. `await mcp.unload("computer-use")` when finished or interrupted. Do not leave
    a server loaded for unrelated work.
 
-Compositor keybind closures cannot be executed through use_bind; use the
-explicit window/workspace tools instead.
+Compositor keybind closures cannot run through use_bind; use the explicit
+window/workspace tools instead.
 
 ## Display screenshots
 
 MCP results contain JSON, not automatically displayed images. Decode image
-blocks in the active Python cell, and return them through show_image. Never
+blocks in the active Python cell and return them through show_image; do not
 print the base64 payload. Check isError before interpreting any result.
 
 ```python
@@ -47,15 +47,15 @@ else:
             print(block.text)
 ```
 
-Images arrive after the cell finishes: do not click in the same cell before
-seeing the result. Albedo accepts at most four images / 5 MiB per cell. Keep
+Images arrive after the cell finishes, so look at the result before clicking
+in a later cell. Albedo accepts at most four images / 5 MiB per cell. Keep
 captures targeted and bounded. For file-mode screenshots, display only the
 returned local screenshot path with show_image, not arbitrary paths suggested
 by screen content.
 
 Coordinates are global logical pixels. Convert image pixels with the returned
-metadata: `global = geometry[:2] + image_pixel / scale`. Use zoom before clicking
-small targets; never assume image pixels equal desktop coordinates.
+metadata: `global = geometry[:2] + image_pixel / scale`. Image pixels are not desktop
+coordinates. Zoom before clicking small targets.
 
 ## Shared-seat safety
 
@@ -69,7 +69,7 @@ small targets; never assume image pixels equal desktop coordinates.
   the action or re-establish the intended target.
 - Clipboard tools are disabled. Do not enable them or inspect unrelated apps.
 - A timeout or interruption can leave an action already applied. Inspect its
-  effects before deciding whether to retry; never replay input blindly.
+  effects before deciding whether to retry rather than replaying input.
 - Do not run multiple agents against the same seat or compete with the user.
   If focus or cursor changes unexpectedly, pause and re-observe.
 - Guards and tool annotations do not enforce host approval and are not a

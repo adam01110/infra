@@ -8,31 +8,34 @@ description: >-
 
 # nix cli
 
-## permission
+## Permission
 
-no explicit user request? no system rebuild or activation. build-only too.
-verification not permission. no system toplevel build through another tool.
-home activation? explicit request too. build request != switch/test/boot.
+Build-only runs (`nh os build`, `nh home build`, `nh darwin build`) are fine
+for verification without asking. Switching, testing, booting, or otherwise
+activating a system or home configuration needs an explicit user request,
+because it changes the running machine. A build request does not cover switch,
+test, or boot.
 
-## tool
+## Tools
 
-- packages? `eh run`, `eh shell`, `eh build`, `eh develop`, `eh info`.
-- requested flake update? `eh update`.
-- requested config rebuild? `nh os`, `nh home`, `nh darwin`.
-  not `nixos-rebuild`, `home-manager`, `darwin-rebuild`.
-- command missing? `, command args...`. comma fails?
+- Packages: `eh run`, `eh shell`, `eh build`, `eh develop`, `eh info`.
+- Requested flake update: `eh update`.
+- Config builds and requested rebuilds: `nh os`, `nh home`, `nh darwin`, not
+  `nixos-rebuild`, `home-manager`, or `darwin-rebuild`.
+- Missing command: `, command args...`. If comma fails, use
   `eh run nixpkgs#package`; check argument forwarding first.
-- no helper equivalent? raw `nix` fine: eval, repl, fmt, etc.
+- No helper equivalent: raw `nix` is fine (eval, repl, fmt, etc.).
 
-## execute
+## Execute
 
-1. narrowest requested operation. flake/host/home target? inspect, never guess.
-2. flags or forwarding unclear? subcommand `--help` first.
-3. root needed? load `sudo` skill.
-4. harness execution. explicit subcommands, not shell aliases.
-   no permanent install or input update unless asked.
-   helper fails? inspect error. no raw rebuild fallback.
-5. check exit status. report operation + result. built != activated.
+1. Run the narrowest requested operation. Inspect flake, host, or home
+   targets instead of guessing.
+2. Flags or forwarding unclear: read subcommand `--help` first.
+3. Root needed: load the `sudo` skill.
+4. Use harness execution and explicit subcommands, not shell aliases. No
+   permanent install or input update unless asked. If a helper fails, inspect
+   the error; no raw rebuild fallback.
+5. Check the exit status. Report operation and result; built != activated.
 
-config edit, no rebuild request? focused eval, fmt, non-rebuild tests.
-activation not checked? say so.
+Config edit without a rebuild request: verify with focused eval, fmt, and a
+build-only run. Say that the result was built but not activated.

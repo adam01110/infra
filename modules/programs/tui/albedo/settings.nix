@@ -1,15 +1,22 @@
 {
   flake.modules.homeManager.albedo = _: {
     programs.albedo = {
-      activeProvider = "codex";
+      activeProvider = "claude";
 
-      providers.codex = {
-        # keep-sorted start
-        effort = null;
-        extension = "codex";
-        model = "gpt-6.1-sol";
-        protocol = "responses";
-        # keep-sorted end
+      providers = {
+        claude = {
+          effort = "medium";
+          extension = "claude";
+          model = "claude-opus-5-5";
+          protocol = "chat_completions";
+        };
+
+        codex = {
+          effort = "medium";
+          extension = "codex";
+          model = "gpt-6.1-sol";
+          protocol = "responses";
+        };
       };
 
       showDiffs = false;

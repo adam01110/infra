@@ -14,24 +14,26 @@ allowed-tools: bash web_search fetch_content
 
 # find skills
 
-user wants skill, tool, workflow, or new capability? search installable skills.
+When the user wants a skill, tool, workflow, or new capability, search the
+installable skills.
 
-cli: `comma bunx skills`. browse: <https://skills.sh/>.
+CLI: `comma bunx skills`. Browse: <https://skills.sh/>.
 
-## flow
+## Flow
 
-1. identify domain and exact task. common task? likely existing skill.
-2. check skills.sh leaderboard first.
-3. search specific terms: `react performance`, `pr review`, `changelog`.
-4. weak result? try synonyms: `deploy`, `deployment`, `ci-cd`; inspect popular
-   sources such as `vercel-labs/agent-skills`,
+1. Identify the domain and exact task. Common tasks likely have an existing
+   skill.
+2. Check the skills.sh leaderboard first.
+3. Search specific terms: `react performance`, `pr review`, `changelog`.
+4. If results are weak, try synonyms (`deploy`, `deployment`, `ci-cd`) and
+   inspect popular sources such as `vercel-labs/agent-skills` and
    `ComposioHQ/awesome-claude-skills`.
-5. verify quality before recommendation. prefer 1K+ installs, reputable source
-   (`vercel-labs`, `anthropics`, `microsoft`), meaningful stars and activity.
-   under 100 installs or stars? caution.
-6. present name, purpose, install count/source, exact install command, skills.sh
-   link.
-7. user chooses first. only then offer installation.
+5. Check quality before recommending. Prefer 1K+ installs, a reputable source
+   (`vercel-labs`, `anthropics`, `microsoft`), and meaningful stars and
+   activity. Treat under 100 installs or stars with caution.
+6. Present the name, purpose, install count and source, exact install command,
+   and skills.sh link.
+7. Let the user choose first; only then offer installation.
 
 ```bash
 comma bunx skills find <query>
@@ -40,8 +42,8 @@ comma bunx skills check
 comma bunx skills update
 ```
 
-useful categories: web, testing, DevOps, docs, review/refactor,
+Useful categories: web, testing, DevOps, docs, review/refactor,
 design/accessibility, automation/git.
 
-no relevant skill? say so. offer direct handling. reusable custom skill likely
-useful? mention `comma bunx skills init`.
+If no relevant skill exists, say so and offer to handle the task directly. If a
+reusable custom skill would likely help, mention `comma bunx skills init`.

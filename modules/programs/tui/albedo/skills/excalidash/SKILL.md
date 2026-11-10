@@ -7,85 +7,69 @@ license: MIT
 compatibility: Requires the excalidash MCP server.
 metadata:
   author: davifernan, adapted by Adam0
-  version: "1.1.0"
-  short-description: Draw clear editable, restrained ExcaliDash diagrams
+  version: "1.2.0"
+  short-description: Draw clean, readable, editable ExcaliDash diagrams
 ---
 
-# excalidash diagramming
+# ExcaliDash diagramming
 
-grug want diagram clear, editable, no box pile.
+The goal is a diagram that looks finished at a glance: a title, evenly sized
+rounded nodes, a few role colors used consistently, calm gray arrows, and no
+overlaps. Read [`references/design.md`](references/design.md) before the first
+board write; it has the palette and the layout checklist.
 
-## restraint gate
+## Choose the tool
 
-before first board write, read
-[`references/design-restraint.md`](references/design-restraint.md). every rule
-there hard. budget 3 stroke colors, red included. no decorative box, no frame
-unless user ask. hierarchy live in position and spacing. over budget? strip to
-black and redraw. 8 color export look "nice"? no. 8 color export is failure.
+- `draw_graph`: the default for boxes-and-arrows diagrams such as
+  architectures, pipelines, request flows, and dependency graphs. Its layout
+  engine gives the cleanest result: uniform rounded nodes, gray edges, and a
+  `title` line.
+- `draw_mermaid`: use for `sequenceDiagram`, `classDiagram`, `stateDiagram`,
+  `erDiagram`, and flowcharts that need decision diamonds or labeled branches.
+  Style flowchart nodes with `classDef` and `class`. Subgraphs fail to convert
+  (the board stays unchanged), and special node shapes such as `[( )]` or
+  `[[ ]]` render as plain rectangles, so express groups and kinds with color.
+- `draw_scene`: use for legends, notes, titles beside a Mermaid diagram, and
+  free sketches with absolute coordinates. Give every element a descriptive id
+  so later `update_element` and `delete_elements` calls can target it.
 
-## choose club
+Call `read_me` once per session before using `draw_scene`.
 
-structured diagram? start `draw_mermaid`. converter place things better than
-model guessing pixels. editable forms:
+## Draw
 
-- `flowchart`
-- `sequenceDiagram`
-- `classDiagram`
-- `stateDiagram`
-- `erDiagram`
+1. Pick a direction: `LR` for pipelines and request flows, `TB` for trees,
+   hierarchies, and decision flows. If the result is very wide or very tall,
+   flip it.
+2. Assign each node a role and give each role one color (see the design
+   reference). Two to four roles is typical; one color for everything is
+   flat, and a color per node is noise.
+3. Keep node labels to a few words in sentence case and of similar length, so
+   boxes come out the same size. Put details in the node label only when they
+   matter, otherwise leave them out.
+4. Label edges only when the label adds information (protocol, condition,
+   event name), with 1-3 words.
+5. Add a title (`title` in `draw_graph`, or a `draw_scene` text element above
+   a Mermaid diagram).
+6. Add a small legend with `draw_scene` in `append` mode when there are three
+   or more roles and their meaning is not obvious from the labels. Read node
+   positions with `read_board` and place the legend below the lowest node.
 
-small node-edge graph? `draw_graph`. legend, note, free sketch? `draw_scene`.
-every scene element need id, else later edit hurt.
+Modes for every draw tool: `replace` (default) redraws what this server drew
+and keeps hand-drawn work, `append` adds beside it, and `wipe` clears the
+whole board including hand-drawn work, so use `wipe` only when the user wants
+a clean board. For structural changes, edit the source and redraw with
+`replace` instead of nudging elements by hand.
 
-## draw
+## Layout pitfalls
 
-use `LR` for pipeline/request flow. use `TB` for tree, hierarchy, decision flow.
-shape extreme? flip direction and redraw.
+- Merge duplicate edges between the same pair into one labeled edge.
+- Shortcut edges across a chain stretch the layout; keep only meaningful ones.
+- Self-loops overlap each other; use at most one per node.
+- Very large diagrams get cramped or rejected; split them into separate
+  diagrams placed side by side.
 
-labels stay small:
+## Check the export
 
-- node: few words
-- edge: 2-3 words
-- diamond: 2-3 words
-
-long words make giant diamond. long edge text sit on neighbor. detail belong in
-node or not at all.
-
-structured diagram? converter place every shape. never hand-place rectangle,
-frame, node with `apply_drawing_ops` for flow, sequence, class, state, ER,
-node-edge content. converter own placement, converter place better. manual
-shape op only for `draw_scene` free sketch, small edit on existing element, or
-repair after look.
-
-`draw_mermaid` and `draw_graph` mode:
-
-- `replace`: replace prior server drawing; keep hand drawing
-- `append`: add beside old work
-- `wipe`: clear whole board
-
-structural change? edit source, redraw with `replace`.
-
-## avoid demon
-
-- duplicate edge? combine label.
-- more than 2 edges same pair? crowd.
-- shortcut across chain? layout grow wide. keep only if useful.
-- many self-loops? overlap.
-- subgraph big? converter may reject. split diagram.
-- color has no meaning? remove color.
-- hand-placed box pile? delete boxes, redraw with `draw_mermaid` `replace`.
-
-use 3 stroke colors max, red included. one meaning each: layer, team, stage.
-red mean failure. safe stroke/fill names: `blue green orange purple red yellow
-pink gray amber cyan lime`. `teal` fill only. `black` and `white` stroke only.
-orange, yellow, and amber share same stroke, so fill must carry meaning.
-
-color rule above all others: black and gray stroke always ok, color not.
-count distinct color in own ops. over budget? redraw.
-
-## look with eyes
-
-always call `export_png` and inspect image before done. json lie politely.
-caption overlap and lopsided graph only show here. bad? simplify, flip direction,
-shorten label, export again. count color and box in image. over budget? strip
-and redraw before done.
+Call `export_png` and look at the image before finishing, because overlaps
+and lopsided layouts only show there. Check it against the checklist in the
+design reference, fix the source, and redraw with `replace` until it passes.

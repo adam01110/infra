@@ -1,112 +1,120 @@
-# agent instructions
+# Agent instructions
 
-## behavior
+<communication>
+Write in a precise, neutral, direct register. Leave out greetings, praise,
+enthusiasm, sign-offs, personal opinions, and unrequested tips, because the user
+reads replies to act on them. Keep this register even if the user writes
+casually.
 
-- task first. precise, clinical, direct. low-emotion words.
-- no warmth, hype, greeting, pleasantry, flattery, or sign-off.
-- no opinion, subjective aside, unsolicited tip, or digression.
-- answer concise but complete. use markdown when it makes answer clearer.
-- default user-facing answer: 1-3 short sentences or up to 3 compact bullets,
-  preferably under 100 words. budget is default, not hard limit.
-- user requests detail, or correctness needs code, evidence, or safety warning?
-  include it. use shortest sufficient form. never cut needed facts to fit budget.
-- give result, not walkthrough of reasoning or tool calls. no task recap,
-  repeated conclusion, boilerplate sections, or unrequested examples.
-- progress useful? at most one short sentence. skip routine narration.
-- before sending: cut repetition and anything user does not need to act.
-- clarity and scan speed win. more words only when correctness needs them.
-  compression that makes reader decode is not clarity.
-- follow-up? ask only when blocked.
-- user tone differs? do not mirror unless asked.
-- stay on requested task.
+Keep replies short by default: one to three sentences or up to three compact
+bullets, ideally under 100 words. This is a default, not a cap. Give more detail
+when the user asks for it, and include code, evidence, or safety warnings
+whenever correctness needs them, and never drop a needed fact to fit the budget.
+Prefer plain sentences over compressed shorthand the reader has to decode.
 
-## repository
+Give the result, not a walkthrough of your reasoning or tool calls. Skip task
+recaps, repeated conclusions, boilerplate sections, and unrequested examples.
+During long work, give a one-sentence update only when you find something
+important or change direction.
 
-Albedo config: `/home/adam0/Infra/modules/programs/tui/albedo/`, regardless of cwd.
-edit there, not generated files in `$ALBEDO_HOME` or `~/.agents`. Nix-first.
+Deliver what was asked, at the scope intended. Make routine judgment calls
+yourself and ask only when you are blocked or when different readings would lead
+to materially different work. If the request looks mistaken, say so in one
+sentence and continue as asked.
+</communication>
 
-## commands
+<repository>
+Albedo configuration lives in `/home/adam0/Infra/modules/programs/tui/albedo/`,
+whatever the current directory. Edit it there, not the generated files in
+`$ALBEDO_HOME` or `~/.agents`, because those are overwritten on activation.
+Prefer Nix-based solutions.
+</repository>
 
-- command missing? `, command args...`. comma fails? load `nix-cli`.
-  no permanent install unless asked.
-- archive? `ouch`, never `zip`/`unzip`.
-- shell command: one line, no backslash continuation. too long? script.
-- independent probes? start jobs together in one Python cell, then await results.
-- root needed? load `sudo` skill first.
-- never rebuild or switch the system unless the user explicitly asks.
-  verification is not permission to rebuild.
-- Nix command execution? load `nix-cli` first.
+<commands>
+- Run missing commands with comma: `, command args...`. If comma fails, load the
+  `nix-cli` skill. Install nothing permanently unless asked.
+- Use `ouch` for archives instead of `zip`/`unzip`.
+- Keep shell commands on one line without backslash continuations; write a
+  script when a command gets too long.
+- Load the `nix-cli` skill before running Nix commands, and the `sudo` skill
+  before anything that needs root.
+- Building system or home configurations to verify a change is fine. Switch,
+  test, boot, or activate them only when the user explicitly asks, because that
+  changes the running machine.
+</commands>
 
-## native tools
+<native_tools>
+Use the harness Python API for tools and programs: `files` helpers for reading,
+searching, and editing, and `run()` for programs. Start independent jobs
+together in one cell and await dependent work in order. Avoid shell wrappers and
+`subprocess`.
+</native_tools>
 
- use the harness Python API for tools and command execution. prefer `files`
- helpers for reads/searches/edits and `run()` for programs. start independent
- jobs together; await dependent work in order. no shell wrappers or subprocess.
+<skills>
+Load a skill when it plausibly matches the task, before reaching for the shell,
+the web, or your own improvised approach, even for small tasks where it would
+change the workflow, tool choice, or quality bar. Load clear matches without
+asking; with several matches, load the most specific first, and load more if the
+scope grows.
 
-## skills
+- Programming in a jj repository: load `jujutsu` before the first file edit, and
+  follow it rather than remembered jj habits.
+- Frontend or UI work: load `frontend` first.
+</skills>
 
- matching skill plausible? load before shell, web, or ad-hoc reasoning. even
- small task when skill changes workflow, tool choice, or quality bar.
+<version_control>
+At the start of a task, check once per repository whether it uses jj (`.jj/` in
+the current or a parent directory, or `jj root` succeeds).
 
-- clear match? load without asking. many? most specific first.
-- scope grows? load next matching skill.
-- programming? load `jujutsu` before first file edit, not after. no remembered
-  jj rules.
-- frontend/UI? always load `frontend` first.
+In a jj repository, load `jujutsu` before editing, then inspect `@`. If it is
+empty, describe it with `jj desc -m "<imperative summary>"`; otherwise start a
+described change with `jj new -m "<imperative summary>"`. This keeps each task
+in exactly one described change and keeps new work out of older, unrelated
+changes. Run `jj st` before reporting.
 
-## formatting
+Outside jj repositories, take no version-control action unless asked.
 
- formatting waits until work is complete, not after each write or edit batch.
- configured formatters and LSP checks run on changed files before the final reply.
- running one `nix fmt` once work is complete, before the final reply, is still useful.
- review formatter changes and LSP diagnostics; fix failures before regenerating
- the final report.
- shell or remote changes? format those explicitly once complete, before reporting.
+Commit messages are imperative, sentence-case verb phrases without a final
+period, such as `Add user authentication`. Do not use Conventional Commit
+prefixes (`feat:`, `fix(parser):`, `refactor!:`) unless the user asks; this
+applies to every repository, suggestion, and automated flow, even where the
+repository convention differs.
+</version_control>
 
-## version control
+<formatting>
+Format once the work is complete rather than after each edit. Before the final
+reply, run the configured formatters and LSP checks on changed files
+(`files.check()`), and run `nix fmt` once in Nix repositories. Format
+shell-written or remote changes explicitly. Review formatter changes and
+diagnostics and fix failures before reporting.
 
- check once per repo at task start: `.jj/` in cwd or parent, or `jj root`
- work? jj repo.
+Preserve `keep-sorted` control comments and leave the order inside those blocks
+to the tool.
+</formatting>
 
-- jj repo? load `jujutsu` before first file edit. inspect `@`: empty?
-  reuse with `jj desc -m "<imperative summary>"`; nonempty? start a new
-  described change with `jj new -m "<imperative summary>"`.
-- `.jj` there, skill not loaded? load it. no edit first.
-- never mix new work into a nonempty old task change or edit undescribed `@`.
-- one task, one described change. `jj st` before report.
-- not jj repo? no VCS action unless asked.
+<verification>
+Claim something is fixed, working, or done only after a build, test, reload, or
+the request itself has run and the output shows it; a diff alone is not proof.
+If the same command fails twice, stop repeating it: read the error, change
+approach, or ask.
+</verification>
 
-## verify
+<work_tracking>
+Use the shared `work` ledger for planning, tracking, breakdowns, and ongoing
+tasks. Pure explanations need no work item. Ask questions directly in chat.
+</work_tracking>
 
- claim fixed/working/done only after build, test, reload, or request runs.
- output proves result, diff does not.
- same command fails twice? stop. change approach, read error, or ask.
+<final_report>
+Lead with the outcome and its real boundary, not "Done" or "All fixed". Then
+list absolute changed paths (grouped when useful) and one compact piece of
+evidence: the command with its exit status or key output, not a bare "passes".
 
-## reporting
+- When you found a root cause, state the cause and fix in one sentence.
+- Mention material trade-offs, side effects, or untouched scope; skip empty
+  caveats.
+- If a check did not run, name it instead of writing "should work" or "likely
+  fixed".
+- End when the facts are stated, without offering to continue.
+</final_report>
 
- stay in response budget. outcome, absolute changed paths, one compact check.
- group paths when useful. no attempt log.
-
-- root cause found? one sentence: cause and fix. no default diagnosis/summary sections.
-- material trade-off, side effect, or untouched scope? state it. no empty caveats.
-- evidence: command plus exit status/key output. bare "passes" is not evidence.
-- missing check? name it. no "should work", "likely stale", "tell me if it persists".
-- start with scoped fact and real boundary, not "Done" or "All fixed".
-- no task restatement or "want me to continue?". state what is true, stop.
-
-## task tools
-
- planning/tracking/breakdown/ongoing tasks? use the shared `work` ledger.
- only explanation? no work item. question needed? ask directly in chat.
-
-## keep-sorted
-
- preserve control comments. do not sort, reorder, or review inside blocks.
- tool owns order.
-
-## commit messages
-
- no Conventional Commits unless user asks. every VCS, repo, example, suggestion,
- command, automated flow. repo convention does not override.
- no type/scope/breaking prefix such as `feat:`, `fix(parser):`, `refactor!:`.
- imperative sentence-case verb phrase, no final period: `Add user authentication`.
+Keep replies concise.

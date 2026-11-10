@@ -1,30 +1,30 @@
-# parallel workspaces
+# Parallel workspaces
 
-assume jj 0.44.0. multiple agents need same repo? separate `@` through
-`jj workspace`; store and op log shared.
+Assumes jj 0.44.0. When several agents need one repo, give each its own `@`
+with `jj workspace`; the store and op log stay shared.
 
-## directory decision
+## Directory decision
 
-priority is exact:
+Use the first that applies, in this order:
 
 1. `.workspaces/`
 2. `workspaces/`
-3. repo instructions such as `AGENTS.md` or `CLAUDE.md`
-4. ask user
+3. Repo instructions such as `AGENTS.md` or `CLAUDE.md`
+4. Ask the user
 
-no blanket sibling-directory rule.
+There is no blanket sibling-directory rule.
 
-before create, prevent workspace metadata entering git:
+Before creating a workspace, keep its metadata out of git:
 
 ```bash
 grep -E '^\.?workspaces/?$' .gitignore 2>/dev/null
 ```
 
-missing entry? add chosen directory ignore through normal describe-first
-workflow from [`NEW_CHANGE.md`](NEW_CHANGE.md) before workspace creation. never
-skip.
+If missing, ignore the chosen directory before creating the workspace, using
+the describe-first workflow from [`NEW_CHANGE.md`](NEW_CHANGE.md). Do not skip
+this.
 
-name descriptive:
+Use a descriptive name:
 
 ```bash
 REPO_NAME=$(basename "$(jj workspace root)")
@@ -33,12 +33,12 @@ jj workspace add "$WORKSPACE_PATH"
 cd "$WORKSPACE_PATH"
 ```
 
-avoid `tmp`, `wip`, `new`. workspace gets own working-copy commit and
+Avoid `tmp`, `wip`, `new`. Each workspace gets its own working-copy commit and
 `<workspace-name>@` marker; snapshots affect only its `@`.
 
-## bootstrap
+## Bootstrap
 
-handoff only after required environment setup:
+Hand off only after the required environment setup:
 
 | marker | command |
 |---|---|
@@ -50,10 +50,10 @@ handoff only after required environment setup:
 | `go.mod` | `go mod download` |
 | `mix.exs` | `mix deps.get` |
 
-## handoff
+## Handoff
 
-always provide absolute path, stable change ID, exact `cd`, exact
-`jj edit <change-id>`, scope boundaries, inline-message rule,
+Include the absolute path, stable change ID, exact `cd`, exact
+`jj edit <change-id>`, scope boundaries, the inline-message rule, and the
 status-after-mutation rule.
 
 ```text
@@ -69,22 +69,23 @@ Rules:
 - Do not modify files outside the assigned scope.
 ```
 
-## inspect
+## Inspect
 
-use compact log from [`TEMPLATES.md`](TEMPLATES.md), changing revset:
+Use the compact log from [`TEMPLATES.md`](TEMPLATES.md) with a different
+revset:
 
-- all tips: `-r 'working_copies()'`
-- one: `-r '<workspace>@'`
+- All tips: `-r 'working_copies()'`
+- One workspace: `-r '<workspace>@'`
 
-default `jj workspace list` now shows roots. compact template also keeps root.
-syntax: [`QUERY_LANGUAGES.md`](QUERY_LANGUAGES.md).
+Default `jj workspace list` now shows roots; the compact template keeps them.
+Syntax: [`QUERY_LANGUAGES.md`](QUERY_LANGUAGES.md).
 
-## integrate
+## Integrate
 
-result ready? do not silently pick strategy. ask user: rebase into default
-workspace, explicit merge, or bookmark/PR.
+When a result is ready, ask the user rather than choosing silently: rebase into
+the default workspace, explicit merge, or bookmark/PR.
 
-rebase ordinary commits:
+Rebase ordinary commits:
 
 ```bash
 jj rebase -s <workspace-change-id> -d @
@@ -92,23 +93,24 @@ jj workspace forget <workspace-name>
 rm -rf "$WORKSPACE_PATH"
 ```
 
-visible merge when lines independently meaningful:
+Visible merge, when the lines are independently meaningful:
 
 ```bash
 jj new <change-a> <change-b> -m "Combine parallel work"
 ```
 
-human review:
+Human review:
 
 ```bash
 jj bookmark create my-feature -r <workspace-change-id>
 jj git push -b my-feature
 ```
 
-solo parallel work usually rebase. review required means PR. meaningful dual
-lines means merge. bookmark shipping after rebase follows [`PUSH.md`](PUSH.md).
+Solo parallel work usually means rebase; required review means a PR; two
+meaningful lines mean a merge. Shipping a bookmark after rebase follows
+[`PUSH.md`](PUSH.md).
 
-## cleanup and stale state
+## Cleanup and stale state
 
 ```bash
 jj workspace list
@@ -116,24 +118,24 @@ jj workspace forget <workspace-name>
 rm -rf "$WORKSPACE_PATH"
 ```
 
-forget first; it does not delete files.
+Forget first; it does not delete files.
 
-base rewritten elsewhere and workspace stale?
+If the base was rewritten elsewhere and the workspace is stale:
 
 ```bash
 jj workspace update-stale
 jj st
 ```
 
-use before manual repair. old operation unavailable? jj may create recovery
-commit from current files rather than discard.
+Use this before manual repair. If the old operation is unavailable, jj may
+create a recovery commit from current files rather than discard them.
 
-## avoid collisions
+## Avoid collisions
 
-- generated/build outputs: ignore or separate paths.
-- shared config: one owner or serialize.
-- lockfile/dependencies: one task owns.
-- same source files: redesign boundary or serialize.
+- Generated or build outputs: ignore them or use separate paths.
+- Shared config: give it one owner or serialize.
+- Lockfile and dependencies: one task owns them.
+- Same source files: redesign the boundary or serialize.
 
-absolute handoff, ignore check, descriptive name, bootstrap, integration
-question, forget-before-delete, and update-stale-first are mandatory.
+Required: absolute handoff, ignore check, descriptive name, bootstrap,
+integration question, forget before delete, and update-stale first.

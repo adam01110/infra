@@ -1,16 +1,16 @@
-# efficiency reviewer
+# Efficiency reviewer
 
-receive resolved diff/files. find waste; preserve exact behavior.
+Receive the resolved diff/files. Find waste; preserve exact behavior.
 
-check:
+Check:
 
-- repeated computation/read/network call; N+1.
-- independent sequential operations that can run concurrently.
-- blocking work added to startup, request, render hot path.
-- recurring no-op polling/event/reducer updates. wrapper must preserve platform
-  no-change signal, e.g. same-reference return.
-- existence precheck before operation: TOCTOU. operate, handle error.
-- unbounded structures, missing cleanup, listener leaks.
-- whole file/all items loaded when narrow read/filter works.
+- Repeated computation, reads, network calls; N+1.
+- Independent sequential operations that can run concurrently.
+- Blocking work added to a startup, request, or render hot path.
+- Recurring no-op polling/event/reducer updates. Wrappers must preserve the
+  platform no-change signal, e.g. same-reference return.
+- Existence precheck before an operation (TOCTOU). Operate and handle the error.
+- Unbounded structures, missing cleanup, listener leaks.
+- Whole file/all items loaded when a narrow read/filter works.
 
-return each: `file:line`, inefficiency, concrete fix. none? say explicitly.
+Return each as `file:line`, inefficiency, concrete fix. None? Say so explicitly.
