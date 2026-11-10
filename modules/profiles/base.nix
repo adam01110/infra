@@ -11,6 +11,7 @@
         ++ (with self.modules.nixos; [
           # Core
           # keep-sorted start
+          bootvine
           capabilities
           disko
           envfs
