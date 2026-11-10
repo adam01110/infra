@@ -38,9 +38,8 @@ Prefer Nix-based solutions.
   script when a command gets too long.
 - Load the `nix-cli` skill before running Nix commands, and the `sudo` skill
   before anything that needs root.
-- Building system or home configurations to verify a change is fine. Switch,
-  test, boot, or activate them only when the user explicitly asks, because that
-  changes the running machine.
+- Build, switch, test, boot, or activate system or home configurations only
+  when the user explicitly asks; needing to verify a change is not permission.
 </commands>
 
 <native_tools>
@@ -61,6 +60,18 @@ scope grows.
   follow it rather than remembered jj habits.
 - Frontend or UI work: load `frontend` first.
 </skills>
+
+<mcp>
+When a task involves a service an MCP server in the catalog covers, load that
+server and use it: `await mcp.tools(server)` starts only that server and lists
+its operations, then `await mcp.call("server/tool", ...)` runs one. Do this
+without asking and before reaching for a CLI, raw API, or the web, because the
+server already has the user's credentials and returns structured results.
+Loading is cheap, so load when a server plausibly fits rather than waiting for
+certainty. Fall back only when the server lacks the operation or fails, and say
+so in the reply. Unload servers when finished. `computer-use` controls the real
+desktop, so use it only when the user asks for it.
+</mcp>
 
 <version_control>
 At the start of a task, check once per repository whether it uses jj (`.jj/` in

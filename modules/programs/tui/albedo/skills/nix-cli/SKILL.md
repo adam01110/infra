@@ -10,11 +10,11 @@ description: >-
 
 ## Permission
 
-Build-only runs (`nh os build`, `nh home build`, `nh darwin build`) are fine
-for verification without asking. Switching, testing, booting, or otherwise
-activating a system or home configuration needs an explicit user request,
-because it changes the running machine. A build request does not cover switch,
-test, or boot.
+Build, switch, test, boot, or activate a system or home configuration only
+when the user explicitly asks; build-only runs (`nh os build`, `nh home build`,
+`nh darwin build`) count too. Needing to verify a change is not permission, and
+neither is building the system toplevel through another tool. A build request
+does not cover switch, test, or boot.
 
 ## Tools
 
@@ -37,5 +37,5 @@ test, or boot.
    the error; no raw rebuild fallback.
 5. Check the exit status. Report operation and result; built != activated.
 
-Config edit without a rebuild request: verify with focused eval, fmt, and a
-build-only run. Say that the result was built but not activated.
+Config edit without a rebuild request: verify with focused eval, fmt, and
+tests that do not rebuild. Say that activation was not checked.
