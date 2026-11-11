@@ -1,13 +1,15 @@
 {
-  flake.modules.nixos.pipewire = {
+  flake.modules.nixos.pipewire = {config, ...}: {
     security.rtkit.enable = true;
+
+    # Provide pw-jack for JACK clients instead of a global LD_LIBRARY_PATH.
+    environment.systemPackages = [config.services.pipewire.package.jack];
 
     services.pipewire = {
       enable = true;
 
       # keep-sorted start
       alsa.enable = true;
-      jack.enable = true;
       pulse.enable = true;
       wireplumber.enable = true;
       # keep-sorted end
