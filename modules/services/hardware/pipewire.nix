@@ -14,6 +14,9 @@
 
       # Keep 32-bit audio.
       alsa.support32Bit = true;
+
+      # The X11 bell module segfaults when Xwayland exits at logout.
+      extraConfig.pipewire."99-no-x11-bell"."context.properties"."module.x11.bell" = false;
     };
   };
 }

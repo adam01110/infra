@@ -8,8 +8,8 @@
       asset,
       hash,
       repo,
-      tag,
       stripRoot ? true,
+      tag,
       # keep-sorted end
     }:
       fetchzip {

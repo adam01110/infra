@@ -10,4 +10,7 @@
       };
     };
   };
+
+  # keyd exits with status 15 on SIGTERM, which marks a clean stop as failed.
+  flake.modules.nixos.keyd.systemd.services.keyd.serviceConfig.SuccessExitStatus = [15];
 }
