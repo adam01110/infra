@@ -25,6 +25,30 @@ does not cover switch, test, or boot.
 - Missing command: `, command args...`. If comma fails, use
   `eh run nixpkgs#package`; check argument forwarding first.
 - No helper equivalent: raw `nix` is fine (eval, repl, fmt, etc.).
+- Nix flags go after `--`, which ends eh's own arguments:
+
+  ```text
+  eh build .#pkg -- --no-link -L --keep-going
+  ```
+
+- Program arguments through `eh run` need a second `--`, because the first
+  ends eh's arguments and the second ends `nix run`'s:
+  `eh run nixpkgs#package -- -- args...`.
+
+## Raw nix exceptions
+
+Translate raw `nix` run, shell, build, and develop commands from scripts, docs,
+or memory into eh before running them. Two cases need raw `nix` because eh
+cannot do them:
+
+- `--file` or `--expr` with `build`, `run`, or `shell`. Before running Nix, eh
+  evaluates the first non-flag argument as a flake installable, so a file path
+  or expression fails with exit code 12. Use `nix build --file ...` or
+  `nix build --expr ...` directly.
+- Reading the output of a build that succeeds, such as passing test lines from
+  a check. `eh build` discards Nix output when the build succeeds, so use
+  `nix build -L ...`. A failed `eh build` prints the full output, so debug
+  failures with `eh build .#pkg -- -L`.
 
 ## Execute
 
