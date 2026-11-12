@@ -60,14 +60,9 @@
         };
 
         web-search = {
-          # Search Codex first, then fall back to Exa.
-          order = ["codex" "exa"];
-          off = [
-            # keep-sorted start
-            "antigravity"
-            "claude"
-            # keep-sorted end
-          ];
+          # Search Codex first, then Claude, then fall back to Exa.
+          order = ["codex" "claude" "exa"];
+          off = ["antigravity"];
         };
       };
     };
