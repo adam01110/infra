@@ -13,10 +13,11 @@
 
     colors = config.lib.stylix.colors.withHashtag;
   in {
+    # The module only links TOML themes, so the syntax theme stays manual.
     xdg.configFile."tuicr/themes/stylix.tmTheme".source =
       config.programs.bat.themes."base16-stylix".src;
 
-    xdg.configFile."tuicr/themes/stylix.toml".source = with colors;
+    programs.tuicr.themes.stylix = with colors;
       tomlFormat.generate "tuicr-stylix-theme.toml" {
         syntax_theme = "stylix.tmTheme";
 

@@ -9,8 +9,6 @@
     inherit (lib) getExe;
     inherit (pkgs) writeShellApplication;
 
-    tomlFormat = pkgs.formats.toml {};
-
     tuicr = getExe pkgs.tuicr;
 
     gitReview = writeShellApplication {
@@ -27,8 +25,6 @@
       '';
     };
   in {
-    home.packages = [pkgs.tuicr];
-
     programs = {
       git.settings.alias.review = "!${getExe gitReview}";
 
@@ -36,18 +32,22 @@
         definition = ["util" "exec" "--" (getExe jjReview)];
         doc = "Review changes with tuicr";
       };
-    };
 
-    xdg.configFile."tuicr/config.toml".source = tomlFormat.generate "tuicr-config.toml" {
-      # keep-sorted start
-      no_update_check = true;
-      theme = "stylix";
-      # keep-sorted end
+      tuicr = {
+        enable = true;
 
-      # keep-sorted start
-      relative_line_numbers = true;
-      show_pr_checks = true;
-      # keep-sorted end
+        settings = {
+          # keep-sorted start
+          no_update_check = true;
+          theme = "stylix";
+          # keep-sorted end
+
+          # keep-sorted start
+          relative_line_numbers = true;
+          show_pr_checks = true;
+          # keep-sorted end
+        };
+      };
     };
   };
 }
