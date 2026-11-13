@@ -18,10 +18,6 @@
       url = "github:nix-community/authentik-nix";
       inputs.flake-parts.follows = "flake-parts";
     };
-    bootvine = {
-      url = "git+https://codeberg.org/wvhulle/bootvine";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     disko = {
       url = "github:nix-community/disko?ref=latest";
