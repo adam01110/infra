@@ -9,7 +9,6 @@ metadata:
   author: Adam0
   version: "1.0.0"
   short-description: Search Nix packages and module options
-allowed-tools: bash
 ---
 
 # nix search
@@ -42,16 +41,20 @@ nix-search-tv homepage --indexes nixpkgs firefox
 ```
 
 The first run builds index data; later runs use cache. If `cache.txt` is
-missing, run `print --indexes <source>` once. If data is stale, remove
-`~/.cache/nix-search-tv/<source-name>` and rerun.
+missing, run `print --indexes <source>` once. If data looks stale, tell the
+user; do not delete the cache yourself.
 
 - Pass explicit `--indexes` when ambiguity is possible.
 - Set `NO_COLOR=1` when parsing output.
 - For automation, use `preview --json`; the selected key is in `_key`.
 - `print` prefixes each entry with its source, e.g. `stylix/ stylix.image`.
 
-```bash
-nix-search-tv print --indexes nixpkgs | rg -i firefox
-nix-search-tv preview --indexes nixpkgs --json firefox | jq -r '.description'
-nix-search-tv source --indexes nixpkgs firefox
+There is no shell; chain `run()` with `.pipe()` or filter in Python:
+
+```python
+job = run("nix-search-tv", "print", "--indexes", "nixpkgs", env={"NO_COLOR": "1"})
+job = job.pipe("rg", "-i", "firefox")
+await job
+args = ["preview", "--indexes", "nixpkgs", "--json", "firefox"]
+info = json.loads(await run("nix-search-tv", *args).text())
 ```

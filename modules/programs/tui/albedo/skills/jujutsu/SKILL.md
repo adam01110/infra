@@ -1,44 +1,52 @@
 ---
 name: jujutsu
 description: >-
-  Use at the start of any coding task in a repository containing a .jj
-  directory, before the first file edit and before any jj or git command.
+  Use at the start of any task that edits files in a repository containing a
+  .jj directory, before the first file edit, and before any mutating jj or git
+  command.
   Covers starting a described change, plus commits, branches, conflicts,
   workspaces, history, and push.
 license: Apache-2.0
-compatibility:
-  Requires jj 0.44.0 or compatible and shell access to a repository.
+compatibility: Requires jj and a jj repository.
 metadata:
-  author: johnstegeman
+  author: johnstegeman, adapted by Adam0
   version: "1.5"
   short-description: Perform safe version-control operations with Jujutsu
-allowed-tools: Bash(jj *)
 ---
 
 # jujutsu
 
-Assumes jj 0.44.0. On another version, commands may differ; check the help.
+Command blocks list jj invocations; run each through `run("jj", ...)` in the
+harness, which has no shell.
+
+Commands and flags change between jj releases. If one fails or looks
+unfamiliar, check `jj <command> --help` instead of guessing.
 
 ## Required flow
 
 Before each task, inspect the working copy and describe the task before editing.
 
 ```bash
-jj root                      # an error means this is not a jj repo; skip this skill
-jj st
-jj log -r @ --no-graph -T 'empty ++ "\n"'
-# true: reuse @
+jj --no-pager st
+jj --no-pager log -r @ --no-graph -T 'empty ++ " " ++ description.first_line()'
+# "true" with no description: reuse @
 jj desc -m "Add login validation"
-# false: instead create a new change
+# otherwise, per the rules below, create a new change
 # jj new -m "Add login validation"
 # edit files; the next jj command snapshots them
 jj st
 ```
 
-- If `@` is empty, reuse it with `jj desc -m "<summary>"`, even if already
-  described. Do not create a child just because a new task starts.
+- If `@` is empty and undescribed, reuse it with `jj desc -m "<summary>"`. Do
+  not create a child just because a new task starts.
+- If `@` is empty but already describes this task, keep it. If it describes
+  something else, or is an empty merge (`jj new a b`), leave it and run
+  `jj new -m "<summary>"`.
 - If `@` is nonempty, run `jj new -m "<summary>"` to keep existing work separate.
 - Explicit user instructions about the change or base take precedence.
+- A child session working in a checkout its parent owns leaves `@` alone: no
+  `jj desc`, `jj new`, or other mutation unless its brief says so. The parent
+  owns the change. A child in its own worktree follows the flow above.
 
 Describe first, because edits made before that land in an old change or an
 undescribed `@`.
@@ -61,16 +69,14 @@ More detail: [`references/NEW_CHANGE.md`](references/NEW_CHANGE.md).
 
 ## Detect
 
-Run `jj root`. A returned path means a jj repo. On the no-repo error, or with no
-`.jj/`, stop using this skill.
-
-A jj repo may also contain `.git/`; jj still owns mutations.
+This skill loads after a `.jj/` directory was found in the current or a parent
+directory. A jj repo may also contain `.git/`; jj still owns mutations.
 
 ## Mutation gate
 
 Do not mutate with git in a jj repo. Forbidden: `git commit`, `git add`,
 `git stash`, `git reset`, `git checkout <branch>`, `git switch`, `git rebase`,
-`git merge`, `git cherry-pick`, `git push`, `git pull`.
+`git merge`, `git cherry-pick`, `git fetch`, `git push`, `git pull`, `git tag`.
 
 Read-only commands are safe: `git log`, `git show`, `git diff`, `git blame`,
 `git grep`, `git status`. Prefer the jj equivalents.
@@ -89,11 +95,17 @@ jj desc -m "Add login validation"
 jj squash --into @- -m "Combine login validation"
 ```
 
-Avoid bare `jj desc`, `jj squash` into a described commit, `jj split`,
-interactive flags, and bare `jj resolve`, because they can prompt and hang.
+Avoid any message-taking command without `-m` (bare `jj desc`, `jj squash`
+into a described commit without `-m`), bare `jj split` (pass `-m` and
+filesets: `jj split -m "..." <paths>`), interactive flags, and bare
+`jj resolve`, because they open an editor or prompt and hang.
 
-Run `jj st` after a mutation such as squash, abandon, rebase, or restore. If an
-operation fails or surprises you, run `jj undo` first.
+Run `jj st` after a mutation such as squash, abandon, rebase, or restore.
+
+A failed jj command records no operation, so read its error instead of
+undoing. If a mutation succeeded but did the wrong thing, confirm with
+`jj op log -n 5` that the latest operation is yours, then `jj undo`. The op log
+is shared by every workspace and agent on the repo.
 
 ## Model
 
@@ -113,10 +125,10 @@ Default to the compact commands in
 Narrow the revset or fileset before requesting large patches.
 
 ```bash
-jj log
-jj log -p
-jj show <change-id>
-jj diff
+jj --no-pager log
+jj --no-pager log -p
+jj --no-pager show <change-id>
+jj --no-pager diff
 ```
 
 Query grammar: [`references/QUERY_LANGUAGES.md`](references/QUERY_LANGUAGES.md).
@@ -142,7 +154,7 @@ Bookmarks are branches, but they do not auto-advance:
 ```bash
 jj bookmark create my-feature -r@
 jj bookmark move my-feature --to <change-id>
-jj bookmark list
+jj --no-pager bookmark list
 jj bookmark delete my-feature
 ```
 
@@ -152,29 +164,18 @@ Push only when the user explicitly asks; see
 
 ## Workspaces
 
-When parallel agents touch the same repo, isolate their working copies:
-
-```bash
-jj workspace add .workspaces/<repo>-<purpose>
-jj workspace list
-jj workspace forget <name>
-```
-
-Workspaces share the store and op log but have separate `@`. The `.gitignore`
-check, directory priority, bootstrap, handoff, integration choice, and stale
-recovery are all required:
+When parallel agents touch the same repo, give each its own working copy with
+the harness: `wt = await worktrees.create(name="<purpose>")`, then
+`agents.self.spawn(..., worktree=wt)`. For a jj repo this is a jj workspace:
+shared store and op log, separate `@`. Integration and cleanup:
 [`references/WORKSPACES.md`](references/WORKSPACES.md).
 
 ## Co-located git
 
-For an existing git project, prefer co-location:
+`jj git init` and `jj git clone` colocate with git by default, unless
+`git.colocate = false` is set; do not add `--no-colocate` without a reason.
 
-```bash
-jj git clone <url> --colocate
-jj git init --colocate
-```
-
-Tags are native in jj 0.44: create them with `jj tag set`, track them with
+Tags are native: create them with `jj tag set`, track them with
 `jj tag track`, and push them with `jj git push -t`. See
 [`references/PUSH.md`](references/PUSH.md). Co-location safety:
 [`references/COLOCATED.md`](references/COLOCATED.md).
@@ -186,8 +187,8 @@ and push rejects it by default. Do not bypass this with
 `jj git push --allow-conflicts`.
 
 ```bash
-jj st
-jj resolve --list
+jj --no-pager st
+jj --no-pager resolve --list
 jj resolve --tool :ours
 jj resolve --tool :theirs
 ```
@@ -203,13 +204,14 @@ The op log records every mutation, so work is recoverable.
 
 ```bash
 jj undo
-jj op log
+jj --no-pager op log
 jj op restore <op-id>
-jj evolog -r <change>
+jj --no-pager evolog -r <change>
 ```
 
-When something goes wrong, run `jj undo` first rather than reversing by hand.
-For an older state, inspect ops compactly first; request patches only after
+When a mutation went wrong, prefer the op log over reversing by hand, after
+checking that the operation you undo is yours (see Agent rules). For an older
+state, inspect ops compactly first; request patches only after
 narrowing. Scenarios: [`references/RECOVERY.md`](references/RECOVERY.md).
 
 ## Provenance

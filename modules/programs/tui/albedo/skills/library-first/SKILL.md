@@ -10,7 +10,6 @@ metadata:
   author: Adam0
   version: "1.0.0"
   short-description: Solve coding tasks with existing code and proven libraries
-allowed-tools: read edit write grep find bash web_search fetch_content
 ---
 
 # Library first
@@ -65,7 +64,9 @@ non-obvious. Comments explain why, not syntax.
 Give non-trivial logic a focused regression test or executable self-check. Test
 library integration and relevant edge cases, not library internals. Run scoped
 tests plus configured formatting, lint, and typecheck; widen for shared changes.
-If a check fails, fix the cause; do not weaken the check to pass.
+If a check fails, fix the cause; do not weaken the check to pass. For Nix
+configuration that must not be built unasked, a focused `nix eval` of the
+changed values is the self-check; do not invent tests or builds for it.
 
 Report the outcome and actual checks. State any material limit, risk,
 or missing verification. Skip mandatory skipped-work footers, line-count scores,

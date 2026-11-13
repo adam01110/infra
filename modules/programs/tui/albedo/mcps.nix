@@ -30,7 +30,7 @@
     mcps = {
       # keep-sorted start block=yes newline_separated=yes
       canvas = {
-        description = "Canvas coursework.";
+        description = "Canvas coursework: courses, assignments, submissions and grades.";
         command = getExe pkgs.nur.repos.adam0.canvas-api-mcp;
         secrets = {
           # keep-sorted start
@@ -47,7 +47,7 @@
       };
 
       deckcraft = {
-        description = "Edit slide decks.";
+        description = "Read, create and edit slide decks (.pptx).";
         args = ["mcp"];
         command = getExe' pkgs.deckcraft "deckcraft-cli";
       };
@@ -65,6 +65,7 @@
       };
 
       figma = {
+        description = "Read Figma designs, frames and components.";
         command = getExe (writeShellApplication {
           name = "figma-mcp";
           runtimeInputs = [pkgs.nodejs];
@@ -75,12 +76,14 @@
       };
 
       github = {
+        description = "GitHub repositories, issues, pull requests and Actions.";
         args = ["stdio"];
         command = getExe pkgs.github-mcp-server;
         secrets.GITHUB_PERSONAL_ACCESS_TOKEN = "ai/github_token";
       };
 
       gitlab = {
+        description = "College GitLab forge: repositories, issues, merge requests and CI.";
         args = ["mcp" "serve"];
         command = getExe pkgs.glab;
         secrets = {
@@ -92,31 +95,28 @@
       };
 
       gridcraft = {
-        description = "Edit spreadsheets.";
+        description = "Read, create and edit spreadsheets (.xlsx, .ods).";
         args = ["mcp"];
         command = getExe' pkgs.gridcraft "gridcraft-cli";
       };
 
       penpot = {
+        description = "Penpot designs: inspect, edit and export pages and shapes.";
         command = getExe (writeShellApplication {
           name = "penpot-mcp";
           runtimeInputs = [
             # keep-sorted start
             mcpProxy
-            pkgs.python3
+            pkgs.jq
             # keep-sorted end
           ];
+          # Penpot 2.19 reads the key only from the userToken query; keep it out of argv and logs.
           text = ''
             export SSE_URL
-            SSE_URL="$(python3 - <<'PY'
-            import os
-            import urllib.parse
-
-            key = os.environ.get("PENPOT_MCP_KEY", "").strip()
-            print("https://penpot.${vars.groundDomain}/mcp/stream?userToken=" + urllib.parse.quote(key, safe=""))
-            PY
-            )"
-            exec mcp-proxy --transport streamablehttp
+            SSE_URL="https://penpot.${vars.groundDomain}/mcp/stream?userToken=$(jq -rn 'env.PENPOT_MCP_KEY | trim | @uri')"
+            unset PENPOT_MCP_KEY
+            # INFO logs every request URL, including the token.
+            exec mcp-proxy --log-level WARNING --transport streamablehttp
           '';
         });
         secrets.PENPOT_MCP_KEY = "ai/penpot_key";
@@ -124,21 +124,21 @@
 
       rea = {
         description = "Reverse engineering: binaries, applications, runtime behavior.";
+        # Analysis engines come from the session PATH, not runtime inputs.
         args = ["mcp"];
-        # Use analysis engines from the caller's PATH.
         command = getExe pkgs.nur.repos.silicalet.rea;
         # Keep advertised schemas compact across roughly 200 tools.
         environment.REA_MCP_INPUT_SCHEMA_PROFILE = "compact";
       };
 
       tangled = {
-        description = "Manage Tangled Git repositories, issues and pipelines.";
+        description = "Personal Tangled repositories, issues, pulls and pipelines.";
         command = getExe' pkgs.nur.repos.adam0.tg "tgmcp";
         environment.TGMCP_ACCOUNT = vars.atprotoHandle;
       };
 
       wordcraft = {
-        description = "Edit documents.";
+        description = "Read, create and edit documents (.docx, .odt, .rtf).";
         args = ["mcp"];
         command = getExe' pkgs.wordcraft "wordcraft-cli";
       };

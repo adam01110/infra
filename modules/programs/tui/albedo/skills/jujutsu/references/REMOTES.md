@@ -45,7 +45,7 @@ jj git fetch --remote upstream
 jj git fetch --all-remotes
 ```
 
-0.44 fetches tags and auto-tracks same-name local tags. Disable this per remote
+Fetch gets tags and auto-tracks same-name local tags. Disable this per remote
 only when intended:
 
 ```bash

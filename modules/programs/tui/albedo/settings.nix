@@ -21,7 +21,6 @@
 
       showDiffs = false;
       settings = {
-        antigravity.searchModel = "gemini-3.8-flash";
         claude.searchModel = "claude-haiku-5-5";
         codex.searchModel = "gpt-6-luna";
 
@@ -60,9 +59,8 @@
         };
 
         web-search = {
-          # Search Codex first, then Claude, then fall back to Exa.
           order = ["codex" "claude" "exa"];
-          off = ["antigravity"];
+          off = ["antigravity" "perplexity"];
         };
       };
     };

@@ -27,8 +27,10 @@ Do not use `-i`/`--interactive`; the TUI hangs.
 
 ## Split
 
-`jj split` is interactive, so agents do not use it. Move selected changes with
-`jj restore`, then create separate commits manually.
+Bare `jj split` opens an interactive editor, so agents always pass filesets and
+a message: `jj split -m "First part" <paths>` moves those paths into the first
+commit and leaves the rest in the second. For hunk-level splits, move changes
+with `jj restore` and create separate commits manually.
 
 ## Other tools
 
@@ -42,6 +44,6 @@ jj restore path/to/file.txt
 jj restore --from <change-id> path/to/file.txt
 ```
 
-0.44 adds interactive absorb; humans may use `-i`, agents do not. Run `jj st`
-after a mutation, and `jj undo` before manual repair if the result is
-unexpected.
+`jj absorb -i` is interactive; humans may use `-i`, agents do not. Run `jj st`
+after a mutation, and `jj undo` before manual repair if a successful mutation
+gave an unexpected result and `jj op log -n 5` shows it is the latest op.

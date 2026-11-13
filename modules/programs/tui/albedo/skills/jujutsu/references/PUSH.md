@@ -4,7 +4,7 @@ Push only after an explicit user request.
 
 Before pushing, confirm the bookmark or tag targets the right change, the
 commits are atomic and refined, and there are no conflicts. Bookmarks and tags
-do not auto-advance. `--allow-conflicts` exists in 0.44; do not use it.
+do not auto-advance. Do not use `--allow-conflicts`.
 
 Existing bookmark:
 
@@ -28,7 +28,7 @@ jj git push -b main
 
 ## Tags
 
-0.44 supports native tracked tags:
+Native tracked tags:
 
 ```bash
 jj tag set v1.2.3 -r <change-id>

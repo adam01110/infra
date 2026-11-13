@@ -17,7 +17,7 @@
       home.packages = [hypruse];
 
       programs.albedo.mcp.servers.computer-use = {
-        description = "Desktop control; explicit request only.";
+        description = "Observe and control the real Hyprland desktop: windows, apps, input and screenshots. Explicit request only.";
         command = getExe hypruse;
         environment = {
           # keep-sorted start

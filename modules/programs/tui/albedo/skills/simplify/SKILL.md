@@ -29,7 +29,7 @@ Resolve in order:
 
 1. A user-named scope is authoritative; do not widen it.
 2. Otherwise, in a jj repo: the changes in `trunk()..@`, read with
-   `jj diff -r 'trunk()..@'`.
+   `jj --no-pager diff --from 'trunk()' --to @`.
 3. Otherwise, in git: current branch versus base. No usable base? Staged and
    unstaged changes via `git diff HEAD`.
 4. Outside version control or with no diff: user-named files or files edited
@@ -56,11 +56,13 @@ resolved diff/file set:
 - `personas/efficiency-reviewer.md`
 
 Load the `orchestrating-agents` skill, then spawn one child per persona with
-`agents.self.spawn`. If spawning is unavailable, run the personas inline,
-one after another.
+`agents.self.spawn`. If this session is itself a child (`agents.self.depth` is
+1 or more) or spawning is unavailable, run the personas inline, one after
+another.
 
 Queue all three; launch only accepted concurrency. An active-agent or
-concurrency limit is backpressure: keep queued, retry when a slot frees. Other
+concurrency limit is backpressure: keep the rest queued and spawn the next when
+a child's mail arrives; do not poll or sleep. Other
 dispatch failure? Run the same asset inline; disclose the substitution in one
 line.
 
@@ -86,13 +88,13 @@ the mutation boundary; otherwise preserve it.
 Do not thin or remove safety checks: trust-boundary validation, data-loss
 protection, security checks, accessibility affordances.
 
-A caller-supplied plan path with a structure pin is context, not scope.
-Preserve `session-settled:` Key Technical Decisions, including deliberate
-duplication/separation.
+A caller-supplied plan is context, not scope. Preserve decisions the plan or
+the user settled, including deliberate duplication or separation.
 
 ## 4. Verify
 
-Run project-wide typecheck and lint. Match tests to blast radius: scoped for
+Run project-wide typecheck and lint; as a child in a shared checkout, run them
+on your own files only. Match tests to blast radius: scoped for
 local, broader for shared/wide, full suite when the runner cannot scope.
 
 On failure, report the check and relevant output. Caused by the simplification?

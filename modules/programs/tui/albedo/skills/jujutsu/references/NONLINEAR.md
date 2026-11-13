@@ -1,6 +1,6 @@
 # Nonlinear work
 
-Assumes jj 0.44.0. Put work unrelated to the current stack in a sibling from
+Put work unrelated to the current stack in a sibling from
 `trunk()`, not a forced child.
 
 A sibling fits when `@` is already a logical change, independent lines are
@@ -9,8 +9,7 @@ feature.
 
 ```bash
 jj st
-jj new trunk()
-jj desc -m "Handle stale workspace recovery"
+jj new 'trunk()' -m "Handle stale workspace recovery"
 # edit
 jj st
 ```
@@ -18,9 +17,9 @@ jj st
 Use `trunk()`; do not guess `main`/`master`.
 
 Use a child (`jj new`) when work depends on the current change, a stack is
-requested, or it is an intended follow-up. Use a sibling (`jj new trunk()`) when
-review, landing, or abandoning should be independent or parallel agents need
-separate history.
+requested, or it is an intended follow-up. Use a sibling
+(`jj new 'trunk()' -m "..."`) when review, landing, or abandoning should be
+independent or parallel agents need separate history.
 
 If both lines should remain visible, merge explicitly:
 
@@ -32,8 +31,8 @@ Rebase one onto the other, visible merge, or separate pushes: this choice is
 consequential, so ask the user.
 
 Do not pile unrelated work into `@` or use describe, edit, or `jj new` as a
-close-and-repeat loop. Choose the base first, then run a separate
-`jj desc -m`; do not default to `jj new trunk() --no-edit -m ...` here.
+close-and-repeat loop. Choose the base first and pass `-m` with it;
+do not default to `jj new 'trunk()' --no-edit -m ...` here.
 
 Starting a change: [`NEW_CHANGE.md`](NEW_CHANGE.md). Parallel copies:
 [`WORKSPACES.md`](WORKSPACES.md).

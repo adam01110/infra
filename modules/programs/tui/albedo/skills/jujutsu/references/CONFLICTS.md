@@ -3,7 +3,7 @@
 In jj, a conflict is commit data. A rebase or squash that produces a conflict
 succeeds, and the commit stays marked as conflicted. Further rebases are
 allowed. Push rejects conflicted history by default.
-0.44 adds `jj git push --allow-conflicts`; agents do not use it.
+`jj git push --allow-conflicts` exists; agents do not use it.
 
 ## Inspect
 
@@ -78,7 +78,7 @@ Descendants rebase, and their conflicts remain.
    ancestor once.
 
 ```bash
-jj log -r 'conflicts()'
+jj log -r 'roots(conflicts())'
 jj edit <ancestor-change-id>
 # edit markers
 jj st
@@ -92,17 +92,19 @@ not return you to the prior location.
 
 Status alone is not enough:
 
-```bash
-jj st
-git grep -E '^(<{7}|>{7}|\\%{7}|\\+{7})' || echo 'no residual conflict markers'
-# run project tests/linter
+```python
+await run("jj", "--no-pager", "resolve", "--list").text(check=False)
+await files.find(r"^(<{7,}|>{7,}|%{7,}|\+{7,}|\\{7,})( |$)", ".")
+# then run project tests and linters
 ```
 
-Read-only `git grep` is safe in a co-located repo; otherwise use `rg` or
-`grep -rE`. Tests catch markers that are valid inside language strings.
+`jj resolve --list` is the authoritative check; it prints "No conflicts found"
+and exits 2 when none remain. The search catches markers left in edited
+files, including the longer markers jj uses when content already contains
+marker-like lines. Tests catch markers that are valid inside language strings.
 
-A normal push refuses conflicts. The `--allow-conflicts` bypass exists in 0.44
-but is forbidden, because remote conflict commits are hard to consume and hide
+A normal push refuses conflicts. The `--allow-conflicts` bypass
+is forbidden, because remote conflict commits are hard to consume and hide
 unfinished work.
 
 Avoid fixing descendants one by one, `git checkout`, squashing to hide
@@ -116,4 +118,4 @@ conflicts, and bare resolve.
 | side #1/#2 | `jj resolve --tool :ours [paths...]` / `:theirs` |
 | another rev | `jj restore --from <change-id> <path>` |
 | drop change | `jj abandon <change-id>` |
-| first conflict | `jj log -r 'conflicts() ~ ::conflicts()-'` |
+| first conflict | `jj log -r 'roots(conflicts())'` |

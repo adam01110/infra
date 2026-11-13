@@ -19,9 +19,11 @@ run tests yourself.
 - Give children disjoint files; share a file only with read-only readers. Shared
   infrastructure gets one owner. Put the roster in every brief; route blockers
   to the owner.
-- Cap children by machine capacity: three by default for build-heavy work, on
-  different toolchains where possible. Serialize heavy suites; children run
-  targeted tests first.
+- Cap children by machine capacity, not a fixed number. The harness enforces
+  the configured open-child limit; treat a refusal as backpressure. Before
+  adding build-heavy children, check load with `await resources.query()`, and
+  spread them across toolchains where possible. Serialize heavy suites;
+  children run targeted tests first.
 - Select model and thinking level by the rules below; confirm the account can
   run it. Replace a child that stalls, reports hollow work twice, or asks
   permission for assigned work, within the user's model ceiling; do not coach
@@ -55,7 +57,7 @@ run tests yourself.
   reading, extraction, mechanical edits, and bounded changes with clear tests;
   not for complex reasoning, ambiguous design, hard debugging, or anything where
   a stall costs more than the saving. The catalog
-  lists it bare, without an `opencode/` prefix; confirm the live ID in
+  lists it as `opencode-go/deepseek-v4.1-flash`; confirm the live ID in
   `agents.models()` before spawning. Complex task or model absent? Use the
   parent model.
 
@@ -81,8 +83,12 @@ Include:
 - The user's exact request and examples.
 - Skills and project docs to read first, especially touched subsystem docs.
 - Owned paths, sibling roster, and exact shared names, fields, and defaults.
-- No commits unless authorized; no branch switch, stash, or reset. Unexpected
-  work stays untouched. List forbidden heavy commands and the compute budget.
+- Version control: a child in the parent's checkout makes no jj or git
+  mutations. A child in its own worktree describes its own `@` as the
+  `jujutsu` skill says, but does not squash into, rebase, or abandon other
+  changes, push, or switch branches unless authorized. No stash or reset.
+  Unexpected work stays untouched. List forbidden heavy commands and the
+  compute budget.
 - Deliverables, required test commands, actual output, and itemized changes.
   Tests are part of done. Partial reports only for a named blocker, not "no
   time".
@@ -93,9 +99,10 @@ Include:
 - Read source and diff, not the summary. Count tests and assertions before
   and after ports, because green after losing coverage is not done. Check new
   files in status.
-- Reproduce evidence for consequential claims yourself. Run the full suite
-  before reporting green. Compare actual stored data before accepting deletion
-  claims.
+- Reproduce evidence for consequential claims yourself. Before reporting green,
+  run the suites the combined change affects, serialized; the full suite when
+  shared code changed or the runner cannot scope. Compare actual stored data
+  before accepting deletion claims.
 - If a deliverable is missing, send the exact list back once, then finish it
   yourself.
 - For a timeout increase, expectedFailure, blanket exclusivity, or "may race",
@@ -103,7 +110,8 @@ Include:
   shows one.
 - Prove behavior through the real program, including the failure path.
   Compiling is not enough.
-- If a small cross-owner fix blocks a child, make it and tell the owner what changed.
+- If a small cross-owner fix blocks a child, ask the owner to make it; make it
+  yourself only when the owner is finished or idle, then tell them what changed.
 - Spot-check individual items behind repeated template justifications.
 - An unowned failure may be a sibling's in-flight edit. Route it; keep your own
   files working.
@@ -113,9 +121,9 @@ Include:
 - Tests use temporary homes and config, never the user's real data. Services die
   with the runner. Close finished children. On a load complaint, inspect
   processes and measure first.
-- Commits name only owned paths. Inspect status before and after; jj repos use
-  jj. Ask about an unexplained deletion instead of restoring it. Unexpected edits
-  stay untouched.
+- Each change contains only owned paths. Inspect status before and after; jj
+  repos use jj. Ask about an unexplained deletion instead of restoring it.
+  Unexpected edits stay untouched.
 - "Show" does not mean publish. Ask if a "push" or "merge" target is unclear.
   If the user is merging, stop editing that change and offer a follow-up later.
 - A child's design must fit project rules. Ask before a larger product behavior

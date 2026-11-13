@@ -4,11 +4,11 @@ description: >-
   Use when a command needs elevated (root) privileges, when sudo would be
   needed, or when an operation fails with a permission-denied error that only
   root can fix.
+license: AGPL-3.0-only
 metadata:
   author: Adam0
   version: "1.0.0"
   short-description: Elevate with run0 after user per-command approval
-allowed-tools: bash
 ---
 
 # sudo
@@ -25,7 +25,7 @@ from repeating `sudo` unattended.
 
 ## The message
 
-Before each `run0` call, send the user a status message covering:
+Before each `run0` call, show the user a message with `display()` covering:
 
 - why that command needs root
 - what `run0` does when invoked
@@ -33,20 +33,20 @@ Before each `run0` call, send the user a status message covering:
 
 ## Rules
 
-- Send one message per command before running it, then wait for the approval
-  flow to finish.
+- Show one message per command before running it, then wait for the approval
+  flow to finish. A child session does not elevate: it mails its parent the
+  exact command and reason instead.
 - Run elevated commands one at a time, with the full command text visible; do
   not hide it behind redirects, variables, or truncation.
-- A denial is a blocked action, not an error. The rule to stop repeating a
-  command that failed twice still applies to it.
-- `run0` wraps a single command, not a script. Do not mark bun/npm/pnpm
-  launchers as elevated.
+- A denial is the user's decision, not an error: report it and stop without
+  retrying. Ask before trying a different elevated command for the same goal.
+- `run0` wraps a single command, not a script.
 
 ## Flow
 
-Request `sudo systemctl restart wpa_supplicant`:
+Task needs root to restart `wpa_supplicant`:
 
-1. Message: `run0 systemctl restart wpa_supplicant — needs root to restart
+1. Message: `run0 systemctl restart wpa_supplicant: needs root to restart
    the network daemon after removing stale state; run0 runs it as root via
    systemd and your approval prompt shows this exact command text.`
 2. Run: `run0 systemctl restart wpa_supplicant`

@@ -9,7 +9,6 @@ metadata:
   author: Adam0
   version: "1.1.0"
   short-description: Remove AI writing patterns without changing meaning
-allowed-tools: read edit write
 ---
 
 # unslop
@@ -26,8 +25,8 @@ voice, genuine opinions and feelings, necessary explanation, and honest
 uncertainty. Do not flatten all prose into neutral encyclopedia writing. Cleanup
 alone does not authorize imitating the user or changing another author's voice.
 
-Rule ids are referenced by other skills, so keep them stable. Gaps are
-intentional; do not renumber.
+Rule ids stay stable so feedback can cite them. Gaps are intentional; do not
+renumber.
 
 ## Content
 

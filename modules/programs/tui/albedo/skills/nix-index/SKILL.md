@@ -9,35 +9,35 @@ metadata:
   author: Adam0
   version: "1.0.0"
   short-description: Find Nix packages that provide files
-allowed-tools: bash
 ---
 
 # nix index
 
 Use `nix-locate` to find the package owning a command or file. Do not run or
 manage `nix-index`, and do not suggest database build, refresh, deletion, or
-cache maintenance.
+cache maintenance. Run it through `run()`; the lines below are its arguments.
 
-```bash
-nix-locate --top-level --whole-name --type x --type s '/bin/rg'
-nix-locate --top-level --whole-name '/share/applications/firefox.desktop'
-nix-locate --top-level --whole-name '/lib/libssl.so'
-nix-locate --top-level --type x 'bin/(rg|ripgrep)'
-nix-locate --top-level 'python.*/site-packages/pandas'
-nix-locate --whole-name '/bin/hello'
+```text
+nix-locate --whole-name --at-root --type x --type s /bin/rg
+nix-locate --whole-name --at-root /share/applications/firefox.desktop
+nix-locate --whole-name /lib/libssl.so
+nix-locate --regex --at-root --type x '/bin/(rg|ripgrep)$'
+nix-locate --regex 'python.*/site-packages/pandas/__init__.py'
 ```
 
 For a missing command:
 
 1. Exact executable:
-   `nix-locate --top-level --whole-name --type x --type s "/bin/foo"`.
-2. If empty, broaden: `nix-locate --top-level --type x 'bin/foo'` or a regex.
-3. If the package may have split outputs, retry without `--top-level`.
+   `nix-locate --whole-name --at-root --type x --type s /bin/foo`.
+2. If empty, broaden: drop `--whole-name`, or use `--regex`.
+3. Still empty: add `--all`, which also searches packages hidden from
+   `nix-env -qa`, such as some split outputs.
 4. Still empty: fall back to `nix-search-tv`.
 
-Flags: `--top-level` for installable attrs, `--whole-name` for a known path,
-`--type x --type s` for executables. If results are too broad, narrow the path
-and type.
+Flags: `--whole-name` matches the basename exactly, `--at-root` anchors the
+path at the package root, `--regex` enables regular expressions (otherwise the
+pattern is literal), and `--type x --type s` limits to executables and
+symlinks. If results are too broad, narrow the path and type.
 
 Multiple matches are normal; list the likely package first, close alternatives
 after. For metadata, run

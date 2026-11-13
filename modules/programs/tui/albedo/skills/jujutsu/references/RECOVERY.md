@@ -12,7 +12,10 @@ jj undo
 ```
 
 It atomically reverses the latest operation, including abandon, squash, rebase,
-restore, and describe. Use it before unwinding by hand.
+restore, and describe. Use it before unwinding by hand, but only after
+`jj op log -n 5` shows the latest operation is the one you want to reverse: the
+op log is shared by every workspace and agent, and a failed command records no
+operation, so undo after a failure reverses someone's earlier work.
 
 For an older operation:
 

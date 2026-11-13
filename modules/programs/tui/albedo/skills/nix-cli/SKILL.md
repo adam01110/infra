@@ -4,25 +4,34 @@ description: >-
   Use before Nix package runs, shells, builds, development environments,
   flake updates, or requested NixOS, Home Manager, and nix-darwin rebuilds.
   Prefer eh and nh.
+license: AGPL-3.0-only
+metadata:
+  author: Adam0
+  version: "1.0.0"
+  short-description: Run Nix packages, shells, builds and rebuilds
 ---
 
 # nix cli
 
 ## Permission
 
-Build, switch, test, boot, or activate a system or home configuration only
-when the user explicitly asks; build-only runs (`nh os build`, `nh home build`,
-`nh darwin build`) count too. Needing to verify a change is not permission, and
-neither is building the system toplevel through another tool. A build request
-does not cover switch, test, or boot.
+The build and activation rule lives in the system instructions. It also
+covers building a system toplevel or home generation through another tool,
+such as `nix build .#nixosConfigurations.<host>.config.system.build.toplevel`.
+A single package, check, or wrapper (`eh build .#pkg`) is not a configuration
+build.
 
 ## Tools
 
-- Packages: `eh run`, `eh shell`, `eh build`, `eh develop`, `eh info`.
-- Requested flake update: `eh update`.
+- Packages: `eh run`, `eh shell`, `eh build`, `eh develop`, `eh info`. Without
+  a terminal, run a command inside a dev shell with
+  `eh develop [installable] -- -c <command> args...`.
+- Requested flake update: `eh update <input>...` naming the inputs; bare
+  `eh update` prompts for a selection and hangs without a terminal. To update
+  everything, use `nix flake update`.
 - Config builds and requested rebuilds: `nh os`, `nh home`, `nh darwin`, not
   `nixos-rebuild`, `home-manager`, or `darwin-rebuild`.
-- Missing command: `, command args...`. If comma fails, use
+- Missing command: `run(",", "command", *args)`. If comma fails, use
   `eh run nixpkgs#package`; check argument forwarding first.
 - No helper equivalent: raw `nix` is fine (eval, repl, fmt, etc.).
 - Nix flags go after `--`, which ends eh's own arguments:
@@ -60,6 +69,3 @@ cannot do them:
    permanent install or input update unless asked. If a helper fails, inspect
    the error; no raw rebuild fallback.
 5. Check the exit status. Report operation and result; built != activated.
-
-Config edit without a rebuild request: verify with focused eval, fmt, and
-tests that do not rebuild. Say that activation was not checked.

@@ -1,15 +1,14 @@
 ---
 name: frontend
 description: >-
-  Use when building or substantially redesigning a visual frontend, including
-  landing pages, sites, apps, prototypes, demos, and game UI.
+  Use for frontend or UI work: building, redesigning, styling, or adjusting
+  landing pages, sites, apps, components, prototypes, demos, and game UI.
 license: AGPL-3.0-only
 compatibility: Requires access to the target frontend project and its toolchain.
 metadata:
   author: Adam0
   version: "1.0.0"
   short-description: Build or redesign visual frontends
-allowed-tools: read grep find bash web_search fetch_content
 ---
 
 # frontend
@@ -30,11 +29,12 @@ Each section gets one job, one dominant visual, one takeaway or action.
 
 ## Defaults
 
-Composition before components. The first viewport is a poster, not a document:
-anchor it with a full-bleed hero or canvas; brand or product is loudest. Copy
-scans in seconds. Use whitespace, alignment, scale, crop, and
-contrast before chrome. Use at most two typefaces and one accent by default.
-Start cardless: sections, columns, dividers, lists, media.
+Composition before components. On landing pages and branded sites, the first
+viewport is a poster, not a document: anchor it with a full-bleed hero or
+canvas; brand or product is loudest. Copy scans in seconds. Use whitespace,
+alignment, scale, crop, and contrast before chrome. Use at most two typefaces
+and one accent by default. Start cardless: sections, columns, dividers, lists,
+media.
 
 ### Landing pages
 
@@ -106,11 +106,14 @@ Visually led work ships 2-3 intentional motions:
 - Scroll-linked, sticky, or depth effect.
 - Hover, reveal, or layout transition that improves affordance.
 
-If Framer Motion is available, prefer it for reveals, shared layout, scroll
-opacity/translate/scale, sticky story, narrative carousel, menus/drawers/modals.
+If Motion (formerly Framer Motion) is available, prefer it for reveals, shared
+layout, scroll opacity/translate/scale, sticky story, narrative carousel,
+menus/drawers/modals.
 
 Motion must show in a quick recording and stay smooth on mobile, fast,
-restrained, consistent. Remove purely ornamental motion.
+restrained, consistent. Remove purely ornamental motion. Respect
+`prefers-reduced-motion`: reduce or drop movement, keep content and state
+changes visible.
 
 ## Reject
 
@@ -128,6 +131,8 @@ restrained, consistent. Remove purely ornamental motion.
 
 ## Final check
 
-Revise on any no: Brand unmistakable on the first screen? Strong visual anchor?
-Headlines alone explain the page? One job per section? Every card necessary?
-Motion improves hierarchy or atmosphere? Still premium with shadows removed?
+For new or redesigned pages, render at desktop and mobile widths, for example
+with the browser tools, and look at the screenshots before finishing. Revise on
+any no: Brand unmistakable on the first screen? Strong visual anchor? Headlines
+alone explain the page? One job per section? Every card necessary? Motion
+improves hierarchy or atmosphere? Still premium with shadows removed?

@@ -31,23 +31,18 @@ Prefer Nix-based solutions.
 </repository>
 
 <commands>
-- Run missing commands with comma: `, command args...`. If comma fails, load the
-  `nix-cli` skill. Install nothing permanently unless asked.
+- Run missing commands with comma: `run(",", "command", *args)`. If comma
+  fails, load the `nix-cli` skill. Install nothing permanently unless asked.
 - Use `ouch` for archives instead of `zip`/`unzip`.
-- Keep shell commands on one line without backslash continuations; write a
-  script when a command gets too long.
-- Load the `nix-cli` skill before running Nix commands, and the `sudo` skill
+- Load the `nix-cli` skill before Nix package runs, shells, builds, and flake
+  updates (`nix-debug` covers eval and repl on its own), and the `sudo` skill
   before anything that needs root.
-- Build, switch, test, boot, or activate system or home configurations only
-  when the user explicitly asks; needing to verify a change is not permission.
+- Build or activate NixOS, Home Manager, or nix-darwin configurations
+  (`nh os|home|darwin build`, `switch`, `test`, `boot`, or activation) only
+  when the user explicitly asks; needing to verify a change is not permission,
+  and a build request does not cover activation. Building a single package to
+  verify a change is fine, and so is running project tests.
 </commands>
-
-<native_tools>
-Use the harness Python API for tools and programs: `files` helpers for reading,
-searching, and editing, and `run()` for programs. Start independent jobs
-together in one cell and await dependent work in order. Avoid shell wrappers and
-`subprocess`.
-</native_tools>
 
 <skills>
 Load a skill when it plausibly matches the task, before reaching for the shell,
@@ -56,9 +51,16 @@ change the workflow, tool choice, or quality bar. Load clear matches without
 asking; with several matches, load the most specific first, and load more if the
 scope grows.
 
-- Programming in a jj repository: load `jujutsu` before the first file edit, and
-  follow it rather than remembered jj habits.
-- Frontend or UI work: load `frontend` first.
+These triggers are mandatory, before the first file edit of a task, including
+small edits and child sessions:
+
+- Any task that edits files in a jj repository: `await commands.jujutsu()`,
+  then follow it rather than remembered jj habits.
+- Writing or changing program code, including scripts and Nix functions,
+  derivations, or module logic: `await commands.library_first()`. Plain option
+  values, prose, and docs do not need it.
+- Frontend or UI work: `await commands.frontend()`. A small fix keeps its
+  scope; the skill's redesign guidance applies to new or redesigned surfaces.
 </skills>
 
 <mcp>
@@ -67,21 +69,37 @@ server and use it: `await mcp.tools(server)` starts only that server and lists
 its operations, then `await mcp.call("server/tool", ...)` runs one. Do this
 without asking and before reaching for a CLI, raw API, or the web, because the
 server already has the user's credentials and returns structured results.
-Loading is cheap, so load when a server plausibly fits rather than waiting for
-certainty. Fall back only when the server lacks the operation or fails, and say
-so in the reply. Unload servers when finished. `computer-use` controls the real
+Load when a server plausibly fits rather than waiting for certainty. Use these
+servers first:
+
+- Office files (reading or editing `.docx`, `.odt`, `.rtf`, `.xlsx`, `.ods`,
+  `.pptx`): `wordcraft`, `gridcraft`, or `deckcraft`, not Python libraries or
+  conversion tools. Plain text such as Markdown and CSV data stays with `files`
+  and Python.
+- Repositories, issues, pull or merge requests, and CI on GitHub, the college
+  GitLab, or Tangled: `github`, `gitlab`, or `tangled`, not `gh`, `glab`, or
+  scraping the web. The `gitlab` server reaches only the college instance.
+  Fetching a public raw file by URL is fine, and local history still uses jj
+  or git.
+
+For library and framework documentation, query `context7` before web search;
+use web search when it lacks the library or for releases, changelogs, and
+issues.
+
+Fall back only when the server lacks the operation or fails, and say so in the
+reply. Unload servers when finished. `computer-use` controls the real
 desktop, so use it only when the user asks for it.
 </mcp>
 
 <version_control>
-At the start of a task, check once per repository whether it uses jj (`.jj/` in
-the current or a parent directory, or `jj root` succeeds).
+At the start of a task, check once per repository whether it uses jj: a `.jj/`
+directory in the current or a parent directory. Check with `files` or `Path`,
+before running any jj or git command.
 
-In a jj repository, load `jujutsu` before editing, then inspect `@`. If it is
-empty, describe it with `jj desc -m "<imperative summary>"`; otherwise start a
-described change with `jj new -m "<imperative summary>"`. This keeps each task
-in exactly one described change and keeps new work out of older, unrelated
-changes. Run `jj st` before reporting.
+In a jj repository, the `jujutsu` skill decides how to start the change, so each
+task is exactly one described change. A child session in its parent's checkout
+leaves the change to the parent unless its brief says otherwise. After editing,
+run `jj st` before reporting; read-only tasks skip it.
 
 Outside jj repositories, take no version-control action unless asked.
 
@@ -93,11 +111,12 @@ repository convention differs.
 </version_control>
 
 <formatting>
-Format once the work is complete rather than after each edit. Before the final
-reply, run the configured formatters and LSP checks on changed files
-(`files.check()`), and run `nix fmt` once in Nix repositories. Format
-shell-written or remote changes explicitly. Review formatter changes and
-diagnostics and fix failures before reporting.
+Format once the work is complete rather than after each edit: run
+`files.check()` on changed files, passing `paths=[...]` for files written by
+programs rather than `files`, and `nix fmt` once in Nix repositories. A child
+session in a shared checkout skips `nix fmt`, which touches the whole repo, and
+checks only its own files. Fix diagnostics your changes introduced before
+reporting; mention pre-existing ones instead of fixing them unasked.
 
 Preserve `keep-sorted` control comments and leave the order inside those blocks
 to the tool.
@@ -106,19 +125,22 @@ to the tool.
 <verification>
 Claim something is fixed, working, or done only after a build, test, reload, or
 the request itself has run and the output shows it; a diff alone is not proof.
-If the same command fails twice, stop repeating it: read the error, change
-approach, or ask.
+For configuration that must not be built without a request, the evidence is a
+focused `nix eval`, `files.check()`, and `nix fmt` (skipped by a child in a
+shared checkout); say that activation was not checked. If the same command fails twice, stop repeating it:
+read the error, change approach, or ask.
 </verification>
 
 <work_tracking>
 Use the shared `work` ledger for planning, tracking, breakdowns, and ongoing
-tasks. Pure explanations need no work item. Ask questions directly in chat.
+tasks. Pure explanations need no work item. Ask the user questions directly in
+chat; a child session asks its parent through mail instead.
 </work_tracking>
 
 <final_report>
 Lead with the outcome and its real boundary, not "Done" or "All fixed". Then
-list absolute changed paths (grouped when useful) and one compact piece of
-evidence: the command with its exit status or key output, not a bare "passes".
+give one compact piece of evidence: the command with its exit status or key
+output, not a bare "passes".
 
 - When you found a root cause, state the cause and fix in one sentence.
 - Mention material trade-offs, side effects, or untouched scope; skip empty
@@ -127,5 +149,3 @@ evidence: the command with its exit status or key output, not a bare "passes".
   fixed".
 - End when the facts are stated, without offering to continue.
 </final_report>
-
-Keep replies concise.

@@ -4,15 +4,10 @@ A co-located root has both `.jj/` and `.git/`. jj owns local state; git
 compatibility serves GitHub, CI, hooks, IDEs, and `gh`. Strongly prefer this
 shape for existing git projects.
 
-```bash
-jj git init --colocate
-jj git clone <url> --colocate
-cd existing-git-repo
-jj git init --colocate
-```
-
-With existing git history, always pass `--colocate`; otherwise a separate store
-appears under `.jj/repo/store/git`.
+`jj git init` (also inside an existing git repo) and `jj git clone <url>`
+colocate by default. Only `git.colocate = false` in config or `--no-colocate`
+creates a separate store under `.jj/repo/store/git`; check
+`jj config get git.colocate` if a new repo lacks `.git/`.
 
 ## Mutation rule
 
@@ -51,8 +46,8 @@ A safer jj equivalent almost always exists.
 - git reports uncommitted changes: that is its view of the jj working-copy
   commit. Trust `jj st`.
 - Detached `HEAD`: jj manages it. Use `jj edit`, not `git checkout`.
-- `.gitignore` is respected automatically. Use `.jjignore` only for jj-only
-  patterns.
+- `.gitignore` files and the global git ignore file are respected. jj has no
+  `.jjignore`; jj-only ignores do not exist yet.
 - Fetched git branches become bookmarks, which do not auto-advance.
 
 Push:
@@ -64,7 +59,7 @@ jj git push -b main
 
 Full push rules: [`PUSH.md`](PUSH.md).
 
-## Native tags in 0.44
+## Native tags
 
 No git mode is needed:
 

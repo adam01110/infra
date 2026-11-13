@@ -10,15 +10,22 @@ metadata:
   author: Adam0
   version: "1.0.0"
   short-description: Diagnose Nix evaluation and module problems
-allowed-tools: read grep find bash
 ---
 
 # nix debug
 
-For repeated inspection, use one `nix repl` instead of many `nix eval` calls.
+This covers evaluation only; load `nix-cli` as well before builds, runs, or
+shells.
+
+For repeated inspection, send several expressions to one `nix repl` instead of
+many `nix eval` calls. The harness has no terminal, so pass them on stdin:
+
+```python
+out = await run("nix", "repl", "--quiet", stdin=":lf .\nbuiltins.attrNames nixosConfigurations\n").text()
+```
 
 1. Choose the narrowest useful target.
-2. Load it: `nix repl` then `:lf .`, or `nix repl ./path/to/file.nix`.
+2. Load it: `:lf .` as the first stdin line, or `nix repl ./path/to/file.nix`.
 3. If a key is unknown, list the parent with `builtins.attrNames`. Do not guess
    the host, user, or output.
 4. Walk a missing path one segment at a time with small expressions until
@@ -40,5 +47,4 @@ builtins.attrNames overlays
 Inspect the realized `config` first; inspect `options` only when you need type
 or declaration metadata. Quote special attr names: `foo."bar-baz"`.
 
-Interactive debugging defaults to `nix repl`; use `nix eval` only when no
-interaction is needed.
+Use a single `nix eval` when only one value is needed.

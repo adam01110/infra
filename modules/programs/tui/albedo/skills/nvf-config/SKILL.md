@@ -9,7 +9,6 @@ metadata:
   author: Adam0
   version: "1.0.0"
   short-description: Configure Neovim through NVF and Nix
-allowed-tools: read grep find bash web_search fetch_content
 ---
 
 # nvf config
@@ -33,12 +32,14 @@ If memory conflicts with local docs, local docs win.
 
 ## Preserve repo shape
 
-- `programs.nvf.settings.vim = { ... };`
-- Modules under `modules/programs/tui/neovim/`.
+- Flake-parts modules under `modules/programs/tui/neovim/`, shaped
+  `flake.modules.homeManager.neovim = {lib, ...}: { ... };`, setting
+  `programs.nvf.settings.vim`.
 - `keymaps = [ { key = ...; mode = ...; action = ...; } ];`
 - Plugin tables in `setupOpts`.
 - `lib.generators.mkLuaInline` for Lua functions in Nix attrs.
-- `neovim.luaConfigPreSnippets` for early logic, autocmds, globals, and larger
+- `programs.nvf.settings.vim.luaConfigPreSnippets` (a repo-defined option) for
+  early logic, autocmds, globals, and larger
   raw Lua.
 - Nearby imports, helpers, grouping, list/attrset style, and `keep-sorted`
   controls.
@@ -69,48 +70,62 @@ Useful built-in docs: `:help lua`, `api`, `deprecated`, `autocmd-events`,
 `vim.keymap.set()`, `vim.diagnostic`, `lsp`, `treesitter`.
 
 ```nix
-_: {
-  programs.nvf.settings.vim.visuals.nvim-web-devicons.enable = true;
+{
+  flake.modules.homeManager.neovim = _: {
+    programs.nvf.settings.vim.visuals.nvim-web-devicons.enable = true;
+  };
 }
 ```
 
 ```nix
-_: {
-  programs.nvf.settings.vim.keymaps = [
-    { key = "<leader>w"; mode = "n"; action = "<cmd>w<cr>"; }
-  ];
+{
+  flake.modules.homeManager.neovim = _: {
+    programs.nvf.settings.vim.keymaps = [
+      {
+        key = "<leader>w";
+        mode = "n";
+        action = "<cmd>w<cr>";
+      }
+    ];
+  };
 }
 ```
 
 ```nix
-{lib, ...}: let
-  inherit (lib.generators) mkLuaInline;
-in {
-  programs.nvf.settings.vim.statusline.lualine.setupOpts.sections.lualine_c = [
-    {
-      "@1" = "filename";
-      fmt = mkLuaInline ''
-        function(str)
-          return vim.fs.basename(str)
-        end
-      '';
-    }
-  ];
+{
+  flake.modules.homeManager.neovim = {lib, ...}: let
+    inherit (lib.generators) mkLuaInline;
+  in {
+    programs.nvf.settings.vim.statusline.lualine.setupOpts.sections = {
+      lualine_c = [
+        {
+          "@1" = "filename";
+          fmt = mkLuaInline ''
+            function(str)
+              return vim.fs.basename(str)
+            end
+          '';
+        }
+      ];
+    };
+  };
 }
 ```
 
 ```nix
-_: {
-  neovim.luaConfigPreSnippets = [
-    ''
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "snacks_dashboard",
-        callback = function()
-          vim.opt_local.scrolloff = 0
-        end,
-      })
-    ''
-  ];
+{
+  flake.modules.homeManager.neovim = _: {
+    programs.nvf.settings.vim.luaConfigPreSnippets = [
+      ''
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = "snacks_dashboard",
+          callback = function()
+            vim.opt_local.scrolloff = 0
+          end,
+        })
+      ''
+    ];
+  };
 }
 ```
 
@@ -119,16 +134,7 @@ old-dotfile field, or evidence is unclear or missing, stop and state the
 uncertainty.
 
 Return the snippet with assumptions, target file, code, sources checked,
-validation command, and uncertainties. Use the exact name when the repo target
-is known:
-
-```sh
-nix flake check
-nh home build .
-nh os build . -H <host>
-```
-
-Build-only runs are fine without asking; follow the `nix-cli` skill for
-anything that activates.
+validation command, and uncertainties. Validate with a focused `nix eval` of
+the changed option.
 
 Accuracy beats completeness.

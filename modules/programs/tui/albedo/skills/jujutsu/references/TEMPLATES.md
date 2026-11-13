@@ -1,6 +1,6 @@
 # Compact templates
 
-Tested with jj 0.44.0. Use the commands as written. The top-level `--no-pager`
+Use the commands as written. The top-level `--no-pager`
 is intentional, and inline `-T` leaves repo and global config untouched. A parse
 failure means version drift; check `jj <command> --help` and
 `jj help -k templates`.
@@ -47,7 +47,7 @@ For a specific revision, add `-r <rev>`.
 <!-- rumdl-disable MD013 -->
 
 ```bash
-jj --no-pager bookmark list -T 'if(self.normal_target(), self.name() ++ ": " ++ self.normal_target().change_id().shortest(8) ++ " " ++ if(self.normal_target().description(), self.normal_target().description().first_line(), "(no description)") ++ "\n", self.name() ++ ": (conflicted)\n")'
+jj --no-pager bookmark list -T 'self.name() ++ if(self.remote(), "@" ++ self.remote(), "") ++ ": " ++ if(self.normal_target(), self.normal_target().change_id().shortest(8) ++ " " ++ if(self.normal_target().description(), self.normal_target().description().first_line(), "(no description)"), "(conflicted)") ++ "\n"'
 ```
 
 <!-- rumdl-enable MD013 -->
@@ -88,5 +88,5 @@ jj --no-pager evolog -r <change-id> --no-graph -n 20 -T 'commit.change_id().shor
 
 The change summary is on the left; the rewriting operation is on the right.
 
-`jj st`/`status` has no template in 0.44.0. Side-effect commands such as undo,
+`jj st`/`status` takes no template. Side-effect commands such as undo,
 op restore, and resolve need no template.

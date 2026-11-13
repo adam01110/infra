@@ -1,6 +1,6 @@
 # Query languages
 
-Assumes jj 0.44.0. Use queries to narrow revisions, paths, and output instead of
+Use queries to narrow revisions, paths, and output instead of
 the verbose defaults.
 
 ## Revsets

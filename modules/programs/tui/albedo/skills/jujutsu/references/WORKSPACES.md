@@ -1,73 +1,34 @@
 # Parallel workspaces
 
-Assumes jj 0.44.0. When several agents need one repo, give each its own `@`
-with `jj workspace`; the store and op log stay shared.
+When several agents need one repo, give each its own `@`. In a jj repo the
+harness worktree is a jj workspace: the store and op log stay shared, `@` is
+separate.
 
-## Directory decision
+## Create
 
-Use the first that applies, in this order:
-
-1. `.workspaces/`
-2. `workspaces/`
-3. Repo instructions such as `AGENTS.md` or `CLAUDE.md`
-4. Ask the user
-
-There is no blanket sibling-directory rule.
-
-Before creating a workspace, keep its metadata out of git:
-
-```bash
-grep -E '^\.?workspaces/?$' .gitignore 2>/dev/null
+```python
+wt = await worktrees.create(name="<purpose>")
+child = await agents.self.spawn(task, name="<purpose>", worktree=wt)
 ```
 
-If missing, ignore the chosen directory before creating the workspace, using
-the describe-first workflow from [`NEW_CHANGE.md`](NEW_CHANGE.md). Do not skip
-this.
+Use a descriptive name, not `tmp`, `wip`, or `new`. Worktrees live under
+`~/.albedo/wt/`, outside the repo, so no `.gitignore` change is needed. Run
+`jj workspace add` by hand only when the user asks for a workspace at a
+specific path.
 
-Use a descriptive name:
+## Setup
 
-```bash
-REPO_NAME=$(basename "$(jj workspace root)")
-WORKSPACE_PATH=".workspaces/${REPO_NAME}-<purpose>"
-jj workspace add "$WORKSPACE_PATH"
-cd "$WORKSPACE_PATH"
-```
-
-Avoid `tmp`, `wip`, `new`. Each workspace gets its own working-copy commit and
-`<workspace-name>@` marker; snapshots affect only its `@`.
-
-## Bootstrap
-
-Hand off only after the required environment setup:
-
-| marker | command |
-|---|---|
-| `package.json` | `npm install` |
-| `Cargo.toml` | `cargo build` |
-| `pyproject.toml` | `uv sync` |
-| `Gemfile` | `bundle install` |
-| `flake.nix` | `nix develop` |
-| `go.mod` | `go mod download` |
-| `mix.exs` | `mix deps.get` |
+Set up only what the child's task and tests need, within the compute budget in
+its brief. There is no blanket bootstrap: do not run `npm install`,
+`cargo build`, or a dev shell just because a marker file exists. For Nix dev
+shells, follow the `nix-cli` skill.
 
 ## Handoff
 
-Include the absolute path, stable change ID, exact `cd`, exact
-`jj edit <change-id>`, scope boundaries, the inline-message rule, and the
-status-after-mutation rule.
-
-```text
-Workspace: /absolute/path/to/.workspaces/myrepo-tests
-Change ID: abcdefgh
-
-cd /absolute/path/to/.workspaces/myrepo-tests
-jj edit abcdefgh
-
-Rules:
-- Always use -m for messages.
-- Run jj st after every mutation.
-- Do not modify files outside the assigned scope.
-```
+The brief includes the worktree path, the stable change ID the child owns,
+scope boundaries, the inline `-m` rule, and the `jj st`-after-mutation rule. A
+child in its own worktree describes its own `@` as in
+[`NEW_CHANGE.md`](NEW_CHANGE.md).
 
 ## Inspect
 
@@ -77,7 +38,6 @@ revset:
 - All tips: `-r 'working_copies()'`
 - One workspace: `-r '<workspace>@'`
 
-Default `jj workspace list` now shows roots; the compact template keeps them.
 Syntax: [`QUERY_LANGUAGES.md`](QUERY_LANGUAGES.md).
 
 ## Integrate
@@ -85,40 +45,19 @@ Syntax: [`QUERY_LANGUAGES.md`](QUERY_LANGUAGES.md).
 When a result is ready, ask the user rather than choosing silently: rebase into
 the default workspace, explicit merge, or bookmark/PR.
 
-Rebase ordinary commits:
-
 ```bash
-jj rebase -s <workspace-change-id> -d @
-jj workspace forget <workspace-name>
-rm -rf "$WORKSPACE_PATH"
-```
-
-Visible merge, when the lines are independently meaningful:
-
-```bash
+jj rebase -s <workspace-change-id> -o @
 jj new <change-a> <change-b> -m "Combine parallel work"
-```
-
-Human review:
-
-```bash
 jj bookmark create my-feature -r <workspace-change-id>
-jj git push -b my-feature
 ```
 
 Solo parallel work usually means rebase; required review means a PR; two
-meaningful lines mean a merge. Shipping a bookmark after rebase follows
-[`PUSH.md`](PUSH.md).
+meaningful lines mean a merge. Pushing follows [`PUSH.md`](PUSH.md).
 
 ## Cleanup and stale state
 
-```bash
-jj workspace list
-jj workspace forget <workspace-name>
-rm -rf "$WORKSPACE_PATH"
-```
-
-Forget first; it does not delete files.
+After integration, `await worktrees.remove(wt.id)`. Worktrees are never deleted
+automatically, and closing the child keeps them.
 
 If the base was rewritten elsewhere and the workspace is stale:
 
@@ -136,6 +75,3 @@ create a recovery commit from current files rather than discard them.
 - Shared config: give it one owner or serialize.
 - Lockfile and dependencies: one task owns them.
 - Same source files: redesign the boundary or serialize.
-
-Required: absolute handoff, ignore check, descriptive name, bootstrap,
-integration question, forget before delete, and update-stale first.
