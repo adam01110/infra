@@ -85,6 +85,15 @@
           };
         };
       };
+
+      keymaps = [
+        {
+          key = "<leader>tc";
+          mode = "n";
+          action = "<cmd>CursortabToggle<cr>";
+          desc = "Toggle cursortab";
+        }
+      ];
     };
   };
 }
