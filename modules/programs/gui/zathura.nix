@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zathura = {config, ...}: let
+  flake.aspects.zathura.homeManager = {config, ...}: let
     sansSerifFont = config.stylix.fonts.sansSerif.name;
   in {
     programs.zathura = {

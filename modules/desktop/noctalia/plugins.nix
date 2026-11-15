@@ -11,7 +11,7 @@
     };
   };
 
-  flake.modules.homeManager.noctalia = {
+  flake.aspects.noctalia.homeManager = {
     # keep-sorted start
     albedoSuitePackages,
     config,

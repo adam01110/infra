@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.mysql = {
+  flake.aspects.mysql.nixos = {
     # keep-sorted start
     config,
     pkgs,

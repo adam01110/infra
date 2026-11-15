@@ -13,8 +13,8 @@
     };
   };
 
-  flake.modules = {
-    nixos.hyprland = {
+  flake.aspects.hyprland = {
+    nixos = {
       # keep-sorted start
       lib,
       pkgs,
@@ -57,7 +57,7 @@
       };
     };
 
-    homeManager.hyprland = {inputs, ...}: {
+    homeManager = {inputs, ...}: {
       imports = [inputs.hylix.homeManagerModules.default];
 
       config = {

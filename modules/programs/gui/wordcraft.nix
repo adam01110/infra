@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.wordcraft = {pkgs, ...}: {
+  flake.aspects.wordcraft.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.wordcraft];
   };
 }

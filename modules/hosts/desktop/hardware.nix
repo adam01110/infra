@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.desktop = {
+  flake.aspects.desktop.nixos = {
     # keep-sorted start
     config,
     modulesPath,

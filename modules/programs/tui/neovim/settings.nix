@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = {config, ...}: let
+  flake.aspects.neovim.homeManager = {config, ...}: let
     colors = config.lib.stylix.colors.withHashtag;
   in {
     programs.nvf.settings.vim = {

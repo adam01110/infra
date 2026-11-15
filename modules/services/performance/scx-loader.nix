@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.scx-loader = {pkgs, ...}: {
+  flake.aspects.scx-loader.nixos = {pkgs, ...}: {
     services.scx-loader = {
       enable = true;
       schedsPackages = [pkgs.scx.rustscheds];

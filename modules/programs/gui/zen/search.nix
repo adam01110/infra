@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zen = {pkgs, ...}: {
+  flake.aspects.zen.homeManager = {pkgs, ...}: {
     programs.zen-browser.profiles.default = {
       search = {
         force = true;

@@ -1,3 +1,3 @@
 {
-  flake.modules.nixos.nix-ld.programs.nix-ld.enable = true;
+  flake.aspects.nix-ld.nixos.programs.nix-ld.enable = true;
 }

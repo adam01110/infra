@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ghostty = {pkgs, ...}: let
+  flake.aspects.ghostty.homeManager = {pkgs, ...}: let
     compactLibadwaita = pkgs.libadwaita.overrideAttrs (oldAttrs: {
       patches = (oldAttrs.patches or []) ++ [./patches/libadwaita-compact-tabs.patch];
     });

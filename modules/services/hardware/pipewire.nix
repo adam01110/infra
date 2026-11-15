@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.pipewire = {config, ...}: {
+  flake.aspects.pipewire.nixos = {config, ...}: {
     security.rtkit.enable = true;
 
     # Provide pw-jack for JACK clients instead of a global LD_LIBRARY_PATH.

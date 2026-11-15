@@ -6,7 +6,7 @@
 
   imports = [inputs.disko.flakeModules.disko];
 
-  flake.modules.nixos.disko = {lib, ...}: let
+  flake.aspects.disko.nixos = {lib, ...}: let
     inherit
       (lib)
       # keep-sorted start

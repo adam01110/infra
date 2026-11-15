@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.tuicr = {
+  flake.aspects.tuicr.homeManager = {
     # keep-sorted start
     config,
     lib,

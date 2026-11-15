@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.jujutsu = {
+  flake.aspects.jujutsu.homeManager = {
     # keep-sorted start
     config,
     vars,

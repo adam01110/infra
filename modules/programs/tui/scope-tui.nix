@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.scope-tui = {
+  flake.aspects.scope-tui.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.gen-license = {pkgs, ...}: {
+  flake.aspects.gen-license.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.gen-license];
   };
 }

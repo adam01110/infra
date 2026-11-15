@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.yazi = {
+  flake.aspects.yazi.homeManager = {
     # keep-sorted start
     config,
     osConfig,

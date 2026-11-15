@@ -22,8 +22,8 @@ in {
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules = {
-    nixos.sops = {vars, ...}: let
+  flake.aspects.sops = {
+    nixos = {vars, ...}: let
       inherit (vars) username;
     in {
       imports = [inputs.sops-nix.nixosModules.sops];
@@ -43,7 +43,7 @@ in {
         };
     };
 
-    homeManager.sops = {vars, ...}: let
+    homeManager = {vars, ...}: let
       inherit (vars) username;
     in {
       imports = [inputs.sops-nix.homeManagerModules.sops];

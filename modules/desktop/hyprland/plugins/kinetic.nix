@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.HyprlandKineticPlugin = {
+  flake.aspects.HyprlandKineticPlugin.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

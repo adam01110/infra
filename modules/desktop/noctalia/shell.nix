@@ -1,8 +1,8 @@
 {
-  flake.modules = {
-    nixos.noctalia.security.polkit.enable = true;
+  flake.aspects.noctalia = {
+    nixos.security.polkit.enable = true;
 
-    homeManager.noctalia = {config, ...}: {
+    homeManager = {config, ...}: {
       programs.noctalia.settings = {
         accessibility.ui_scale = 0.8;
 

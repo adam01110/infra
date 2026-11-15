@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia = {config, ...}: let
+  flake.aspects.noctalia.homeManager = {config, ...}: let
     picturesDir = config.xdg.userDirs.pictures;
   in {
     programs.noctalia.settings.wallpaper = {

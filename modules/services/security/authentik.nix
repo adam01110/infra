@@ -4,7 +4,7 @@
     inputs.flake-parts.follows = "flake-parts";
   };
 
-  flake.modules.nixos.authentik = {
+  flake.aspects.authentik.nixos = {
     # keep-sorted start
     config,
     vars,

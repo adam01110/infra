@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.impala = {
+  flake.aspects.impala.homeManager = {
     # keep-sorted start
     config,
     lib,

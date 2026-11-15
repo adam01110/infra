@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.yazi = {pkgs, ...}: {
+  flake.aspects.yazi.homeManager = {pkgs, ...}: {
     programs.yazi = {
       plugins.smart-enter = pkgs.yaziPlugins.smart-enter;
 

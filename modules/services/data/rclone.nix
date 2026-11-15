@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.rclone = {
+  flake.aspects.rclone.homeManager = {
     # keep-sorted start
     config,
     lib,

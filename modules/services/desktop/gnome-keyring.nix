@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.gnome-keyring = {
+  flake.aspects.gnome-keyring.nixos = {
     # keep-sorted start block=yes newline_separated=yes
     security.pam.services = {
       # keep-sorted start

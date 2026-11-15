@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.optiscaler = {pkgs, ...}: {
+  flake.aspects.optiscaler.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.nur.repos.adam0.optiscaler-client];
   };
 }

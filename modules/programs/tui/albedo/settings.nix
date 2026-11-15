@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.albedo = _: {
+  flake.aspects.albedo.homeManager = _: {
     programs.albedo = {
       activeProvider = "claude";
 

@@ -13,49 +13,47 @@
     # keep-sorted end
   ];
 in {
-  flake.modules = {
-    nixos.stylixPersonal = {pkgs, ...}: {
-      imports = [self.modules.nixos.stylixBase];
+  flake.aspects = {aspects, ...}: {
+    stylix.provides.personal = {
+      includes = [aspects.stylix];
 
-      stylix = {
-        cursor = {
-          name = "Bibata-Modern-Gruvbox-Dark";
-          package = pkgs.nur.repos.adam0.bibata.modern.cursors.gruvbox-dark;
-          size = 24;
-        };
-
-        icons = let
-          name = "Gruvbox-Plus-Dark";
-        in {
-          enable = true;
-          dark = name;
-          light = name;
-          package = pkgs.nur.repos.adam0.gruvbox-plus-icons;
-        };
-
-        fonts = let
-          ioskeley = {
-            package = pkgs.nur.repos.adam0.ioskeley-mono-custom-term-nl-nf;
-            name = "IoskeleyMonoCustomTermNL Nerd Font Mono";
+      nixos = {pkgs, ...}: {
+        stylix = {
+          cursor = {
+            name = "Bibata-Modern-Gruvbox-Dark";
+            package = pkgs.nur.repos.adam0.bibata.modern.cursors.gruvbox-dark;
+            size = 24;
           };
-        in {
-          # keep-sorted start block=yes newline_separated=yes
-          monospace = ioskeley;
 
-          sansSerif = ioskeley;
+          icons = let
+            name = "Gruvbox-Plus-Dark";
+          in {
+            enable = true;
+            dark = name;
+            light = name;
+            package = pkgs.nur.repos.adam0.gruvbox-plus-icons;
+          };
 
-          serif = ioskeley;
-          # keep-sorted end
+          fonts = let
+            ioskeley = {
+              package = pkgs.nur.repos.adam0.ioskeley-mono-custom-term-nl-nf;
+              name = "IoskeleyMonoCustomTermNL Nerd Font Mono";
+            };
+          in {
+            # keep-sorted start block=yes newline_separated=yes
+            monospace = ioskeley;
+
+            sansSerif = ioskeley;
+
+            serif = ioskeley;
+            # keep-sorted end
+          };
         };
+
+        fonts.packages = [pkgs.noto-fonts-cjk-sans];
       };
 
-      fonts.packages = [pkgs.noto-fonts-cjk-sans];
-    };
-
-    homeManager.stylixPersonal = {
-      imports = [self.modules.homeManager.stylixBase];
-
-      stylix = {
+      homeManager.stylix = {
         # keep-sorted start block=yes newline_separated=yes
         fonts.sizes = {
           # keep-sorted start

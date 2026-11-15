@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyfetch = {
+  flake.aspects.hyfetch.homeManager = {
     programs.hyfetch = {
       enable = true;
 

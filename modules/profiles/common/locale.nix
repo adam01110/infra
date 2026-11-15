@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.locale = {vars, ...}: let
+  flake.aspects.locale.nixos = {vars, ...}: let
     inherit
       (vars)
       # keep-sorted start

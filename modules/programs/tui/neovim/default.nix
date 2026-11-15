@@ -10,8 +10,8 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules = {
-    nixos.neovim = {
+  flake.aspects.neovim = {
+    nixos = {
       nixpkgs.overlays = [self.overlays.pkgs];
 
       nix.settings = let
@@ -23,7 +23,7 @@
       };
     };
 
-    homeManager.neovim = {
+    homeManager = {
       # keep-sorted start
       config,
       lib,

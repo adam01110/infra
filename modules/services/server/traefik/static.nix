@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.traefik = {vars, ...}: let
+  flake.aspects.traefik.nixos = {vars, ...}: let
     inherit (vars) groundDomain;
   in {
     services.traefik.staticConfigOptions = {

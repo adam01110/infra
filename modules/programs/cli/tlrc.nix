@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.tlrc = {pkgs, ...}: let
+  flake.aspects.tlrc.homeManager = {pkgs, ...}: let
     tomlFormat = pkgs.formats.toml {};
   in {
     # keep-sorted start block=yes newline_separated=yes

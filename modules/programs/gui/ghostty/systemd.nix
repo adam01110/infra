@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ghostty = {
+  flake.aspects.ghostty.homeManager = {
     # keep-sorted start
     config,
     lib,

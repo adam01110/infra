@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.fish = {pkgs, ...}: {
+  flake.aspects.fish.homeManager = {pkgs, ...}: {
     programs.fish.plugins = let
       mkPlugin = source: pkg: {
         name = pkg;

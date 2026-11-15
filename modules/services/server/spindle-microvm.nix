@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.spindleMicrovm = {pkgs, ...}: {
+  flake.aspects.spindleMicrovm.nixos = {pkgs, ...}: {
     imports = [self.modules.nixos.virtualizationHost];
 
     boot.kernelModules = [

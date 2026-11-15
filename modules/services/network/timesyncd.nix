@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.timesyncd = {
+  flake.aspects.timesyncd.nixos = {
     services.timesyncd.servers = [
       # keep-sorted start numeric=yes
       "server 0.pool.ntp.org"

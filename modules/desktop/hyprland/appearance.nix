@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland.programs = {
+  flake.aspects.hyprland.homeManager.programs = {
     hylix = {
       settings = {
         # Window decoration options including blur and shadow.

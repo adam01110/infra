@@ -1,6 +1,6 @@
 {self, ...}: {
-  flake.modules = {
-    nixos.noctalia = {
+  flake.aspects.noctalia = {
+    nixos = {
       nixpkgs.overlays = [self.overlays.pkgs];
 
       # The screen recorder plugin captures the monitor directly, which needs the
@@ -8,7 +8,7 @@
       programs.gpu-screen-recorder.enable = true;
     };
 
-    homeManager.noctalia = {lib, ...}: let
+    homeManager = {lib, ...}: let
       inherit (lib) mkEnableOption;
     in {
       options.programs.noctalia.battery.enable = mkEnableOption "battery widgets";

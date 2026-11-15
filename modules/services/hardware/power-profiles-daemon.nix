@@ -1,3 +1,3 @@
 {
-  flake.modules.nixos.power-profiles-daemon.services.power-profiles-daemon.enable = true;
+  flake.aspects.power-profiles-daemon.nixos.services.power-profiles-daemon.enable = true;
 }

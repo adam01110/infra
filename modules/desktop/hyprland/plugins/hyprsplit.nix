@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprlandHyprsplitPlugin = {
+  flake.aspects.hyprlandHyprsplitPlugin.homeManager = {
     lib,
     pkgs,
     ...

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zen = {pkgs, ...}: let
+  flake.aspects.zen.homeManager = {pkgs, ...}: let
     inherit (builtins) mapAttrs;
   in {
     # Add extensions packaged in NUR.

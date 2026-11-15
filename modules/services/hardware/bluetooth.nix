@@ -1,17 +1,11 @@
 {
-  flake.modules.nixos.bluetooth = {
-    config = {
-      capabilities.bluetooth = true;
+  flake.aspects.bluetooth.nixos.hardware.bluetooth = {
+    enable = true;
 
-      hardware.bluetooth = {
-        enable = true;
+    # Enable experimental features needed by some devices.
+    settings.General.Experimental = true;
 
-        # Enable experimental features needed by some devices.
-        settings.General.Experimental = true;
-
-        # Disable bluetooth power-on at boot to save battery.
-        powerOnBoot = false;
-      };
-    };
+    # Disable bluetooth power-on at boot to save battery.
+    powerOnBoot = false;
   };
 }

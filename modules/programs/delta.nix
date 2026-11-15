@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.delta = {
+  flake.aspects.delta.homeManager = {
     # keep-sorted start
     lib,
     osConfig,

@@ -1,60 +1,13 @@
 {self, ...}: {
-  flake.modules = {
-    nixos.personal = {config, ...}: {
-      imports = with self.modules.nixos; [
+  flake.aspects = {aspects, ...}: {
+    personal = {
+      includes = with aspects; [
         # Profiles
         # keep-sorted start
         base
         ncps
-        stylixPersonal
+        stylix.provides.personal
         # keep-sorted end
-
-        # Desktop
-        # keep-sorted start block=yes
-        hyprland
-        keyd
-        noctalia
-        tuigreet
-        uwsm
-        xdgPortal
-        # keep-sorted end
-
-        # Programs
-        # keep-sorted start
-        appimage
-        java
-        # keep-sorted end
-
-        # GUI
-        # keep-sorted start
-        gns3
-        seahorse
-        # keep-sorted end
-
-        # Services
-        # keep-sorted start
-        avahi
-        flatpak
-        geoclue
-        gnome-keyring
-        gvfs
-        libinput
-        pipewire
-        power-profiles-daemon
-        printing
-        ssh-stunnel
-        upower
-        vpn
-        # keep-sorted end
-      ];
-
-      disko.devices = (self.diskoConfigurations.ext4 config.disko.selectedDisk).disko.devices;
-    };
-
-    homeManager.personal = {
-      imports = with self.modules.homeManager; [
-        # Profiles
-        base
 
         # Common
         # keep-sorted start
@@ -71,9 +24,10 @@
         # keep-sorted start block=yes
         ghostty
         hyprland
+        keyd
         noctalia
         overzicht
-        stylixPersonal
+        tuigreet
         uwsm
         xdgApplications
         xdgPortal
@@ -87,7 +41,11 @@
         # keep-sorted end
 
         # Programs
+        # keep-sorted start
+        appimage
         gtk
+        java
+        # keep-sorted end
 
         # CLI
         # keep-sorted start block=yes
@@ -130,6 +88,7 @@
         eduvpn
         flatseal
         gimp
+        gns3
         gotify-desktop
         gridcraft
         loupe
@@ -146,10 +105,25 @@
 
         # Services
         # keep-sorted start
+        avahi
         flatpak
+        geoclue
+        gnome-keyring
+        gvfs
+        libinput
+        pipewire
+        power-profiles-daemon
+        printing
         rclone
+        ssh-stunnel
+        upower
+        vpn
         # keep-sorted end
       ];
+
+      nixos = {config, ...}: {
+        disko.devices = (self.diskoConfigurations.ext4 config.disko.selectedDisk).disko.devices;
+      };
     };
   };
 }

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.cpond = {
+  flake.aspects.cpond.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

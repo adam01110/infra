@@ -4,7 +4,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.homeManager.eh = {
+  flake.aspects.eh.homeManager = {
     # keep-sorted start
     config,
     lib,

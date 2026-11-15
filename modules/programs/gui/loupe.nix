@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.loupe = {pkgs, ...}: {
+  flake.aspects.loupe.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.loupe];
   };
 }

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.pipes = {
+  flake.aspects.pipes.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

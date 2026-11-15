@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.virtualizationHost = {vars, ...}: let
+  flake.aspects.virtualizationHost.nixos = {vars, ...}: let
     inherit (vars) username;
   in {
     boot.kernelModules = ["kvm-intel"];

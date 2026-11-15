@@ -4,7 +4,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.homeManager.spotify = {pkgs, ...}: let
+  flake.aspects.spotify.homeManager = {pkgs, ...}: let
     inherit (pkgs.stdenv.hostPlatform) system;
 
     # Access spicetify-nix packages.

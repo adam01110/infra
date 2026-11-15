@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.atuin = {
+  flake.aspects.atuin.homeManager = {
     # keep-sorted start
     config,
     vars,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.onefetch = {
+  flake.aspects.onefetch.homeManager = {
     # keep-sorted start
     pkgs,
     # keep-sorted end

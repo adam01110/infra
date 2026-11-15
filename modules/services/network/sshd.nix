@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.ssh = {
+  flake.aspects.sshd.nixos = {
     # keep-sorted start
     config,
     lib,

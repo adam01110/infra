@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland = {
+  flake.aspects.hyprland.homeManager = {
     # keep-sorted start
     config,
     lib,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland = {lib, ...}: let
+  flake.aspects.hyprland.homeManager = {lib, ...}: let
     inherit
       (lib.self)
       # keep-sorted start

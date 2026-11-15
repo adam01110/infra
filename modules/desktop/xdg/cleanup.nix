@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.xdgCleanup = {config, ...}: let
+  flake.aspects.xdgCleanup.homeManager = {config, ...}: let
     inherit (config.lib.file) mkOutOfStoreSymlink;
 
     inherit

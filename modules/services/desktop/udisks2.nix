@@ -1,3 +1,3 @@
 {
-  flake.modules.nixos.udisks2.services.udisks2.enable = true;
+  flake.aspects.udisks2.nixos.services.udisks2.enable = true;
 }

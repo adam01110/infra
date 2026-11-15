@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.discord = {
+  flake.aspects.discord.homeManager = {
     programs.nixcord = {
       config = {
         # keep-sorted start

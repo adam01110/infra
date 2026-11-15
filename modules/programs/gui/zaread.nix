@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zaread = {
+  flake.aspects.zaread.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

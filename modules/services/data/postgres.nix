@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.postgres = {
+  flake.aspects.postgres.nixos = {
     # keep-sorted start
     config,
     lib,

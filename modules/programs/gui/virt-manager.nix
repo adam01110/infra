@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.virtManager = {
+  flake.aspects.virtManager.nixos = {
     # keep-sorted start
     pkgs,
     vars,

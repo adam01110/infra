@@ -1,39 +1,43 @@
-{self, ...}: {
-  flake.modules.nixos.desktop = {pkgs, ...}: {
-    imports = with self.modules.nixos; [
-      # Profiles
-      # keep-sorted start
-      gaming
-      personal
-      # keep-sorted end
+{
+  flake.aspects = {aspects, ...}: {
+    desktop = {
+      includes = with aspects; [
+        # Profiles
+        # keep-sorted start
+        gaming
+        personal
+        # keep-sorted end
 
-      # Hardware
-      # keep-sorted start
-      roccat
-      tablet
-      # keep-sorted end
-    ];
+        # Hardware
+        # keep-sorted start
+        roccat
+        tablet
+        # keep-sorted end
+      ];
 
-    # System version for state compatibility - do not modify.
-    system.stateVersion = "26.05";
+      nixos = {pkgs, ...}: {
+        # System version for state compatibility - do not modify.
+        system.stateVersion = "26.05";
 
-    capabilities.gpuVram = true;
+        capabilities.gpuVram = true;
 
-    networking.hostName = "desktop";
+        networking.hostName = "desktop";
 
-    # Skip login measurements when the TPM has no NV index capacity.
-    systemd.services."systemd-pcrlogin@".enable = false;
+        # Skip login measurements when the TPM has no NV index capacity.
+        systemd.services."systemd-pcrlogin@".enable = false;
 
-    # Primary nvme disk for disko partitioning.
-    disko.selectedDisk = "/dev/nvme0n1";
+        # Primary nvme disk for disko partitioning.
+        disko.selectedDisk = "/dev/nvme0n1";
 
-    nixpkgs.config.rocmSupport = true;
+        nixpkgs.config.rocmSupport = true;
 
-    # Use x86-64-v3 CachyOS LTO kernel.
-    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+        # Use x86-64-v3 CachyOS LTO kernel.
+        boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
 
-    hardware.wooting.enable = true;
+        hardware.wooting.enable = true;
 
-    services.timezone = "Europe/Amsterdam";
+        services.timezone = "Europe/Amsterdam";
+      };
+    };
   };
 }

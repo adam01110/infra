@@ -46,8 +46,8 @@ in {
     };
   };
 
-  flake.modules = {
-    nixos.stylixBase = {
+  flake.aspects.stylix = {
+    nixos = {
       imports = [inputs.stylix.nixosModules.stylix];
 
       stylix =
@@ -57,7 +57,7 @@ in {
         };
     };
 
-    homeManager.stylixBase = {
+    homeManager = {
       # keep-sorted start
       lib,
       osConfig ? null,

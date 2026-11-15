@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.wiremix = {
+  flake.aspects.wiremix.homeManager = {
     # keep-sorted start
     config,
     lib,

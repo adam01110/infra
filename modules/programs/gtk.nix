@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.gtk = {
+  flake.aspects.gtk.homeManager = {
     dconf.settings = {
       # keep-sorted start
       "org/gnome/desktop/interface".color-scheme = "prefer-dark";

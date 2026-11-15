@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.env.home.sessionVariables = {
+  flake.aspects.env.homeManager.home.sessionVariables = {
     DO_NOT_TRACK = true;
 
     # keep-sorted start

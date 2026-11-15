@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.albedo = {
+  flake.aspects.albedo.homeManager = {
     # keep-sorted start
     config,
     lib,

@@ -1,6 +1,6 @@
 {
-  flake.modules.nixos.geoclue = {config, ...}: let
-    cfgWifi = config.capabilities.wifi;
+  flake.aspects.geoclue.nixos = {config, ...}: let
+    cfgWifi = config.networking.wireless.iwd.enable;
   in {
     services.geoclue2 = {
       enable = true;

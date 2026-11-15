@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.man = {pkgs, ...}: {
+  flake.aspects.man.nixos = {pkgs, ...}: {
     documentation = {
       man.cache.enable = true;
       dev.enable = true;

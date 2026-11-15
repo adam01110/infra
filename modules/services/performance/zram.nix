@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.zram = {
+  flake.aspects.zram.nixos = {
     # keep-sorted start
     config,
     lib,

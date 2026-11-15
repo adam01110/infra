@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.vivid = {config, ...}: let
+  flake.aspects.vivid.homeManager = {config, ...}: let
     colors = config.lib.stylix.colors;
   in {
     programs.vivid.enable = true;

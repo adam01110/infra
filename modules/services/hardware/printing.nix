@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.printing = {pkgs, ...}: {
+  flake.aspects.printing.nixos = {pkgs, ...}: {
     services.printing = {
       enable = true;
       # Allow network clients to reach cups.

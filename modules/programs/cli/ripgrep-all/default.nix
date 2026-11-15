@@ -1,3 +1,3 @@
 {
-  flake.modules.homeManager.ripgrep-all.programs.ripgrep-all.enable = true;
+  flake.aspects.ripgrep-all.homeManager.programs.ripgrep-all.enable = true;
 }

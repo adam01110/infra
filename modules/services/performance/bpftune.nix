@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.bpftune = {
+  flake.aspects.bpftune.nixos = {
     services.bpftune.enable = true;
   };
 }

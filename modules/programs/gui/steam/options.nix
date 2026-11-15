@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.steam = {
+  flake.aspects.steam.homeManager = {
     # keep-sorted start
     config,
     lib,

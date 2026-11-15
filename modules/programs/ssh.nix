@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ssh = {
+  flake.aspects.ssh.homeManager = {
     # keep-sorted start
     config,
     vars,

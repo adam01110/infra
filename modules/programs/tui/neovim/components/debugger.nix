@@ -1,3 +1,3 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.debugger.nvim-dap.ui.enable = true;
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.debugger.nvim-dap.ui.enable = true;
 }

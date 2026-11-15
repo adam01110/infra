@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.fzf = {lib, ...}: let
+  flake.aspects.fzf.homeManager = {lib, ...}: let
     inherit (lib) mkForce;
   in {
     programs.fzf = let

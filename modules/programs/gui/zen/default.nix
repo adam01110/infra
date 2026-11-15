@@ -10,7 +10,7 @@
     };
   };
 
-  flake.modules.homeManager.zen = {
+  flake.aspects.zen.homeManager = {
     imports = [inputs.zen-browser.homeModules.beta];
 
     programs.zen-browser.enable = true;

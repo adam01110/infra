@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.xdgApplications = {
+  flake.aspects.xdgApplications.homeManager = {
     lib,
     pkgs,
     ...

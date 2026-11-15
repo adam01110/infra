@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.utility.snacks-nvim.setupOpts.scroll = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.utility.snacks-nvim.setupOpts.scroll = {
     enable = true;
 
     # keep-sorted start

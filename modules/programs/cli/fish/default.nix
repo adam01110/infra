@@ -1,8 +1,8 @@
 {
-  flake.modules = {
-    nixos.fish.programs.fish.enable = true;
+  flake.aspects.fish = {
+    nixos.programs.fish.enable = true;
 
-    homeManager.fish = {
+    homeManager = {
       # keep-sorted start
       config,
       lib,

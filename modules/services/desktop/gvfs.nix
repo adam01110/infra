@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.gvfs = {pkgs, ...}: {
+  flake.aspects.gvfs.nixos = {pkgs, ...}: {
     # GIO/GVFS backends: trash, SMB/MTP/AFC, network mounts, and more.
     services.gvfs = {
       enable = true;

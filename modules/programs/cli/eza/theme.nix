@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.eza = {config, ...}: let
+  flake.aspects.eza.homeManager = {config, ...}: let
     colors = config.lib.stylix.colors.withHashtag;
   in {
     programs.eza.theme = with colors; {

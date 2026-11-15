@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = {config, ...}: {
+  flake.aspects.neovim.homeManager = {config, ...}: {
     programs.nvf.settings.vim = let
       inherit (config.programs.nvf.settings.vim.ui) borderType;
     in {

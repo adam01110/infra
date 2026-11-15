@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia.programs.noctalia.settings.system.monitor = {
+  flake.aspects.noctalia.homeManager.programs.noctalia.settings.system.monitor = {
     # keep-sorted start
     cpu_poll_seconds = 1.0;
     disk_poll_seconds = 4.0;

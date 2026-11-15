@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.eduvpn = {pkgs, ...}: {
+  flake.aspects.eduvpn.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.eduvpn-client];
   };
 }

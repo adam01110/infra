@@ -1,6 +1,6 @@
 {
-  flake.modules = {
-    nixos.steam = {pkgs, ...}: {
+  flake.aspects.steam = {
+    nixos = {pkgs, ...}: {
       programs.steam = {
         enable = true;
 
@@ -34,6 +34,6 @@
       };
     };
 
-    homeManager.steam.programs.steam.millennium.enable = true;
+    homeManager.programs.steam.millennium.enable = true;
   };
 }

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.beeper = {
+  flake.aspects.beeper.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

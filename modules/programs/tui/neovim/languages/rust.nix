@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = {
+  flake.aspects.neovim.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

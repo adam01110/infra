@@ -4,7 +4,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.homeManager.nix-index = {
+  flake.aspects.nix-index.homeManager = {
     imports = [inputs.nix-index-database.homeModules.nix-index];
 
     programs = {

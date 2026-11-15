@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.codexbar = {
+  flake.aspects.codexbar.homeManager = {
     # keep-sorted start
     config,
     pkgs,

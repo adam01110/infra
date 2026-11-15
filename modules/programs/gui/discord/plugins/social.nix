@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.discord = {
+  flake.aspects.discord.homeManager = {
     programs.nixcord.config.plugins = {
       # keep-sorted start block=yes newline_separated=yes
       betterBlockedUsers.enable = true;

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.gridcraft = {pkgs, ...}: {
+  flake.aspects.gridcraft.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.gridcraft];
   };
 }

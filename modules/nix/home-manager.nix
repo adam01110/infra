@@ -15,7 +15,7 @@
   flake = {
     homeModules = self.modules.homeManager;
 
-    modules.nixos.home-manager = {
+    aspects.home-manager.nixos = {
       # keep-sorted start
       config,
       pkgs,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.node-red = {
+  flake.aspects.node-red.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

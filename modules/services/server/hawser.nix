@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hawser = {
+  flake.aspects.hawser.nixos = {
     # keep-sorted start
     config,
     lib,

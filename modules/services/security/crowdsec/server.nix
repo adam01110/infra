@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.crowdsec-server = {
+  flake.aspects.crowdsec-server.nixos = {
     # keep-sorted start
     config,
     lib,

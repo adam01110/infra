@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.visuals.satellite-nvim = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.visuals.satellite-nvim = {
     enable = true;
     setupOpts = {
       # keep-sorted start block=yes newline_separated=yes

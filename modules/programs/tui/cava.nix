@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.cava = {
+  flake.aspects.cava.homeManager = {
     programs.cava = {
       enable = true;
 

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.npm = {config, ...}: let
+  flake.aspects.npm.homeManager = {config, ...}: let
     inherit
       (config.xdg)
       # keep-sorted start

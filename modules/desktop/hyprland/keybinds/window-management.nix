@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland = {lib, ...}: let
+  flake.aspects.hyprland.homeManager = {lib, ...}: let
     inherit (lib.self) mkHylixBindGroup;
   in {
     config.programs.hylix.bindGroups = [

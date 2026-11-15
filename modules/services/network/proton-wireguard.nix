@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.protonWireguard = {
+  flake.aspects.protonWireguard.nixos = {
     # keep-sorted start
     config,
     lib,

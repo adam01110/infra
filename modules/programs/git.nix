@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.git = {
+  flake.aspects.git.homeManager = {
     # keep-sorted start
     config,
     pkgs,

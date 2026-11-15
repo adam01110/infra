@@ -5,7 +5,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.nixos.lanzaboote = {
+  flake.aspects.lanzaboote.nixos = {
     # keep-sorted start
     inputs,
     lib,

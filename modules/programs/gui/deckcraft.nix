@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.deckcraft = {pkgs, ...}: {
+  flake.aspects.deckcraft.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.deckcraft];
   };
 }

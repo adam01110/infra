@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.decibels = {pkgs, ...}: {
+  flake.aspects.decibels.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.decibels];
   };
 }

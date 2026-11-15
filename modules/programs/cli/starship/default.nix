@@ -1,3 +1,3 @@
 {
-  flake.modules.homeManager.starship.programs.starship.enable = true;
+  flake.aspects.starship.homeManager.programs.starship.enable = true;
 }

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.yazi = {pkgs, ...}: {
+  flake.aspects.yazi.homeManager = {pkgs, ...}: {
     programs.yazi = {
       plugins.recycle-bin = {
         package = pkgs.yaziPlugins.recycle-bin;

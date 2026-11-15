@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.bonsai = {
+  flake.aspects.bonsai.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

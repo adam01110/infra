@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ghostty = {lib, ...}: let
+  flake.aspects.ghostty.homeManager = {lib, ...}: let
     inherit (lib) mkForce;
   in {
     programs.ghostty.settings = {

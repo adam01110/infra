@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.modules.nixos.crowdsec-base = {
+  flake.aspects.crowdsec-base.nixos = {
     # keep-sorted start
     config,
     pkgs,

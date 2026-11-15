@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.overzicht = {config, ...}: let
+  flake.aspects.overzicht.homeManager = {config, ...}: let
     # keep-sorted start
     colors = config.lib.stylix.colors.withHashtag;
     sansSerifFont = config.stylix.fonts.sansSerif.name;

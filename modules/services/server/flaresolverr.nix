@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.flaresolverr = {
+  flake.aspects.flaresolverr.nixos = {
     services.flaresolverr.enable = true;
 
     # Bind only to WireGuard; containers route via wg0.

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.impala = {
+  flake.aspects.impala.homeManager = {
     # keep-sorted start
     config,
     lib,
@@ -16,7 +16,7 @@
       # keep-sorted end
       ;
 
-    cfgWifi = osConfig.capabilities.wifi;
+    cfgWifi = osConfig.networking.wireless.iwd.enable;
   in {
     config = mkIf cfgWifi {
       # keep-sorted start block=yes newline_separated=yes

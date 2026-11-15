@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.flatseal = {
+  flake.aspects.flatseal.homeManager = {
     services.flatpak.packages = ["com.github.tchx84.Flatseal"];
   };
 }

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia.programs.noctalia.settings = {
+  flake.aspects.noctalia.homeManager.programs.noctalia.settings = {
     lockscreen = {
       # keep-sorted start
       blur_intensity = 0.4;

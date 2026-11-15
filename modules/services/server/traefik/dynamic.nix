@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.traefik = {
+  flake.aspects.traefik.nixos = {
     # keep-sorted start
     config,
     vars,

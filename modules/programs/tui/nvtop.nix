@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.nvtop = {
+  flake.aspects.nvtop.homeManager = {
     # keep-sorted start
     config,
     lib,

@@ -10,7 +10,7 @@
   flake = {
     overlays.nix-cachyos-kernel = inputs.nix-cachyos-kernel.overlays.pinned;
 
-    modules.nixos.kernel = {
+    aspects.kernel.nixos = {
       # keep-sorted start
       lib,
       pkgs,

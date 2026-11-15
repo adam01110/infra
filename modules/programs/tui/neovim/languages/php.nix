@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.languages.php = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.languages.php = {
     enable = true;
 
     # keep-sorted start block=yes newline_separated=yes

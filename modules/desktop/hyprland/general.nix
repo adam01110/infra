@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland.programs.hylix.settings = {
+  flake.aspects.hyprland.homeManager.programs.hylix.settings = {
     # keep-sorted start block=yes newline_separated=yes
     # Suppress noisy logs and watchdog timeouts.
     debug = {

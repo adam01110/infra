@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.languages.typescript = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.languages.typescript = {
     enable = true;
     extraDiagnostics.types = ["biomejs"];
     format.type = ["biome"];

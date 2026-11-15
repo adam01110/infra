@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.gotify-desktop = {
+  flake.aspects.gotify-desktop.homeManager = {
     # keep-sorted start
     config,
     lib,

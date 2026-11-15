@@ -5,7 +5,7 @@
   # keep-sorted end
   ...
 }: {
-  flake.modules.homeManager.television = {
+  flake.aspects.television.homeManager = {
     # keep-sorted start
     osConfig,
     pkgs,

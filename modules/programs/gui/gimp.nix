@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.gimp = {pkgs, ...}: {
+  flake.aspects.gimp.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.gimp];
   };
 }

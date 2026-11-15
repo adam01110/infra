@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.tlp = {lib, ...}: let
+  flake.aspects.tlp.nixos = {lib, ...}: let
     inherit (lib) mkForce;
   in {
     services = {

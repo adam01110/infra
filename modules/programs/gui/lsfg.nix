@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.lsfg = {pkgs, ...}: {
+  flake.aspects.lsfg.nixos = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       # keep-sorted start
       lsfg-vk

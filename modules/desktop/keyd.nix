@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.keyd.services.keyd = {
+  flake.aspects.keyd.nixos.services.keyd = {
     enable = true;
 
     keyboards.default = {
@@ -12,5 +12,5 @@
   };
 
   # keyd exits with status 15 on SIGTERM, which marks a clean stop as failed.
-  flake.modules.nixos.keyd.systemd.services.keyd.serviceConfig.SuccessExitStatus = [15];
+  flake.aspects.keyd.nixos.systemd.services.keyd.serviceConfig.SuccessExitStatus = [15];
 }

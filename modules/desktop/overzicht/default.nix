@@ -12,7 +12,7 @@
     };
   };
 
-  flake.modules.homeManager.overzicht = {
+  flake.aspects.overzicht.homeManager = {
     imports = [inputs.overzicht.homeModules.default];
 
     programs.overzicht = {

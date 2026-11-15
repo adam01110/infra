@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.shellAbbreviations = {
+  flake.aspects.shellAbbreviations.homeManager = {
     # keep-sorted start
     config,
     lib,

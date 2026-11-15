@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.tablet.hardware = {
+  flake.aspects.tablet.nixos.hardware = {
     # keep-sorted start newline_separated=yes
     opentabletdriver.enable = true;
 

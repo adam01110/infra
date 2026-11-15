@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ouch = {
+  flake.aspects.ouch.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

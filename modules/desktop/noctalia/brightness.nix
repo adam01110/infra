@@ -1,10 +1,10 @@
 {
-  flake.modules = {
-    homeManager.noctalia = {pkgs, ...}: {
+  flake.aspects.noctalia = {
+    homeManager = {pkgs, ...}: {
       home.packages = [pkgs.ddcutil];
       programs.noctalia.settings.brightness.enable_ddcutil = true;
     };
 
-    nixos.noctalia.hardware.i2c.enable = true;
+    nixos.hardware.i2c.enable = true;
   };
 }

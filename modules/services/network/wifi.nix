@@ -1,17 +1,11 @@
 {
-  flake.modules.nixos.wifi = {
-    config = {
-      capabilities.wifi = true;
+  flake.aspects.wifi.nixos.networking = {
+    wireless.iwd.enable = true;
 
-      networking = {
-        wireless.iwd.enable = true;
-
-        networkmanager.wifi = {
-          backend = "iwd";
-          powersave = false;
-          scanRandMacAddress = true;
-        };
-      };
+    networkmanager.wifi = {
+      backend = "iwd";
+      powersave = false;
+      scanRandMacAddress = true;
     };
   };
 }

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.appimage = {pkgs, ...}: {
+  flake.aspects.appimage.nixos = {pkgs, ...}: {
     programs.appimage = {
       enable = true;
       binfmt = true;

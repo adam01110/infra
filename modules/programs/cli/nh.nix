@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.nh = {vars, ...}: let
+  flake.aspects.nh.homeManager = {vars, ...}: let
     inherit (vars) username;
   in {
     programs.nh = {

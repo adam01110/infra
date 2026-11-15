@@ -12,7 +12,7 @@
     };
   };
 
-  flake.modules.homeManager.zen = {
+  flake.aspects.zen.homeManager = {
     # keep-sorted start
     config,
     inputs,

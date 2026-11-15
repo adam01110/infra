@@ -1,8 +1,8 @@
 {
-  flake.modules.nixos = {
-    libinput.services.libinput.enable = true;
+  flake.aspects = {
+    libinput.nixos.services.libinput.enable = true;
 
-    roccat = {
+    roccat.nixos = {
       environment.etc."libinput/local-overrides.quirks" = let
         name = "ROCCAT ROCCAT Kain 100";
       in {

@@ -1,6 +1,6 @@
 {
-  flake.modules = {
-    nixos.xdgPortal = {
+  flake.aspects.xdgPortal = {
+    nixos = {
       # keep-sorted start
       lib,
       pkgs,
@@ -71,7 +71,7 @@
       # keep-sorted end
     };
 
-    homeManager.xdgPortal = {
+    homeManager = {
       # keep-sorted start
       config,
       lib,

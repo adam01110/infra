@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zen = {
+  flake.aspects.zen.homeManager = {
     programs.zen-browser.profiles.default = {
       spacesForce = true;
       spaces = {

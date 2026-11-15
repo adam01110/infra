@@ -1,8 +1,8 @@
 {
-  flake.modules = {
-    nixos.hyprland.services.gnome.at-spi2-core.enable = true;
+  flake.aspects = {
+    hyprland.nixos.services.gnome.at-spi2-core.enable = true;
 
-    homeManager.albedo = {
+    albedo.homeManager = {
       # keep-sorted start
       lib,
       pkgs,

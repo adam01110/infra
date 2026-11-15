@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.aseprite = {pkgs, ...}: {
+  flake.aspects.aseprite.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.aseprite];
   };
 }

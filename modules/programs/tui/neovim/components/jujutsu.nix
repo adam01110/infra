@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = {pkgs, ...}: {
+  flake.aspects.neovim.homeManager = {pkgs, ...}: {
     programs.nvf.settings.vim.lazy.plugins = {
       "jj-conflict.nvim" = {
         package = pkgs.jj-conflict-nvim;

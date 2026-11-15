@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.xdgApplications.xdg.mimeApps.defaultApplications = {
+  flake.aspects.xdgApplications.homeManager.xdg.mimeApps.defaultApplications = {
     # keep-sorted start
     "application/sql" = "nvim.desktop";
     "application/x-cmakecache" = "nvim.desktop";

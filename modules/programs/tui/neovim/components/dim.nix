@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim = {
     utility.snacks-nvim.setupOpts.dim = {
       enable = true;
       scope.min_size = 8;

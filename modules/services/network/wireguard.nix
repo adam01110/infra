@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.wireguard = {
+  flake.aspects.wireguard.nixos = {
     # keep-sorted start
     config,
     lib,

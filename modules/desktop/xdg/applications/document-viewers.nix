@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.xdgApplications = {lib, ...}: let
+  flake.aspects.xdgApplications.homeManager = {lib, ...}: let
     inherit
       (lib.self)
       # keep-sorted start

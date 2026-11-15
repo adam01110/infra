@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.xdgTerminal = {
+  flake.aspects.xdgTerminal.homeManager = {
     # keep-sorted start
     config,
     lib,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.prism = {
+  flake.aspects.prism.homeManager = {
     # keep-sorted start
     config,
     lib,

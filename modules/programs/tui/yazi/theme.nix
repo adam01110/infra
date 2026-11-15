@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.yazi = {
+  flake.aspects.yazi.homeManager = {
     programs.yazi.theme = {
       # keep-sorted start block=yes newline_separated=yes
       indicator.padding = {

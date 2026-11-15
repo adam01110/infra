@@ -1,3 +1,3 @@
 {
-  flake.modules.homeManager.xdg.xdg.enable = true;
+  flake.aspects.xdg.homeManager.xdg.enable = true;
 }

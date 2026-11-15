@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.speedtest = {
+  flake.aspects.speedtest.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zathura = {lib, ...}: let
+  flake.aspects.zathura.homeManager = {lib, ...}: let
     inherit
       (lib.self)
       # keep-sorted start

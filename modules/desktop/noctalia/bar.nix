@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia = {
+  flake.aspects.noctalia.homeManager = {
     # keep-sorted start
     config,
     lib,
@@ -13,7 +13,7 @@
     # keep-sorted start
     btop = getExe config.programs.btop.package;
     cfgBattery = config.programs.noctalia.battery.enable;
-    cfgBluetooth = osConfig.capabilities.bluetooth;
+    cfgBluetooth = osConfig.hardware.bluetooth.enable;
     cfgGpuVram = osConfig.capabilities.gpuVram;
     terminal = getExe config.xdg.terminal-exec.package;
     wiremix = config.xdg.desktopEntries.wiremix.exec;

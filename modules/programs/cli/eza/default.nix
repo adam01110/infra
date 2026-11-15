@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.eza = {
+  flake.aspects.eza.homeManager = {
     # keep-sorted start
     config,
     lib,

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.sudo = {
+  flake.aspects.sudo.nixos = {
     security = {
       sudo.enable = false;
 

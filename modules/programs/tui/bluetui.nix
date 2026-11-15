@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.bluetui = {
+  flake.aspects.bluetui.homeManager = {
     # keep-sorted start
     config,
     lib,
@@ -19,7 +19,7 @@
 
     pkg = pkgs.bluetui;
 
-    cfgBluetooth = osConfig.capabilities.bluetooth;
+    cfgBluetooth = osConfig.hardware.bluetooth.enable;
   in {
     config = mkIf cfgBluetooth {
       # keep-sorted start block=yes newline_separated=yes

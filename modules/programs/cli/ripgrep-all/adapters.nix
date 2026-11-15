@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ripgrep-all = {
+  flake.aspects.ripgrep-all.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zen = {
+  flake.aspects.zen.homeManager = {
     programs.zen-browser.policies = {
       # keep-sorted start
       AutofillAddressEnabled = false;

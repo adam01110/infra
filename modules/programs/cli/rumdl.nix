@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.rumdl = {
+  flake.aspects.rumdl.homeManager = {
     # keep-sorted start
     config,
     pkgs,

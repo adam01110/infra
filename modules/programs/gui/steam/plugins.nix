@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.steam = {pkgs, ...}: let
+  flake.aspects.steam.homeManager = {pkgs, ...}: let
     inherit (pkgs) fetchurl fetchzip;
 
     # Release archive holding plugin.json, the backend and a built frontend bundle.

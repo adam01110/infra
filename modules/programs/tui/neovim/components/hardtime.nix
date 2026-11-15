@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.binds.hardtime-nvim = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.binds.hardtime-nvim = {
     enable = true;
 
     setupOpts = {

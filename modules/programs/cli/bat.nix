@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.bat = {
+  flake.aspects.bat.homeManager = {
     # keep-sorted start
     config,
     lib,

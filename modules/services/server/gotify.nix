@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.gotify-server = {
+  flake.aspects.gotify-server.nixos = {
     # keep-sorted start
     config,
     lib,

@@ -26,7 +26,7 @@ in {
     };
   };
 
-  flake.modules.nixos.nur.nixpkgs.overlays = [
+  flake.aspects.nur.nixos.nixpkgs.overlays = [
     (_final: pkgs: {
       nur = import inputs.nur {
         inherit pkgs;

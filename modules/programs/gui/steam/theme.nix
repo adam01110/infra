@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.steam = {pkgs, ...}: let
+  flake.aspects.steam.homeManager = {pkgs, ...}: let
     inherit (pkgs) fetchFromGitHub;
   in {
     programs.steam.millennium = {

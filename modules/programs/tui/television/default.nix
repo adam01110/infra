@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.television = {
+  flake.aspects.television.homeManager = {
     programs.television = let
       # Disable shell hooks and use explicit invocation only.
       enableShellIntegration = false;

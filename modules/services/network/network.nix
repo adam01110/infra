@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.network = {
+  flake.aspects.network.nixos = {
     # keep-sorted start
     config,
     lib,

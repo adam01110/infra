@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.timezone = {
+  flake.aspects.timezone.nixos = {
     # keep-sorted start
     config,
     lib,

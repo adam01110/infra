@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.languages.nix = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.languages.nix = {
     enable = true;
 
     # keep-sorted start

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.bun = {
+  flake.aspects.bun.homeManager = {
     # keep-sorted start
     config,
     lib,

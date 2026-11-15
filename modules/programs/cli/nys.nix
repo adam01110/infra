@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.nys = {
+  flake.aspects.nys.homeManager = {
     programs.nix-your-shell = {
       enable = true;
 

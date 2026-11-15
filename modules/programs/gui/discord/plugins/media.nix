@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.discord = {config, ...}: let
+  flake.aspects.discord.homeManager = {config, ...}: let
     cfgCamera = config.programs.nixcord.equibop.camera.enable;
   in {
     programs.nixcord.config.plugins = {

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.fish = {
+  flake.aspects.fish.homeManager = {
     programs.fish.interactiveShellInitSnippets = [
       # Ghostty shapes ligatures within a single color run, so the redirection
       # color must match the parameter color for `->` and `=>` to ligate.

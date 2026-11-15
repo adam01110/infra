@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.fastfetch = {
+  flake.aspects.fastfetch.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

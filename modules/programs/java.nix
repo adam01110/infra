@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.java = {
+  flake.aspects.java.nixos = {
     programs.java = {
       enable = true;
       binfmt = true;

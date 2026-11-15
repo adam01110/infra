@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.vpn = {
+  flake.aspects.vpn.nixos = {
     # keep-sorted start
     config,
     lib,

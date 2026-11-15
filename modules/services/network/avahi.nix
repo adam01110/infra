@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.avahi = {
+  flake.aspects.avahi.nixos = {
     # mDNS/DNS-SD discovery for the local network.
     services.avahi = {
       enable = true;

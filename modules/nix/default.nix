@@ -1,5 +1,5 @@
 {lib, ...}: {
-  flake.modules.nixos.nix = {
+  flake.aspects.nix.nixos = {
     # keep-sorted start
     config,
     vars,

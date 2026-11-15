@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.homeManager.beeper = {config, ...}: let
+  flake.aspects.beeper.homeManager = {config, ...}: let
     inherit
       (builtins)
       # keep-sorted start

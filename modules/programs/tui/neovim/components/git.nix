@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.git.gitsigns = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.git.gitsigns = {
     enable = true;
 
     setupOpts = {

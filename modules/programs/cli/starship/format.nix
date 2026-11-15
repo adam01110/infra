@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.starship = {lib, ...}: let
+  flake.aspects.starship.homeManager = {lib, ...}: let
     inherit (lib) concatStrings;
   in {
     # Layout and coloring for the full starship prompt.

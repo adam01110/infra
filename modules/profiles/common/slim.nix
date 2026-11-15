@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.slim = {lib, ...}: let
+  flake.aspects.slim.nixos = {lib, ...}: let
     inherit (builtins) filter;
     inherit (lib) mkForce;
   in {

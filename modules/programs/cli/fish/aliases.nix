@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.fish = {
+  flake.aspects.fish.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

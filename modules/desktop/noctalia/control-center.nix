@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia = {
+  flake.aspects.noctalia.homeManager = {
     # keep-sorted start
     lib,
     osConfig,
@@ -8,7 +8,7 @@
   }: let
     inherit (lib) optional;
 
-    cfgBluetooth = osConfig.capabilities.bluetooth;
+    cfgBluetooth = osConfig.hardware.bluetooth.enable;
   in {
     programs.noctalia.settings = {
       calendar.enabled = true;

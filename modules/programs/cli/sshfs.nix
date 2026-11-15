@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.sshfs = {pkgs, ...}: {
+  flake.aspects.sshfs.homeManager = {pkgs, ...}: {
     home.packages = [pkgs.sshfs];
   };
 }

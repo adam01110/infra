@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim = {
     utility = {
       # keep-sorted start
       auto-indent-nvim.enable = true;

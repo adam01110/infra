@@ -1,3 +1,3 @@
 {
-  flake.modules.nixos.btrfs-autoscrub.services.btrfs.autoScrub.enable = true;
+  flake.aspects.btrfs-autoscrub.nixos.services.btrfs.autoScrub.enable = true;
 }

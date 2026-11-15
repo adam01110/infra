@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.podman = {
+  flake.aspects.podman.nixos = {
     # keep-sorted start
     lib,
     pkgs,

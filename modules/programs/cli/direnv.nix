@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.direnv = {
+  flake.aspects.direnv.homeManager = {
     programs.direnv = {
       enable = true;
 

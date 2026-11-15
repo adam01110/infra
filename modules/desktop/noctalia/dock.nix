@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.noctalia.programs.noctalia.settings = {
+  flake.aspects.noctalia.homeManager.programs.noctalia.settings = {
     desktop_widgets.enabled = false;
     dock = {
       enabled = true;

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim.programs.nvf.settings.vim.presence.cord-nvim = {
+  flake.aspects.neovim.homeManager.programs.nvf.settings.vim.presence.cord-nvim = {
     enable = true;
 
     setupOpts = {

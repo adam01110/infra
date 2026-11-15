@@ -1,3 +1,3 @@
 {self, ...}: {
-  flake.modules.homeManager.face.home.file.".face".source = "${self}/assets/face.png";
+  flake.aspects.face.homeManager.home.file.".face".source = "${self}/assets/face.png";
 }

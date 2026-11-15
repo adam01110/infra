@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.apprise = {
+  flake.aspects.apprise.nixos = {
     virtualisation.oci-containers.containers.apprise = {
       hostname = "apprise";
       image = "docker.io/caronc/apprise:latest";

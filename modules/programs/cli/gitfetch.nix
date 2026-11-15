@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.gitfetch = {
+  flake.aspects.gitfetch.homeManager = {
     # keep-sorted start
     config,
     lib,

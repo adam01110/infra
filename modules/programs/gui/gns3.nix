@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.gns3 = {
+  flake.aspects.gns3.nixos = {
     # keep-sorted start
     config,
     pkgs,

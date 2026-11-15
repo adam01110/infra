@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.starship = {
+  flake.aspects.starship.homeManager = {
     # keep-sorted start
     config,
     lib,

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.cloudbeaver = {
+  flake.aspects.cloudbeaver.nixos = {
     # keep-sorted start
     config,
     lib,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.yazi = {pkgs, ...}: {
+  flake.aspects.yazi.homeManager = {pkgs, ...}: {
     programs.yazi = {
       plugins.spot-image = pkgs.nur.repos.adam0.yaziPlugins.spot-image;
 

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.surge = {
+  flake.aspects.surge.homeManager = {
     # keep-sorted start
     config,
     lib,

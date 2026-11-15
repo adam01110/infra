@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.ananicy = {pkgs, ...}: {
+  flake.aspects.ananicy.nixos = {pkgs, ...}: {
     services.ananicy = {
       enable = true;
       package = pkgs.ananicy-cpp;

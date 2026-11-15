@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.bitwarden = {pkgs, ...}: {
+  flake.aspects.bitwarden.homeManager = {pkgs, ...}: {
     home.packages = with pkgs; [
       # keep-sorted start
       bitwarden-cli

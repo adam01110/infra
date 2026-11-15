@@ -10,7 +10,7 @@
     };
   };
 
-  flake.modules.homeManager.discord = {
+  flake.aspects.discord.homeManager = {
     # keep-sorted start
     config,
     lib,

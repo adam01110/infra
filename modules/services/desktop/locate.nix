@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.locate = {
+  flake.aspects.locate.nixos = {
     services.locate = {
       enable = true;
 

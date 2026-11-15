@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = {lib, ...}: let
+  flake.aspects.neovim.homeManager = {lib, ...}: let
     inherit (lib.generators) mkLuaInline;
   in {
     programs.nvf.settings.vim.session.nvim-session-manager = {

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.btop = {
+  flake.aspects.btop.homeManager = {
     # keep-sorted start
     config,
     lib,

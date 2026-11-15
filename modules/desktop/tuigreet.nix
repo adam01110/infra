@@ -1,5 +1,5 @@
 _: {
-  flake.modules.nixos.tuigreet = {
+  flake.aspects.tuigreet.nixos = {
     # keep-sorted start
     config,
     lib,

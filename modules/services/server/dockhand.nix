@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.dockhand = {
+  flake.aspects.dockhand.nixos = {
     # keep-sorted start
     config,
     lib,

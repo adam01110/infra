@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.modules.homeManager.spotify = {
+  flake.aspects.spotify.homeManager = {
     # keep-sorted start
     config,
     pkgs,

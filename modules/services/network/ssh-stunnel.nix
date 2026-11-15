@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.ssh-stunnel = {vars, ...}: let
+  flake.aspects.ssh-stunnel.nixos = {vars, ...}: let
     inherit (vars) groundDomain;
   in {
     services.stunnel = {

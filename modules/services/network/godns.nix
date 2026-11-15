@@ -55,7 +55,7 @@
       });
     };
 
-    modules.nixos.godns = {
+    aspects.godns.nixos = {
       # keep-sorted start
       config,
       pkgs,

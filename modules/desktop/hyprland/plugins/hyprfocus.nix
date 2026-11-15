@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprlandHyprfocusPlugin = {
+  flake.aspects.hyprlandHyprfocusPlugin.homeManager = {
     # keep-sorted start
     lib,
     pkgs,

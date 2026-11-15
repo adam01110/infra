@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.traefik = {config, ...}: let
+  flake.aspects.traefik.nixos = {config, ...}: let
     templates = config.sops.templates;
   in {
     sops = {

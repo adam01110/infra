@@ -1,10 +1,10 @@
 {inputs, ...}: {
   flake-file.inputs.nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-  flake.modules = {
-    nixos.flatpak.services.flatpak.enable = true;
+  flake.aspects.flatpak = {
+    nixos.services.flatpak.enable = true;
 
-    homeManager.flatpak = {config, ...}: let
+    homeManager = {config, ...}: let
       home = config.home.homeDirectory;
     in {
       imports = [inputs.nix-flatpak.homeManagerModules.nix-flatpak];

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.albedo = {lib, ...}: let
+  flake.aspects.albedo.homeManager = {lib, ...}: let
     inherit
       (builtins)
       # keep-sorted start

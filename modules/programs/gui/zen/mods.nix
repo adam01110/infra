@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.zen = {
+  flake.aspects.zen.homeManager = {
     programs.zen-browser.profiles.default.mods = [
       # keep-sorted start newline_separated=yes
       # Customize the zen context menu.
