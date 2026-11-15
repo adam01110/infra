@@ -65,12 +65,16 @@
       };
 
       figma = {
-        description = "Read Figma designs, frames and components.";
+        description = "Read and edit open Figma files.";
+        # Starts the shared relay on first use rather than at login.
         command = getExe (writeShellApplication {
           name = "figma-mcp";
-          runtimeInputs = [pkgs.nodejs];
+          runtimeInputs = [pkgs.systemd];
+          # Albedo starts servers without XDG_RUNTIME_DIR, which systemctl --user needs.
           text = ''
-            exec npx --yes mcp-remote@0.16.0 https://mcp.figma.com/mcp
+            export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$UID}"
+            systemctl --user start talk-to-figma-relay.service
+            exec ${getExe pkgs.nur.repos.adam0.talk-to-figma-mcp}
           '';
         });
       };
@@ -148,6 +152,16 @@
     secretNames = unique (concatMap (mcp: attrValues (mcp.secrets or {})) (attrValues mcps));
   in {
     sops.secrets = genAttrs secretNames (_: {});
+
+    # The Talk to Figma plugin and MCP server meet on this relay at 127.0.0.1:3055.
+    systemd.user.services.talk-to-figma-relay = {
+      Unit.Description = "Talk to Figma WebSocket relay";
+      Service = {
+        ExecStart = getExe' pkgs.nur.repos.adam0.talk-to-figma-mcp "talk-to-figma-relay";
+        Restart = "on-failure";
+      };
+    };
+
     programs.albedo.mcp = {
       enable = true;
       lazy = true;

@@ -459,6 +459,9 @@
             # keep-sorted end
           };
 
+          # Treats only the Talk to Figma relay as public so LNA stays on for other local services.
+          lna.address_space.public.override = "127.0.0.1:3055";
+
           predictor = {
             enable-prefetch = true;
 
