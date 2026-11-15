@@ -135,7 +135,8 @@
 
       Service = {
         ExecStartPre = ["${configureSurge}"];
-        ExecStart = "${getExe surge-downloader} server start --port 1700 --output ${config.xdg.userDirs.download}";
+        # Marks this unit as the managed service; otherwise Surge sees surge.service active and exits.
+        ExecStart = "${getExe surge-downloader} server start --managed-service --port 1700 --output ${config.xdg.userDirs.download}";
         Restart = "on-failure";
         RestartSec = 5;
         UMask = "0077";
