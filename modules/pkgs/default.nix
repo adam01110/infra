@@ -12,6 +12,9 @@
       crowdsec-blocklist-import
       dashboard-gh-notify
       dashboard-vcs-status
+      discord-bubble-usernames
+      discord-exp-profile
+      discord-solar-icons
       djvutorga-adapter
       dyninput-nvim
       gotify-optimize-images

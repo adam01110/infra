@@ -2,7 +2,7 @@
  * @name system24
  * @description a tui-style discord theme.
  * @author refact0r
- * @version 2.0.0
+ * @version 2.1.0
  * @invite nz87hXyvcy
  * @website https://github.com/refact0r/system24
  * @source https://github.com/refact0r/system24/blob/master/theme/system24.theme.css
@@ -78,6 +78,8 @@ body {
 
   /* Unrounding options */
   --unrounding: on; /* Off: default, on: remove rounded corners from panels */
+  --round-pfp: off; /* Off: square profile pictures, on: rounded profile pictures (Discord default) */
+  --remove-pfp-decor: off; /* Off: default, on: remove profile picture decorations */
 
   /* Styling options */
   --custom-spotify-bar: on; /* Off: default, on: custom text-like spotify progress bar */

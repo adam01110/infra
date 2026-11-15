@@ -181,6 +181,8 @@
         twentyFourHourFormat = true;
       };
 
+      toastNotifications.enable = true;
+
       translate.enable = true;
 
       typingIndicator = {

@@ -13,7 +13,7 @@ time[datetime]:hover::after {
 /* Swap clan tag and role icons. */
 [class^="headerText"] {
   display: inline-flex;
-  & > span:has([class^="roleicon"]) {
+  & > span:has([class^="roleIcon"]) {
     order: 2;
   }
   & > span:has([class^="chipletContainerInner"]) {
@@ -86,11 +86,6 @@ time[datetime]:hover::after {
   }
 }
 
-/* Remove discords checkpoint. */
-.button__85643:nth-of-type(1) {
-  display: none;
-}
-
 /* Hide unused toolbar buttons. */
 [class*="toolbar_"] [class*="clickable_"]:has(path[d^="M4 5a3 3 0 0"]),
 #message-save-for-later-upsell,
@@ -100,107 +95,107 @@ time[datetime]:hover::after {
 }
 
 /* Fix quest progress bars. */
-.progressBar__146e2 {
+.progressBar_loRtN1 {
   background-color: var(--background-mod-strong) !important;
   overflow: hidden !important;
 }
-.progressBar__146e2 circle[stroke^="rgba"] {
+.progressBar_loRtN1 circle[stroke^="rgba"] {
   stroke-width: 40px;
 }
-.inner__146e2 {
+.inner_loRtN1 {
   z-index: 2 !important;
 }
-.content__0d616 .coverContent__146e2.progressTextWrapper__146e2 {
+.coverContent_loRtN1.progressTextWrapper_loRtN1 {
   opacity: 1 !important;
 }
 
 /* Fix for replying to text. */
-.replyLabel__841c8 {
+.replyLabel_rE8-46 {
   font-size: 0 !important;
 }
-.replyLabel__841c8::before {
+.replyLabel_rE8-46::before {
   content: "Replying to\a0";
   font-size: 14px !important;
   color: var(--text-default);
 }
-.replyLabel__841c8 .name__841c8 {
+.replyLabel_rE8-46 .name_rE8-46 {
   font-size: 14px !important;
   margin-left: 0 !important;
   display: inline-block;
 }
 
 /* Fix pfp viewer. */
-.wrapper__44b0c.viewer_d6b206 {
+.wrapper_XpIUHy.viewer_Xa_Vtp {
   mask: none !important;
 }
 
 /* Mark all as read button size fix. */
-[aria-label="Mark All as Read"] .buttonChildrenWrapper_a22cb0 {
+[aria-label="Mark All as Read"] .buttonChildrenWrapper_F7qvhY {
   width: 32px !important;
   height: 32px !important;
 }
 
 /* Consistent folder size */
-.folderIcon__48112 {
+.folderIcon_RTMSuZ {
     height: 32px !important;
     width: 32px !important;
     margin: 4px 0;
 }
-.isExpanded__48112 .folderHeader__48112 {
+.isExpanded_RTMSuZ .folderHeader_RTMSuZ {
     height: 32px !important;
     width: 32px !important;
 }
-.folderGroup__48112 .svg_cc5dd2.shiftSVG_cc5dd2 {
+.folderGroup_RTMSuZ .svg_hqZPsU.shiftSVG_hqZPsU {
     height: 44px !important;
     width: 44px !important;
     margin-left: 2px;
 }
-.folderGroup__48112 {
+.folderGroup_RTMSuZ {
     --guildbar-folder-size: 40px !important;
 }
-.stack_dbd263.folderGuildsList__48112 {
+.stack_TWWX0S.folderGuildsList_RTMSuZ {
     height: calc(100% - 8px) !important;
 }
-.stack_dbd263.folderGuildsList__48112 {
+.stack_TWWX0S.folderGuildsList_RTMSuZ {
     gap: 0 !important;
 }
-.folderGroup__48112 .wrapper_cc5dd2 foreignObject,
-.folderPreviewWrapper__48112 {
+.folderGroup_RTMSuZ .wrapper_hqZPsU foreignObject,
+.folderPreviewWrapper_RTMSuZ {
     border-radius: 10px;
     mask: none;
 }
-.folderPreviewGuildIcon__48112:first-child {
+.folderPreviewGuildIcon_RTMSuZ:first-child {
     border-radius: 7px 4px 4px;
 }
-.folderPreviewGuildIcon__48112:nth-child(2) {
+.folderPreviewGuildIcon_RTMSuZ:nth-child(2) {
     border-radius: 4px 7px 4px 4px;
 }
-.folderGroupBackground__48112 {
+.folderGroupBackground_RTMSuZ {
     height: calc(100% - 2px) !important;
     border-radius: var(--radius-md);
 }
 
 /* Spotify player slider grabber. */
-#vc-spotify-progress-bar .grabber_a562c8 {
+#vc-spotify-progress-bar .grabber_p3RiOL {
   padding: 0 !important;
   height: 100% !important;
   width: 20px !important;
   margin: -13px !important;
 }
-.slider_a562c8:hover .grabber_a562c8 {
+.slider_p3RiOL:hover .grabber_p3RiOL {
   visibility: visible !important;
 }
 
 /* Theme vc buttons on servers. */
-.iconBadge__650eb:not(.isCurrentUserConnected__650eb) {
+.iconBadge_rwEpIL:not(.isCurrentUserConnected_rwEpIL) {
   background-color: var(--accent-1) !important;
 }
 
 /* Review padding fix. */
-.bodySpacerBottom__8a031 {
+.bodySpacerBottom_dvN-MP {
   display: none !important;
 }
-.footer__8a031.section__8a031 {
+.footer_dvN-MP.section_dvN-MP {
   padding-top: 0px !important;
 }
 
@@ -223,10 +218,10 @@ time[datetime]:hover::after {
 }
 
 /* Fix vc text being cut off. */
-.callContainer_cb9592::after {
+.callContainer_hbKzX7::after {
   display: none !important;
 }
-.wrapper_cb9592::after {
+.wrapper_hbKzX7::after {
   content: "vc";
   display: block;
   color: var(--label-color);
@@ -240,26 +235,26 @@ time[datetime]:hover::after {
   font-size: 16px;
   transition: color var(--border-hover-transition);
 }
-.wrapper_cb9592:hover.wrapper_cb9592::after {
+.wrapper_hbKzX7:hover.wrapper_hbKzX7::after {
   color: var(--label-hover-color);
 }
 
 /* Fix background blur. */
-[class="layers__960e4 layers__160d8"] {
+:is([class="layers_Fd0FEH layers_QbT-Jy"], [class="layers_QbT-Jy layers_Fd0FEH"]) {
   backdrop-filter: blur(8px) !important;
 }
 
 /* Fix menus background. */
-.menu_c1e9c4::before {
+.menu_M3qk4j::before {
   width: calc(100% - 2px);
   height: calc(100% - 2px);
 }
-.submenu_c1e9c4.menu_c1e9c4::before {
+.submenu_M3qk4j.menu_M3qk4j::before {
   width: calc(100% - 18px) !important;
 }
 
 /* Report popup hover effect fix. */
-.root__49fc1.small__49fc1.fullscreenOnMobile__49fc1.rootWithShadow__49fc1 {
+.root__KoJTP.small__KoJTP.fullscreenOnMobile__KoJTP.rootWithShadow__KoJTP {
   border: var(--border-thickness) solid var(--border-subtle) !important;
   transition: border-color var(--border-hover-transition) !important;
 
@@ -269,35 +264,35 @@ time[datetime]:hover::after {
 }
 
 /* Fix panel labels colors */
-.wrapper_cb9592,
-.guilds__5e434,
-.panels__5e434,
-.sidebarList__5e434,
-.subtitleContainer_f75fb0,
-.messagesWrapper__36d07,
-.channelTextArea_f75fb0,
-.content_f75fb0 > .membersWrap_c8ffbb,
-.container_c8ffbb,
-.container__133bf > .container__9293f,
-.peopleColumn__133bf,
-.nowPlayingColumn__133bf,
-.container__01ae2 > .container__9293f,
-.callContainer_cb9592 {
+.wrapper_hbKzX7,
+.guilds_pog62O,
+.panels_pog62O,
+.sidebarList_pog62O,
+.subtitleContainer_z_gUBg,
+.messagesWrapper_8AE1Qq,
+.channelTextArea_z_gUBg,
+.content_z_gUBg > .membersWrap_86es0b,
+.container_86es0b,
+.container_zrUwGA > .container_ybUK7Z,
+.peopleColumn_zrUwGA,
+.nowPlayingColumn_zrUwGA,
+.container_FrbQJp > .container_ybUK7Z,
+.callContainer_hbKzX7 {
   &::after {
     background: hsl(from var(--bg-4) h s l / 1);
   }
 }
-.divider__908e2 .content__908e2 {
+.divider_4TfzT5 .content_4TfzT5 {
   background: var(--border-subtle);
 }
 
 /* Fix vc top border thickness. */
-.callContainer_cb9592 {
+.callContainer_hbKzX7 {
   border-top-width: 2px !important;
 }
 
 /* Fix app color text */
-.botText__82f07 {
+.botText_feVUtO {
     color: var(--white);
 }
 
@@ -306,13 +301,9 @@ time[datetime]:hover::after {
     border-radius: 8px !important;
 }
 
-/* fix profile frame */
-.content_f75fb0 > aside > .outer_c0bea0 {
-    overflow: visible !important;
-}
 
 /* Fix border on reply */
-.stackedBars__74017:first-child {
+.stackedBars_2x8-Qn:first-child {
     border-start-end-radius: var(--radius-md);
     border-start-start-radius: var(--radius-md);
 }
