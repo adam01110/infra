@@ -27,7 +27,7 @@
       url = "github:NotAShelf/eh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-file.url = "github:vic/flake-file";
+    flake-file.url = "github:denful/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -45,7 +45,7 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
-    import-tree.url = "github:vic/import-tree";
+    import-tree.url = "github:denful/import-tree";
     lanzaboote = {
       url = "github:nix-community/lanzaboote?ref=v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
