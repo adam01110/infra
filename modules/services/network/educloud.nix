@@ -50,7 +50,8 @@
           exit 1
         fi
         uuid="''${BASH_REMATCH[1]}"
-        nmcli connection modify uuid "$uuid" connection.id Educloud connection.autoconnect no
+        # Educloud only routes 10.0.0.0/8, so keep the default route off the tunnel.
+        nmcli connection modify uuid "$uuid" connection.id Educloud connection.autoconnect no ipv4.never-default yes
         if [ -s "${username}" ]; then
           nmcli connection modify uuid "$uuid" vpn.user-name "$(< "${username}")"
         fi
