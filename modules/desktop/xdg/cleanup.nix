@@ -35,6 +35,12 @@
         RUSTUP_HOME = "${dataHome}/rustup";
         # keep-sorted end
 
+        # .NET toolchains.
+        # keep-sorted start
+        DOTNET_CLI_HOME = "${dataHome}/dotnet";
+        NUGET_PACKAGES = "${cacheHome}/NuGetPackages";
+        # keep-sorted end
+
         # Javascript toolchains.
         # keep-sorted start
         BIOME_CONFIG_PATH = "${configHome}/biome/biome.json";
@@ -48,6 +54,15 @@
         MAVEN_ARGS = "--settings ${configHome}/maven/settings.xml";
         MAVEN_OPTS = "-Dmaven.repo.local=${dataHome}/maven/repository";
         # keep-sorted end
+
+        # Agents and editor tooling.
+        # keep-sorted start
+        COPILOT_HOME = "${configHome}/copilot";
+        PI_CODING_AGENT_DIR = "${dataHome}/pi/agent";
+        # keep-sorted end
+
+        # Keep the pulse client cookie off the legacy home path.
+        PULSE_COOKIE = "${configHome}/pulse/cookie";
 
         # Gaming.
         # keep-sorted start

@@ -1,6 +1,7 @@
 {
   flake.aspects.node-red.homeManager = {
     # keep-sorted start
+    config,
     lib,
     pkgs,
     # keep-sorted end
@@ -19,8 +20,11 @@
 
       nativeBuildInputs = [makeWrapper];
 
+      # Keep flows and installed nodes under xdg data instead of ~/.node-red.
       postBuild = ''
-        wrapProgram $out/bin/node-red --prefix PATH : ${makeBinPath (with pkgs; [
+        wrapProgram $out/bin/node-red \
+          --add-flags "--userDir ${config.xdg.dataHome}/node-red" \
+          --prefix PATH : ${makeBinPath (with pkgs; [
           gcc
           nodejs
         ])}
