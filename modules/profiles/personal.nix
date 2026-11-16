@@ -106,6 +106,7 @@
         # Services
         # keep-sorted start
         avahi
+        educloud
         flatpak
         geoclue
         gnome-keyring
