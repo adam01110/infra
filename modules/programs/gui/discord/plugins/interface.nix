@@ -62,8 +62,6 @@
 
       fullSearchContext.enable = true;
 
-      fullUserInChatbox.enable = true;
-
       fullVcpfp.enable = true;
 
       gameActivityToggle.enable = true;

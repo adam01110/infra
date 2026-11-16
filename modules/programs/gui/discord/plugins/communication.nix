@@ -178,6 +178,8 @@
 
       timezones = {
         enable = true;
+        # Declarative settings drop the runtime flag, so the prompt repeats on every start.
+        askedTimezone = true;
         twentyFourHourFormat = true;
       };
 
