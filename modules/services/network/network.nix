@@ -50,7 +50,14 @@
       networkmanager = {
         enable = true;
         dns = "systemd-resolved";
-        plugins = [pkgs.networkmanager-openvpn];
+
+        # PKCS#11 builds raise OpenVPN's 127-character password limit to
+        # 4095, which the Fontys I-account password exceeds.
+        plugins = [
+          (pkgs.networkmanager-openvpn.override {
+            openvpn = pkgs.openvpn.override {pkcs11Support = true;};
+          })
+        ];
 
         settings = {
           connection = {
