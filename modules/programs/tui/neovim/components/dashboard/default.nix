@@ -7,113 +7,28 @@
     # keep-sorted end
     ...
   }: let
+    inherit (builtins) readFile;
     inherit (lib) escapeShellArg getExe;
-    inherit (lib.generators) mkLuaInline;
+    inherit (lib.generators) mkLuaInline toLua;
 
     colors = config.lib.stylix.colors.withHashtag;
   in {
     # keep-sorted start block=yes newline_separated=yes
-    # Capture dashboard metrics once so the footer can read cached values.
     programs.nvf.settings.vim.luaConfigPreSnippets = [
-      # Cache startup timing and plugin counts after the UI attaches.
-      ''
-        vim.g.snacks_dashboard_start_ns = vim.uv.hrtime()
-          vim.api.nvim_create_autocmd("UIEnter", {
-            once = true,
-            callback = function()
-              local start_plugins = vim.fn.globpath(vim.o.packpath, "pack/*/start/*", 0, 1)
-              local opt_plugins = vim.fn.globpath(vim.o.packpath, "pack/*/opt/*", 0, 1)
-              local loaded = 0
+      # Footer reads these cached metrics.
+      (readFile ./metrics.lua)
 
-              for _, path in ipairs(vim.api.nvim_list_runtime_paths()) do
-                if path:find("/pack/", 1, true)
-                  and (path:find("/start/", 1, true) or path:find("/opt/", 1, true))
-                then
-                  loaded = loaded + 1
-                end
-              end
-
-            vim.g.snacks_dashboard_metrics = {
-              loaded = loaded,
-              ms = (vim.uv.hrtime() - vim.g.snacks_dashboard_start_ns) / 1e6,
-              total = #start_plugins + #opt_plugins,
-            }
-          end,
-        })
       ''
+        do
+          local setup = (function()
+            ${readFile ./highlights.lua}
+          end)()
 
-      # Keep dashboard labels and file/project icons on the requested colors.
-      ''
-        local function apply_dashboard_highlights()
-          vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { link = "Function" })
-          vim.api.nvim_set_hl(0, "SnacksDashboardFileIcon", { fg = "${colors.base0E}" })
-          vim.api.nvim_set_hl(0, "SnacksDashboardDirIcon", { fg = "${colors.base0E}" })
+          setup(${toLua {} colors.base0E})
         end
-
-        apply_dashboard_highlights()
-
-        vim.api.nvim_create_autocmd("ColorScheme", {
-          callback = apply_dashboard_highlights,
-        })
       ''
 
-      # Adjust local UI behavior while the Snacks dashboard buffer is active.
-      ''
-        local function configure_dashboard_ui()
-          if vim.bo.filetype ~= "snacks_dashboard" then
-            return
-          end
-
-          vim.opt_local.scrolloff = 0
-          vim.b.snacks_scroll = false
-
-          if vim.g.dashboard_saved_mouse == nil then
-            vim.g.dashboard_saved_mouse = vim.go.mouse
-          end
-
-          vim.go.mouse = ""
-
-          local group = vim.api.nvim_create_augroup("dashboard_mouse_restore", { clear = true })
-          local function restore_mouse()
-            local saved_mouse = vim.g.dashboard_saved_mouse
-            if vim.bo.filetype == "snacks_dashboard" or saved_mouse == nil then
-              return
-            end
-
-            vim.go.mouse = saved_mouse
-            vim.g.dashboard_saved_mouse = nil
-            pcall(vim.api.nvim_del_augroup_by_id, group)
-          end
-
-          vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-            group = group,
-            callback = restore_mouse,
-          })
-
-          vim.schedule(function()
-            vim.o.laststatus = 3
-            vim.o.showtabline = 2
-            require("lualine").refresh({ force = true, place = { "statusline", "tabline" } })
-          end)
-        end
-
-        function _G.open_snacks_dashboard()
-          local buf = vim.api.nvim_get_current_buf()
-          if vim.bo[buf].filetype ~= "snacks_dashboard" then
-            buf = vim.api.nvim_create_buf(false, true)
-          end
-
-          return Snacks.dashboard.open({
-            buf = buf,
-            win = vim.api.nvim_get_current_win(),
-          })
-        end
-
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "SnacksDashboardOpened",
-          callback = configure_dashboard_ui,
-        })
-      ''
+      (readFile ./ui.lua)
     ];
 
     sops.secrets.github_token = {};
