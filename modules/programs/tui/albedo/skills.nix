@@ -37,6 +37,13 @@
       };
     };
   in {
+    # The CLI behind the modern-web-guidance skill, serving the rewritten guides.
+    home.packages = [
+      (pkgs.nur.repos.adam0.modern-web-guidance.override {
+        guides = ./skills/modern-web-guidance/guides;
+      })
+    ];
+
     home.activation.configureAlbedoSkills = mkIf cfg.enable (entryAfter ["configureAlbedoSettings"] ''
       run ${getExe albedo-configure} ${escapeShellArg cfg.home} ${skillChoices} capabilities.json
     '');
