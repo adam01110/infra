@@ -28,8 +28,8 @@ without explicit user authorization for the task.
 3. Use targeted `screenshot` or `zoom` when accessibility cannot describe the
    surface. Re-observe after each action. Use short, known sequences rather
    than a speculative plan, because a wrong step can submit or delete data.
-4. `await mcp.unload("computer-use")` when finished or interrupted. Do not leave
-   a server loaded for unrelated work.
+4. Stop calling it when finished or interrupted; the server closes itself after
+   its idle timeout. There is no unload.
 
 Synthetic keypresses do not trigger Hyprland keybinds; run a listed bind with
 `use_bind`. Binds bound to closures rather than dispatchers cannot run that

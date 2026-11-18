@@ -13,6 +13,7 @@
       (lib)
       # keep-sorted start
       concatMap
+      elem
       genAttrs
       getExe
       getExe'
@@ -149,6 +150,18 @@
       # keep-sorted end
     };
 
+    # These hold an open document, channel or session in the server process, which idle cleanup would discard.
+    stateful = [
+      # keep-sorted start
+      "deckcraft"
+      "figma"
+      "gridcraft"
+      "penpot"
+      "rea"
+      "wordcraft"
+      # keep-sorted end
+    ];
+
     secretNames = unique (concatMap (mcp: attrValues (mcp.secrets or {})) (attrValues mcps));
   in {
     sops.secrets = genAttrs secretNames (_: {});
@@ -166,9 +179,13 @@
       enable = true;
       lazy = true;
       servers =
-        mapAttrs (_: mcp: {
+        mapAttrs (name: mcp: {
           inherit (mcp) command;
           description = mcp.description or "";
+          idleTimeoutMs =
+            if elem name stateful
+            then 0
+            else null;
           args = mcp.args or [];
           environment = mcp.environment or {};
           secretFiles = mapAttrs (_: secret: config.sops.secrets.${secret}.path) (mcp.secrets or {});

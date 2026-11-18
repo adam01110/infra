@@ -87,8 +87,8 @@ use web search when it lacks the library or for releases, changelogs, and
 issues.
 
 Fall back only when the server lacks the operation or fails, and say so in the
-reply. Unload servers when finished. `computer-use` controls the real
-desktop, so use it only when the user asks for it.
+reply. Servers close themselves when idle; there is no unload. `computer-use`
+controls the real desktop, so use it only when the user asks for it.
 </mcp>
 
 <version_control>
