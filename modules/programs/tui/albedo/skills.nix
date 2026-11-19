@@ -30,6 +30,7 @@
         complexity-review = false;
         customize-albedo = true;
         design-preflight = false;
+        imagegen = false;
         orchestrating-agents = true;
         research = false;
         running-experiments = false;
