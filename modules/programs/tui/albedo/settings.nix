@@ -31,8 +31,8 @@
           bedrock = true;
           claude = true;
           codex = true;
+          coding-lcm = true;
           exa = true;
-          lcm = true;
           lcm-memory = true;
           mcp = true;
           mistral = true;
