@@ -21,6 +21,9 @@
     downloadsDir = config.xdg.userDirs.download;
     monospaceFont = config.stylix.fonts.monospace.name;
   in {
+    # Keep native widgets instead of the Stylix Fusion theme.
+    stylix.targets.prismlauncher.enable = false;
+
     programs.prismlauncher = {
       enable = true;
 
@@ -64,10 +67,10 @@
 
         # Set the console font.
         # keep-sorted start
+        ConsoleFont = monospaceFont;
         ConsoleFontSize = 11;
         ConsoleMaxLines = 100000;
         ConsoleOverflowStop = true;
-        Consolefont = monospaceFont;
         # keep-sorted end
 
         # Keep console hidden during normal launches and failures.
