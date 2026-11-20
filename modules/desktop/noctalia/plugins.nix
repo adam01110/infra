@@ -44,7 +44,7 @@
     home = {
       file.".local/state/noctalia/plugins/data/noctalia/world_clock/zones.json" = {
         force = true;
-        source = jsonFormat.generate "noctalia-world-clock-zones.json" [
+        source = jsonFormat.generate "noctalia-world-clock-zones" [
           "UTC"
           "Europe/Amsterdam"
           "Europe/London"

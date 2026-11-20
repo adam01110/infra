@@ -62,7 +62,7 @@
       '';
     };
 
-    xdg.configFile."surge/themes/stylix.toml".source = tomlFormat.generate "surge-stylix.toml" {
+    xdg.configFile."surge/themes/stylix.toml".source = tomlFormat.generate "surge-stylix" {
       colors = with colors; {
         name = "Stylix";
         primary = {

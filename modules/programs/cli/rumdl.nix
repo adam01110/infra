@@ -8,7 +8,7 @@
   }: let
     tomlFormat = pkgs.formats.toml {};
   in {
-    xdg.configFile."rumdl/rumdl.toml".source = tomlFormat.generate "rumdl-config.toml" {
+    xdg.configFile."rumdl/rumdl.toml".source = tomlFormat.generate "rumdl-config" {
       global.cache_dir = "${config.xdg.cacheHome}/rumdl";
     };
   };

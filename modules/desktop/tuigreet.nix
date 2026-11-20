@@ -28,7 +28,7 @@ _: {
         uwsm = getExe config.programs.uwsm.package;
         # keep-sorted end
       in
-        tomlFormat.generate "tuigreet-config.toml" {
+        tomlFormat.generate "tuigreet-config" {
           # keep-sorted start block=yes newline_separated=yes
           display = {
             show_time = true;

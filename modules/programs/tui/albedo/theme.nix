@@ -35,7 +35,7 @@
   in {
     programs.albedo.environment.ALBEDO_THEME_FILE = "${config.xdg.configHome}/albedo/theme.json";
     xdg.configFile."albedo/theme.json" = mkIf config.programs.albedo.enable {
-      source = jsonFormat.generate "albedo-theme.json" (genAttrs slots (name: colors.${name}));
+      source = jsonFormat.generate "albedo-theme" (genAttrs slots (name: colors.${name}));
     };
   };
 }

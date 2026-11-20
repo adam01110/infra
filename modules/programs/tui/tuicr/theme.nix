@@ -18,7 +18,7 @@
       config.programs.bat.themes."base16-stylix".src;
 
     programs.tuicr.themes.stylix = with colors;
-      tomlFormat.generate "tuicr-stylix-theme.toml" {
+      tomlFormat.generate "tuicr-stylix-theme" {
         syntax_theme = "stylix.tmTheme";
 
         # keep-sorted start

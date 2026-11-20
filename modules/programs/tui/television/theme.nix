@@ -11,7 +11,7 @@
     colors = config.lib.stylix.colors.withHashtag;
   in {
     xdg.configFile."television/themes/".source = with colors;
-      tomlFormat.generate "television-stylix.toml" {
+      tomlFormat.generate "television-stylix" {
         # General
         # keep-sorted start
         background = base00;

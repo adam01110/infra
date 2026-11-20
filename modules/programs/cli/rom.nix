@@ -24,7 +24,7 @@
       in {
         home.packages = [pkgs.rom];
 
-        xdg.configFile."rom/config.toml".source = tomlFormat.generate "rom-config.toml" {
+        xdg.configFile."rom/config.toml".source = tomlFormat.generate "rom-config" {
           legend = "compact";
           log-prefix = "full";
           summary = "table";

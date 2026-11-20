@@ -36,7 +36,7 @@
       Install.WantedBy = ["graphical-session.target"];
     };
 
-    xdg.configFile."gotify-desktop/config.toml".source = tomlFormat.generate "gotify-desktop-config.toml" {
+    xdg.configFile."gotify-desktop/config.toml".source = tomlFormat.generate "gotify-desktop-config" {
       gotify = {
         auto_delete = false;
         token.command = "cat ${config.sops.secrets."gotify/desktop_token".path}";

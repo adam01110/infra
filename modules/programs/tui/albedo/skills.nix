@@ -24,7 +24,7 @@
 
     cfg = config.programs.albedo;
 
-    skillChoices = jsonFormat.generate "albedo-skills.json" {
+    skillChoices = jsonFormat.generate "albedo-skills" {
       global.skills = {
         # keep-sorted start
         complexity-review = false;

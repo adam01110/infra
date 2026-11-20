@@ -20,7 +20,7 @@
     jsonFormat = pkgs.formats.json {};
 
     colors = config.lib.stylix.colors.withHashtag;
-    glamourStyle = jsonFormat.generate "glab-stylix.json" (mkGlamourStyle colors);
+    glamourStyle = jsonFormat.generate "glab-stylix" (mkGlamourStyle colors);
 
     # Replace the upstream brand palette in help and interactive prompts.
     brandColors = {

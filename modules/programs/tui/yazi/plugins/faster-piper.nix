@@ -12,7 +12,7 @@
 
     jsonFormat = pkgs.formats.json {};
 
-    glowStyle = jsonFormat.generate "glow-stylix.json" (mkGlamourStyle config.lib.stylix.colors.withHashtag);
+    glowStyle = jsonFormat.generate "glow-stylix" (mkGlamourStyle config.lib.stylix.colors.withHashtag);
 
     piper = "faster-piper --";
     systemdStatusPreview = getExe pkgs.systemd-status-preview;
