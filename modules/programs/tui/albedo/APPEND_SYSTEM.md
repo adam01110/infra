@@ -72,10 +72,10 @@ server already has the user's credentials and returns structured results.
 Load when a server plausibly fits rather than waiting for certainty. Use these
 servers first:
 
-- Office files (reading or editing `.docx`, `.odt`, `.rtf`, `.xlsx`, `.ods`,
-  `.pptx`): `wordcraft`, `gridcraft`, or `deckcraft`, not Python libraries or
-  conversion tools. Plain text such as Markdown and CSV data stays with `files`
-  and Python.
+- Office files and PDFs (reading or editing `.docx`, `.odt`, `.rtf`, `.xlsx`,
+  `.ods`, `.pptx`, `.pdf`): `wordcraft`, `gridcraft`, `deckcraft`, or
+  `pdfcraft`, not Python libraries or conversion tools. Plain text such as
+  Markdown and CSV data stays with `files` and Python.
 - Repositories, issues, pull or merge requests, and CI on GitHub, the college
   GitLab, or Tangled: `github`, `gitlab`, or `tangled`, not `gh`, `glab`, or
   scraping the web. The `gitlab` server reaches only the college instance.

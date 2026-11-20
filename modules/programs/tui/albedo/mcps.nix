@@ -105,6 +105,12 @@
         command = getExe' pkgs.gridcraft "gridcraft-cli";
       };
 
+      pdfcraft = {
+        description = "Read, create and edit PDFs: pages, text, forms, comments, OCR.";
+        args = ["mcp"];
+        command = getExe' pkgs.pdfcraft "pdfcraft-cli";
+      };
+
       penpot = {
         description = "Penpot designs: inspect, edit and export pages and shapes.";
         command = getExe (writeShellApplication {
@@ -156,6 +162,7 @@
       "deckcraft"
       "figma"
       "gridcraft"
+      "pdfcraft"
       "penpot"
       "rea"
       "wordcraft"

@@ -92,6 +92,7 @@
         gotify-desktop
         gridcraft
         loupe
+        pdfcraft
         proton
         seahorse
         showtime
