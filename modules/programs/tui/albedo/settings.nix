@@ -51,6 +51,14 @@
           # keep-sorted end
         };
 
+        # Monitor freshness; Anthropic's usage endpoint 429s on faster polling.
+        quota = {
+          # keep-sorted start
+          busyPollSeconds = 60;
+          pollSeconds = 120;
+          # keep-sorted end
+        };
+
         subagents = {
           # keep-sorted start
           maxDepth = 1;
