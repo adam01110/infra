@@ -235,6 +235,7 @@
             extensions = [".rs"];
             languageId = "rust";
             rootMarkers = [".git"];
+            settings."rust-analyzer".check.command = "clippy";
           })
 
           (mkServer {

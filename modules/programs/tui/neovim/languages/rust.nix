@@ -74,7 +74,33 @@
         # keep-sorted end
       };
 
-      lsp.servers."rust-analyzer".settings."rust-analyzer".rustfmt.overrideCommand = [(getExe pkgs.rustfmt)];
+      lsp.servers."rust-analyzer".settings."rust-analyzer" = {
+        # keep-sorted start block=yes newline_separated=yes
+        check.command = "clippy";
+
+        completion.fullFunctionSignatures.enable = true;
+
+        # Enables every hint that is off by default.
+        inlayHints = {
+          # keep-sorted start
+          bindingModeHints.enable = true;
+          closureCaptureHints.enable = true;
+          closureReturnTypeHints.enable = "always";
+          discriminantHints.enable = "always";
+          expressionAdjustmentHints.enable = "always";
+          genericParameterHints.lifetime.enable = true;
+          genericParameterHints.type.enable = true;
+          implicitDrops.enable = "always";
+          implicitSizedBoundHints.enable = true;
+          lifetimeElisionHints.enable = "always";
+          parameterHints.missingArguments.enable = true;
+          rangeExclusiveHints.enable = true;
+          # keep-sorted end
+        };
+
+        rustfmt.overrideCommand = [(getExe pkgs.rustfmt)];
+        # keep-sorted end
+      };
     };
   };
 }
