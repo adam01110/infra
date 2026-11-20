@@ -72,6 +72,7 @@
         nys
         ouch
         ripgrep
+        rom
         speedtest
         starship
         sudo
