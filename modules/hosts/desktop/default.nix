@@ -13,6 +13,9 @@
         roccat
         tablet
         # keep-sorted end
+
+        # Services
+        sunshine
       ];
 
       nixos = {pkgs, ...}: {
