@@ -12,6 +12,9 @@
         delete = "";
         # keep-sorted end
       };
+
+      # Blending against the cleared Normal background mixes with black, not gruvbox.
+      winblend = 0;
       # keep-sorted end
     };
   };
