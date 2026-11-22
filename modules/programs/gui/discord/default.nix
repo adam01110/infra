@@ -25,14 +25,12 @@
       escapeShellArg
       genAttrs
       getExe'
-      makeOverridable
       mkForce
       # keep-sorted end
       ;
     inherit (lib.hm) dag;
 
     inherit (pkgs) coreutils;
-    inherit (pkgs.nur.repos.adam0) equibop-fixed;
 
     settingsPaths = [
       # keep-sorted start
@@ -49,11 +47,6 @@
 
       equibop = {
         enable = true;
-        # Forward Nixcord's overrides to the underlying Equibop derivation.
-        package = makeOverridable ({withMiddleClickScroll ? false}:
-          equibop-fixed.override {
-            equibop = pkgs.equibop.override {inherit withMiddleClickScroll;};
-          }) {};
         configDir = "${config.xdg.configHome}/equibop";
       };
     };
