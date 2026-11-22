@@ -8,14 +8,14 @@
 
   NixOS and Home Manager configuration for my desktop, laptop and homelab server.
 
-  [![Repo Size](https://img.shields.io/github/repo-size/adam01110/infra?style=flat-square&label=repo%20size&labelColor=504945&color=3c3836)](https://github.com/adam01110/infra)
+  [![Repo Size](https://img.shields.io/github/repo-size/adam01110/infra?style=flat-square&labelColor=504945&label=repo%20size&color=3c3836)](https://github.com/adam01110/infra)
   <br />
+  [![Nix](https://img.shields.io/badge/Nix-flakes-689d6a?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://nixos.wiki/wiki/Flakes)
   [![NixOS](https://img.shields.io/badge/NixOS-unstable-458588?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://nixos.org)
-  [![Flakes](https://img.shields.io/badge/Nix-flakes-689d6a?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://nixos.wiki/wiki/Flakes)
-  [![Home Manager](https://img.shields.io/badge/Home%20Manager-managed-b16286?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://github.com/nix-community/home-manager)
-  [![Stylix](https://img.shields.io/badge/Stylix-theming-8f3f71?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://github.com/danth/stylix)
-  [![SOPS Nix](https://img.shields.io/badge/SOPS%20Nix-secrets-fe8019?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://github.com/Mic92/sops-nix)
-  [![Disko](https://img.shields.io/badge/Disko-storage-98971a?style=flat-square&labelColor=504945&logo=nixos&logoColor=ebdbb2)](https://github.com/nix-community/disko)
+  [![Home Manager](https://img.shields.io/badge/Home%20Manager-managed-b16286?style=flat-square&labelColor=504945)](https://github.com/nix-community/home-manager)
+  [![Stylix](https://img.shields.io/badge/Stylix-theming-8f3f71?style=flat-square&labelColor=504945)](https://github.com/danth/stylix)
+  [![SOPS Nix](https://img.shields.io/badge/SOPS%20Nix-secrets-fe8019?style=flat-square&labelColor=504945)](https://github.com/Mic92/sops-nix)
+  [![Disko](https://img.shields.io/badge/Disko-storage-98971a?style=flat-square&labelColor=504945)](https://github.com/nix-community/disko)
 
   [Machines](#machines) - [Configuration](#configuration) - [Layout](#layout) - [Making changes](#making-changes)
 </div>
