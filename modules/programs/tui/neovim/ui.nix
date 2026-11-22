@@ -1,5 +1,7 @@
 {
-  flake.aspects.neovim.homeManager = {config, ...}: {
+  flake.aspects.neovim.homeManager = {config, ...}: let
+    colors = config.lib.stylix.colors.withHashtag;
+  in {
     programs.nvf.settings.vim = let
       inherit (config.programs.nvf.settings.vim.ui) borderType;
     in {
@@ -49,7 +51,22 @@
         };
       };
 
-      visuals.nvim-web-devicons.enable = true;
+      visuals.nvim-web-devicons = {
+        enable = true;
+
+        # Paints every icon with one base16 color instead of per-filetype colors.
+        setupOpts = {
+          color_icons = false;
+
+          override.default_icon = {
+            # keep-sorted start
+            color = colors.base0D;
+            icon = "";
+            name = "Default";
+            # keep-sorted end
+          };
+        };
+      };
       # keep-sorted end
     };
   };
