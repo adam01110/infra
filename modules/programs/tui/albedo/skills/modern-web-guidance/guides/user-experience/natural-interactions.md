@@ -140,6 +140,16 @@ Polyfill caveats:
 }
 ```
 
+Until the polyfill loads, unsupported browsers render popovers as ordinary visible content. Hide them with CSS in the meantime:
+
+```css
+@supports not selector(:popover-open) {
+  [popover]:not(.\:popover-open) {
+    display: none;
+  }
+}
+```
+
 ### Anchor positioning
 
 Baseline status for the html.elements.button.popovertarget.implicit_anchor_reference capability: Newly available. It's been Baseline since 2026-01-13.

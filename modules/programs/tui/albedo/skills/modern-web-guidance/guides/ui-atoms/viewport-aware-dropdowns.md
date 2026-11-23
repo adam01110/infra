@@ -89,6 +89,16 @@ Polyfill caveats:
 }
 ```
 
+Until the polyfill loads, unsupported browsers render popovers as ordinary visible content. Hide them with CSS in the meantime:
+
+```css
+@supports not selector(:popover-open) {
+  [popover]:not(.\:popover-open) {
+    display: none;
+  }
+}
+```
+
 ### Anchor positioning
 
 Browser support for Anchor positioning: Limited availability.

@@ -275,7 +275,7 @@ For the responsive design entry point (dynamic viewport units, reserving space f
 ## 8 Grid lanes (masonry)
 
 Browser support for Grid lanes: Limited availability.
-Supported by: Safari 27.2.
+Supported by: Safari 27.2 (Oct 2026).
 Unsupported in: Chrome, Edge, and Firefox.
 
 The specification is being developed as "grid lanes" (such as `display: grid-lanes`); earlier experimental prototypes used `grid-template-rows: masonry`.

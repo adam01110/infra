@@ -35,9 +35,12 @@ const tbody = table.tBodies[0];
 const status = document.getElementById('sort-status'); // A visually hidden role="status" element.
 
 table.addEventListener('command', (event) => {
-  if (event.command !== '--sort') return;
+  if (event.command === '--sort') sortBy(event.source);
+});
 
-  const th = event.source.closest('th');
+// `button` is the header button that was activated.
+function sortBy(button) {
+  const th = button.closest('th');
   const direction = th.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending';
 
   for (const header of table.tHead.rows[0].cells) header.removeAttribute('aria-sort');
@@ -46,8 +49,8 @@ table.addEventListener('command', (event) => {
   const rows = sortRows([...tbody.rows], th.cellIndex, th.dataset.type, direction);
   reorderWithTransition(rows);
   // One message per sort; the status element must already be in the DOM.
-  status.textContent = `Sorted by ${event.source.textContent.trim()}, ${direction}, ${rows.length} rows`;
-});
+  status.textContent = `Sorted by ${button.textContent.trim()}, ${direction}, ${rows.length} rows`;
+}
 ```
 
 - The first activation sorts ascending and each repeat toggles the direction. Switching to another column starts ascending again.
@@ -132,7 +135,21 @@ Wrap the table in a horizontally scrollable container (`overflow-x: auto`) with 
 Baseline status for Invoker commands: Newly available. It's been Baseline since 2025-12-12.
 Supported by: Chrome 135 (Apr 2025), Edge 135 (Apr 2025), Firefox 144 (Oct 2025), and Safari 26.2 (Dec 2025).
 
-If your Baseline target lacks invoker commands, add a `click` listener to each header button that runs the same sort function; behaviour is identical. Either way the buttons do nothing without JavaScript, so if the table must stay fully readable without it, add them from script.
+If your Baseline target lacks invoker commands, the `command` event never fires and the header buttons do nothing. Feature-detect support and, only when it is missing, add a `click` listener to each header button that runs the same sort function. Mouse, touch and keyboard activation then behave the same, so the fallback is faithful.
+
+```javascript
+// Only without invoker commands: in supporting browsers a click also fires `command`,
+// so an unconditional click listener would sort twice and undo the first sort.
+if (!('commandForElement' in HTMLButtonElement.prototype)) {
+  for (const button of table.tHead.querySelectorAll('button[command="--sort"]')) {
+    button.addEventListener('click', () => sortBy(button));
+  }
+}
+```
+
+Do not fall back to `pointer-events: none` on the buttons. They stay focusable and keyboard-activatable, so keyboard users reach controls that silently do nothing.
+
+Either way the buttons do nothing without JavaScript, so if the table must stay fully readable without it, add them from script.
 
 Browser support for Element-scoped view transitions: Limited availability.
 Supported by: Chrome 147 (Apr 2026) and Edge 147 (Apr 2026).

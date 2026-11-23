@@ -29,14 +29,14 @@ ul::before {
 }
 ```
 
-Position the underline with inset properties and `anchor()` functions. Avoid `position-area` here, because it cannot be transitioned.
+Position the underline with logical insets and `anchor(self-start)` or `anchor(self-end)`. Avoid `position-area` here, because it cannot be transitioned. Unlike `start` and `end`, the `self-*` keywords use the underline's own writing mode rather than its containing block's, so the anchor sides stay consistent with the logical insets when an RTL tab list sits inside an LTR page and no ancestor of the underline within the RTL section establishes a containing block.
 
 ```css
 ul::before {
-  /* calc() offsets the underline slightly below the anchor. */
-  inset-block-start: calc(anchor(bottom) + .1lh);
-  inset-inline-start: anchor(left);
-  inset-inline-end: anchor(right);
+  /* A small gap between the indicator and the tab's block-end edge. */
+  inset-block-start: calc(anchor(self-end) + .1lh);
+  inset-inline-start: anchor(self-start);
+  inset-inline-end: anchor(self-end);
 }
 ```
 
@@ -76,17 +76,30 @@ The underline is only a visual indicator. It does not replace `aria-current="pag
 
 ## Fallback strategies
 
-Browser support for Anchor positioning: Limited availability.
-Supported by: Chrome 157 (Nov 2026), Edge 157 (Nov 2026), and Safari 27 (Sep 2026).
-Unsupported in: Firefox.
+### Anchor positioning
 
-Without anchor positioning, underline the active tab with a static `border-bottom`. It will not animate.
+Baseline status for the css.types.anchor capability: Newly available. It's been Baseline since 2026-01-13.
+Supported by: Chrome 125 (May 2024), Edge 125 (May 2024), Firefox 147 (Jan 2026), and Safari 26 (Sep 2025).
+
+Without the anchor positioning used here, hide the pseudo-element and draw a static `border-block-end` on the active tab. The border follows the tab's writing mode.
 
 ```css
-ul li.active {
-  @supports not (position-anchor: auto) {
+@supports not (position-anchor: --active) {
+  ul::before {
+    content: none;
+  }
+
+  ul li.active {
     /* Use a color that suits the app theme. */
-    border-bottom: .25lh var(--primary) solid;
+    border-block-end: .25lh solid currentColor;
   }
 }
 ```
+
+### Anchor positioning animations
+
+Browser support for Anchor positioning animations and transitions: Limited availability.
+Supported by: Chrome 125 (May 2024), Edge 125 (May 2024), and Safari 26 (Sep 2025).
+Unsupported in: Firefox.
+
+Where the underline can be anchored but `anchor()` values cannot be transitioned, keep the anchored underline. It jumps straight to the new active tab when the selection changes.

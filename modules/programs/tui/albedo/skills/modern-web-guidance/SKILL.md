@@ -11,7 +11,7 @@ license: Apache-2.0
 compatibility: Requires the modern-web-guidance CLI on PATH (Node.js 22 or later).
 metadata:
   author: Google Chrome (modern-web-guidance), adapted by Adam0
-  version: "1.0.1"
+  version: "1.0.2"
   short-description: Current web platform APIs, browser support and fallbacks
 ---
 

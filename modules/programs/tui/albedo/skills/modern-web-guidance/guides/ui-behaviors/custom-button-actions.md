@@ -67,7 +67,7 @@ The Invoker Commands API lets buttons trigger actions on target elements declara
 ## Key constraints
 
 - Every custom command name starts with `--` (for example `command="--my-action"`).
-- `commandfor` must match the `id` of an element in the same document tree.
+- `commandfor` must match the `id` of an element in the same tree as the button (the same document or shadow root).
 - The `command` event doesn't bubble. With several possible targets, listen on an ancestor with `{ capture: true }`.
 - If the target may be in a shadow root, use `event.composedPath()[0]` instead of `event.target`.
 
@@ -144,10 +144,13 @@ if (!globalThis.CommandEvent) {
   }
 
   document.addEventListener('click', (event) => {
+    // Respect handlers that already canceled the button's activation.
+    if (event.defaultPrevented) return;
     const button = event.composedPath().find((el) => el.matches?.("button[commandfor]"));
     if (!button) return;
 
-    const target = document.getElementById(button.getAttribute('commandfor'));
+    // Resolve within the button's tree, since IDs can repeat across shadow roots.
+    const target = button.getRootNode().getElementById(button.getAttribute('commandfor'));
     const command = button.getAttribute('command');
 
     if (target && command) {

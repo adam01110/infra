@@ -243,11 +243,20 @@ Polyfill caveats:
 }
 ```
 
+Until the polyfill loads, unsupported browsers render popovers as ordinary visible content. Hide them with CSS in the meantime:
+
+```css
+@supports not selector(:popover-open) {
+  [popover]:not(.\:popover-open) {
+    display: none;
+  }
+}
+```
+
 ### Anchor positioning
 
-Browser support for Anchor positioning: Limited availability.
-Supported by: Chrome 157 (Nov 2026), Edge 157 (Nov 2026), and Safari 27 (Sep 2026).
-Unsupported in: Firefox.
+Baseline status for the css.types.anchor capability: Newly available. It's been Baseline since 2026-01-13.
+Supported by: Chrome 125 (May 2024), Edge 125 (May 2024), Firefox 147 (Jan 2026), and Safari 26 (Sep 2025).
 
 For the mobile menu, put a fixed fallback declaration before the `anchor()` declaration. No `@supports` is needed: browsers discard the unsupported `anchor()` declaration and keep the one before it. The menu then still opens as a popover at a fixed offset from the top of the viewport.
 

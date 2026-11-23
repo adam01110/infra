@@ -101,6 +101,41 @@ window.addEventListener('message', (event) => {
 targetWindow.postMessage({ action: 'update' }, 'https://trusted-origin.com');
 ```
 
+### 1.6 WebSocket connections
+
+Browsers do not enforce CORS on WebSocket handshakes, and they still attach eligible cookies to the upgrade request: `SameSite=Lax` and `SameSite=Strict` cookies from same-site subdomains or ports, `SameSite=None` cookies cross-site, and cookies without a `SameSite` attribute in browsers that do not default to `Lax`. Every WebSocket endpoint therefore needs explicit server-side `Origin` validation to prevent Cross-Site WebSocket Hijacking (CSWSH).
+
+- Use `wss://` (TLS) for public WebSocket endpoints that are not local. Mixed Content blocking stops public `ws://` connections from `https://` pages, but `http://` pages and hardcoded `ws://` configurations stay exposed. Reserve `ws://` for loopback development or explicit Local Network Access exemptions (private IP literals and `.local` mDNS hostnames; see the `local-network-access` guide).
+- Validate the `Origin` header against an explicit allowlist of trusted origins inside the handshake handler (for example an HTTP/1.1 `upgrade` handler or an HTTP/2 extended `CONNECT` handler). Reject missing or unexpected origins with HTTP `403` before completing the handshake.
+- Do not rely on `Sec-Fetch-*` headers instead of `Origin`. Not every browser sends them on WebSocket upgrades, so rejecting requests without them breaks connections, while accepting such requests leaves those browsers unprotected. `Sec-Fetch-Site: same-site` also admits untrusted subdomains.
+- Do not pass authentication tokens or secrets in the WebSocket URL query (`wss://example.com/ws?token=...`) or in the `Sec-WebSocket-Protocol` header; both leak credentials into server access logs and proxies.
+- Authenticate the session by pairing strict `Origin` validation with hardened session cookies (1.3), or by requiring authentication in the first message over `wss://` and closing the socket after a short timeout if none arrives. `__Host-` cookies are host-only and are not sent to a separate WebSocket subdomain; that setup needs a `__Secure-` cookie with `Domain`, or authentication that does not use cookies.
+
+```javascript
+import { WebSocketServer } from 'ws';
+
+// Replace with your application's trusted origin(s).
+const ALLOWED_ORIGINS = new Set(['https://app.example.com']);
+// noServer stops `ws` from registering a competing `upgrade` listener that bypasses the check.
+const wss = new WebSocketServer({ noServer: true });
+
+server.on('upgrade', (req, socket, head) => {
+  // Node drops its default socket error handler on `upgrade`; this prevents unhandled ECONNRESET crashes.
+  socket.on('error', () => {});
+
+  const origin = req.headers.origin;
+  if (!origin || !ALLOWED_ORIGINS.has(origin)) {
+    socket.end('HTTP/1.1 403 Forbidden\r\nConnection: close\r\nContent-Length: 0\r\n\r\n');
+    return;
+  }
+
+  // Verify the hardened session cookie (1.3), or enforce first-message auth with a short timeout.
+  wss.handleUpgrade(req, socket, head, (ws) => {
+    wss.emit('connection', ws, req);
+  });
+});
+```
+
 ## Phase 2: Discovery and data collection
 
 Do not apply strict policies blindly to an existing application. Collect data first to learn its constraints.
@@ -272,14 +307,19 @@ Set CORP explicitly on each response according to whether other contexts should 
 
 The highest breakage risk. Deploy it only if the application needs features that depend on `SharedArrayBuffer` (such as WebAssembly multithreading or shared-memory architectures); otherwise skip it.
 
-- Preferred path (Chromium): `Document-Isolation-Policy: isolate-and-credentialless`. It gives client-side isolation comparable to COEP, but strips cookies and credentials from non-CORS cross-origin subresource requests instead of blocking them. It is supported mainly in Chrome (142+), and other vendors have not yet shown interest, so weigh it against your audience. Apps that need to block cross-origin resources without an explicit CORP opt-in (rather than load them without credentials) can use `isolate-and-require-corp`, which is stricter and harder to deploy: it needs the same subresource audit as the cross-browser path.
-- Cross-browser path: `Cross-Origin-Opener-Policy: same-origin` plus `Cross-Origin-Embedder-Policy: require-corp`. Every embedded subresource (images, styles, external media) must then send an explicit `Cross-Origin-Resource-Policy` header, or the browser refuses to load it.
+- Cross-browser default: serve the document with `Cross-Origin-Opener-Policy: same-origin` plus `Cross-Origin-Embedder-Policy: require-corp` (or `Cross-Origin-Embedder-Policy: credentialless` where supported). Under `require-corp`, every cross-origin subresource (images, scripts, styles, media) must opt in, either with a `Cross-Origin-Resource-Policy` header (`cross-origin` or `same-site`) or with CORS (the `crossorigin` attribute plus `Access-Control-Allow-Origin`). An embedded cross-origin `<iframe>` must both send `Cross-Origin-Resource-Policy` (`cross-origin` or `same-site`) and enforce COEP itself, or the browser blocks it.
 
 ```http
 Cross-Origin-Opener-Policy: same-origin
 Cross-Origin-Embedder-Policy: require-corp
 Cross-Origin-Resource-Policy: same-origin
 ```
+
+Browser support for Document-Isolation-Policy: Limited availability.
+Supported by: Chrome 137 (May 2025) and Edge 137 (May 2025).
+Unsupported in: Firefox and Safari.
+
+- Alternative where supported: serve `Document-Isolation-Policy: isolate-and-credentialless` on the document that needs `SharedArrayBuffer`. It isolates that document without severing cross-origin `window.opener` references to popups or requiring embedded third-party iframes to deploy COEP, and strips cookies and credentials from non-CORS cross-origin subresource requests. Use `isolate-and-require-corp` instead to block cross-origin subresources that lack an explicit CORP or CORS opt-in.
 
 #### 3.7 Fetch Metadata (resource isolation)
 
@@ -290,6 +330,7 @@ Server-side enforcement that uses the `Sec-Fetch-*` request headers to reject su
 - Send `Vary: Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site` so intermediate caches (CDNs) do not serve cached responses to attackers.
 - `same-site` trusts every subdomain of your eTLD+1. If any subdomain hosts user-generated content, a legacy app or other untrusted code, drop `same-site` from the allowlist and accept only `same-origin` and `none`.
 - Misconfigured checks block legitimate requests from cross-site integrations, SSO handlers and webhooks. Log and test the constraints first.
+- Fetch Metadata middleware does not cover WebSocket handshakes; validate `Origin` in the handshake handler instead (1.6).
 
 Express example:
 
@@ -335,16 +376,15 @@ These carry much lower breakage risk than core enforcement and can be deployed a
 #### Permissions Policy
 
 - Disable unused browser features (camera, geolocation, microphone) for the page and its iframes, using Structured Fields syntax.
-- Disable `focus-without-user-activation` for third-party iframes to prevent focus stealing.
 - When delegating a feature to an iframe, use the HTML `allow` attribute in addition to the header.
 - Blocking a feature that a third-party widget (an embedded video player, a payment gateway) needs makes it fail silently. Audit third-party dependencies before blocking.
 
 ```http
-Permissions-Policy: camera=(), geolocation=(), microphone=(), focus-without-user-activation=()
+Permissions-Policy: camera=(), geolocation=(), microphone=()
 ```
 
 ```html
-<iframe src="https://trusted-video.com/player" allow="fullscreen; camera; focus-without-user-activation 'none'"></iframe>
+<iframe src="https://trusted-video.com/player" allow="fullscreen"></iframe>
 ```
 
 #### Subresource Integrity (SRI)

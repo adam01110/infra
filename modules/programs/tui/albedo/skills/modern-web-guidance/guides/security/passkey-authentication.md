@@ -37,20 +37,23 @@ req.session.expectedUserVerification = "preferred";
 
 Add `webauthn` to the username field's `autocomplete` tokens (space-separated, as in `autocomplete="username webauthn"`) so the browser offers passkeys in autofill (conditional UI).
 
-Put `autofocus` on the username field only on dedicated sign-in pages and sign-in dialogs, so the autofill options appear immediately. Leave it off on pages or dialogs that are not dedicated sign-in forms, and on sign-in forms embedded in a larger page. When you do use `autofocus`, give the page a concise, descriptive title, or the dialog a concise, descriptive accessible name, and point `aria-describedby` on the autofocused element at text that gives screen reader users the context and instructions.
+Put `autofocus` on the username field only on dedicated sign-in pages and sign-in dialogs, so the autofill options appear immediately. Leave it off on pages or dialogs that are not dedicated sign-in forms, and on sign-in forms embedded in a larger page. When you do use `autofocus`, give the page a concise, descriptive title, or the dialog a concise, descriptive accessible name, and point `aria-describedby` on the autofocused element at text that gives screen reader users the context and instructions. Also give every input a visible `<label>` tied to it with `for` and `id`: `aria-describedby` only adds a description and does not name the field.
 
 ```html
 <h1 id="signin-passkey">Sign In with Passkey</h1>
 <form id="signin-form">
+  <label for="username">Username</label>
   <input
     type="text"
+    id="username"
     name="username"
     aria-describedby="signin-passkey"
     autocomplete="username webauthn"
     autofocus
     data-testid="username-field"
   />
-  <input type="password" name="password" autocomplete="current-password" />
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" autocomplete="current-password" />
   <button type="submit">Sign in</button>
 </form>
 ```

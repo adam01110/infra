@@ -2,6 +2,8 @@
 
 Showing users a preview of an action before they commit to it can help them decide. Interest invokers, an experimental platform feature, declare an interest relationship between an interest source (a button or link) and an interest target. Once the relationship exists you can respond to interest and loss of interest in CSS and JavaScript. For previews, use the `interest` and `loseinterest` events on the target.
 
+Use a preview only for secondary information that is also available elsewhere in the UI, or after selecting a control that does not submit anything. Not everyone can reach what a preview shows, particularly people using assistive technology, so it must never be the only way to get that information.
+
 ## How to implement
 
 Create the relationship with the `interestfor` attribute on a button or link (the interest source). Its value is the ID of the interest target. A source can have only one target, but a target can have many sources.

@@ -96,3 +96,15 @@ Simple pie chart:
 ```
 
 CSS backgrounds are not exposed to assistive technologies, so always pair a gradient chart with a text representation of the data: visible percentage text or an accessible label for a simple proportion, or a semantic `<table>` or `<dl>` for a multi-part breakdown.
+
+## Accessibility considerations
+
+Text and icons over a gradient or pattern background, and text filled with a gradient, need enough contrast against every color in the gradient. Check them against each color stop: at least 4.5:1 for text, 3:1 for large text (at least 24px, or at least 18.66px bold), and 3:1 for icons (WCAG 1.4.3 Contrast (Minimum) and 1.4.11 Non-text Contrast). The `color` guide covers contrast in more depth.
+
+```css
+.myButton {
+  /* The label color has at least 4.5:1 contrast against both gradient stops. */
+  color: #111111;
+  background: linear-gradient(in oklab, #ffffff, #aaaaff);
+}
+```
