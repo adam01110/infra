@@ -53,7 +53,13 @@ in {
       stylix =
         stylixConfig
         // {
-          targets.kmscon.enable = false;
+          targets = {
+            # Writes a managed BrowserThemeColor policy to /etc/chromium, which
+            # Helium also reads, locking its theme.
+            chromium.enable = false;
+
+            kmscon.enable = false;
+          };
         };
     };
 
