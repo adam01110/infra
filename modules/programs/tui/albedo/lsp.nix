@@ -211,6 +211,28 @@
           })
 
           (mkServer {
+            id = "phoxite";
+            bin = getExe pkgs.nur.repos.adam0.phoxite;
+            extensions = [
+              # keep-sorted start
+              ".php"
+              ".twig"
+              # keep-sorted end
+            ];
+            languageId = "php";
+            languageIdByExtension = {
+              ".php" = "php";
+              ".twig" = "twig";
+            };
+            rootMarkers = [
+              # keep-sorted start
+              ".git"
+              "composer.json"
+              # keep-sorted end
+            ];
+          })
+
+          (mkServer {
             id = "rumdl";
             bin = getExe pkgs.rumdl;
             args = ["server"];
