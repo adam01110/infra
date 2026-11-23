@@ -16,8 +16,29 @@
         # keep-sorted start block=yes newline_separated=yes
         alejandra.command = [(getExe pkgs.alejandra)];
 
+        astyle.command = [
+          (getExe pkgs.astyle)
+          "--suffix=none"
+        ];
+
+        biome.command = [
+          (getExe pkgs.biome)
+          "format"
+          "--write"
+        ];
+
+        dockerfmt.command = [
+          (getExe pkgs.dockerfmt)
+          "--write"
+        ];
+
         fish_indent.command = [
           (getExe' pkgs.fish "fish_indent")
+          "--write"
+        ];
+
+        jsonfmt.command = [
+          (getExe pkgs.jsonfmt)
           "--write"
         ];
 
@@ -26,11 +47,14 @@
           "-F"
         ];
 
-        oxfmt.command = [(getExe pkgs.oxfmt)];
+        mago.command = [
+          (getExe pkgs.mago)
+          "format"
+        ];
 
-        oxlint.command = [
-          (getExe pkgs.oxlint)
-          "--fix"
+        prettier.command = [
+          (getExe pkgs.prettier)
+          "--write"
         ];
 
         ruff.command = [
@@ -45,12 +69,6 @@
 
         rustfmt.command = [(getExe pkgs.rustfmt)];
 
-        selene.command = [
-          (getExe pkgs.selene)
-          "--display-style"
-          "quiet"
-        ];
-
         shfmt.command = [
           (getExe pkgs.shfmt)
           "--write"
@@ -60,40 +78,41 @@
           (getExe pkgs.stylua)
           "--respect-ignores"
         ];
+
+        tombi.command = [
+          (getExe pkgs.tombi)
+          "format"
+        ];
         # keep-sorted end
       };
 
       chains = {
         # keep-sorted start
         ".bash" = ["shfmt"];
-        ".cjs" = ["oxfmt" "oxlint"];
-        ".css" = ["oxfmt"];
+        ".cjs" = ["biome"];
+        ".css" = ["biome"];
+        ".dockerfile" = ["dockerfmt"];
         ".fish" = ["fish_indent"];
-        ".hbs" = ["oxfmt"];
-        ".html" = ["oxfmt"];
-        ".js" = ["oxfmt" "oxlint"];
-        ".json" = ["oxfmt"];
-        ".json5" = ["oxfmt"];
-        ".jsonc" = ["oxfmt"];
-        ".jsx" = ["oxfmt" "oxlint"];
+        ".java" = ["astyle"];
+        ".js" = ["biome"];
+        ".json" = ["jsonfmt"];
+        ".jsonc" = ["jsonfmt"];
         ".kt" = ["ktlint"];
         ".kts" = ["ktlint"];
-        ".less" = ["oxfmt"];
-        ".lua" = ["stylua" "selene"];
+        ".lua" = ["stylua"];
         ".markdown" = ["rumdl"];
         ".md" = ["rumdl"];
-        ".mjs" = ["oxfmt" "oxlint"];
+        ".mjs" = ["biome"];
         ".nix" = ["alejandra"];
+        ".php" = ["mago"];
         ".py" = ["ruff"];
         ".pyi" = ["ruff"];
         ".rs" = ["rustfmt"];
-        ".scss" = ["oxfmt"];
         ".sh" = ["shfmt"];
-        ".toml" = ["oxfmt"];
-        ".ts" = ["oxfmt" "oxlint"];
-        ".tsx" = ["oxfmt" "oxlint"];
-        ".yaml" = ["oxfmt"];
-        ".yml" = ["oxfmt"];
+        ".toml" = ["tombi"];
+        ".ts" = ["biome"];
+        ".yaml" = ["prettier"];
+        ".yml" = ["prettier"];
         # keep-sorted end
       };
     };

@@ -6,7 +6,6 @@
     html.enable = true;
     java.enable = true;
     json.enable = true;
-    kotlin.enable = true;
     xml.enable = true;
     yaml.enable = true;
     # keep-sorted end

@@ -1,6 +1,7 @@
 {
   flake.aspects.albedo.homeManager = {
     # keep-sorted start
+    config,
     lib,
     pkgs,
     # keep-sorted end
@@ -9,6 +10,7 @@
     inherit
       (lib)
       # keep-sorted start
+      attrNames
       genAttrs
       getExe
       getExe'
@@ -16,29 +18,93 @@
       ;
 
     mkServer = {
+      # keep-sorted start
       args ? [],
       bin,
       extensions,
       id,
-      languageId,
+      include ? map (extension: "**/*${extension}") extensions,
+      languageId ? null,
       languageIdByExtension ? genAttrs extensions (_: languageId),
       rootMarkers ? [".git"],
       settings ? {},
+      # keep-sorted end
     }: {
       inherit
+        # keep-sorted start
         args
         bin
         id
+        include
         languageIdByExtension
         rootMarkers
         settings
+        # keep-sorted end
         ;
-      enabled = true;
-      include = map (extension: "**/*${extension}") extensions;
+
+      # keep-sorted start
       cwd = "{root}";
-      startupTimeoutMs = 45000;
       diagnosticsWaitMs = 2000;
+      enabled = true;
       initializationOptions = {};
+      startupTimeoutMs = 45000;
+      # keep-sorted end
+    };
+
+    # Mirrors the Neovim tailwindcss-language-server filetypes.
+    tailwindLanguages = {
+      # keep-sorted start
+      ".astro" = "astro";
+      ".cjs" = "javascript";
+      ".clj" = "clojure";
+      ".cljc" = "clojure";
+      ".cljs" = "clojure";
+      ".cshtml" = "razor";
+      ".css" = "css";
+      ".cts" = "typescript";
+      ".edge" = "edge";
+      ".eex" = "eelixir";
+      ".ejs" = "ejs";
+      ".erb" = "eruby";
+      ".ex" = "elixir";
+      ".exs" = "elixir";
+      ".gohtml" = "gohtml";
+      ".gotmpl" = "gohtmltmpl";
+      ".haml" = "haml";
+      ".handlebars" = "handlebars";
+      ".hbs" = "handlebars";
+      ".heex" = "heex";
+      ".html" = "html";
+      ".jade" = "jade";
+      ".js" = "javascript";
+      ".jsx" = "javascriptreact";
+      ".leaf" = "leaf";
+      ".leex" = "eelixir";
+      ".less" = "less";
+      ".liquid" = "liquid";
+      ".markdown" = "markdown";
+      ".md" = "markdown";
+      ".mjs" = "javascript";
+      ".mts" = "typescript";
+      ".mustache" = "mustache";
+      ".njk" = "njk";
+      ".php" = "php";
+      ".postcss" = "postcss";
+      ".razor" = "razor";
+      ".re" = "reason";
+      ".res" = "rescript";
+      ".sass" = "sass";
+      ".scss" = "scss";
+      ".slim" = "slim";
+      ".sss" = "sugarss";
+      ".styl" = "stylus";
+      ".svelte" = "svelte";
+      ".templ" = "templ";
+      ".ts" = "typescript";
+      ".tsx" = "typescriptreact";
+      ".twig" = "twig";
+      ".vue" = "vue";
+      # keep-sorted end
     };
   in {
     programs.albedo.lsp = {
@@ -62,22 +128,49 @@
 
           (mkServer {
             id = "csharp";
-            bin = getExe pkgs.csharp-ls;
+            bin = getExe pkgs.roslyn-ls;
+            # Albedo cannot send solution/open, so Roslyn discovers projects itself.
+            args = [
+              "--logLevel"
+              "Information"
+              "--extensionLogDirectory"
+              "${config.xdg.cacheHome}/roslyn-ls/logs"
+              "--stdio"
+              "--autoLoadProjects"
+            ];
             extensions = [
               # keep-sorted start
               ".cs"
               ".csx"
+              ".vb"
               # keep-sorted end
             ];
             languageId = "csharp";
+            languageIdByExtension = {
+              # keep-sorted start
+              ".cs" = "csharp";
+              ".csx" = "csharp";
+              ".vb" = "vb";
+              # keep-sorted end
+            };
           })
 
           (mkServer {
             id = "cssls";
             bin = getExe' pkgs.vscode-langservers-extracted "vscode-css-language-server";
             args = ["--stdio"];
-            extensions = [".css"];
-            languageId = "css";
+            extensions = [
+              # keep-sorted start
+              ".css"
+              ".less"
+              # keep-sorted end
+            ];
+            languageIdByExtension = {
+              # keep-sorted start
+              ".css" = "css";
+              ".less" = "less";
+              # keep-sorted end
+            };
             settings.css = {};
             rootMarkers = [
               # keep-sorted start
@@ -85,6 +178,26 @@
               "package.json"
               # keep-sorted end
             ];
+          })
+
+          (mkServer {
+            id = "docker";
+            bin = getExe pkgs.docker-language-server;
+            args = [
+              "start"
+              "--stdio"
+            ];
+            # Albedo derives languageId from the suffix, so bare Dockerfile names get none.
+            extensions = [".dockerfile"];
+            languageId = "dockerfile";
+          })
+
+          (mkServer {
+            id = "fish";
+            bin = getExe pkgs.fish-lsp;
+            args = ["start"];
+            extensions = [".fish"];
+            languageId = "fish";
           })
 
           (mkServer {
@@ -116,8 +229,10 @@
             ];
             languageId = "json";
             languageIdByExtension = {
+              # keep-sorted start
               ".json" = "json";
               ".jsonc" = "jsonc";
+              # keep-sorted end
             };
             rootMarkers = [
               # keep-sorted start
@@ -183,34 +298,6 @@
           })
 
           (mkServer {
-            id = "oxlint";
-            bin = getExe pkgs.oxlint;
-            args = ["--lsp"];
-            extensions = [
-              # keep-sorted start
-              ".js"
-              ".jsx"
-              ".ts"
-              ".tsx"
-              # keep-sorted end
-            ];
-            languageId = "javascript";
-            languageIdByExtension = {
-              ".js" = "javascript";
-              ".jsx" = "javascriptreact";
-              ".ts" = "typescript";
-              ".tsx" = "typescriptreact";
-            };
-            rootMarkers = [
-              # keep-sorted start
-              ".git"
-              "oxlint.json"
-              "package.json"
-              # keep-sorted end
-            ];
-          })
-
-          (mkServer {
             id = "phoxite";
             bin = getExe pkgs.nur.repos.adam0.phoxite;
             extensions = [
@@ -221,8 +308,10 @@
             ];
             languageId = "php";
             languageIdByExtension = {
+              # keep-sorted start
               ".php" = "php";
               ".twig" = "twig";
+              # keep-sorted end
             };
             rootMarkers = [
               # keep-sorted start
@@ -264,8 +353,26 @@
             id = "superhtml";
             bin = getExe pkgs.superhtml;
             args = ["lsp"];
-            extensions = [".html"];
-            languageId = "html";
+            extensions = [
+              # keep-sorted start
+              ".html"
+              ".xhtml"
+              # keep-sorted end
+            ];
+            languageIdByExtension = {
+              # keep-sorted start
+              ".html" = "html";
+              ".xhtml" = "xhtml";
+              # keep-sorted end
+            };
+          })
+
+          (mkServer {
+            id = "tailwindcss";
+            bin = getExe pkgs.tailwindcss-language-server;
+            args = ["--stdio"];
+            extensions = attrNames tailwindLanguages;
+            languageIdByExtension = tailwindLanguages;
           })
 
           (mkServer {
@@ -307,18 +414,23 @@
             args = ["--stdio"];
             extensions = [
               # keep-sorted start
+              ".cjs"
+              ".cts"
               ".js"
-              ".jsx"
+              ".mjs"
+              ".mts"
               ".ts"
-              ".tsx"
               # keep-sorted end
             ];
-            languageId = "javascript";
             languageIdByExtension = {
+              # keep-sorted start
+              ".cjs" = "javascript";
+              ".cts" = "typescript";
               ".js" = "javascript";
-              ".jsx" = "javascriptreact";
+              ".mjs" = "javascript";
+              ".mts" = "typescript";
               ".ts" = "typescript";
-              ".tsx" = "typescriptreact";
+              # keep-sorted end
             };
             rootMarkers = [
               # keep-sorted start

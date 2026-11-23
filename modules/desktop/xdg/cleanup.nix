@@ -43,7 +43,6 @@
 
         # Javascript toolchains.
         # keep-sorted start
-        BIOME_CONFIG_PATH = "${configHome}/biome/biome.json";
         BUN_INSTALL = "${dataHome}/bun";
         NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
         # keep-sorted end
