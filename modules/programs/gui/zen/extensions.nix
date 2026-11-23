@@ -32,6 +32,7 @@
         # Additions.
         # keep-sorted start
         bitwarden
+        private-grammar-checker-harper
         pronoundb
         shinigami-eyes
         violentmonkey
