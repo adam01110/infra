@@ -74,7 +74,7 @@
         # keep-sorted end
       };
 
-      lsp.servers."rust-analyzer".settings."rust-analyzer" = {
+      lsp.servers.rust-analyzer.settings.rust-analyzer = {
         # keep-sorted start block=yes newline_separated=yes
         check.command = "clippy";
 
