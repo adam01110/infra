@@ -89,8 +89,25 @@
 
       gitlab = {
         description = "College GitLab forge: repositories, issues, merge requests and CI.";
-        args = ["mcp" "serve"];
-        command = getExe pkgs.glab;
+        # GitLab's built-in MCP server; glab mcp serve is deprecated and exposes ~230 tools.
+        command = getExe (writeShellApplication {
+          name = "gitlab-mcp";
+          runtimeInputs = [
+            # keep-sorted start
+            mcpProxy
+            pkgs.jq
+            # keep-sorted end
+          ];
+          # mcp-proxy sends API_ACCESS_TOKEN as a bearer header, keeping the token out of argv.
+          text = ''
+            export API_ACCESS_TOKEN SSE_URL
+            API_ACCESS_TOKEN="$(jq -rn 'env.GITLAB_TOKEN | trim')"
+            SSE_URL="https://$(jq -rn 'env.GITLAB_HOST | trim | sub("^https?://"; "") | rtrimstr("/")')/api/v4/mcp"
+            unset GITLAB_TOKEN
+            exec mcp-proxy --log-level WARNING --transport streamablehttp \
+              -H X-Gitlab-Enabled-Mcp-Server-Toolsets core,merge_requests,work_items,repository,ci,wikis
+          '';
+        });
         secrets = {
           # keep-sorted start
           GITLAB_HOST = "git/college_forge/host";
