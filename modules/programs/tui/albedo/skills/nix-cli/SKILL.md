@@ -26,14 +26,19 @@ build.
 - Packages: `eh run`, `eh shell`, `eh build`, `eh develop`, `eh info`. Without
   a terminal, run a command inside a dev shell with
   `eh develop [installable] -- -c <command> args...`.
+
 - Requested flake update: `eh update <input>...` naming the inputs; bare
   `eh update` prompts for a selection and hangs without a terminal. To update
   everything, use `nix flake update`.
+
 - Config builds and requested rebuilds: `nh os`, `nh home`, `nh darwin`, not
   `nixos-rebuild`, `home-manager`, or `darwin-rebuild`.
+
 - Missing command: `run(",", "command", *args)`. If comma fails, use
   `eh run nixpkgs#package`; check argument forwarding first.
+
 - No helper equivalent: raw `nix` is fine (eval, repl, fmt, etc.).
+
 - Nix flags go after `--`, which ends eh's own arguments:
 
   ```text

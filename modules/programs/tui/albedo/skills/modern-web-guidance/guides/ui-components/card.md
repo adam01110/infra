@@ -62,6 +62,7 @@ If clicking the card triggers an action rather than navigating, use a `<button>`
 When a content card links to a primary destination, contains other interactive elements, and must be clickable as a whole:
 
 - Put `.card-link` on exactly one link per card, the heading link. Footer and other links never get it; otherwise each would stretch its own overlay and the last one would capture the whole card.
+
 - Link the title and stretch its pointer hit area across the card with `::after`:
 
   ```css

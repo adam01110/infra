@@ -90,12 +90,16 @@ progress::-moz-progress-bar {
 Add a custom animation that turns the fill pseudo-element into a short segment sliding along the track.
 
 - Style the fill itself; do not recreate it as a background on `progress`.
+
 - The indeterminate fill exists only through its animation. The keyframes set its length with a real `inline-size` (which beats Chromium's UA inline `inline-size`) and move it with `translate`. Do not use `scale` for the length; it distorts any pattern painted on the fill.
+
 - `translate` percentages resolve against the fill's own width, so express positions in track units: make `progress` an inline-size container and use `cqi` in the keyframes. Include `margin-right: auto` in `from, to` so Chromium lays the fill out at the physical left in RTL too.
+
 - Move the fill with transforms, not margins:
   - Transforms keep the animation on the compositor (unless `inline-size` is animated too).
   - Margins break in RTL for two separate reasons. Firefox positions the indeterminate fill using only its physical left margin, so `margin-inline-start` has no effect in RTL and the fill never moves. Chromium and WebKit lay the fill out as a normal block, so once a margin pushes it past the end of the track the margins add up to more than the track; standard CSS resolves that by ignoring `margin-left` in RTL, and the segment jumps to the edge instead of sliding off.
   - `translate` applies after layout, so neither problem occurs.
+
 - To mirror the motion in RTL, as Chrome's native bar does, reverse the animation under `:dir(rtl)`:
 
   ```css
@@ -105,8 +109,11 @@ Add a custom animation that turns the fill pseudo-element into a short segment s
   ```
 
 - Define the public `--progress-bar-indeterminate-*` properties on `progress` (the name already scopes them to the state), so consumers can override them without knowing about `:indeterminate`.
+
 - To vary the segment length (for example the leading edge races ahead and the trailing edge catches up), set `--progress-bar-indeterminate-animation` to two concurrent animations: one whose keyframes animate `translate` in `cqi` (position) and one whose keyframes animate `inline-size` (length), each with its own keyframes and easing. Do not shape both edges in one keyframe list; a per-keyframe `animation-timing-function` applies to every property in that keyframe.
+
 - `--progress-bar-animation` applies in both states and can drive effects such as a determinate shimmer. The `revert-rule` fallback makes it override only when set, which keeps it composable.
+
 - Never disable the indeterminate animation: `animation: none` leaves a zero-width fill in Chromium. For reduced motion, slow it down instead.
 
 ```css

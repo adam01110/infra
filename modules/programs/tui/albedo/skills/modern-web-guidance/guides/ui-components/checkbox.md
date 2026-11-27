@@ -103,9 +103,13 @@ selectAll.indeterminate = true;
 ## Accessibility and interaction
 
 - Style focus on custom checkboxes with `:focus-visible` rather than `:focus`, so keyboard users get a distinct outline and pointer clicks do not show one.
+
 - Keep focus indicators visible; do not use `outline: none` on checkboxes.
+
 - Give the focus indicator a contrast of at least 3:1 against the background.
+
 - Give the checked and indeterminate colors a contrast of at least 3:1 against the background.
+
 - Make the checkbox or its wrapping `<label>` a hit target of at least 44px × 44px, while the visual box stays sized in relative units:
 
   ```css

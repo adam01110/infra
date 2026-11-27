@@ -270,10 +270,15 @@ export async function readUtf8Stream(readableStream) {
   - removal loops, where a forward `for` loop over live `children` / `childNodes` skips every other node.
 
   `replaceChildren()` batches the change into a single `MutationObserver` `childList` record (zero records on an already-empty element), and through `[CEReactions]` it fires custom elements' `disconnectedCallback()` after all removals finish rather than interleaved per node.
+
 - `container.replaceChildren(...nodes)` clears and inserts new `Node`s or `DocumentFragment`s atomically: its `HierarchyRequestError` validation runs before any existing child is touched.
+
 - Pass plain strings to insert literal text without HTML parsing: `container.replaceChildren(text)`. `el.replaceChildren('')` inserts an empty `Text` node (`childNodes.length === 1`), unlike `el.replaceChildren()`.
+
 - For a `<template>`, call `templateElement.content.replaceChildren(...)`. `templateElement.replaceChildren()` leaves the inert `content` `DocumentFragment` untouched.
+
 - In TypeScript, narrow `Node` references to `ParentNode` (`Element`, `Document`, `DocumentFragment`); leaf nodes (`Text`, `Comment`) have no `replaceChildren()`.
+
 - Cases where `replaceChildren()` is the wrong replacement:
   - `while (el.firstElementChild) el.removeChild(el.firstElementChild)` when inline `Text` or `Comment` nodes must stay; `replaceChildren()` removes all `childNodes`.
   - Chained assignments such as `a.innerHTML = b.innerHTML = ''`; `replaceChildren()` returns `undefined`.

@@ -153,11 +153,14 @@ scan does not mean the code is modern; say so when reporting.
    Each entry in `guides[]` has a `guideId` and `rules[]`; each rule has a
    `summary`, usually a `verifierRubric` with `keepWhen` and `dropWhen` lists,
    and `findings[]` with `file`, `line`, `message`, and `lineContent`.
+
 2. Verify each finding against its rule's `keepWhen` and `dropWhen` criteria
    (or its summary and guide when there is no rubric), reading the code. Drop
    false positives: intentional fallbacks, helpers defined in another file,
    vendored code, and lookalikes.
+
 3. Report the verified findings, with a modernization plan if you will edit.
+
 4. If the user asked you to modernize rather than only report, retrieve each
    finding's guide, apply the replacement, and keep existing libraries as
    fallbacks where the guide calls for one. Re-run `legacy-scan <path> --json`
