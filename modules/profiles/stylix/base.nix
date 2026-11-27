@@ -75,12 +75,7 @@ in {
       stylix =
         stylixConfig
         // {
-          targets = {
-            btop.opacity.override.terminal = 0.0;
-
-            # Nixpkgs removed wayprompt, so its Home Manager option now asserts.
-            wayprompt.enable = false;
-          };
+          targets.btop.opacity.override.terminal = 0.0;
         };
     };
   };

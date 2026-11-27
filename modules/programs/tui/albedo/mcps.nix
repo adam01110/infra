@@ -23,11 +23,6 @@
       ;
     inherit (pkgs) writeShellApplication;
 
-    # mcp-proxy 0.13 requires the MCP 1.x SDK.
-    mcpProxy = pkgs.mcp-proxy.override {
-      python3Packages = pkgs.python3Packages // {mcp = pkgs.python3Packages.mcp_1;};
-    };
-
     mcps = {
       # keep-sorted start block=yes newline_separated=yes
       canvas = {
@@ -92,10 +87,10 @@
         # GitLab's built-in MCP server; glab mcp serve is deprecated and exposes ~230 tools.
         command = getExe (writeShellApplication {
           name = "gitlab-mcp";
-          runtimeInputs = [
+          runtimeInputs = with pkgs; [
             # keep-sorted start
-            mcpProxy
-            pkgs.jq
+            jq
+            mcp-proxy
             # keep-sorted end
           ];
           # mcp-proxy sends API_ACCESS_TOKEN as a bearer header, keeping the token out of argv.
@@ -132,10 +127,10 @@
         description = "Penpot designs: inspect, edit and export pages and shapes.";
         command = getExe (writeShellApplication {
           name = "penpot-mcp";
-          runtimeInputs = [
+          runtimeInputs = with pkgs; [
             # keep-sorted start
-            mcpProxy
-            pkgs.jq
+            jq
+            mcp-proxy
             # keep-sorted end
           ];
           # Penpot 2.19 reads the key only from the userToken query; keep it out of argv and logs.
