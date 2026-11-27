@@ -604,6 +604,26 @@
         "type": "gitlab"
       }
     },
+    "helium": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795716490,
+        "narHash": "sha256-1t9mbb3lMkGY/NDqRvlHsiybCpK2TKoWRNhRYbfF9io=",
+        "owner": "oxcl",
+        "repo": "nix-flake-helium-browser",
+        "rev": "e78a6de9e4c918b1b6d1bf0692f49f19e2729b1b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxcl",
+        "repo": "nix-flake-helium-browser",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1300,6 +1320,7 @@
         "flake-aspects": "flake-aspects",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts_2",
+        "helium": "helium",
         "home-manager": "home-manager",
         "hylix": "hylix",
         "import-tree": "import-tree",

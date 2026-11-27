@@ -91,6 +91,7 @@
         gns3
         gotify-desktop
         gridcraft
+        helium
         loupe
         pdfcraft
         proton
