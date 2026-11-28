@@ -9,8 +9,19 @@
   }: let
     inherit (lib.generators) mkLuaInline;
 
+    inherit (config.programs.nvf.settings.vim.ui) borderType;
+
     blinkGitTokenPath = config.sops.secrets.github_token.path;
     colors = config.lib.stylix.colors.withHashtag;
+
+    # Match Telescope floats: editor background with a muted outline.
+    floatBg = colors.base00;
+    floatBorder = {
+      # keep-sorted start
+      bg = floatBg;
+      fg = colors.base04;
+      # keep-sorted end
+    };
   in {
     sops.secrets.github_token = {};
 
@@ -26,23 +37,24 @@
 
       highlight = {
         # keep-sorted start block=yes newline_separated=yes
-        BlinkCmpDoc.bg = colors.base02;
+        BlinkCmpDoc.bg = floatBg;
 
-        BlinkCmpDocBorder = {
+        BlinkCmpDocBorder = floatBorder;
+
+        BlinkCmpDocSeparator = {
           # keep-sorted start
-          bg = colors.base02;
-          fg = colors.base04;
+          bg = floatBg;
+          fg = colors.base03;
           # keep-sorted end
         };
 
-        BlinkCmpSignatureHelp.bg = colors.base02;
+        BlinkCmpMenu.bg = floatBg;
 
-        BlinkCmpSignatureHelpBorder = {
-          # keep-sorted start
-          bg = colors.base02;
-          fg = colors.base04;
-          # keep-sorted end
-        };
+        BlinkCmpMenuBorder = floatBorder;
+
+        BlinkCmpSignatureHelp.bg = floatBg;
+
+        BlinkCmpSignatureHelpBorder = floatBorder;
         # keep-sorted end
       };
 
@@ -91,7 +103,9 @@
           completion = {
             # keep-sorted start
             documentation.auto_show = true;
+            documentation.window.border = borderType;
             ghost_text.enabled = true;
+            menu.border = borderType;
             # keep-sorted end
 
             keyword.range = "full";
@@ -103,6 +117,7 @@
             # keep-sorted start
             show_on_insert = true;
             show_on_keyword = true;
+            window.border = borderType;
             # keep-sorted end
           };
 
