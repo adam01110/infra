@@ -43,6 +43,7 @@
       enable = true;
       appendInstructions = ./APPEND_SYSTEM.md;
       environment = {
+        ALBEDO_CURRENCY = "EUR";
         GNUPGHOME = config.programs.gpg.homedir;
         JJ_CONFIG = config.sops.templates."jj-user-config".path;
       };
