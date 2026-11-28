@@ -51,8 +51,6 @@
 
       fixSpotifyEmbeds.enable = true;
 
-      fixYoutubeEmbeds.enable = true;
-
       gifPaste.enable = true;
 
       iLoveSpam.enable = true;
