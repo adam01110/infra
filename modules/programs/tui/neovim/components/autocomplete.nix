@@ -7,6 +7,13 @@
     # keep-sorted end
     ...
   }: let
+    inherit
+      (lib)
+      # keep-sorted start
+      concatStringsSep
+      mapAttrsToList
+      # keep-sorted start
+      ;
     inherit (lib.generators) mkLuaInline;
 
     inherit (config.programs.nvf.settings.vim.ui) borderType;
@@ -22,6 +29,20 @@
       fg = colors.base04;
       # keep-sorted end
     };
+
+    # Docs get treesitter highlights without LSP semantic tokens, so base0F
+    # punctuation and link labels would otherwise dominate them.
+    docRemaps = {
+      # keep-sorted start
+      "@markup.link.label" = "BlinkCmpDocLink";
+      "@markup.list" = "BlinkCmpDocPunctuation";
+      "@punctuation.delimiter" = "BlinkCmpDocPunctuation";
+      "@punctuation.special" = "BlinkCmpDocPunctuation";
+      # keep-sorted end
+    };
+
+    mkWinhighlight = groups:
+      concatStringsSep "," (mapAttrsToList (from: to: "${from}:${to}") (groups // docRemaps));
   in {
     sops.secrets.github_token = {};
 
@@ -40,6 +61,10 @@
         BlinkCmpDoc.bg = floatBg;
 
         BlinkCmpDocBorder = floatBorder;
+
+        BlinkCmpDocLink.fg = colors.base0D;
+
+        BlinkCmpDocPunctuation.fg = colors.base04;
 
         BlinkCmpDocSeparator = {
           # keep-sorted start
@@ -102,13 +127,27 @@
 
           completion = {
             # keep-sorted start
-            documentation.auto_show = true;
-            documentation.window.border = borderType;
             ghost_text.enabled = true;
             menu.border = borderType;
             # keep-sorted end
 
             keyword.range = "full";
+
+            documentation = {
+              auto_show = true;
+
+              window = {
+                border = borderType;
+
+                winhighlight = mkWinhighlight {
+                  # keep-sorted start
+                  EndOfBuffer = "BlinkCmpDoc";
+                  FloatBorder = "BlinkCmpDocBorder";
+                  Normal = "BlinkCmpDoc";
+                  # keep-sorted end
+                };
+              };
+            };
           };
 
           signature = {
@@ -119,6 +158,13 @@
             show_on_keyword = true;
             window.border = borderType;
             # keep-sorted end
+
+            window.winhighlight = mkWinhighlight {
+              # keep-sorted start
+              FloatBorder = "BlinkCmpSignatureHelpBorder";
+              Normal = "BlinkCmpSignatureHelp";
+              # keep-sorted end
+            };
           };
 
           sources.providers = let
